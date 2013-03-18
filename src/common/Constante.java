@@ -24,5 +24,8 @@ public class Constante{
 	public final static String IP_SERVEUR = GENERAL_CONFIGURATION.getStringValue("IP_SERVEUR");
 	public final static int NUMERO_PORT_ECOUTE_PAR_DEFAUT = GENERAL_CONFIGURATION.getIntValue("NUMERO_PORT_ECOUTE_PAR_DEFAUT");
 	
-	
+	public final static String COMMANDE_PING = "commande_ping";
+	public final static String COMMANDE_CREATION_COMPTE = "commande_creation_compte";
+	public final static String COMMANDE_DEMANDE_CONNEXION = "commande_demande_connexion";
+	public final static String COMMANDE_LISTE_PARTIES = "commande_liste_parties";
 }

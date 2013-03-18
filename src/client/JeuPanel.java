@@ -20,7 +20,6 @@ import client.view.NamedJPanel;
 import common.Constante;
 import common.Partie;
 import common.Translator;
-import common.command.server.ServerCommandPing;
 
 
 /**
@@ -39,14 +38,14 @@ public class JeuPanel extends JPanel{
 	private static NamedJPanel ecranLogin;
 	private static NamedJPanel ecranMenuMultijoueur;
 	
-	private MainClient dialogueServeur;
+	private ServerListener dialogueServeur;
 	private boolean accesServeur;
 	
 	public JeuPanel(){
 		super(cardlayout);
 		
 		// création d'une instance de la classe DialogueAvec serveur fournissant une bibliothèque de fonction pour dialoguer avec le serveur
-		dialogueServeur = new MainClient(Constante.IP_SERVEUR,Constante.NUMERO_PORT_ECOUTE_PAR_DEFAUT,this);
+		dialogueServeur = new ServerListener(Constante.IP_SERVEUR,Constante.NUMERO_PORT_ECOUTE_PAR_DEFAUT,this);
 		// de base l'acces serveur est ok, si un problème est detecté ensuite en tentant de le joindre, il passera a false
 		accesServeur = true;
 		
@@ -93,7 +92,7 @@ public class JeuPanel extends JPanel{
 		
 	}
 	
-	public MainClient getDialogueServeur(){
+	public ServerListener getDialogueServeur(){
 		return dialogueServeur;
 	}
 	
@@ -108,7 +107,8 @@ public class JeuPanel extends JPanel{
 	public void chargerEcranLoader(){
 		cardlayout.show(this,ecranLoader.getName()); // chargement de l'ecran loader
 		
-		dialogueServeur.sendCommand(new ServerCommandPing());
+		String[] args = { Constante.COMMANDE_PING };
+		dialogueServeur.sendCommand(args);
 	}
 	
 	public void chargerEcranResultatTentativeConnection(){

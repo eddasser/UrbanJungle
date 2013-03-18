@@ -5,7 +5,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
-import common.command.ServerCommand;
+import server.command.ServerCommand;
+import server.command.ServerCommandFactory;
+
 
 /**
  * @author omar
@@ -32,9 +34,9 @@ public class ClientListener implements Runnable{
 		return socket;
 	}
 	
-	public void send(Object object){
+	public void send(String[] args){
 		try{
-			out.writeObject(object);
+			out.writeObject(args);
 			out.flush();
 		}catch (IOException e){
 			e.printStackTrace();
@@ -46,7 +48,8 @@ public class ClientListener implements Runnable{
 		try{
 			while (true){
 				// on recupere la commande que nous a envoyer le client puis on l'execute
-				ServerCommand command = (ServerCommand)in.readObject();
+				String[] args = (String[])in.readObject();
+				ServerCommand command = ServerCommandFactory.getCommand(args);
 				command.execute(this);
 			}
 		}catch (ClassNotFoundException | IOException e){
