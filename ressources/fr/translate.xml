@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<parameter>
+		<name>partieSolo</name>
+		<value>Partie locale</value>
+	</parameter>
+	<parameter>
+		<name>chargerPartie</name>
+		<value>Charger une partie</value>
+	</parameter>
+	<parameter>
+		<name>quitterJeu</name>
+		<value>Quitter le jeu</value>
+	</parameter>
+	<parameter>
+		<name>partieMulti</name>
+		<value>Partie multijoueur</value>
+	</parameter>
+	<parameter>
+		<name>retour</name>
+		<value>Retour</value>
+	</parameter>
+	<parameter>
+		<name>creerCompte</name>
+		<value>Créer un compte</value>
+	</parameter>
+	<parameter>
+		<name>login</name>
+		<value>Login</value>
+	</parameter>
+	<parameter>
+		<name>mdp</name>
+		<value>Mot_De_passe</value>
+	</parameter>
+	<parameter>
+		<name>champLoginVide</name>
+		<value>Vous devez choisir un login</value>
+	</parameter>
+	<parameter>
+		<name>champMDPVide</name>
+		<value>Vous devez choisir un mot de passe</value>
+	</parameter>
+	<parameter>
+		<name>champLoginEtMDPVides</name>
+		<value>Vous devez choisir un login et un mot de passe</value>
+	</parameter>
+	<parameter>
+		<name>identifiantsIncorrects</name>
+		<value>Les identifiants sont incorrects</value>
+	</parameter>
+	<parameter>
+		<name>loginDejaExistant</name>
+		<value>Le compte n'a pas pu etre creer : login deja existant</value>
+	</parameter>
+	<parameter>
+		<name>compteCree</name>
+		<value>Votre compte a bien été crée</value>
+	</parameter>
+	<parameter>
+		<name>creerPartie</name>
+		<value>Créer une partie</value>
+	</parameter>
+	<parameter>
+		<name>rejoindrePartie</name>
+		<value>Rejoindre une partie</value>
+	</parameter>
+	<parameter>
+		<name>deconnexion</name>
+		<value>Deconnection</value>
+	</parameter>
+	<parameter>
+		<name>rafraichir</name>
+		<value>Rafraichir</value>
+	</parameter>
+</configuration>
