@@ -112,7 +112,6 @@ public class JeuPanel extends JPanel{
 	}
 	
 	public void chargerEcranResultatTentativeConnection(){
-		((EcranChoixTypePartie)ecranChoixTypeDePartie).setMultijoueurPossible(accesServeur);
 		chargerEcranTestConnexion();
 	}
 	
