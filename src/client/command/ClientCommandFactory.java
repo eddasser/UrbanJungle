@@ -18,10 +18,11 @@ public class ClientCommandFactory{
 		commandes.put(Constante.COMMANDE_DEMANDE_CONNEXION,new ClientCommandDemandeConnexion());
 		commandes.put(Constante.COMMANDE_LISTE_PARTIES,new ClientCommandListePartie());
 		commandes.put(Constante.COMMANDE_PING,new ClientCommandPing());
+		commandes.put(Constante.COMMANDE_ERROR,new ClientCommandError());
 	}
 	
 	public static ClientCommand getCommand(String[] args){
-		ClientCommand commande = null;
+		ClientCommand commande = factory.commandes.get(Constante.COMMANDE_ERROR);
 		
 		if (args.length > 0){
 			String commande_name = args[0];

@@ -10,6 +10,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -85,10 +86,44 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 			public void mouseClicked(MouseEvent e){
 				if (e.getClickCount() == 2){
 					int idrow = table.getSelectedRow();
-					String partie = parties[idrow];
+					String[] partie = parties[idrow].split(Constante.MESSAGE_SEPARATOR);
+					String id_partie = partie[0];
+					// String nom_partie = partie[1];
+					// String nb_joueur_partie = partie[2];
 					
-					int response = JOptionPane.showConfirmDialog(null,"Do you want to delete the message '" + partie + "'","Confirm",
-							JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+					boolean password_obligatoire = new Boolean(partie[4]);
+					Etat etat = Etat.get(partie[3]);
+					
+					String password = "";
+					String[] args = new String[3];
+					
+					switch(etat){
+						case SAUVEGARDEE:
+							if (password_obligatoire){
+								password = JOptionPane.showInputDialog(Translator.translate("saisirMotdepasseReprendrePartie"));
+							}
+							args[0] = Constante.COMMANDE_REPRENDRE_PARTIE;
+							args[1] = id_partie;
+							args[2] = password;
+							jeu.getDialogueServeur().sendCommand(args);
+							break;
+						
+						case EN_ATTENTE_JOUEUR:
+							if (password_obligatoire){
+								password = JOptionPane.showInputDialog(Translator.translate("saisirMotdepasseRejoindrePartie"));
+							}
+							args[0] = Constante.COMMANDE_REJOINDRE_PARTIE;
+							args[1] = id_partie;
+							args[2] = password;
+							jeu.getDialogueServeur().sendCommand(args);
+							break;
+						
+						case COMMENCEE:
+						default:
+							JOptionPane.showInternalMessageDialog(new JFrame(),Translator.translate("partieDejaCommencee"),"Information",
+									JOptionPane.INFORMATION_MESSAGE);
+							break;
+					}
 				}
 			}
 		});

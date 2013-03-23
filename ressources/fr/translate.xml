@@ -84,4 +84,16 @@
 		<name>etatSauvegardee</name>
 		<value>Sauvegardée</value>
 	</parameter>
+	<parameter>
+		<name>saisirMotdepasseReprendrePartie</name>
+		<value>Pour reprendre la partie vous devez saisir le mot de passe</value>
+	</parameter>
+	<parameter>
+		<name>saisirMotdepasseRejoindrePartie</name>
+		<value>Pour rejoindre la partie vous devez saisir le mot de passe</value>
+	</parameter>
+	<parameter>
+		<name>partieDejaCommencee</name>
+		<value>Cette partie est déjà est déjà commencée. Vous ne pouvez plus la rejoindre</value>
+	</parameter>
 </configuration>
