@@ -91,6 +91,11 @@ public class JeuPanel extends JPanel{
 		
 	}
 	
+	public void deconnexion(){
+		dialogueServeur.deconnexion();
+		cardlayout.show(this,ecranChoixTypeDePartie.getName());
+	}
+	
 	public ServerListener getDialogueServeur(){
 		return dialogueServeur;
 	}
@@ -111,7 +116,7 @@ public class JeuPanel extends JPanel{
 	public void chargerEcranLoader(){
 		// création d'une instance de la classe DialogueAvec serveur fournissant une bibliothèque de fonction pour dialoguer avec le serveur
 		if (dialogueServeur == null) dialogueServeur = new ServerListener(Constante.IP_SERVEUR,Constante.NUMERO_PORT_ECOUTE_PAR_DEFAUT,this);
-		
+		dialogueServeur.connect();
 		accesServeur = dialogueServeur.isConnected();
 		
 		if (accesServeur){

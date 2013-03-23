@@ -26,7 +26,7 @@ public class EcranMenuMultijoueurListener implements ActionListener{
 			System.out.println("bouton creer partie marche bien ");
 		}else if (boutonClique.equals(ecranMenuMutlijoueur.getDeconnexion())) // deconection
 		{
-			System.out.println("bouton deconnection marche bien ");
+			jeu.deconnexion();
 		}else if (boutonClique.equals(ecranMenuMutlijoueur.getRafraichir())) // raffraichir
 		{
 			ecranMenuMutlijoueur.rafraichirCadrePartie();

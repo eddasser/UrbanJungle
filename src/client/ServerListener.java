@@ -17,17 +17,28 @@ public class ServerListener implements Runnable{
 	private JeuPanel jeu;
 	
 	private boolean connected;
+	private boolean continu;
+	
+	private String adress;
+	private int port;
 	
 	public ServerListener(String addr,int port,JeuPanel jeu){
+		adress = addr;
+		this.port = port;
 		this.jeu = jeu;
 		connected = false;
+		connect();
+	}
+	
+	public void connect(){
 		try{
-			socket = new Socket(addr,port);
+			socket = new Socket(adress,port);
 			socket.setSoLinger(true,10);
 			
 			out = new ObjectOutputStream(socket.getOutputStream());
 			in = new ObjectInputStream(socket.getInputStream());
 			
+			continu = true;
 			connected = true;
 			thd = new Thread(this);
 			thd.start();
@@ -42,13 +53,16 @@ public class ServerListener implements Runnable{
 	
 	public void run(){
 		try{
-			while (true){
-				
+			while (continu){
 				String[] args = (String[])in.readObject();
+				
 				ClientCommand command = ClientCommandFactory.getCommand(args);
 				command.execute(this);
-				
 			}
+			
+			in.close();
+			out.close();
+			socket.close();
 		}catch (IOException | ClassNotFoundException e){
 			e.printStackTrace();
 		}
@@ -67,5 +81,8 @@ public class ServerListener implements Runnable{
 		return jeu;
 	}
 	
-	
+	public void deconnexion(){
+		continu = false;
+		thd = null;
+	}
 }

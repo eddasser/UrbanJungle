@@ -3,12 +3,15 @@ package client.view;
 import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -76,7 +79,19 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 		add(deconnexion);
 		add(rafraichir);
 		
-		// table.setRowSelectionAllowed(false);
+		
+		table.addMouseListener(new MouseAdapter(){
+			@Override
+			public void mouseClicked(MouseEvent e){
+				if (e.getClickCount() == 2){
+					int idrow = table.getSelectedRow();
+					String partie = parties[idrow];
+					
+					int response = JOptionPane.showConfirmDialog(null,"Do you want to delete the message '" + partie + "'","Confirm",
+							JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+				}
+			}
+		});
 	}
 	
 	@Override
@@ -111,16 +126,24 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 	}
 	
 	
-	public void updateData(String[] part){
-		data = new Object[part.length + 1][column.length];
+	public String[] getParties(){
+		return parties;
+	}
+	
+	public void setParties(String[] parties){
+		this.parties = parties;
+		updateData();
+	}
+	
+	private void updateData(){
+		data = new Object[parties.length][column.length];
 		
-		for (int i = 0 ; i < part.length ; i++){
-			String[] partie = part[i].split(Constante.MESSAGE_SEPARATOR);
+		for (int i = 0 ; i < parties.length ; i++){
+			String[] partie = parties[i].split(Constante.MESSAGE_SEPARATOR);
 			
 			data[i][0] = partie[0];// ID
 			data[i][1] = partie[1];// NOM
 			data[i][2] = partie[2];// NB JOUEURS
-			data[i][3] = partie[3];// ETAT
 			
 			if (new Boolean(partie[4])){
 				data[i][4] = new JLabel(icon_lock);
@@ -132,15 +155,18 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 			JLabel button = null;
 			switch(etat){
 				case SAUVEGARDEE:
+					data[i][3] = Translator.translate("etatSauvegardee");// ETAT
 					button = new JLabel(Translator.translate("chargerPartie"));
 					break;
 				
 				case EN_ATTENTE_JOUEUR:
+					data[i][3] = Translator.translate("etatAttenteJoueur");// ETAT
 					button = new JLabel(Translator.translate("rejoindrePartie"));
 					break;
 				
 				case COMMENCEE:
 				default:
+					data[i][3] = Translator.translate("etatCommencee");// ETAT
 					break;
 			}
 			data[i][5] = button;

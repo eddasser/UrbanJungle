@@ -72,4 +72,16 @@
 		<name>rafraichir</name>
 		<value>Rafraichir</value>
 	</parameter>
+	<parameter>
+		<name>etatAttenteJoueur</name>
+		<value>En attente de joueurs</value>
+	</parameter>
+	<parameter>
+		<name>etatCommencee</name>
+		<value>Commencée</value>
+	</parameter>
+	<parameter>
+		<name>etatSauvegardee</name>
+		<value>Sauvegardée</value>
+	</parameter>
 </configuration>
