@@ -144,7 +144,7 @@ public class JeuPanel extends JPanel{
 	}
 	
 	
-	public void lancerMultijoueur(){
+	public void lancerMultijoueurs(){
 		cardlayout.show(this,ecranLogin.getName());
 	}
 	

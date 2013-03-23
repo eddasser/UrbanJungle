@@ -18,6 +18,6 @@ public class EcranResultatTentativeConnexionListener extends MouseAdapter{
 	
 	@Override
 	public void mouseClicked(MouseEvent e){
-		jeu.chargerEcranChoixTypePartie();
+		jeu.lancerMultijoueurs();
 	}
 }

@@ -31,7 +31,7 @@ public class EcranChoixTypePartieListener implements ActionListener{
 			jeu.chargerPartieSolo();
 		}else if (boutonClique.equals(ecranChoixTypeDePartie.getPartieEnLigne())) // partie multi
 		{
-			jeu.lancerMultijoueur();
+			jeu.chargerEcranLoader();
 		}else if (boutonClique.equals(ecranChoixTypeDePartie.getQuitter())) // quitter
 		{
 			System.exit(0);
