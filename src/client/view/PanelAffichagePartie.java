@@ -187,7 +187,7 @@ public class PanelAffichagePartie extends JPanel{
 				add(radioBouton);
 				add(new JLabel(partie.getNomPartie()));
 				add(new JLabel(partie.getNbJoueur() + ""));
-				add(new JLabel(partie.getEtatDeLaPartie()));
+				// add(new JLabel(partie.getEtatDeLaPartie()));
 				
 				if (!(partie.getPassword().compareTo("") == 0)) // si la partie posséde un password
 				{

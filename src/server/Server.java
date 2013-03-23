@@ -12,7 +12,14 @@ public class Server{
 	private final static ArrayList<Partie> parties = new ArrayList<Partie>();
 	
 	public static ArrayList<Partie> getParties(){
-		return parties;
+		ArrayList<Partie> tmp = new ArrayList<>();
+		for (int i = 0 ; i < 5 ; i++){
+			Partie p = new Partie("Partie test " + i,i + 2,"");
+			tmp.add(p);
+		}
+		return tmp;
+		
+		// return parties;
 	}
 	
 	public static void add(Joueur j){

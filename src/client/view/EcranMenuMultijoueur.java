@@ -1,18 +1,25 @@
 package client.view;
 
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 import client.JeuPanel;
 import client.controller.EcranMenuMultijoueurListener;
 
 import common.Constante;
-import common.Partie;
+import common.Etat;
 import common.Translator;
 
 public class EcranMenuMultijoueur extends NamedJPanel{
@@ -20,32 +27,32 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 	
 	private JeuPanel jeu;
 	
-	private CopyOnWriteArrayList<Partie> listeDesParties; // liste des parties en cours envoyées par le serveur
+	private String[] parties;
 	
-	// elements constituants la vue
-	private PanelAffichagePartie panelAffichagePartie;
+	private String[] column = { "ID","Nom","Nb joueurs","Statut","Password","Action" };
+	private Object[][] data;
+	
+	private JTable table = new JTable();
+	private JScrollPane scrollPane = new JScrollPane(table);
+	
 	
 	private JCoolButton creerPartie;
-	private JCoolButton chargerPartie;
-	private JCoolButton rejoindrePartie;
 	private JCoolButton deconnexion;
 	
 	private JCoolButton rafraichir;
+	
+	private static ImageIcon icon_lock = new ImageIcon(System.getProperty("user.dir") + "/ressources/fr/images/EcranMenuMultijoueur/lock.png");
+	private static ImageIcon icon_unlock = new ImageIcon(System.getProperty("user.dir")
+			+ "/ressources/fr/images/EcranMenuMultijoueur/unlock.png");
 	
 	public EcranMenuMultijoueur(JeuPanel jeuParam){
 		super("ecranMenuMultijoueur");
 		
 		jeu = jeuParam;
-		listeDesParties = new CopyOnWriteArrayList<Partie>();
 		setLayout(null);
 		
 		
-		// iniatialisation des composants de la vue
-		panelAffichagePartie = new PanelAffichagePartie(listeDesParties,jeu);
-		
 		creerPartie = new JCoolButton(Translator.translate("creerPartie"));
-		chargerPartie = new JCoolButton(Translator.translate("chargerPartie"));
-		rejoindrePartie = new JCoolButton(Translator.translate("rejoindrePartie"));
 		// rejoindrePartie.setEnabled(false); // on rend le bouton inutilisable tant qu'une partie a rejoindre n'a pas été selectionné
 		deconnexion = new JCoolButton(Translator.translate("deconnexion"));
 		rafraichir = new JCoolButton(Translator.translate("rafraichir"));
@@ -53,27 +60,23 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 		EcranMenuMultijoueurListener ecranLoginListener = new EcranMenuMultijoueurListener(jeu,this); // ajout du listener aux boutons
 		
 		creerPartie.addActionListener(ecranLoginListener);
-		chargerPartie.addActionListener(ecranLoginListener);
-		rejoindrePartie.addActionListener(ecranLoginListener);
 		deconnexion.addActionListener(ecranLoginListener);
 		rafraichir.addActionListener(ecranLoginListener);
 		
 		// placement précis pour les composant se superposetn parfaitement a l'image chargé en fond
 		// la heuteur du panel est recalculé en fonction du nb de ligne a afficher + l'entete des colonnes
-		panelAffichagePartie.setBounds(110,230,473,50 * (listeDesParties.size() + 1));
+		scrollPane.setBounds(110,220,800,300);
+		add(scrollPane);
 		
-		creerPartie.setBounds(670,230,200,50);
-		chargerPartie.setBounds(670,305,200,50);
-		rejoindrePartie.setBounds(670,380,200,50);
-		deconnexion.setBounds(670,455,200,50);
+		creerPartie.setBounds(450,160,200,50);
+		deconnexion.setBounds(700,160,200,50);
 		rafraichir.setBounds(245,528,200,25);
 		
-		add(panelAffichagePartie);
 		add(creerPartie);
-		add(chargerPartie);
-		add(rejoindrePartie);
 		add(deconnexion);
 		add(rafraichir);
+		
+		// table.setRowSelectionAllowed(false);
 	}
 	
 	@Override
@@ -95,17 +98,6 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 		return creerPartie;
 	}
 	
-	
-	public JCoolButton getChargerPartie(){
-		return chargerPartie;
-	}
-	
-	
-	public JCoolButton getRejoindrePartie(){
-		return rejoindrePartie;
-	}
-	
-	
 	public JCoolButton getDeconnexion(){
 		return deconnexion;
 	}
@@ -114,12 +106,107 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 		return rafraichir;
 	}
 	
-	public void setListeDesParties(CopyOnWriteArrayList<Partie> listeDesParties){
-		this.listeDesParties = listeDesParties;
-	}
-	
 	public void rafraichirCadrePartie(){
 		jeu.recuperationListePartie();
 	}
 	
+	
+	public void updateData(String[] part){
+		data = new Object[part.length + 1][column.length];
+		
+		for (int i = 0 ; i < part.length ; i++){
+			String[] partie = part[i].split(Constante.MESSAGE_SEPARATOR);
+			
+			data[i][0] = partie[0];// ID
+			data[i][1] = partie[1];// NOM
+			data[i][2] = partie[2];// NB JOUEURS
+			data[i][3] = partie[3];// ETAT
+			
+			if (new Boolean(partie[4])){
+				data[i][4] = new JLabel(icon_lock);
+			}else{
+				data[i][4] = new JLabel(icon_unlock);
+			}
+			
+			Etat etat = Etat.get(partie[3]);
+			JLabel button = null;
+			switch(etat){
+				case SAUVEGARDEE:
+					button = new JLabel(Translator.translate("chargerPartie"));
+					break;
+				
+				case EN_ATTENTE_JOUEUR:
+					button = new JLabel(Translator.translate("rejoindrePartie"));
+					break;
+				
+				case COMMENCEE:
+				default:
+					break;
+			}
+			data[i][5] = button;
+			
+		}
+		
+		table.setModel(new MonModele(data,column));
+		table.setRowHeight(32);
+		
+		TableColumn col = table.getColumnModel().getColumn(0);
+		col.setPreferredWidth(50);
+		
+		col = table.getColumnModel().getColumn(1);
+		col.setPreferredWidth(300);
+		
+		col = table.getColumnModel().getColumn(2);
+		col.setPreferredWidth(75);
+		
+		col = table.getColumnModel().getColumn(3);
+		col.setPreferredWidth(150);
+		
+		col = table.getColumnModel().getColumn(4);
+		col.setPreferredWidth(150);
+		
+		col = table.getColumnModel().getColumn(5);
+		col.setPreferredWidth(150);
+		
+		table.getColumnModel().getColumn(4).setCellRenderer(new MyRenderer());
+		table.getColumnModel().getColumn(5).setCellRenderer(new MyRenderer());
+	}
+	
+	
+	class MonModele extends AbstractTableModel{
+		private static final long serialVersionUID = 1L;
+		private Object donnees[][];
+		private String titres[];
+		
+		public MonModele(Object donnees[][],String titres[]){
+			this.donnees = donnees;
+			this.titres = titres;
+		}
+		
+		public int getColumnCount(){
+			return donnees[0].length;
+		}
+		
+		public Object getValueAt(int parm1,int parm2){
+			return donnees[parm1][parm2];
+		}
+		
+		public int getRowCount(){
+			return donnees.length;
+		}
+		
+		@Override
+		public String getColumnName(int col){
+			return titres[col];
+		}
+	}
+	
+	class MyRenderer extends DefaultTableCellRenderer{
+		private static final long serialVersionUID = 1L;
+		
+		@Override
+		public Component getTableCellRendererComponent(JTable table,Object value,boolean isSelected,boolean hasFocus,int row,int column){
+			return (Component)value;
+		}
+	}
 }

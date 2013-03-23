@@ -16,8 +16,11 @@ public class ServerListener implements Runnable{
 	private Thread thd;
 	private JeuPanel jeu;
 	
+	private boolean connected;
+	
 	public ServerListener(String addr,int port,JeuPanel jeu){
 		this.jeu = jeu;
+		connected = false;
 		try{
 			socket = new Socket(addr,port);
 			socket.setSoLinger(true,10);
@@ -25,13 +28,16 @@ public class ServerListener implements Runnable{
 			out = new ObjectOutputStream(socket.getOutputStream());
 			in = new ObjectInputStream(socket.getInputStream());
 			
+			connected = true;
+			thd = new Thread(this);
+			thd.start();
 		}catch (IOException a){
-			System.out.println("erreur2 " + a.getMessage());
-			a.printStackTrace();
+			System.out.println("connexion au serveur impossible");
 		}
-		
-		thd = new Thread(this);
-		thd.start();
+	}
+	
+	public boolean isConnected(){
+		return connected;
 	}
 	
 	public void run(){

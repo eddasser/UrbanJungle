@@ -28,4 +28,6 @@ public class Constante{
 	public final static String COMMANDE_CREATION_COMPTE = "commande_creation_compte";
 	public final static String COMMANDE_DEMANDE_CONNEXION = "commande_demande_connexion";
 	public final static String COMMANDE_LISTE_PARTIES = "commande_liste_parties";
+	
+	public final static String MESSAGE_SEPARATOR = GENERAL_CONFIGURATION.getStringValue("MESSAGE_SEPARATOR");
 }

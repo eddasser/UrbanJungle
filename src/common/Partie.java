@@ -10,19 +10,28 @@ public class Partie implements Serializable{
 	private String nomPartie; // nom donné a la parti par son créateur
 	private int nbJoueur; // nb de joueur requis pour cette partie
 	private ArrayList<Joueur> listeParticipants; // liste des joueurs participants a cette partie
-	private String etatDeLaPartie; // etat de la partie possible : "en cours" ou "en attente"
+	private Etat etatDeLaPartie; // etat de la partie possible : "en cours" ou "en attente"
 	private String password;// password de la partie, si null alors la partie est public sinon elle est privé
 	
 	
-	public Partie(String nomPartieParam,int nbJoueurParam,String passwordParam,Joueur joueurAdminParam){
+	public Partie(String nomPartieParam,int nbJoueurParam,String passwordParam){
 		nomPartie = nomPartieParam;
 		nbJoueur = nbJoueurParam;
 		
 		listeParticipants = new ArrayList<Joueur>();
-		etatDeLaPartie = "en attente";
+		etatDeLaPartie = Etat.EN_ATTENTE_JOUEUR;
+		password = passwordParam;
 		
-		if (password == null) password = "";
+	}
+	
+	public boolean necessitePassword(){
+		boolean necessitePassword = true;
 		
+		if (password.equals("")){
+			necessitePassword = false;
+		}
+		
+		return necessitePassword;
 	}
 	
 	@Override
@@ -54,11 +63,11 @@ public class Partie implements Serializable{
 		this.listeParticipants = listeParticipants;
 	}
 	
-	public String getEtatDeLaPartie(){
+	public Etat getEtatDeLaPartie(){
 		return etatDeLaPartie;
 	}
 	
-	public void setEtatDeLaPartie(String etatDeLaPartie){
+	public void setEtatDeLaPartie(Etat etatDeLaPartie){
 		this.etatDeLaPartie = etatDeLaPartie;
 	}
 	

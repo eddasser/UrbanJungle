@@ -3,7 +3,6 @@ package client.command;
 import java.util.Arrays;
 import java.util.HashMap;
 
-
 import common.Constante;
 
 /**
@@ -17,7 +16,7 @@ public class ClientCommandFactory{
 	private ClientCommandFactory(){
 		commandes.put(Constante.COMMANDE_CREATION_COMPTE,new ClientCommandCreationCompte());
 		commandes.put(Constante.COMMANDE_DEMANDE_CONNEXION,new ClientCommandDemandeConnexion());
-		// commandes.put(Constante.COMMANDE_LISTE_PARTIES,new ClientCommandListePartie());
+		commandes.put(Constante.COMMANDE_LISTE_PARTIES,new ClientCommandListePartie());
 		commandes.put(Constante.COMMANDE_PING,new ClientCommandPing());
 	}
 	
