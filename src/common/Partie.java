@@ -24,6 +24,14 @@ public class Partie implements Serializable{
 		
 	}
 	
+	public boolean placeDisponible(){
+		if (listeParticipants.size() < nbJoueur){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public boolean necessitePassword(){
 		boolean necessitePassword = true;
 		
@@ -37,6 +45,11 @@ public class Partie implements Serializable{
 	@Override
 	public String toString(){
 		return nomPartie + "\nNombre de joueur : " + nbJoueur + "\netat de la partie : " + etatDeLaPartie + "\npassword : " + password;
+	}
+	
+	
+	public void addJoueur(Joueur j){
+		listeParticipants.add(j);
 	}
 	
 	public String getNomPartie(){

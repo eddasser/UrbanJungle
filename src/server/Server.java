@@ -1,5 +1,6 @@
 package server;
 
+import java.net.Socket;
 import java.util.ArrayList;
 
 import common.Constante;
@@ -12,14 +13,21 @@ public class Server{
 	private final static ArrayList<Partie> parties = new ArrayList<Partie>();
 	
 	public static ArrayList<Partie> getParties(){
-		ArrayList<Partie> tmp = new ArrayList<>();
-		for (int i = 0 ; i < 5 ; i++){
-			Partie p = new Partie("Partie test " + i,i + 2,"");
-			tmp.add(p);
+		return parties;
+	}
+	
+	public static Partie getParte(int id){
+		return parties.get(id);
+	}
+	
+	public static Joueur getJoueur(Socket socket){
+		Joueur joueur = null;
+		for (int i = 0 ; i < joueurs.size() && joueur == null ; i++){
+			if (joueurs.get(i).getSocket().equals(socket)){
+				joueur = joueurs.get(i);
+			}
 		}
-		return tmp;
-		
-		// return parties;
+		return joueur;
 	}
 	
 	public static void add(Joueur j){

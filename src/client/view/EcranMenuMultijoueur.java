@@ -119,7 +119,6 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 							break;
 						
 						case COMMENCEE:
-						default:
 							JOptionPane.showInternalMessageDialog(new JFrame(),Translator.translate("partieDejaCommencee"),"Information",
 									JOptionPane.INFORMATION_MESSAGE);
 							break;
@@ -171,66 +170,70 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 	}
 	
 	private void updateData(){
-		data = new Object[parties.length][column.length];
-		
-		for (int i = 0 ; i < parties.length ; i++){
-			String[] partie = parties[i].split(Constante.MESSAGE_SEPARATOR);
+		int rows = parties.length;
+		if (rows > 0){
 			
-			data[i][0] = partie[0];// ID
-			data[i][1] = partie[1];// NOM
-			data[i][2] = partie[2];// NB JOUEURS
+			data = new Object[rows][column.length];
 			
-			if (new Boolean(partie[4])){
-				data[i][4] = new JLabel(icon_lock);
-			}else{
-				data[i][4] = new JLabel(icon_unlock);
+			for (int i = 0 ; i < parties.length ; i++){
+				String[] partie = parties[i].split(Constante.MESSAGE_SEPARATOR);
+				
+				data[i][0] = partie[0];// ID
+				data[i][1] = partie[1];// NOM
+				data[i][2] = partie[2];// NB JOUEURS
+				
+				if (new Boolean(partie[4])){
+					data[i][4] = new JLabel(icon_lock);
+				}else{
+					data[i][4] = new JLabel(icon_unlock);
+				}
+				
+				Etat etat = Etat.get(partie[3]);
+				JLabel button = null;
+				switch(etat){
+					case SAUVEGARDEE:
+						data[i][3] = Translator.translate("etatSauvegardee");// ETAT
+						button = new JLabel(Translator.translate("chargerPartie"));
+						break;
+					
+					case EN_ATTENTE_JOUEUR:
+						data[i][3] = Translator.translate("etatAttenteJoueur");// ETAT
+						button = new JLabel(Translator.translate("rejoindrePartie"));
+						break;
+					
+					case COMMENCEE:
+					default:
+						data[i][3] = Translator.translate("etatCommencee");// ETAT
+						break;
+				}
+				data[i][5] = button;
+				
 			}
 			
-			Etat etat = Etat.get(partie[3]);
-			JLabel button = null;
-			switch(etat){
-				case SAUVEGARDEE:
-					data[i][3] = Translator.translate("etatSauvegardee");// ETAT
-					button = new JLabel(Translator.translate("chargerPartie"));
-					break;
-				
-				case EN_ATTENTE_JOUEUR:
-					data[i][3] = Translator.translate("etatAttenteJoueur");// ETAT
-					button = new JLabel(Translator.translate("rejoindrePartie"));
-					break;
-				
-				case COMMENCEE:
-				default:
-					data[i][3] = Translator.translate("etatCommencee");// ETAT
-					break;
-			}
-			data[i][5] = button;
+			table.setModel(new MonModele(data,column));
+			table.setRowHeight(32);
 			
+			TableColumn col = table.getColumnModel().getColumn(0);
+			col.setPreferredWidth(50);
+			
+			col = table.getColumnModel().getColumn(1);
+			col.setPreferredWidth(300);
+			
+			col = table.getColumnModel().getColumn(2);
+			col.setPreferredWidth(75);
+			
+			col = table.getColumnModel().getColumn(3);
+			col.setPreferredWidth(150);
+			
+			col = table.getColumnModel().getColumn(4);
+			col.setPreferredWidth(150);
+			
+			col = table.getColumnModel().getColumn(5);
+			col.setPreferredWidth(150);
+			
+			table.getColumnModel().getColumn(4).setCellRenderer(new MyRenderer());
+			table.getColumnModel().getColumn(5).setCellRenderer(new MyRenderer());
 		}
-		
-		table.setModel(new MonModele(data,column));
-		table.setRowHeight(32);
-		
-		TableColumn col = table.getColumnModel().getColumn(0);
-		col.setPreferredWidth(50);
-		
-		col = table.getColumnModel().getColumn(1);
-		col.setPreferredWidth(300);
-		
-		col = table.getColumnModel().getColumn(2);
-		col.setPreferredWidth(75);
-		
-		col = table.getColumnModel().getColumn(3);
-		col.setPreferredWidth(150);
-		
-		col = table.getColumnModel().getColumn(4);
-		col.setPreferredWidth(150);
-		
-		col = table.getColumnModel().getColumn(5);
-		col.setPreferredWidth(150);
-		
-		table.getColumnModel().getColumn(4).setCellRenderer(new MyRenderer());
-		table.getColumnModel().getColumn(5).setCellRenderer(new MyRenderer());
 	}
 	
 	

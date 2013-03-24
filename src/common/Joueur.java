@@ -17,6 +17,10 @@ public class Joueur implements Serializable{
 		password = _password;
 	}
 	
+	public Socket getSocket(){
+		return socket;
+	}
+	
 	@Override
 	public String toString(){
 		return socket + "\nlogin : " + login + "\nmot de passe : " + password;

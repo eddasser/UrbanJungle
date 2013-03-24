@@ -19,6 +19,9 @@ public class ClientCommandFactory{
 		commandes.put(Constante.COMMANDE_LISTE_PARTIES,new ClientCommandListePartie());
 		commandes.put(Constante.COMMANDE_PING,new ClientCommandPing());
 		commandes.put(Constante.COMMANDE_ERROR,new ClientCommandError());
+		commandes.put(Constante.COMMANDE_REJOINDRE_PARTIE,new ClientCommandRejoindrePartie());
+		commandes.put(Constante.COMMANDE_REPRENDRE_PARTIE,new ClientCommandRejoindrePartie());
+		commandes.put(Constante.COMMANDE_CREATION_PARTIE,new ClientCommandCreationPartie());
 	}
 	
 	public static ClientCommand getCommand(String[] args){

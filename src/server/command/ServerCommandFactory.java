@@ -19,6 +19,9 @@ public class ServerCommandFactory{
 		commandes.put(Constante.COMMANDE_LISTE_PARTIES,new ServerCommandListePartie());
 		commandes.put(Constante.COMMANDE_PING,new ServerCommandPing());
 		commandes.put(Constante.COMMANDE_ERROR,new ServerCommandError());
+		commandes.put(Constante.COMMANDE_REJOINDRE_PARTIE,new ServerCommandRejoindrePartie());
+		commandes.put(Constante.COMMANDE_REPRENDRE_PARTIE,new ServerCommandRejoindrePartie());
+		commandes.put(Constante.COMMANDE_CREATION_PARTIE,new ServerCommandCreationPartie());
 	}
 	
 	public static ServerCommand getCommand(String[] args){

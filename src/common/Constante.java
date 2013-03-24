@@ -31,6 +31,7 @@ public class Constante{
 	public final static String COMMANDE_REJOINDRE_PARTIE = "commande_rejoindre_partie";
 	public final static String COMMANDE_REPRENDRE_PARTIE = "commande_reprendre_partie";
 	public final static String COMMANDE_ERROR = "commande_error";
+	public final static String COMMANDE_CREATION_PARTIE = "commande_creation_partie";
 	
 	
 	public final static String MESSAGE_SEPARATOR = GENERAL_CONFIGURATION.getStringValue("MESSAGE_SEPARATOR");

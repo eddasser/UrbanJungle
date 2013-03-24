@@ -96,4 +96,28 @@
 		<name>partieDejaCommencee</name>
 		<value>Cette partie est déjà est déjà commencée. Vous ne pouvez plus la rejoindre</value>
 	</parameter>
+	<parameter>
+		<name>motDePasseIncorrect</name>
+		<value>Le mot de passe saisi est incorrect</value>
+	</parameter>
+	<parameter>
+		<name>creer</name>
+		<value>Créer</value>
+	</parameter>
+	<parameter>
+		<name>nomPartie</name>
+		<value>Nom</value>
+	</parameter>
+	<parameter>
+		<name>passwordPartie</name>
+		<value>Mot de passe</value>
+	</parameter>
+	<parameter>
+		<name>nbJoueur</name>
+		<value>Nombre de joueurs</value>
+	</parameter>
+	<parameter>
+		<name>champsNomPartieVide</name>
+		<value>Vous devez choisir un nom de partie</value>
+	</parameter>
 </configuration>

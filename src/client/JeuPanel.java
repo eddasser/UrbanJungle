@@ -11,6 +11,7 @@ import client.controller.EcranTitreListener;
 import client.view.EcranChoixTypePartie;
 import client.view.EcranConnexionServeurImpossible;
 import client.view.EcranConnexionServeurPossible;
+import client.view.EcranCreationPartie;
 import client.view.EcranLoader;
 import client.view.EcranLogin;
 import client.view.EcranMenuMultijoueur;
@@ -37,6 +38,7 @@ public class JeuPanel extends JPanel{
 	private static NamedJPanel ecranChoixTypeDePartie;
 	private static NamedJPanel ecranLogin;
 	private static NamedJPanel ecranMenuMultijoueur;
+	private static NamedJPanel ecranCreationPartie;
 	
 	private ServerListener dialogueServeur;
 	
@@ -78,6 +80,9 @@ public class JeuPanel extends JPanel{
 		// ecran du Menu Multijoueur
 		ecranMenuMultijoueur = new EcranMenuMultijoueur(this);
 		
+		// ecran de creation d'une partie
+		ecranCreationPartie = new EcranCreationPartie(this);
+		
 		/** ajout des écrans au container du gestionnaire d'écran */
 		this.add(ecranTitre,ecranTitre.getName());
 		this.add(ecranLoader,ecranLoader.getName());
@@ -86,6 +91,7 @@ public class JeuPanel extends JPanel{
 		this.add(ecranChoixTypeDePartie,ecranChoixTypeDePartie.getName());
 		this.add(ecranLogin,ecranLogin.getName());
 		this.add(ecranMenuMultijoueur,ecranMenuMultijoueur.getName());
+		this.add(ecranCreationPartie,ecranCreationPartie.getName());
 		
 		cardlayout.first(this); // on affiche le premier ecran, l'écran titre du jeu
 		
@@ -159,6 +165,10 @@ public class JeuPanel extends JPanel{
 	public void chargerPartieSolo(){
 		// TODO Auto-generated method stub
 		System.out.println("bouton charger partie solo");
+	}
+	
+	public void chargerEcranCreationPartie(){
+		cardlayout.show(this,ecranCreationPartie.getName());
 	}
 	
 	
