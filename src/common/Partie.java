@@ -1,12 +1,9 @@
 package common;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class Partie implements Serializable{
-	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
-	
+public class Partie{
 	private String nomPartie; // nom donné a la parti par son créateur
 	private int nbJoueur; // nb de joueur requis pour cette partie
 	private ArrayList<Joueur> listeParticipants; // liste des joueurs participants a cette partie

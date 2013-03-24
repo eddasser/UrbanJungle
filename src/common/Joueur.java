@@ -1,12 +1,10 @@
 package common;
 
-import java.io.Serializable;
 import java.net.Socket;
 
 import server.ClientListener;
 
-public class Joueur implements Serializable{
-	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+public class Joueur{
 	// info pour partie réseau
 	private ClientListener clientListener; // socket a utiliser pour contacter le client
 	private String login;
