@@ -24,6 +24,14 @@ public class Partie implements Serializable{
 		
 	}
 	
+	public void notifierDebutJeu(){
+		String[] args = { Constante.COMMANDE_DEBUT_JEU };
+		for (int i = 0 ; i < listeParticipants.size() ; i++){
+			Joueur joueur = listeParticipants.get(i);
+			joueur.send(args);
+		}
+	}
+	
 	public boolean placeDisponible(){
 		if (listeParticipants.size() < nbJoueur){
 			return true;

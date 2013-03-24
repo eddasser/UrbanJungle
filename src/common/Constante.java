@@ -33,6 +33,8 @@ public class Constante{
 	public final static String COMMANDE_ERROR = "commande_error";
 	public final static String COMMANDE_CREATION_PARTIE = "commande_creation_partie";
 	
+	public final static String COMMANDE_DEBUT_JEU = "commande_debut_jeu";
+	
 	
 	public final static String MESSAGE_SEPARATOR = GENERAL_CONFIGURATION.getStringValue("MESSAGE_SEPARATOR");
 }

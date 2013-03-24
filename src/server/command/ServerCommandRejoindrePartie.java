@@ -48,6 +48,11 @@ public class ServerCommandRejoindrePartie extends ServerCommand{
 		
 		String[] args = { Constante.COMMANDE_REJOINDRE_PARTIE,Boolean.toString(rejoint),message_erreur };
 		_client.send(args);
+		
+		if (rejoint && !partie.placeDisponible()){
+			// dans le cas ou tout les sjoueurs ont rejoint la partie, on demarre le jeu
+			partie.notifierDebutJeu();
+		}
 	}
 	
 }
