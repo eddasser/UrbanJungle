@@ -8,7 +8,7 @@ public enum Etat{
 	
 	public static Etat get(String _etat){
 		for (Etat etat : Etat.values()){
-			if (etat.equals(_etat)){
+			if (etat.toString().equals(_etat)){
 				return etat;
 			}
 		}

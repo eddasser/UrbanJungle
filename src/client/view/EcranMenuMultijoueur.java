@@ -10,7 +10,6 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -119,8 +118,7 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 							break;
 						
 						case COMMENCEE:
-							JOptionPane.showInternalMessageDialog(new JFrame(),Translator.translate("partieDejaCommencee"),"Information",
-									JOptionPane.INFORMATION_MESSAGE);
+							jeu.notificationJoueur(Translator.translate("partieDejaCommencee"));
 							break;
 					}
 				}
@@ -202,7 +200,6 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 						break;
 					
 					case COMMENCEE:
-					default:
 						data[i][3] = Translator.translate("etatCommencee");// ETAT
 						break;
 				}
