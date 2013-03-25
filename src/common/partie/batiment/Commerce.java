@@ -11,8 +11,8 @@ public abstract class Commerce extends Batiment{
 	 * @param pointsVieBase
 	 * @param prix
 	 */
-	public Commerce(int revenuBase,int pointsVieBase,int prix){
-		super(revenuBase,pointsVieBase);
+	public Commerce(TypeBatiment type,int revenuBase,int pointsVieBase,int prix){
+		super(type,revenuBase,pointsVieBase);
 		this.prix = prix;
 	}
 	

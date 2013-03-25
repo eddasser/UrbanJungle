@@ -11,7 +11,7 @@ public class VenteArme extends Commerce{
 	 * @param prix
 	 */
 	public VenteArme(){
-		super(500,500,5000);
+		super(TypeBatiment.VENTE_ARME,500,500,5000);
 	}
 	
 }

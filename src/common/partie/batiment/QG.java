@@ -10,7 +10,7 @@ public class QG extends Batiment{
 	 * @param pointsVieBase
 	 */
 	public QG(){
-		super(1000,1000);
+		super(TypeBatiment.QG,1000,1000);
 	}
 	
 }

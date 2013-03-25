@@ -11,7 +11,7 @@ public class VenteAlcool extends Commerce{
 	 * @param prix
 	 */
 	public VenteAlcool(){
-		super(200,100,1000);
+		super(TypeBatiment.VENTE_ALCOOL,200,100,1000);
 	}
 	
 }

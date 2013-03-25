@@ -11,7 +11,7 @@ public class Bookmaker extends Commerce{
 	 * @param prix
 	 */
 	public Bookmaker(){
-		super(400,200,2000);
+		super(TypeBatiment.BOOKMAKER,400,200,2000);
 	}
 	
 }

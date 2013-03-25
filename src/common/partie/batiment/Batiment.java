@@ -10,8 +10,11 @@ public abstract class Batiment{
 	protected int niveau;
 	protected int pointsVie;
 	
-	public Batiment(int revenuBase,int pointsVieBase){
+	protected TypeBatiment type;
+	
+	public Batiment(TypeBatiment type,int revenuBase,int pointsVieBase){
 		super();
+		this.type = type;
 		this.revenuBase = revenuBase;
 		this.pointsVieBase = pointsVieBase;
 		niveau = 1;
@@ -34,6 +37,10 @@ public abstract class Batiment{
 		return pointsVie;
 	}
 	
+	public TypeBatiment getType(){
+		return type;
+	}
+	
 	public void setRevenuBase(int revenuBase){
 		this.revenuBase = revenuBase;
 	}
@@ -48,6 +55,10 @@ public abstract class Batiment{
 	
 	public void setPointsVie(int pointsVie){
 		this.pointsVie = pointsVie;
+	}
+	
+	public void setType(TypeBatiment type){
+		this.type = type;
 	}
 	
 }
