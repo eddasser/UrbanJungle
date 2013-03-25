@@ -7,6 +7,7 @@ public class Partie{
 	private String nomPartie; // nom donné a la parti par son créateur
 	private int nbJoueur; // nb de joueur requis pour cette partie
 	private ArrayList<Joueur> listeParticipants; // liste des joueurs participants a cette partie
+	private Joueur joueurCourant; // Joueur qui joue a un instant donne (change a chaque tour) 
 	private Etat etatDeLaPartie; // etat de la partie possible : "en cours" ou "en attente"
 	private String password;// password de la partie, si null alors la partie est public sinon elle est privé
 	
@@ -103,5 +104,13 @@ public class Partie{
 	
 	public void setJoueurAdmin(Joueur joueurAdmin){
 		listeParticipants.set(0,joueurAdmin);
+	}
+
+	public Joueur getJoueurCourant() {
+		return joueurCourant;
+	}
+
+	public void setJoueurCourant(Joueur joueurCourant) {
+		this.joueurCourant = joueurCourant;
 	}
 }

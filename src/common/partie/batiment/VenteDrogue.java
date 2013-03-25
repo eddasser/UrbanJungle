@@ -1,5 +1,7 @@
 package common.partie.batiment;
 
+import common.partie.plateau.Case;
+
 /**
  * @author omar
  */
@@ -10,8 +12,8 @@ public class VenteDrogue extends Commerce{
 	 * @param pointsVieBase
 	 * @param prix
 	 */
-	public VenteDrogue(){
-		super(TypeBatiment.VENTE_DROGUE,200,100,1000);
+	public VenteDrogue(Case position){
+		super(TypeBatiment.VENTE_DROGUE,200,100,1000, position);
 	}
 	
 }

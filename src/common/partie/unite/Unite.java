@@ -1,5 +1,7 @@
 package common.partie.unite;
 
+import common.partie.plateau.Case;
+
 /**
  * @author omar
  */
@@ -12,8 +14,9 @@ public abstract class Unite{
 	protected int niveau;// niveau courant de l'unité, agit comme un facteur
 	protected int pointsVie;// point de vie actuel de l'unité
 	
-	
-	public Unite(int pointsVieBase,int pointsAttaqueBase,int salaireBase,int vitesseBase){
+	protected Case position; //Position actuelle de l'unite
+
+	public Unite(int pointsVieBase,int pointsAttaqueBase,int salaireBase,int vitesseBase, Case position){
 		super();
 		this.pointsVieBase = pointsVieBase;
 		this.pointsAttaqueBase = pointsAttaqueBase;
@@ -21,6 +24,11 @@ public abstract class Unite{
 		this.vitesseBase = vitesseBase;
 		niveau = 1;
 		pointsVie = pointsVieBase;
+		this.position = position;
+	}
+	
+	public void seDeplacer(int x, int y){
+		
 	}
 	
 	public int getPointsVieBase(){
@@ -69,5 +77,13 @@ public abstract class Unite{
 	
 	public void setPointsVie(int pointsVie){
 		this.pointsVie = pointsVie;
+	}
+	
+	public Case getPosition() {
+		return position;
+	}
+
+	public void setPosition(Case position) {
+		this.position = position;
 	}
 }

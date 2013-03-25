@@ -1,5 +1,7 @@
 package common.partie.batiment;
 
+import common.partie.plateau.Case;
+
 /**
  * @author omar
  */
@@ -11,8 +13,8 @@ public abstract class Commerce extends Batiment{
 	 * @param pointsVieBase
 	 * @param prix
 	 */
-	public Commerce(TypeBatiment type,int revenuBase,int pointsVieBase,int prix){
-		super(type,revenuBase,pointsVieBase);
+	public Commerce(TypeBatiment type,int revenuBase,int pointsVieBase,int prix, Case position){
+		super(type,revenuBase,pointsVieBase, position);
 		this.prix = prix;
 	}
 	

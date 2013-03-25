@@ -1,5 +1,7 @@
 package common.partie.unite;
 
+import common.partie.plateau.Case;
+
 /**
  * @author omar
  */
@@ -11,8 +13,8 @@ public class Bastonneur extends Combatant{
 	 * @param salaireBase
 	 * @param vitesseBase
 	 */
-	public Bastonneur(){
-		super(150,15,20,2);
+	public Bastonneur(Case position){
+		super(150,15,20,2, position);
 	}
 	
 }

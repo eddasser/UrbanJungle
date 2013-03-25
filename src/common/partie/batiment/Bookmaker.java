@@ -1,5 +1,7 @@
 package common.partie.batiment;
 
+import common.partie.plateau.Case;
+
 /**
  * @author omar
  */
@@ -10,8 +12,8 @@ public class Bookmaker extends Commerce{
 	 * @param pointsVieBase
 	 * @param prix
 	 */
-	public Bookmaker(){
-		super(TypeBatiment.BOOKMAKER,400,200,2000);
+	public Bookmaker(Case position){
+		super(TypeBatiment.BOOKMAKER,400,200,2000, position);
 	}
 	
 }
