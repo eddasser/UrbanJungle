@@ -16,7 +16,7 @@ public class EcranTitreListener extends KeyAdapter{
 	@Override
 	public void keyPressed(KeyEvent e){
 		if (e.getKeyCode() == KeyEvent.VK_ENTER){
-			jeu.chargerEcranLoader();
+			jeu.chargerEcranChoixTypePartie();
 		}
 	}
 }

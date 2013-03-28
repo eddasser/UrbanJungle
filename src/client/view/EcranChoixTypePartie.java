@@ -20,7 +20,6 @@ public class EcranChoixTypePartie extends NamedJPanel{
 	private JCoolButton chargerPartie;
 	private JCoolButton partieEnLigne;
 	private JCoolButton quitter;
-	private boolean multijoueurPossible;
 	private boolean premierPassage; // boolean qui va servir de flag pour savoir si c'est la premiere fois qu'on passe dans le paint
 									// componant
 	
@@ -28,7 +27,6 @@ public class EcranChoixTypePartie extends NamedJPanel{
 	public EcranChoixTypePartie(JeuPanel jeu){
 		super("ecranChoixTypeDePartie");
 		
-		multijoueurPossible = false;
 		premierPassage = true;
 		
 		partieSolo = new JCoolButton(Translator.translate("partieSolo")); // bouton partie solo
@@ -98,11 +96,7 @@ public class EcranChoixTypePartie extends NamedJPanel{
 					+ "/images/EcranChoixTypePartie/fondEcranChoixTypePartie.jpg"));
 			g.drawImage(img,0,0,getWidth(),getHeight(),this);// Pour une image de fond
 			
-			if (multijoueurPossible){
-				placementComposant(4);
-			}else{
-				placementComposant(3);
-			}
+			placementComposant(4);
 			
 		}catch (IOException e){
 			if (Constante.MODE_DEBUG){
@@ -110,10 +104,6 @@ public class EcranChoixTypePartie extends NamedJPanel{
 				// e.printStackTrace();
 			}
 		}
-	}
-	
-	public void setMultijoueurPossible(boolean etat){
-		multijoueurPossible = etat;
 	}
 	
 	public JCoolButton getPartieSolo(){

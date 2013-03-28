@@ -72,4 +72,52 @@
 		<name>rafraichir</name>
 		<value>Rafraichir</value>
 	</parameter>
+	<parameter>
+		<name>etatAttenteJoueur</name>
+		<value>En attente de joueurs</value>
+	</parameter>
+	<parameter>
+		<name>etatCommencee</name>
+		<value>Commencée</value>
+	</parameter>
+	<parameter>
+		<name>etatSauvegardee</name>
+		<value>Sauvegardée</value>
+	</parameter>
+	<parameter>
+		<name>saisirMotdepasseReprendrePartie</name>
+		<value>Pour reprendre la partie vous devez saisir le mot de passe</value>
+	</parameter>
+	<parameter>
+		<name>saisirMotdepasseRejoindrePartie</name>
+		<value>Pour rejoindre la partie vous devez saisir le mot de passe</value>
+	</parameter>
+	<parameter>
+		<name>partieDejaCommencee</name>
+		<value>Cette partie est déjà est déjà commencée. Vous ne pouvez plus la rejoindre</value>
+	</parameter>
+	<parameter>
+		<name>motDePasseIncorrect</name>
+		<value>Le mot de passe saisi est incorrect</value>
+	</parameter>
+	<parameter>
+		<name>creer</name>
+		<value>Créer</value>
+	</parameter>
+	<parameter>
+		<name>nomPartie</name>
+		<value>Nom</value>
+	</parameter>
+	<parameter>
+		<name>passwordPartie</name>
+		<value>Mot de passe</value>
+	</parameter>
+	<parameter>
+		<name>nbJoueur</name>
+		<value>Nombre de joueurs</value>
+	</parameter>
+	<parameter>
+		<name>champsNomPartieVide</name>
+		<value>Vous devez choisir un nom de partie</value>
+	</parameter>
 </configuration>

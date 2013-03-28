@@ -30,7 +30,7 @@
   </parameter>
   <parameter>
     <name>MESSAGE_SEPARATOR</name>
-    <value>|</value>
+    <value>//</value>
   </parameter>
   
   

@@ -9,7 +9,7 @@ import server.ClientListener;
  * et executé sur le server
  */
 public abstract class ServerCommand{
-	protected String[] arguments;
+	protected String[] arguments = new String[0];
 	
 	public abstract void execute(ClientListener _client);
 	

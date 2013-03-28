@@ -21,7 +21,7 @@ public class ServerCommandDemandeConnexion extends ServerCommand{
 		
 		if (resultatVerif){
 			// on ajoute le joueur a la liste des joueurs connectés au serveur
-			Server.add(new Joueur(_client.getSocket(),login,password));
+			Server.add(new Joueur(_client,login,password));
 		}
 		
 		String[] args = { Constante.COMMANDE_DEMANDE_CONNEXION,Boolean.toString(resultatVerif) };

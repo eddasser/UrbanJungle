@@ -3,7 +3,6 @@ package client.command;
 import java.util.Arrays;
 import java.util.HashMap;
 
-
 import common.Constante;
 
 /**
@@ -17,12 +16,17 @@ public class ClientCommandFactory{
 	private ClientCommandFactory(){
 		commandes.put(Constante.COMMANDE_CREATION_COMPTE,new ClientCommandCreationCompte());
 		commandes.put(Constante.COMMANDE_DEMANDE_CONNEXION,new ClientCommandDemandeConnexion());
-		// commandes.put(Constante.COMMANDE_LISTE_PARTIES,new ClientCommandListePartie());
+		commandes.put(Constante.COMMANDE_LISTE_PARTIES,new ClientCommandListePartie());
 		commandes.put(Constante.COMMANDE_PING,new ClientCommandPing());
+		commandes.put(Constante.COMMANDE_ERROR,new ClientCommandError());
+		commandes.put(Constante.COMMANDE_REJOINDRE_PARTIE,new ClientCommandRejoindrePartie());
+		commandes.put(Constante.COMMANDE_REPRENDRE_PARTIE,new ClientCommandRejoindrePartie());
+		commandes.put(Constante.COMMANDE_CREATION_PARTIE,new ClientCommandCreationPartie());
+		commandes.put(Constante.COMMANDE_DEBUT_JEU,new ClientCommandDebutJeu());
 	}
 	
 	public static ClientCommand getCommand(String[] args){
-		ClientCommand commande = null;
+		ClientCommand commande = factory.commandes.get(Constante.COMMANDE_ERROR);
 		
 		if (args.length > 0){
 			String commande_name = args[0];

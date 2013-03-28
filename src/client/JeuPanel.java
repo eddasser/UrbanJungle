@@ -11,6 +11,8 @@ import client.controller.EcranTitreListener;
 import client.view.EcranChoixTypePartie;
 import client.view.EcranConnexionServeurImpossible;
 import client.view.EcranConnexionServeurPossible;
+import client.view.EcranCreationPartie;
+import client.view.EcranJeu;
 import client.view.EcranLoader;
 import client.view.EcranLogin;
 import client.view.EcranMenuMultijoueur;
@@ -37,15 +39,16 @@ public class JeuPanel extends JPanel{
 	private static NamedJPanel ecranChoixTypeDePartie;
 	private static NamedJPanel ecranLogin;
 	private static NamedJPanel ecranMenuMultijoueur;
+	private static NamedJPanel ecranCreationPartie;
+	private static NamedJPanel ecranJeu;
 	
 	private ServerListener dialogueServeur;
+	
 	private boolean accesServeur;
 	
 	public JeuPanel(){
 		super(cardlayout);
 		
-		// création d'une instance de la classe DialogueAvec serveur fournissant une bibliothèque de fonction pour dialoguer avec le serveur
-		dialogueServeur = new ServerListener(Constante.IP_SERVEUR,Constante.NUMERO_PORT_ECOUTE_PAR_DEFAUT,this);
 		// de base l'acces serveur est ok, si un problème est detecté ensuite en tentant de le joindre, il passera a false
 		accesServeur = true;
 		
@@ -79,6 +82,11 @@ public class JeuPanel extends JPanel{
 		// ecran du Menu Multijoueur
 		ecranMenuMultijoueur = new EcranMenuMultijoueur(this);
 		
+		// ecran de creation d'une partie
+		ecranCreationPartie = new EcranCreationPartie(this);
+		
+		ecranJeu = new EcranJeu(this);
+		
 		/** ajout des écrans au container du gestionnaire d'écran */
 		this.add(ecranTitre,ecranTitre.getName());
 		this.add(ecranLoader,ecranLoader.getName());
@@ -87,9 +95,16 @@ public class JeuPanel extends JPanel{
 		this.add(ecranChoixTypeDePartie,ecranChoixTypeDePartie.getName());
 		this.add(ecranLogin,ecranLogin.getName());
 		this.add(ecranMenuMultijoueur,ecranMenuMultijoueur.getName());
+		this.add(ecranCreationPartie,ecranCreationPartie.getName());
+		this.add(ecranJeu,ecranJeu.getName());
 		
 		cardlayout.first(this); // on affiche le premier ecran, l'écran titre du jeu
 		
+	}
+	
+	public void deconnexion(){
+		dialogueServeur.deconnexion();
+		cardlayout.show(this,ecranChoixTypeDePartie.getName());
 	}
 	
 	public ServerListener getDialogueServeur(){
@@ -100,19 +115,32 @@ public class JeuPanel extends JPanel{
 		this.accesServeur = accesServeur;
 	}
 	
+	public boolean getAccesServeur(){
+		return accesServeur;
+	}
+	
+	
 	/**
 	 * méthode qui fait afficher au gestionnaire d'écran celui qui contient le loader, le changement d'écran est normalement assez rapide
 	 * pour que cet ecran ne soit pas visible mais sur un pc plus lent il serra utile
 	 **/
 	public void chargerEcranLoader(){
-		cardlayout.show(this,ecranLoader.getName()); // chargement de l'ecran loader
+		// création d'une instance de la classe DialogueAvec serveur fournissant une bibliothèque de fonction pour dialoguer avec le serveur
+		if (dialogueServeur == null) dialogueServeur = new ServerListener(Constante.IP_SERVEUR,Constante.NUMERO_PORT_ECOUTE_PAR_DEFAUT,this);
+		dialogueServeur.connect();
+		accesServeur = dialogueServeur.isConnected();
 		
-		String[] args = { Constante.COMMANDE_PING };
-		dialogueServeur.sendCommand(args);
+		if (accesServeur){
+			cardlayout.show(this,ecranLoader.getName()); // chargement de l'ecran loader
+			
+			String[] args = { Constante.COMMANDE_PING };
+			dialogueServeur.sendCommand(args);
+		}else{
+			cardlayout.show(this,ecranTestConnexionKO.getName());
+		}
 	}
 	
 	public void chargerEcranResultatTentativeConnection(){
-		((EcranChoixTypePartie)ecranChoixTypeDePartie).setMultijoueurPossible(accesServeur);
 		chargerEcranTestConnexion();
 	}
 	
@@ -144,8 +172,19 @@ public class JeuPanel extends JPanel{
 		System.out.println("bouton charger partie solo");
 	}
 	
+	public void chargerEcranCreationPartie(){
+		cardlayout.show(this,ecranCreationPartie.getName());
+	}
 	
-	public void lancerMultijoueur(){
+	public void chargerEcranAttenteJoueur(){
+		cardlayout.show(this,ecranLoader.getName());
+	}
+	
+	public void chargerEcranJeu(){
+		cardlayout.show(this,ecranJeu.getName());
+	}
+	
+	public void lancerMultijoueurs(){
 		cardlayout.show(this,ecranLogin.getName());
 	}
 	
@@ -156,13 +195,18 @@ public class JeuPanel extends JPanel{
 	
 	
 	public void chargerEcranMenuMultijoueur(){
-		// ecranMenuMultijoueur.rafraichirCadrePartie();
+		((EcranMenuMultijoueur)ecranMenuMultijoueur).rafraichirCadrePartie();
 		cardlayout.show(this,ecranMenuMultijoueur.getName());
+	}
+	
+	public EcranMenuMultijoueur getEcranMenuMultijoueur(){
+		return ((EcranMenuMultijoueur)ecranMenuMultijoueur);
 	}
 	
 	/** méthode qui permet de récupérer du serveur la liste des parties */
 	public void recuperationListePartie(){
-		// dialogueServeur.recupereListeParties();
+		String[] args = { Constante.COMMANDE_LISTE_PARTIES };
+		dialogueServeur.sendCommand(args);
 	}
 	
 	/** methode qui va mettre a jour la liste des parties dispo sur le serveur */

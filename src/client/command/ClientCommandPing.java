@@ -10,7 +10,7 @@ import client.ServerListener;
 public class ClientCommandPing extends ClientCommand{
 	
 	@Override
-	public void execute(ServerListener _server){
+	public void execute(ServerListener _server) {
 		boolean databaseConnected = new Boolean(arguments[0]);
 		
 		JeuPanel jeu = _server.getJeu();

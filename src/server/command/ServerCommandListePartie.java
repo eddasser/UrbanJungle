@@ -1,6 +1,12 @@
 package server.command;
 
+import java.util.ArrayList;
+
 import server.ClientListener;
+import server.Server;
+
+import common.Constante;
+import common.Partie;
 
 
 /**
@@ -11,8 +17,29 @@ public class ServerCommandListePartie extends ServerCommand{
 	@Override
 	public void execute(ClientListener _client){
 		// le client demande au serveur a recuperer la liste des parties crées
+		ArrayList<Partie> parties = Server.getParties();
+		String[] args = new String[parties.size() + 1];
 		
-		// _client.send(Server.getParties());// on envoie la liste des parties
+		args[0] = Constante.COMMANDE_LISTE_PARTIES;
+		
+		for (int i = 0 ; i < parties.size() ; i++){
+			Partie partie = parties.get(i);
+			
+			StringBuffer sb = new StringBuffer();
+			
+			sb.append(Integer.toString(i));
+			sb.append(Constante.MESSAGE_SEPARATOR);
+			sb.append(partie.getNomPartie());
+			sb.append(Constante.MESSAGE_SEPARATOR);
+			sb.append(Integer.toString(partie.getNbJoueur()));
+			sb.append(Constante.MESSAGE_SEPARATOR);
+			sb.append(partie.getEtatDeLaPartie());
+			sb.append(Constante.MESSAGE_SEPARATOR);
+			sb.append(Boolean.toString(partie.necessitePassword()));
+			
+			args[i + 1] = sb.toString();
+		}
+		
+		_client.send(args);
 	}
-	
 }

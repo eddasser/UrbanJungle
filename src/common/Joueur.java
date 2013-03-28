@@ -3,22 +3,32 @@ package common;
 import java.io.Serializable;
 import java.net.Socket;
 
+import server.ClientListener;
+
 public class Joueur implements Serializable{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	// info pour partie réseau
-	private Socket socket; // socket a utiliser pour contacter le client
+	private ClientListener clientListener; // socket a utiliser pour contacter le client
 	private String login;
 	private String password;
 	
 	// constructeur appelé par le serveur
-	public Joueur(Socket _socket,String _login,String _password){
-		socket = _socket;
+	public Joueur(ClientListener _clientListener,String _login,String _password){
+		clientListener = _clientListener;
 		login = _login;
 		password = _password;
 	}
 	
+	public Socket getSocket(){
+		return clientListener.getSocket();
+	}
+	
+	public void send(String[] args){
+		clientListener.send(args);
+	}
+	
 	@Override
 	public String toString(){
-		return socket + "\nlogin : " + login + "\nmot de passe : " + password;
+		return "\nlogin : " + login + "\nmot de passe : " + password;
 	}
 }
