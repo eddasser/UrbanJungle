@@ -18,7 +18,7 @@ public class Client{
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); // on definit l'opération par defaut de fermeture
 		frame.setResizable(false);
 		
-		frame.setContentPane(new JeuPanel());
+		frame.setContentPane(new JeuPanel(frame.getLayeredPane()));
 		frame.setVisible(true);
 	}
 }

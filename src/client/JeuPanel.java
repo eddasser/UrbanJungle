@@ -3,6 +3,7 @@ package client;
 import java.awt.CardLayout;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -12,12 +13,12 @@ import client.view.EcranChoixTypePartie;
 import client.view.EcranConnexionServeurImpossible;
 import client.view.EcranConnexionServeurPossible;
 import client.view.EcranCreationPartie;
-import client.view.EcranJeu;
 import client.view.EcranLoader;
 import client.view.EcranLogin;
 import client.view.EcranMenuMultijoueur;
 import client.view.EcranTitre;
 import client.view.NamedJPanel;
+import client.view.jeu.EcranJeu;
 
 import common.Constante;
 import common.Partie;
@@ -46,7 +47,7 @@ public class JeuPanel extends JPanel{
 	
 	private boolean accesServeur;
 	
-	public JeuPanel(){
+	public JeuPanel(JLayeredPane aLayeredPane){
 		super(cardlayout);
 		
 		// de base l'acces serveur est ok, si un problème est detecté ensuite en tentant de le joindre, il passera a false
@@ -85,7 +86,7 @@ public class JeuPanel extends JPanel{
 		// ecran de creation d'une partie
 		ecranCreationPartie = new EcranCreationPartie(this);
 		
-		ecranJeu = new EcranJeu(this);
+		ecranJeu = new EcranJeu(this,aLayeredPane);
 		
 		/** ajout des écrans au container du gestionnaire d'écran */
 		this.add(ecranTitre,ecranTitre.getName());
@@ -164,6 +165,7 @@ public class JeuPanel extends JPanel{
 	public void lancerPartieSolo(){
 		// TODO Auto-generated method stub
 		System.out.println("bouton lancer partie solo");
+		chargerEcranJeu();
 	}
 	
 	
@@ -182,6 +184,7 @@ public class JeuPanel extends JPanel{
 	
 	public void chargerEcranJeu(){
 		cardlayout.show(this,ecranJeu.getName());
+		((EcranJeu)ecranJeu).afficherPlateau();
 	}
 	
 	public void lancerMultijoueurs(){
