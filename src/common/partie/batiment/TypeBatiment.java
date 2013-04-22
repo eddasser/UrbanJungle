@@ -4,7 +4,7 @@ package common.partie.batiment;
  * @author omar
  */
 public enum TypeBatiment{
-	QG, VENTE_DROGUE, VENTE_ALCOOL, VENTE_ARME, BOOKMAKER;
+	QG, GARAGE, VENTE_DROGUE, VENTE_ALCOOL, VENTE_ARME, BOOKMAKER;
 	
 	public static int getNiveauBase(TypeBatiment type){
 		return 1;
@@ -32,6 +32,10 @@ public enum TypeBatiment{
 			
 			case VENTE_ARME:
 				revenu = 500;
+				break;
+			
+			case GARAGE:
+				revenu = 300;
 				break;
 		}
 		
@@ -62,6 +66,10 @@ public enum TypeBatiment{
 			case VENTE_ARME:
 				ptsVie = 500;
 				break;
+			
+			case GARAGE:
+				ptsVie = 100;
+				break;
 		}
 		
 		return ptsVie;
@@ -85,6 +93,10 @@ public enum TypeBatiment{
 			
 			case VENTE_ARME:
 				prix = 5000;
+				break;
+			
+			case GARAGE:
+				prix = 1000;
 				break;
 		}
 		
@@ -113,6 +125,10 @@ public enum TypeBatiment{
 			
 			case VENTE_ARME:
 				montant = 500;
+				break;
+			
+			case GARAGE:
+				montant = 200;
 				break;
 		}
 		
