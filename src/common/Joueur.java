@@ -2,11 +2,14 @@ package common;
 
 import java.net.Socket;
 import java.util.ArrayList;
-
-import common.partie.batiment.Batiment;
-import common.partie.unite.Unite;
+import java.util.HashMap;
 
 import server.ClientListener;
+
+import common.partie.batiment.Batiment;
+import common.partie.batiment.TypeBatiment;
+import common.partie.unite.TypeUnite;
+import common.partie.unite.Unite;
 
 public class Joueur{
 	// info pour partie réseau
@@ -18,6 +21,10 @@ public class Joueur{
 	private ArrayList<Unite> unites;
 	private ArrayList<Batiment> batiments;
 	
+	// niveau pour les types de batiments et unités pour le joueur courant
+	private HashMap<TypeBatiment,Integer> niveauBatiment;
+	private HashMap<TypeUnite,Integer> niveauUnite;
+	
 	// constructeur appelé par le serveur
 	public Joueur(ClientListener _clientListener,String _login,String _password){
 		clientListener = _clientListener;
@@ -25,6 +32,16 @@ public class Joueur{
 		password = _password;
 		unites = new ArrayList<Unite>();
 		batiments = new ArrayList<Batiment>();
+		
+		niveauBatiment = new HashMap<TypeBatiment,Integer>();
+		for (TypeBatiment type : TypeBatiment.values()){
+			niveauBatiment.put(type,TypeBatiment.getNiveauBase(type));
+		}
+		
+		niveauUnite = new HashMap<TypeUnite,Integer>();
+		for (TypeUnite type : TypeUnite.values()){
+			niveauUnite.put(type,TypeUnite.getNiveauBase(type));
+		}
 	}
 	
 	public Socket getSocket(){
@@ -39,28 +56,28 @@ public class Joueur{
 	public String toString(){
 		return "\nlogin : " + login + "\nmot de passe : " + password;
 	}
-
-	public ArrayList<Unite> getUnites() {
+	
+	public ArrayList<Unite> getUnites(){
 		return unites;
 	}
-
-	public void setUnites(ArrayList<Unite> unites) {
+	
+	public void setUnites(ArrayList<Unite> unites){
 		this.unites = unites;
 	}
-
-	public ArrayList<Batiment> getBatiments() {
+	
+	public ArrayList<Batiment> getBatiments(){
 		return batiments;
 	}
-
-	public void setBatiments(ArrayList<Batiment> batiments) {
+	
+	public void setBatiments(ArrayList<Batiment> batiments){
 		this.batiments = batiments;
 	}
 	
 	public void ajouterBatiment(Batiment b){
-		this.batiments.add(b);
+		batiments.add(b);
 	}
 	
 	public void ajouterUnite(Unite u){
-		this.unites.add(u);
+		unites.add(u);
 	}
 }
