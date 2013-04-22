@@ -104,6 +104,10 @@ public class JeuPanel extends JPanel{
 		
 	}
 	
+	public static EcranJeu getEcranJeu(){
+		return (EcranJeu)ecranJeu;
+	}
+	
 	public void deconnexion(){
 		dialogueServeur.deconnexion();
 		cardlayout.show(this,ecranChoixTypeDePartie.getName());

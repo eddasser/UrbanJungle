@@ -29,6 +29,9 @@ public class EcranJeu extends NamedJPanel{
 	private JPanel ongletBatiment;
 	private JPanel ongletUnite;
 	
+	
+	private EcranAttenteTour ecranAttenteTour;
+	
 	private JLabel labelArgent = new JLabel("ARGENT :",JLabel.RIGHT);
 	private Font font = new Font("Serif",Font.BOLD,30);
 	
@@ -43,6 +46,8 @@ public class EcranJeu extends NamedJPanel{
 		ongletMenu = new OngletMenuPanel(jeu);
 		ongletBatiment = new OngletBatimentPanel(jeu);
 		ongletUnite = new OngletUnitePanel(jeu);
+		ecranAttenteTour = new EcranAttenteTour(jeu);
+		cacherEcranAttente();
 	}
 	
 	public void afficherPlateau(){
@@ -53,6 +58,8 @@ public class EcranJeu extends NamedJPanel{
 		layeredPane.add(ongletBatiment,new Integer(0));
 		layeredPane.add(ongletUnite,new Integer(0));
 		layeredPane.add(labelArgent,new Integer(-100));
+		
+		layeredPane.add(ecranAttenteTour,new Integer(200));
 		
 		update();
 		labelArgent.setFont(font);
@@ -161,6 +168,14 @@ public class EcranJeu extends NamedJPanel{
 			cacherTousLesOngets();
 			ongletUnite.setVisible(true);
 		}
+	}
+	
+	public void afficherEcranAttente(){
+		ecranAttenteTour.setVisible(true);
+	}
+	
+	public void cacherEcranAttente(){
+		ecranAttenteTour.setVisible(false);
 	}
 	
 	
