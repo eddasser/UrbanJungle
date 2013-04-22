@@ -1,7 +1,6 @@
 package common.partie.unite;
 
 
-
 /**
  * @author omar
  */
@@ -9,7 +8,7 @@ public enum TypeUnite{
 	PETITE_FRAPPE, HOMME_MAIN, CAID, BASTONNEUR, CONSTRUCTEUR;
 	
 	public static int getNiveauBase(TypeUnite type){
-		return 1;
+		return 0;
 	}
 	
 	public static int getPointDeVie(TypeUnite type,int niveau){

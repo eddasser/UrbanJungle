@@ -24,7 +24,7 @@ import common.partie.batiment.TypeBatiment;
 public class OngletBatimentPanel extends OngletPanel{
 	
 	public OngletBatimentPanel(JeuPanel jeu){
-		super("Création de batiments",jeu);
+		super("Création de bâtiments",jeu);
 		
 		// Border used as padding
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);

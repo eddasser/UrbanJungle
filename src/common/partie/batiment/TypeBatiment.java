@@ -7,7 +7,7 @@ public enum TypeBatiment{
 	QG, GARAGE, VENTE_DROGUE, VENTE_ALCOOL, VENTE_ARME, BOOKMAKER;
 	
 	public static int getNiveauBase(TypeBatiment type){
-		return 1;
+		return 0;
 	}
 	
 	public static int getRevenu(TypeBatiment type,int niveau){
