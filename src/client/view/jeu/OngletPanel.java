@@ -12,6 +12,8 @@ import javax.swing.SwingConstants;
  */
 public abstract class OngletPanel extends JPanel{
 	private Color backgroundColor = new Color(86,135,188);
+	protected JPanel panelTitre = new JPanel();
+	protected JPanel panelContenu = new JPanel();
 	
 	public OngletPanel(String name){
 		super();
@@ -19,9 +21,15 @@ public abstract class OngletPanel extends JPanel{
 		setOpaque(false);
 		
 		setLayout(null);
+		panelTitre.setBounds(100,100,getWidth() - 150,75);
+		panelContenu.setBounds(100,200,getWidth() - 150,getHeight() - 250);
+		this.add(panelTitre);
+		this.add(panelContenu);
+		
+		
 		JLabel label = new JLabel("<html><h1>" + name + "</h1></html>",SwingConstants.CENTER);
-		label.setBounds(getWidth() / 2 - 50,50,150,100);
-		this.add(label);
+		// label.setBounds(getWidth() / 2 - 50,50,150,100);
+		panelTitre.add(label);
 	}
 	
 	@Override
