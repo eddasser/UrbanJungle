@@ -1,6 +1,7 @@
 package common.partie.unite;
 
 
+
 /**
  * @author omar
  */
@@ -11,7 +12,7 @@ public enum TypeUnite{
 		return 1;
 	}
 	
-	public static int getPointDeVieBase(TypeUnite type){
+	public static int getPointDeVie(TypeUnite type,int niveau){
 		int ptsVie = 0;
 		
 		switch(type){
@@ -36,11 +37,13 @@ public enum TypeUnite{
 				break;
 		}
 		
+		ptsVie += ptsVie * niveau / 10;
+		
 		return ptsVie;
 	}
 	
 	
-	public static int getPointAttaqueBase(TypeUnite type){
+	public static int getPointAttaque(TypeUnite type,int niveau){
 		int ptsAttaque = 0;
 		
 		switch(type){
@@ -65,10 +68,12 @@ public enum TypeUnite{
 				break;
 		}
 		
+		ptsAttaque += ptsAttaque * niveau / 10;
+		
 		return ptsAttaque;
 	}
 	
-	public static int getSalaireBase(TypeUnite type){
+	public static int getSalaire(TypeUnite type,int niveau){
 		int salaire = 0;
 		
 		switch(type){
@@ -93,10 +98,12 @@ public enum TypeUnite{
 				break;
 		}
 		
+		salaire += salaire * niveau / 10;
+		
 		return salaire;
 	}
 	
-	public static int getVitesseBase(TypeUnite type){
+	public static int getVitesse(TypeUnite type,int niveau){
 		int vitesse = 0;
 		
 		switch(type){
@@ -121,10 +128,12 @@ public enum TypeUnite{
 				break;
 		}
 		
+		vitesse += vitesse * niveau / 10;
+		
 		return vitesse;
 	}
 	
-	public static int getMontantLevelUpBase(TypeUnite type){
+	public static int getMontantLevelUp(TypeUnite type,int niveau){
 		int montant = 0;
 		
 		switch(type){
@@ -149,6 +158,39 @@ public enum TypeUnite{
 				break;
 		}
 		
+		montant += montant * niveau / 10;
+		
 		return montant;
+	}
+	
+	
+	public static int getPrix(TypeUnite type,int niveau){
+		int prix = -1;
+		
+		switch(type){
+			case PETITE_FRAPPE:
+				prix = 100;
+				break;
+			
+			case HOMME_MAIN:
+				prix = 100;
+				break;
+			
+			case CAID:
+				prix = 100;
+				break;
+			
+			case BASTONNEUR:
+				prix = 100;
+				break;
+			
+			case CONSTRUCTEUR:
+				prix = 100;
+				break;
+		}
+		
+		prix += prix * niveau / 10;
+		
+		return prix;
 	}
 }

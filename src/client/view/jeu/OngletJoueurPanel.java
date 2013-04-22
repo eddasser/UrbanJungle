@@ -2,14 +2,16 @@ package client.view.jeu;
 
 import java.awt.Graphics;
 
+import client.JeuPanel;
+
 
 /**
  * @author omar
  */
 public class OngletJoueurPanel extends OngletPanel{
 	
-	public OngletJoueurPanel(){
-		super("Joueurs");
+	public OngletJoueurPanel(JeuPanel jeu){
+		super("Joueurs",jeu);
 	}
 	
 	@Override

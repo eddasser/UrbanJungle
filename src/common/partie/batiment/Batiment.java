@@ -17,7 +17,7 @@ public abstract class Batiment{
 		this.type = type;
 		this.position = position;
 		niveau = TypeBatiment.getNiveauBase(type);
-		pointsVie = TypeBatiment.getPointDeVieBase(type);
+		pointsVie = TypeBatiment.getPointDeVie(type,niveau);
 	}
 	
 	public int getNiveau(){

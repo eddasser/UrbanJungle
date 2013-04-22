@@ -1,5 +1,8 @@
 package common;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 /**
  * @author omar
  */
@@ -37,4 +40,14 @@ public class Constante{
 	
 	
 	public final static String MESSAGE_SEPARATOR = GENERAL_CONFIGURATION.getStringValue("MESSAGE_SEPARATOR");
+	
+	
+	/*******************************************/
+	private final static DecimalFormatSymbols DECIMAL_FORMAT_SYMBOLS = DecimalFormatSymbols.getInstance();
+	private final static DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("###,###.##",DECIMAL_FORMAT_SYMBOLS);
+	
+	public static String formatArgent(int number){
+		DECIMAL_FORMAT_SYMBOLS.setGroupingSeparator(' ');
+		return DECIMAL_FORMATTER.format(number) + " $";
+	}
 }

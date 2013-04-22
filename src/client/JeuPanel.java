@@ -43,13 +43,14 @@ public class JeuPanel extends JPanel{
 	private static NamedJPanel ecranCreationPartie;
 	private static NamedJPanel ecranJeu;
 	
+	private Client client;
 	private ServerListener dialogueServeur;
 	
 	private boolean accesServeur;
 	
-	public JeuPanel(JLayeredPane aLayeredPane){
+	public JeuPanel(JLayeredPane aLayeredPane,Client client){
 		super(cardlayout);
-		
+		this.client = client;
 		// de base l'acces serveur est ok, si un problème est detecté ensuite en tentant de le joindre, il passera a false
 		accesServeur = true;
 		
@@ -120,6 +121,13 @@ public class JeuPanel extends JPanel{
 		return accesServeur;
 	}
 	
+	public Client getClient(){
+		return client;
+	}
+	
+	public void setClient(Client client){
+		this.client = client;
+	}
 	
 	/**
 	 * méthode qui fait afficher au gestionnaire d'écran celui qui contient le loader, le changement d'écran est normalement assez rapide

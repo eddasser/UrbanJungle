@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import client.JeuPanel;
 import client.view.RoundedPanel;
 
 /**
@@ -16,9 +17,11 @@ public abstract class OngletPanel extends JPanel{
 	private Color backgroundColor = new Color(86,135,188);
 	protected JPanel panelTitre = new RoundedPanel();
 	protected JPanel panelContenu = new RoundedPanel();
+	protected JeuPanel jeu;
 	
-	public OngletPanel(String name){
+	public OngletPanel(String name,JeuPanel jeu){
 		super();
+		this.jeu = jeu;
 		setBounds(0,0,995,585);
 		setOpaque(false);
 		

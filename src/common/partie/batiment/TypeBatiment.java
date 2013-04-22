@@ -10,7 +10,7 @@ public enum TypeBatiment{
 		return 1;
 	}
 	
-	public static int getRevenuBase(TypeBatiment type){
+	public static int getRevenu(TypeBatiment type,int niveau){
 		int revenu = 0;
 		
 		switch(type){
@@ -39,11 +39,13 @@ public enum TypeBatiment{
 				break;
 		}
 		
+		revenu += revenu * niveau / 10;
+		
 		return revenu;
 	}
 	
 	
-	public static int getPointDeVieBase(TypeBatiment type){
+	public static int getPointDeVie(TypeBatiment type,int niveau){
 		int ptsVie = 0;
 		
 		switch(type){
@@ -72,10 +74,12 @@ public enum TypeBatiment{
 				break;
 		}
 		
+		ptsVie += ptsVie * niveau / 10;
+		
 		return ptsVie;
 	}
 	
-	public static int getPrixBase(TypeBatiment type){
+	public static int getPrix(TypeBatiment type,int niveau){
 		int prix = -1;
 		
 		switch(type){
@@ -100,10 +104,12 @@ public enum TypeBatiment{
 				break;
 		}
 		
+		prix += prix * niveau / 10;
+		
 		return prix;
 	}
 	
-	public static int getMontantLevelUp(TypeBatiment type){
+	public static int getMontantLevelUp(TypeBatiment type,int niveau){
 		int montant = 0;
 		
 		switch(type){
@@ -131,6 +137,8 @@ public enum TypeBatiment{
 				montant = 200;
 				break;
 		}
+		
+		montant += montant * niveau / 10;
 		
 		return montant;
 	}

@@ -25,13 +25,12 @@ public class Joueur{
 	private HashMap<TypeBatiment,Integer> niveauBatiment;
 	private HashMap<TypeUnite,Integer> niveauUnite;
 	
-	// constructeur appelé par le serveur
-	public Joueur(ClientListener _clientListener,String _login,String _password){
-		clientListener = _clientListener;
-		login = _login;
-		password = _password;
+	private int argent;
+	
+	public Joueur(){
 		unites = new ArrayList<Unite>();
 		batiments = new ArrayList<Batiment>();
+		argent = 5000;
 		
 		niveauBatiment = new HashMap<TypeBatiment,Integer>();
 		for (TypeBatiment type : TypeBatiment.values()){
@@ -42,6 +41,22 @@ public class Joueur{
 		for (TypeUnite type : TypeUnite.values()){
 			niveauUnite.put(type,TypeUnite.getNiveauBase(type));
 		}
+	}
+	
+	// constructeur appelé par le serveur
+	public Joueur(ClientListener _clientListener,String _login,String _password){
+		this();
+		clientListener = _clientListener;
+		login = _login;
+		password = _password;
+	}
+	
+	public int getNiveauBatiment(TypeBatiment type){
+		return niveauBatiment.get(type);
+	}
+	
+	public int getNiveauUnite(TypeUnite type){
+		return niveauUnite.get(type);
 	}
 	
 	public Socket getSocket(){
@@ -67,6 +82,14 @@ public class Joueur{
 	
 	public ArrayList<Batiment> getBatiments(){
 		return batiments;
+	}
+	
+	public int getArgent(){
+		return argent;
+	}
+	
+	public void setArgent(int argent){
+		this.argent = argent;
 	}
 	
 	public void setBatiments(ArrayList<Batiment> batiments){

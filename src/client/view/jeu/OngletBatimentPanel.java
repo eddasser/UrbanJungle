@@ -9,6 +9,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
+import client.Client;
+import client.JeuPanel;
+
+import common.Constante;
+import common.Joueur;
 import common.Translator;
 import common.partie.batiment.TypeBatiment;
 
@@ -18,8 +23,8 @@ import common.partie.batiment.TypeBatiment;
  */
 public class OngletBatimentPanel extends OngletPanel{
 	
-	public OngletBatimentPanel(){
-		super("Création de batiments");
+	public OngletBatimentPanel(JeuPanel jeu){
+		super("Création de batiments",jeu);
 		
 		// Border used as padding
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
@@ -27,10 +32,14 @@ public class OngletBatimentPanel extends OngletPanel{
 		TypeBatiment typesBatiment[] = TypeBatiment.values();
 		panelContenu.setLayout(new GridLayout(typesBatiment.length - 1,1));
 		for (int i = 0 ; i < typesBatiment.length ; i++){
-			if (typesBatiment[i] != TypeBatiment.QG){
-				JLabel label = new JLabel(typesBatiment[i].name());
+			TypeBatiment type = typesBatiment[i];
+			if (type != TypeBatiment.QG){
+				Client client = jeu.getClient();
+				Joueur joueur = client.getJoueur();
+				int niveau = joueur.getNiveauBatiment(type);
+				JLabel label = new JLabel(type.name() + " (" + Constante.formatArgent(TypeBatiment.getPrix(type,niveau)) + ")");
 				label.setBorder(BorderFactory.createCompoundBorder(paddingBorder,paddingBorder));
-				Icon icon = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/" + typesBatiment[i].name() + ".png");
+				Icon icon = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/" + type.name() + ".png");
 				label.setIcon(icon);
 				panelContenu.add(label);
 			}

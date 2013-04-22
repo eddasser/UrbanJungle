@@ -7,19 +7,22 @@ public class Partie{
 	private String nomPartie; // nom donné a la parti par son créateur
 	private int nbJoueur; // nb de joueur requis pour cette partie
 	private ArrayList<Joueur> listeParticipants; // liste des joueurs participants a cette partie
-	private Joueur joueurCourant; // Joueur qui joue a un instant donne (change a chaque tour) 
+	private Joueur joueurCourant; // Joueur qui joue a un instant donne (change a chaque tour)
 	private Etat etatDeLaPartie; // etat de la partie possible : "en cours" ou "en attente"
 	private String password;// password de la partie, si null alors la partie est public sinon elle est privé
 	
-	
-	public Partie(String nomPartieParam,int nbJoueurParam,String passwordParam){
-		nomPartie = nomPartieParam;
-		nbJoueur = nbJoueurParam;
-		
+	public Partie(){
+		nomPartie = "";
+		nbJoueur = 0;
 		listeParticipants = new ArrayList<Joueur>();
 		etatDeLaPartie = Etat.EN_ATTENTE_JOUEUR;
+	}
+	
+	public Partie(String nomPartieParam,int nbJoueurParam,String passwordParam){
+		this();
+		nomPartie = nomPartieParam;
+		nbJoueur = nbJoueurParam;
 		password = passwordParam;
-		
 	}
 	
 	public void notifierDebutJeu(){
@@ -105,12 +108,12 @@ public class Partie{
 	public void setJoueurAdmin(Joueur joueurAdmin){
 		listeParticipants.set(0,joueurAdmin);
 	}
-
-	public Joueur getJoueurCourant() {
+	
+	public Joueur getJoueurCourant(){
 		return joueurCourant;
 	}
-
-	public void setJoueurCourant(Joueur joueurCourant) {
+	
+	public void setJoueurCourant(Joueur joueurCourant){
 		this.joueurCourant = joueurCourant;
 	}
 }

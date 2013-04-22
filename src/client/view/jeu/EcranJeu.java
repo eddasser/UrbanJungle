@@ -1,31 +1,48 @@
 package client.view.jeu;
 
+import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
+import client.Client;
 import client.JeuPanel;
 import client.view.NamedJPanel;
 
 import common.Constante;
+import common.Joueur;
 
 
 public class EcranJeu extends NamedJPanel{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private JLayeredPane layeredPane;
 	
-	private JPanel fond = new FondJeu();
-	private JPanel ongletJoueur = new OngletJoueurPanel();
-	private JPanel ongletVille = new OngletVillePanel();
-	private JPanel ongletMenu = new OngletMenuPanel();
-	private JPanel ongletBatiment = new OngletBatimentPanel();
-	private JPanel ongletUnite = new OngletUnitePanel();
+	private JeuPanel jeu;
 	
-	public EcranJeu(JeuPanel jeu,JLayeredPane aLayeredPane){
+	private JPanel fond = new FondJeu();
+	private JPanel ongletJoueur;
+	private JPanel ongletVille;
+	private JPanel ongletMenu;
+	private JPanel ongletBatiment;
+	private JPanel ongletUnite;
+	
+	private JLabel labelArgent = new JLabel("ARGENT :",JLabel.RIGHT);
+	private Font font = new Font("Serif",Font.BOLD,30);
+	
+	public EcranJeu(JeuPanel jeu,JLayeredPane layeredPane){
 		super("ecranJeu");
-		layeredPane = aLayeredPane;
+		this.jeu = jeu;
+		this.layeredPane = layeredPane;
+		
+		
+		ongletJoueur = new OngletJoueurPanel(jeu);
+		ongletVille = new OngletVillePanel(jeu);
+		ongletMenu = new OngletMenuPanel(jeu);
+		ongletBatiment = new OngletBatimentPanel(jeu);
+		ongletUnite = new OngletUnitePanel(jeu);
 	}
 	
 	public void afficherPlateau(){
@@ -35,6 +52,11 @@ public class EcranJeu extends NamedJPanel{
 		layeredPane.add(ongletMenu,new Integer(0));
 		layeredPane.add(ongletBatiment,new Integer(0));
 		layeredPane.add(ongletUnite,new Integer(0));
+		layeredPane.add(labelArgent,new Integer(-100));
+		
+		update();
+		labelArgent.setFont(font);
+		labelArgent.setBounds(Constante.LARGEUR_FENETRE_PRINCIPALE - 350,Constante.HAUTEUR_FENETRE_PRINCIPALE - 110,300,100);
 		
 		cacherTousLesOngets();
 		
@@ -139,5 +161,13 @@ public class EcranJeu extends NamedJPanel{
 			cacherTousLesOngets();
 			ongletUnite.setVisible(true);
 		}
+	}
+	
+	
+	public void update(){
+		Client client = jeu.getClient();
+		Joueur joueur = client.getJoueur();
+		int argent = joueur.getArgent();
+		labelArgent.setText(Constante.formatArgent(argent));
 	}
 }

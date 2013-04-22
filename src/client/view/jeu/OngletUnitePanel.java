@@ -9,6 +9,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
+import client.Client;
+import client.JeuPanel;
+
+import common.Constante;
+import common.Joueur;
 import common.Translator;
 import common.partie.unite.TypeUnite;
 
@@ -18,8 +23,8 @@ import common.partie.unite.TypeUnite;
  */
 public class OngletUnitePanel extends OngletPanel{
 	
-	public OngletUnitePanel(){
-		super("Création d'unités");
+	public OngletUnitePanel(JeuPanel jeu){
+		super("Création d'unités",jeu);
 		
 		// Border used as padding
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
@@ -27,9 +32,14 @@ public class OngletUnitePanel extends OngletPanel{
 		TypeUnite typesUnite[] = TypeUnite.values();
 		panelContenu.setLayout(new GridLayout(typesUnite.length,1));
 		for (int i = 0 ; i < typesUnite.length ; i++){
-			JLabel label = new JLabel(typesUnite[i].name());
+			TypeUnite type = typesUnite[i];
+			Client client = jeu.getClient();
+			Joueur joueur = client.getJoueur();
+			int niveau = joueur.getNiveauUnite(type);
+			
+			JLabel label = new JLabel(type.name() + " (" + Constante.formatArgent(TypeUnite.getPrix(type,niveau)) + ")");
 			label.setBorder(BorderFactory.createCompoundBorder(paddingBorder,paddingBorder));
-			Icon icon = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/" + typesUnite[i].name() + ".png");
+			Icon icon = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/" + type.name() + ".png");
 			label.setIcon(icon);
 			panelContenu.add(label);
 		}

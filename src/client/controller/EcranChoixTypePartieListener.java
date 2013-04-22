@@ -7,6 +7,9 @@ import client.JeuPanel;
 import client.view.EcranChoixTypePartie;
 import client.view.JCoolButton;
 
+import common.Joueur;
+import common.Partie;
+
 
 public class EcranChoixTypePartieListener implements ActionListener{
 	private JeuPanel jeu;
@@ -25,6 +28,10 @@ public class EcranChoixTypePartieListener implements ActionListener{
 		
 		if (boutonClique.equals(ecranChoixTypeDePartie.getPartieSolo())) // partie solo
 		{
+			Joueur joueur = new Joueur(null,"Local","");
+			Partie partie = new Partie("Partie Locale",2,"");
+			jeu.getClient().setJoueur(joueur);
+			jeu.getClient().setPartie(partie);
 			jeu.lancerPartieSolo();
 		}else if (boutonClique.equals(ecranChoixTypeDePartie.getChargerPartie())) // charger partie
 		{
