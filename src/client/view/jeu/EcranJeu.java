@@ -29,7 +29,7 @@ public class EcranJeu extends NamedJPanel{
 	private JPanel ongletBatiment;
 	private JPanel ongletUnite;
 	
-	
+	private EcranPlateau ecranPlateau;
 	private EcranAttenteTour ecranAttenteTour;
 	
 	private JLabel labelArgent = new JLabel("ARGENT :",JLabel.RIGHT);
@@ -47,6 +47,7 @@ public class EcranJeu extends NamedJPanel{
 		ongletBatiment = new OngletBatimentPanel(jeu);
 		ongletUnite = new OngletUnitePanel(jeu);
 		ecranAttenteTour = new EcranAttenteTour(jeu);
+		ecranPlateau = new EcranPlateau(jeu);
 		cacherEcranAttente();
 	}
 	
@@ -58,6 +59,8 @@ public class EcranJeu extends NamedJPanel{
 		layeredPane.add(ongletBatiment,new Integer(0));
 		layeredPane.add(ongletUnite,new Integer(0));
 		layeredPane.add(labelArgent,new Integer(-100));
+		
+		layeredPane.add(ecranPlateau,new Integer(100));
 		
 		layeredPane.add(ecranAttenteTour,new Integer(200));
 		

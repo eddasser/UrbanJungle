@@ -42,6 +42,12 @@ public class Constante{
 	public final static String MESSAGE_SEPARATOR = GENERAL_CONFIGURATION.getStringValue("MESSAGE_SEPARATOR");
 	
 	
+	public final static int LARGEUR_PLATEAU = 900;
+	public final static int HAUTEUR_PLATEAU = 520;
+	public final static int LARGEUR_CASE = 20;
+	public final static int HAUTEUR_CASE = 20;
+	
+	
 	/*******************************************/
 	private final static DecimalFormatSymbols DECIMAL_FORMAT_SYMBOLS = DecimalFormatSymbols.getInstance();
 	private final static DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("###,###.##",DECIMAL_FORMAT_SYMBOLS);

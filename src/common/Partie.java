@@ -2,6 +2,8 @@ package common;
 
 import java.util.ArrayList;
 
+import common.partie.plateau.Plateau;
+
 
 public class Partie{
 	private String nomPartie; // nom donné a la parti par son créateur
@@ -10,11 +12,13 @@ public class Partie{
 	private Joueur joueurCourant; // Joueur qui joue a un instant donne (change a chaque tour)
 	private Etat etatDeLaPartie; // etat de la partie possible : "en cours" ou "en attente"
 	private String password;// password de la partie, si null alors la partie est public sinon elle est privé
+	private Plateau plateau;// plateau de jeu
 	
 	public Partie(){
 		nomPartie = "";
 		nbJoueur = 0;
 		listeParticipants = new ArrayList<Joueur>();
+		plateau = new Plateau();
 		etatDeLaPartie = Etat.EN_ATTENTE_JOUEUR;
 	}
 	
@@ -116,4 +120,13 @@ public class Partie{
 	public void setJoueurCourant(Joueur joueurCourant){
 		this.joueurCourant = joueurCourant;
 	}
+	
+	public Plateau getPlateau(){
+		return plateau;
+	}
+	
+	public void setPlateau(Plateau plateau){
+		this.plateau = plateau;
+	}
+	
 }
