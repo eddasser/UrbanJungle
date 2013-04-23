@@ -11,6 +11,7 @@ import javax.swing.border.Border;
 
 import client.Client;
 import client.JeuPanel;
+import client.controller.OngletUniteListener;
 
 import common.Constante;
 import common.Joueur;
@@ -46,6 +47,8 @@ public class OngletUnitePanel extends OngletPanel{
 			Icon icon = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/" + type.name() + ".png");
 			label.setIcon(icon);
 			panelContenu.add(label);
+			
+			label.addMouseListener(new OngletUniteListener(jeu,joueur,type));
 		}
 	}
 	

@@ -8,6 +8,7 @@ import server.ClientListener;
 
 import common.partie.batiment.Batiment;
 import common.partie.batiment.TypeBatiment;
+import common.partie.plateau.Case;
 import common.partie.unite.TypeUnite;
 import common.partie.unite.Unite;
 
@@ -67,6 +68,16 @@ public class Joueur{
 	
 	public void decrementArgent(int montant){
 		argent -= montant;
+	}
+	
+	public Case getPositionQG(){
+		Case position = null;
+		for (int i = 0 ; position == null && i < batiments.size() ; i++){
+			if (batiments.get(i).getType() == TypeBatiment.QG){
+				position = batiments.get(i).getPosition();
+			}
+		}
+		return position;
 	}
 	
 	public int getNiveauBatiment(TypeBatiment type){

@@ -96,11 +96,11 @@ public class EcranPlateau extends JPanel{
 				int y = case_unite.getY();
 				// affiche le coutour de l'unite (avec la couleur du joueur)
 				g.setColor(colorJoueur);
-				g.drawOval(x,y,Constante.LARGEUR_CASE,Constante.HAUTEUR_CASE);
+				g.fillOval(x,y,Constante.LARGEUR_CASE,Constante.HAUTEUR_CASE);
 				// affiche l'interieur de l'unite (avec la couleur du type d'unite)
 				g.setColor(colorUnite);
-				g.drawOval(x + epaisseurContour,y + epaisseurContour,Constante.LARGEUR_CASE - epaisseurContour,Constante.HAUTEUR_CASE
-						- epaisseurContour);
+				g.fillOval(x + epaisseurContour,y + epaisseurContour,Constante.LARGEUR_CASE - 2 * epaisseurContour,Constante.HAUTEUR_CASE - 2
+						* epaisseurContour);
 				
 			}
 		}
