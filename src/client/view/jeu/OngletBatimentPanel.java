@@ -40,6 +40,7 @@ public class OngletBatimentPanel extends OngletPanel{
 				JLabel label = new JLabel(type.name() + " (" + Constante.formatArgent(TypeBatiment.getPrix(type,niveau)) + ")");
 				label.setBorder(BorderFactory.createCompoundBorder(paddingBorder,paddingBorder));
 				Icon icon = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/" + type.name() + ".png");
+				// Icon icon = TypeBatiment.getIcon(type);
 				label.setIcon(icon);
 				panelContenu.add(label);
 			}

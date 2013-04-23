@@ -1,5 +1,7 @@
 package common.partie.unite;
 
+import java.awt.Color;
+
 
 /**
  * @author omar
@@ -9,6 +11,34 @@ public enum TypeUnite{
 	
 	public static int getNiveauBase(TypeUnite type){
 		return 0;
+	}
+	
+	public static Color getColor(TypeUnite type){
+		Color color = null;
+		
+		switch(type){
+			case PETITE_FRAPPE:
+				color = Color.lightGray;
+				break;
+			
+			case HOMME_MAIN:
+				color = Color.darkGray;
+				break;
+			
+			case CAID:
+				color = Color.black;
+				break;
+			
+			case BASTONNEUR:
+				color = Color.yellow;
+				break;
+			
+			case CONSTRUCTEUR:
+				color = Color.green;
+				break;
+		}
+		
+		return color;
 	}
 	
 	public static int getPointDeVie(TypeUnite type,int niveau){

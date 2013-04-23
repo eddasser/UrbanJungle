@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
 import client.JeuPanel;
 import client.view.RoundedPanel;
@@ -33,6 +34,8 @@ public abstract class OngletPanel extends JPanel{
 		
 		panelTitre.setBackground(Color.LIGHT_GRAY);
 		panelContenu.setBackground(Color.LIGHT_GRAY);
+		
+		panelContenu.setBorder(new EmptyBorder(10,10,10,10));
 		
 		JLabel label = new JLabel("<html><h1>" + name + "</h1></html>",SwingConstants.CENTER);
 		// label.setBounds(getWidth() / 2 - 50,50,150,100);

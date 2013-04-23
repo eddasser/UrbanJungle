@@ -1,5 +1,6 @@
 package client.view.jeu;
 
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -32,6 +33,7 @@ public class EcranJeu extends NamedJPanel{
 	private EcranPlateau ecranPlateau;
 	private EcranAttenteTour ecranAttenteTour;
 	
+	private JLabel labelCouleurJoueur = new JLabel();
 	private JLabel labelArgent = new JLabel("ARGENT :",JLabel.RIGHT);
 	private Font font = new Font("Serif",Font.BOLD,30);
 	
@@ -39,7 +41,6 @@ public class EcranJeu extends NamedJPanel{
 		super("ecranJeu");
 		this.jeu = jeu;
 		this.layeredPane = layeredPane;
-		
 		
 		ongletJoueur = new OngletJoueurPanel(jeu);
 		ongletVille = new OngletVillePanel(jeu);
@@ -56,6 +57,8 @@ public class EcranJeu extends NamedJPanel{
 		layeredPane.add(labelArgent,new Integer(-2000));
 		layeredPane.add(ecranPlateau,new Integer(-1000));
 		
+		layeredPane.add(labelCouleurJoueur,new Integer(-500));
+		
 		layeredPane.add(ongletJoueur,new Integer(0));
 		layeredPane.add(ongletVille,new Integer(0));
 		layeredPane.add(ongletMenu,new Integer(0));
@@ -67,7 +70,14 @@ public class EcranJeu extends NamedJPanel{
 		
 		update();
 		labelArgent.setFont(font);
-		labelArgent.setBounds(Constante.LARGEUR_FENETRE_PRINCIPALE - 350,Constante.HAUTEUR_FENETRE_PRINCIPALE - 110,300,100);
+		labelArgent.setBounds(Constante.LARGEUR_FENETRE_PRINCIPALE - 350,Constante.HAUTEUR_FENETRE_PRINCIPALE - 80,300,40);
+		
+		Joueur joueur = jeu.getClient().getJoueur();
+		int indJoueur = jeu.getClient().getPartie().getListeParticipants().indexOf(joueur);
+		Color couleurJoueur = Constante.COLORS[indJoueur];
+		labelCouleurJoueur.setOpaque(true);
+		labelCouleurJoueur.setBackground(couleurJoueur);
+		labelCouleurJoueur.setBounds(Constante.LARGEUR_FENETRE_PRINCIPALE - 350,Constante.HAUTEUR_FENETRE_PRINCIPALE - 80,40,40);
 		
 		cacherTousLesOngets();
 		

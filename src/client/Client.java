@@ -18,6 +18,7 @@ public class Client{
 	public Client(){
 		partie = new Partie();
 		joueur = new Joueur();
+		partie.addJoueur(joueur);
 	}
 	
 	public Partie getPartie(){

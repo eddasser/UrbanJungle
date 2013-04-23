@@ -5,7 +5,7 @@ import common.partie.plateau.Case;
 /**
  * @author omar
  */
-public abstract class Batiment{
+public class Batiment{
 	protected int niveau;
 	protected int pointsVie;
 	

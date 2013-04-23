@@ -2,6 +2,9 @@ package common;
 
 import java.util.ArrayList;
 
+import common.partie.batiment.Batiment;
+import common.partie.batiment.TypeBatiment;
+import common.partie.plateau.Case;
 import common.partie.plateau.Plateau;
 
 
@@ -27,6 +30,41 @@ public class Partie{
 		nomPartie = nomPartieParam;
 		nbJoueur = nbJoueurParam;
 		password = passwordParam;
+	}
+	
+	public void initialiserPartie(){
+		// methode qui va creer les QG et donner au joueur leur argent de depart
+		ArrayList<Case> cases = plateau.getCases();
+		for (int i = 0 ; i < listeParticipants.size() ; i++){
+			Batiment qg = new Batiment(TypeBatiment.QG,cases.get(getPositionQG(i)));
+			listeParticipants.get(i).ajouterBatiment(qg);
+		}
+	}
+	
+	private int getPositionQG(int niemeJoueur){
+		int position = 0;
+		switch(niemeJoueur){
+			case 0:
+				position = Constante.NB_CASES_LARGEUR_PLATEAU * Constante.NB_CASES_HAUTEUR_PLATEAU - 2 * Constante.NB_CASES_LARGEUR_PLATEAU;
+				break;
+			case 1:
+				position = Constante.NB_CASES_LARGEUR_PLATEAU - 2;
+				break;
+			case 2:
+				position = 0;
+				break;
+			case 3:
+				position = Constante.NB_CASES_LARGEUR_PLATEAU * Constante.NB_CASES_HAUTEUR_PLATEAU - Constante.NB_CASES_LARGEUR_PLATEAU - 2;
+				break;
+			default:
+				position = random(0,Constante.NB_CASES_HAUTEUR_PLATEAU * Constante.NB_CASES_LARGEUR_PLATEAU - 1);
+				break;
+		}
+		return position;
+	}
+	
+	private int random(int min,int max){
+		return min + (int)(Math.random() * ((max - min) + 1));
 	}
 	
 	public void notifierDebutJeu(){

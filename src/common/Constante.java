@@ -1,5 +1,6 @@
 package common;
 
+import java.awt.Color;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 
@@ -42,10 +43,12 @@ public class Constante{
 	public final static String MESSAGE_SEPARATOR = GENERAL_CONFIGURATION.getStringValue("MESSAGE_SEPARATOR");
 	
 	
-	public final static int LARGEUR_PLATEAU = 900;
-	public final static int HAUTEUR_PLATEAU = 520;
 	public final static int LARGEUR_CASE = 20;
 	public final static int HAUTEUR_CASE = 20;
+	public final static int NB_CASES_LARGEUR_PLATEAU = 45;
+	public final static int NB_CASES_HAUTEUR_PLATEAU = 26;
+	public final static int LARGEUR_PLATEAU = LARGEUR_CASE * NB_CASES_LARGEUR_PLATEAU;
+	public final static int HAUTEUR_PLATEAU = HAUTEUR_CASE * NB_CASES_HAUTEUR_PLATEAU;
 	
 	
 	/*******************************************/
@@ -56,4 +59,9 @@ public class Constante{
 		DECIMAL_FORMAT_SYMBOLS.setGroupingSeparator(' ');
 		return DECIMAL_FORMATTER.format(number) + " $";
 	}
+	
+	
+	// liste des couleurs que l'on affiche pour differentier les batiement & unité des différents joueurs
+	public final static Color[] COLORS = { Color.blue,Color.cyan,Color.darkGray,Color.gray,Color.green,Color.lightGray,Color.magenta,
+			Color.orange,Color.pink,Color.red,Color.white,Color.yellow,Color.black };
 }
