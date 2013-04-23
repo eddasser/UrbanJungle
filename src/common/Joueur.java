@@ -31,7 +31,7 @@ public class Joueur{
 	public Joueur(){
 		unites = new ArrayList<Unite>();
 		batiments = new ArrayList<Batiment>();
-		argent = 5000;
+		argent = 2000;
 		
 		niveauBatiment = new HashMap<TypeBatiment,Integer>();
 		for (TypeBatiment type : TypeBatiment.values()){

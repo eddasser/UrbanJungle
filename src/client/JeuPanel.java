@@ -208,9 +208,8 @@ public class JeuPanel extends JPanel implements Observer{
 	
 	
 	public void notificationJoueur(String message){
-		JOptionPane.showMessageDialog(null,message);
+		JOptionPane.showMessageDialog(null,message,"UrbanJungle",JOptionPane.INFORMATION_MESSAGE);
 	}
-	
 	
 	public void chargerEcranMenuMultijoueur(){
 		((EcranMenuMultijoueur)ecranMenuMultijoueur).rafraichirCadrePartie();

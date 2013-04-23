@@ -2,12 +2,16 @@ package client;
 
 import java.util.Observable;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+import javax.swing.plaf.ColorUIResource;
 
 import common.Constante;
 import common.Joueur;
 import common.Partie;
+import common.Translator;
 
 
 /**
@@ -47,6 +51,10 @@ public class Client extends Observable{
 	}
 	
 	public static void main(String[] args){
+		UIManager.put("OptionPane.background",new ColorUIResource(148,171,196));
+		UIManager.put("Panel.background",new ColorUIResource(148,171,196));
+		UIManager.put("OptionPane.informationIcon",new ImageIcon("ressources/" + Translator.getLangue() + "/images/icon.png"));
+		
 		JFrame frame = new JFrame();
 		frame.setTitle("URBAN JUNGE " + Constante.NUMERO_DE_VERSION); // on donne un titre a la fenetre
 		frame.setSize(Constante.LARGEUR_FENETRE_PRINCIPALE,Constante.HAUTEUR_FENETRE_PRINCIPALE); // on fixe sa taille
