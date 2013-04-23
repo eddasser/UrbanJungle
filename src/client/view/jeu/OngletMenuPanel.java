@@ -18,4 +18,5 @@ public class OngletMenuPanel extends OngletPanel{
 	protected void paintBouton(Graphics g){
 		g.fillRect(746,24,183,30);
 	}
+	
 }

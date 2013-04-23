@@ -25,7 +25,11 @@ public class OngletBatimentPanel extends OngletPanel{
 	
 	public OngletBatimentPanel(JeuPanel jeu){
 		super("Création de bâtiments",jeu);
-		
+	}
+	
+	@Override
+	protected void updateContent(){
+		super.updateContent();
 		// Border used as padding
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
 		
@@ -51,4 +55,5 @@ public class OngletBatimentPanel extends OngletPanel{
 	protected void paintBouton(Graphics g){
 		g.fillRect(30,83,60,187);
 	}
+	
 }

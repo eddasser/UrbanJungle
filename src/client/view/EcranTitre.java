@@ -13,7 +13,7 @@ public class EcranTitre extends NamedJPanel{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	
 	public EcranTitre(JeuPanel jeu){
-		super("ecranTitre");
+		super("ecranTitre",jeu);
 		
 		setFocusable(true);
 		

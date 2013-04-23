@@ -25,6 +25,11 @@ public class EcranAttenteTour extends OngletPanel{
 	}
 	
 	@Override
+	protected void updateContent(){
+	}
+	
+	
+	@Override
 	protected void paintBouton(Graphics g){
 	}
 	

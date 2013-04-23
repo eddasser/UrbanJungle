@@ -12,6 +12,7 @@ import javax.swing.border.Border;
 
 import client.Client;
 import client.JeuPanel;
+import client.controller.OngletJoueurListener;
 
 import common.Constante;
 import common.Joueur;
@@ -26,7 +27,11 @@ public class OngletJoueurPanel extends OngletPanel{
 	
 	public OngletJoueurPanel(JeuPanel jeu){
 		super("Amélioration des unités",jeu);
-		
+	}
+	
+	@Override
+	public void updateContent(){
+		super.updateContent();
 		// Border used as padding
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
 		
@@ -69,6 +74,8 @@ public class OngletJoueurPanel extends OngletPanel{
 			
 			JButton buttonLevelUp = new JButton(Constante.formatArgent(TypeUnite.getMontantLevelUp(type,niveau)));
 			panelContenu.add(buttonLevelUp);
+			
+			buttonLevelUp.addActionListener(new OngletJoueurListener(jeu,joueur,type));
 		}
 	}
 	

@@ -21,14 +21,12 @@ public class EcranJeu extends NamedJPanel{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private JLayeredPane layeredPane;
 	
-	private JeuPanel jeu;
-	
 	private JPanel fond = new FondJeu();
-	private JPanel ongletJoueur;
-	private JPanel ongletVille;
-	private JPanel ongletMenu;
-	private JPanel ongletBatiment;
-	private JPanel ongletUnite;
+	private OngletPanel ongletJoueur;
+	private OngletPanel ongletVille;
+	private OngletPanel ongletMenu;
+	private OngletPanel ongletBatiment;
+	private OngletPanel ongletUnite;
 	
 	private EcranPlateau ecranPlateau;
 	private EcranAttenteTour ecranAttenteTour;
@@ -38,8 +36,7 @@ public class EcranJeu extends NamedJPanel{
 	private Font font = new Font("Serif",Font.BOLD,30);
 	
 	public EcranJeu(JeuPanel jeu,JLayeredPane layeredPane){
-		super("ecranJeu");
-		this.jeu = jeu;
+		super("ecranJeu",jeu);
 		this.layeredPane = layeredPane;
 		
 		ongletJoueur = new OngletJoueurPanel(jeu);
@@ -192,11 +189,21 @@ public class EcranJeu extends NamedJPanel{
 		ecranAttenteTour.setVisible(false);
 	}
 	
+	@Override
+	public void setJeu(JeuPanel jeu){
+		this.jeu = jeu;
+	}
 	
 	public void update(){
 		Client client = jeu.getClient();
 		Joueur joueur = client.getJoueur();
 		int argent = joueur.getArgent();
 		labelArgent.setText(Constante.formatArgent(argent));
+		
+		ongletJoueur.updateContent();
+		ongletVille.updateContent();
+		ongletMenu.updateContent();
+		ongletBatiment.updateContent();
+		ongletUnite.updateContent();
 	}
 }

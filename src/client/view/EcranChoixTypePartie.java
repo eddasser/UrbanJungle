@@ -25,7 +25,7 @@ public class EcranChoixTypePartie extends NamedJPanel{
 	
 	
 	public EcranChoixTypePartie(JeuPanel jeu){
-		super("ecranChoixTypeDePartie");
+		super("ecranChoixTypeDePartie",jeu);
 		
 		premierPassage = true;
 		

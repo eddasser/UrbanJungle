@@ -28,7 +28,6 @@ import common.Translator;
 public class EcranMenuMultijoueur extends NamedJPanel{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	
-	private JeuPanel jeu;
 	
 	private String[] parties;
 	
@@ -48,10 +47,9 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 	private static ImageIcon icon_unlock = new ImageIcon(System.getProperty("user.dir")
 			+ "/ressources/fr/images/EcranMenuMultijoueur/unlock.png");
 	
-	public EcranMenuMultijoueur(JeuPanel jeuParam){
-		super("ecranMenuMultijoueur");
+	public EcranMenuMultijoueur(final JeuPanel jeu){
+		super("ecranMenuMultijoueur",jeu);
 		
-		jeu = jeuParam;
 		setLayout(null);
 		
 		

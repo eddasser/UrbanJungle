@@ -34,7 +34,7 @@ public class EcranCreationPartie extends NamedJPanel{
 	
 	
 	public EcranCreationPartie(JeuPanel jeu){
-		super("ecranCreationPartie");
+		super("ecranCreationPartie",jeu);
 		
 		setLayout(null);
 		

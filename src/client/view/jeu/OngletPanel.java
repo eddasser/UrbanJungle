@@ -40,6 +40,7 @@ public abstract class OngletPanel extends JPanel{
 		JLabel label = new JLabel("<html><h1>" + name + "</h1></html>",SwingConstants.CENTER);
 		// label.setBounds(getWidth() / 2 - 50,50,150,100);
 		panelTitre.add(label);
+		updateContent();
 	}
 	
 	@Override
@@ -51,4 +52,7 @@ public abstract class OngletPanel extends JPanel{
 	
 	protected abstract void paintBouton(Graphics g);
 	
+	protected void updateContent(){
+		panelContenu.removeAll();
+	}
 }

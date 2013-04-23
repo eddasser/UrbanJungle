@@ -27,7 +27,7 @@ public class EcranLogin extends NamedJPanel{
 	private JCoolButton creerCompte;
 	
 	public EcranLogin(JeuPanel jeu){
-		super("ecranLogin");
+		super("ecranLogin",jeu);
 		
 		setLayout(null);
 		

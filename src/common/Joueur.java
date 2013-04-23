@@ -51,6 +51,24 @@ public class Joueur{
 		password = _password;
 	}
 	
+	public void incrementeNiveauBatiment(TypeBatiment type){
+		int niveau = niveauBatiment.get(type) + 1;
+		niveauBatiment.put(type,niveau);
+	}
+	
+	public void incrementeNiveauUnite(TypeUnite type){
+		int niveau = niveauUnite.get(type) + 1;
+		niveauUnite.put(type,niveau);
+	}
+	
+	public void incrementArgent(int montant){
+		argent += montant;
+	}
+	
+	public void decrementArgent(int montant){
+		argent -= montant;
+	}
+	
 	public int getNiveauBatiment(TypeBatiment type){
 		return niveauBatiment.get(type);
 	}

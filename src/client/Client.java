@@ -1,5 +1,7 @@
 package client;
 
+import java.util.Observable;
+
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
@@ -11,7 +13,7 @@ import common.Partie;
 /**
  * @author omar
  */
-public class Client{
+public class Client extends Observable{
 	private Partie partie;// partie courante
 	private Joueur joueur;// joueur courant
 	
@@ -31,10 +33,17 @@ public class Client{
 	
 	public void setPartie(Partie partie){
 		this.partie = partie;
+		update();
 	}
 	
 	public void setJoueur(Joueur joueur){
 		this.joueur = joueur;
+		update();
+	}
+	
+	public void update(){
+		setChanged();
+		notifyObservers();
 	}
 	
 	public static void main(String[] args){
@@ -46,7 +55,9 @@ public class Client{
 		frame.setResizable(false);
 		
 		Client client = new Client();
-		frame.setContentPane(new JeuPanel(frame.getLayeredPane(),client));
+		JeuPanel jeuPanel = new JeuPanel(frame.getLayeredPane(),client);
+		client.addObserver(jeuPanel);
+		frame.setContentPane(jeuPanel);
 		frame.setVisible(true);
 	}
 }

@@ -1,6 +1,8 @@
 package client;
 
 import java.awt.CardLayout;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import javax.swing.JLayeredPane;
@@ -28,7 +30,7 @@ import common.Translator;
 /**
  * @author omar
  */
-public class JeuPanel extends JPanel{
+public class JeuPanel extends JPanel implements Observer{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	
 	private static CardLayout cardlayout = new CardLayout(); // on crée le layout qui gere l'enchainement des écrans
@@ -62,14 +64,15 @@ public class JeuPanel extends JPanel{
 		ecranTitre.addKeyListener(listenerEcranTitre);// on ajoute le listener à la vue
 		
 		// ecran loader
-		ecranLoader = new EcranLoader(Translator.getLangue());
+		ecranLoader = new EcranLoader(Translator.getLangue(),this);
 		
 		// ecran test connexion
-		ecranTestConnexionOk = new EcranConnexionServeurPossible(Translator.getLangue());// ecran test
-																							// connexion valide
-		ecranTestConnexionKO = new EcranConnexionServeurImpossible(Translator.getLangue());// ecran test
-																							// connexion
-																							// invalide
+		// ecran test connexion valide
+		ecranTestConnexionOk = new EcranConnexionServeurPossible(Translator.getLangue(),this);
+		// ecran test connexion invalide
+		ecranTestConnexionKO = new EcranConnexionServeurImpossible(Translator.getLangue(),this);
+		
+		
 		EcranResultatTentativeConnexionListener listenerEcranResultatTestConnexion = new EcranResultatTentativeConnexionListener(this);
 		ecranTestConnexionOk.addMouseListener(listenerEcranResultatTestConnexion); // on ajoute le listener aux deux vue
 		ecranTestConnexionKO.addMouseListener(listenerEcranResultatTestConnexion);
@@ -229,4 +232,9 @@ public class JeuPanel extends JPanel{
 		// ecranMenuMultijoueur.setListeDesParties(liste);
 	}
 	
+	@Override
+	public void update(Observable o,Object arg){
+		client = (Client)o;
+		((EcranJeu)ecranJeu).update();
+	}
 }

@@ -25,7 +25,11 @@ public class OngletUnitePanel extends OngletPanel{
 	
 	public OngletUnitePanel(JeuPanel jeu){
 		super("Création d'unités",jeu);
-		
+	}
+	
+	@Override
+	protected void updateContent(){
+		super.updateContent();
 		// Border used as padding
 		Border paddingBorder = BorderFactory.createEmptyBorder(10,10,10,10);
 		
