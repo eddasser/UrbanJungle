@@ -53,14 +53,15 @@ public class EcranJeu extends NamedJPanel{
 	
 	public void afficherPlateau(){
 		layeredPane.add(fond,new Integer(-3000));
+		layeredPane.add(labelArgent,new Integer(-2000));
+		layeredPane.add(ecranPlateau,new Integer(-1000));
+		
 		layeredPane.add(ongletJoueur,new Integer(0));
 		layeredPane.add(ongletVille,new Integer(0));
 		layeredPane.add(ongletMenu,new Integer(0));
 		layeredPane.add(ongletBatiment,new Integer(0));
 		layeredPane.add(ongletUnite,new Integer(0));
-		layeredPane.add(labelArgent,new Integer(-100));
 		
-		layeredPane.add(ecranPlateau,new Integer(100));
 		
 		layeredPane.add(ecranAttenteTour,new Integer(200));
 		
