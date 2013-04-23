@@ -50,20 +50,28 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 		if (e.getButton() == MouseEvent.BUTTON1){
 			// clic gauche
 			if (ecranJeu.isModeCreationBatiment()){
-				// il y a un decalage entre la fenetre et le plateau d'où le Constante.DECALAGE_PLATEAU_X et le Constante.DECALAGE_PLATEAU_Y
-				// concernant le Constante.LARGEUR_CASE et le Constante.HAUTEUR_CASE, c'est parce que l'on centre le JLabel (du batiment)
-				// sur la souris
-				x -= Constante.DECALAGE_PLATEAU_X + Constante.LARGEUR_CASE;
-				y -= Constante.DECALAGE_PLATEAU_Y + Constante.HAUTEUR_CASE;
-				// on recupere la case la plus proche du clic et on y ajoute le nouveau batiment
-				TypeBatiment type = ecranJeu.getTypeBatimentEnConstruction();
-				int montant = TypeBatiment.getPrix(type,joueur.getNiveauBatiment(type));
-				Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
-				Batiment batiment = new Batiment(type,position);
-				joueur.ajouterBatiment(batiment);
-				joueur.decrementArgent(montant);
-				ecranJeu.cacherModeCreationBatiment();
-				ecranJeu.update();
+				// on verifie que l'utilisateur a bien cliquer sur le plateau
+				if (x > Constante.DECALAGE_PLATEAU_X && x < Constante.LARGEUR_PLATEAU && y > Constante.DECALAGE_PLATEAU_Y
+						&& y < Constante.HAUTEUR_PLATEAU){
+					// il y a un decalage entre la fenetre et le plateau d'où le Constante.DECALAGE_PLATEAU_X et le
+					// Constante.DECALAGE_PLATEAU_Y
+					// concernant le Constante.LARGEUR_CASE et le Constante.HAUTEUR_CASE, c'est parce que l'on centre le JLabel (du
+					// batiment)
+					// sur la souris
+					x -= Constante.DECALAGE_PLATEAU_X + Constante.LARGEUR_CASE;
+					y -= Constante.DECALAGE_PLATEAU_Y + Constante.HAUTEUR_CASE;
+					// on recupere la case la plus proche du clic et on y ajoute le nouveau batiment
+					TypeBatiment type = ecranJeu.getTypeBatimentEnConstruction();
+					int montant = TypeBatiment.getPrix(type,joueur.getNiveauBatiment(type));
+					Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
+					Batiment batiment = new Batiment(type,position);
+					joueur.ajouterBatiment(batiment);
+					joueur.decrementArgent(montant);
+					ecranJeu.cacherModeCreationBatiment();
+					ecranJeu.update();
+				}else{
+					ecranJeu.cacherModeCreationBatiment();
+				}
 			}else{
 				if (y <= 46){
 					// test des trois liens du haut
