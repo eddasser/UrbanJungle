@@ -4,22 +4,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import client.JeuPanel;
+import client.view.jeu.EcranJeu;
 
 import common.Joueur;
 import common.Translator;
-import common.partie.plateau.Case;
-import common.partie.unite.TypeUnite;
-import common.partie.unite.Unite;
+import common.partie.batiment.TypeBatiment;
 
 /**
  * @author omar
  */
-public class OngletUniteListener implements MouseListener{
+public class OngletBatimentListener implements MouseListener{
 	private JeuPanel jeu;
 	private Joueur joueur;
-	private TypeUnite type;
+	private TypeBatiment type;
 	
-	public OngletUniteListener(JeuPanel jeu,Joueur joueur,TypeUnite type){
+	public OngletBatimentListener(JeuPanel jeu,Joueur joueur,TypeBatiment type){
 		super();
 		this.jeu = jeu;
 		this.joueur = joueur;
@@ -28,21 +27,17 @@ public class OngletUniteListener implements MouseListener{
 	
 	@Override
 	public void mouseClicked(MouseEvent e){
-		
 	}
 	
 	@Override
 	public void mousePressed(MouseEvent e){
 		if (e.getButton() == MouseEvent.BUTTON1){
 			// si c'est le clic gauche
-			// si le joueur a les moyen, on procede à la création de l'unité et on lui decrement du montant de d'unité
-			int montant = TypeUnite.getPrix(type,joueur.getNiveauUnite(type));
+			// si le joueur a les moyen, on active le mode creation batiment de la vue
+			int montant = TypeBatiment.getPrix(type,joueur.getNiveauBatiment(type));
 			if (joueur.getArgent() >= montant){
-				Case position = jeu.getClient().getPartie().getPlateau().getCases().get(5);
-				position = joueur.getPositionQG();
-				Unite unite = new Unite(type,position);
-				joueur.ajouterUnite(unite);
-				joueur.decrementArgent(montant);
+				EcranJeu ecranJeu = JeuPanel.getEcranJeu();
+				ecranJeu.afficherModeCreationBatiment(type);
 				jeu.getClient().update();
 			}else{
 				jeu.notificationJoueur(Translator.translate("PasAssezArgent"));

@@ -50,6 +50,9 @@ public class Constante{
 	public final static int LARGEUR_PLATEAU = LARGEUR_CASE * NB_CASES_LARGEUR_PLATEAU;
 	public final static int HAUTEUR_PLATEAU = HAUTEUR_CASE * NB_CASES_HAUTEUR_PLATEAU;
 	
+	public final static int DECALAGE_PLATEAU_X = 85;
+	public final static int DECALAGE_PLATEAU_Y = 60;
+	
 	
 	/*******************************************/
 	private final static DecimalFormatSymbols DECIMAL_FORMAT_SYMBOLS = DecimalFormatSymbols.getInstance();

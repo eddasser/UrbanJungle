@@ -30,7 +30,7 @@ public class EcranPlateau extends JPanel{
 	
 	public EcranPlateau(JeuPanel jeu){
 		this.jeu = jeu;
-		setBounds(85,60,Constante.LARGEUR_PLATEAU,Constante.HAUTEUR_PLATEAU);
+		setBounds(Constante.DECALAGE_PLATEAU_X,Constante.DECALAGE_PLATEAU_Y,Constante.LARGEUR_PLATEAU,Constante.HAUTEUR_PLATEAU);
 		setOpaque(false);
 		
 		Border border = BorderFactory.createLineBorder(Color.black,3);

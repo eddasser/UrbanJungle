@@ -25,4 +25,19 @@ public class Plateau{
 	public void setCases(ArrayList<Case> cases){
 		this.cases = cases;
 	}
+	
+	public Case getCasePlusProche(int x,int y){
+		Case casePlusProche = cases.get(0);
+		double distancePlusProche = casePlusProche.getDistance(x,y);
+		
+		for (int i = 1 ; i < cases.size() ; i++){
+			double distanceCourante = cases.get(i).getDistance(x,y);
+			if (distanceCourante < distancePlusProche){
+				casePlusProche = cases.get(i);
+				distancePlusProche = distanceCourante;
+			}
+		}
+		
+		return casePlusProche;
+	}
 }

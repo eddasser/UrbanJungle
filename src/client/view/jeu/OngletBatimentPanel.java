@@ -11,6 +11,7 @@ import javax.swing.border.Border;
 
 import client.Client;
 import client.JeuPanel;
+import client.controller.OngletBatimentListener;
 
 import common.Constante;
 import common.Joueur;
@@ -47,6 +48,8 @@ public class OngletBatimentPanel extends OngletPanel{
 				// Icon icon = TypeBatiment.getIcon(type);
 				label.setIcon(icon);
 				panelContenu.add(label);
+				
+				label.addMouseListener(new OngletBatimentListener(jeu,joueur,type));
 			}
 		}
 	}

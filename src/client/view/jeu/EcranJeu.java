@@ -2,8 +2,7 @@ package client.view.jeu;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.Rectangle;
 
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -11,10 +10,12 @@ import javax.swing.JPanel;
 
 import client.Client;
 import client.JeuPanel;
+import client.controller.EcranJeuListener;
 import client.view.NamedJPanel;
 
 import common.Constante;
 import common.Joueur;
+import common.partie.batiment.TypeBatiment;
 
 
 public class EcranJeu extends NamedJPanel{
@@ -34,6 +35,12 @@ public class EcranJeu extends NamedJPanel{
 	private JLabel labelCouleurJoueur = new JLabel();
 	private JLabel labelArgent = new JLabel("ARGENT :",JLabel.RIGHT);
 	private Font font = new Font("Serif",Font.BOLD,30);
+	
+	
+	// label qui est affiché (et qui suit la souris) lors du mode création de batiment
+	private JLabel labelConstructionBatiment = new JLabel();
+	private boolean modeCreationBatiment = false;
+	private TypeBatiment typeBatimentEnConstruction;
 	
 	public EcranJeu(JeuPanel jeu,JLayeredPane layeredPane){
 		super("ecranJeu",jeu);
@@ -62,8 +69,11 @@ public class EcranJeu extends NamedJPanel{
 		layeredPane.add(ongletBatiment,new Integer(0));
 		layeredPane.add(ongletUnite,new Integer(0));
 		
+		layeredPane.add(labelConstructionBatiment,new Integer(10));
 		
 		layeredPane.add(ecranAttenteTour,new Integer(200));
+		
+		labelConstructionBatiment.setBounds(Constante.LARGEUR_FENETRE_PRINCIPALE / 2,Constante.HAUTEUR_FENETRE_PRINCIPALE / 2,50,50);
 		
 		update();
 		labelArgent.setFont(font);
@@ -78,54 +88,9 @@ public class EcranJeu extends NamedJPanel{
 		
 		cacherTousLesOngets();
 		
-		addMouseListener(new MouseListener(){
-			
-			@Override
-			public void mouseReleased(MouseEvent e){
-			}
-			
-			@Override
-			public void mousePressed(MouseEvent e){
-				int x = e.getX();
-				int y = e.getY();
-				
-				if (y <= 46){
-					// test des trois liens du haut
-					if (x >= 90 && x <= 275){
-						// lien joueur
-						afficherOngletJoueur();
-					}else if (x >= 420 && x <= 605){
-						// lien ville
-						afficherOngletVille();
-					}else if (x >= 750 && x <= 930){
-						// lien menu
-						afficherOngletMenu();
-					}
-				}else if (x <= 60){
-					// test des deux liens à gauche
-					if (y >= 85 && y <= 275){
-						// lien batiement
-						afficherOngletBatiment();
-					}else if (y >= 320 && y <= 510){
-						// lien unités
-						afficherOngletUnite();
-					}
-				}
-				// System.out.println(e.getX() + " : " + e.getY());
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e){
-			}
-			
-			@Override
-			public void mouseEntered(MouseEvent e){
-			}
-			
-			@Override
-			public void mouseClicked(MouseEvent e){
-			}
-		});
+		EcranJeuListener ejl = new EcranJeuListener(jeu,joueur,this);
+		addMouseListener(ejl);
+		addMouseMotionListener(ejl);
 	}
 	
 	private void cacherTousLesOngets(){
@@ -206,4 +171,32 @@ public class EcranJeu extends NamedJPanel{
 		ongletBatiment.updateContent();
 		ongletUnite.updateContent();
 	}
+	
+	public void afficherModeCreationBatiment(TypeBatiment type){
+		cacherTousLesOngets();
+		modeCreationBatiment = true;
+		typeBatimentEnConstruction = type;
+		labelConstructionBatiment.setIcon(TypeBatiment.getIcon(type));
+		labelConstructionBatiment.setVisible(true);
+	}
+	
+	public void cacherModeCreationBatiment(){
+		modeCreationBatiment = false;
+		labelConstructionBatiment.setVisible(false);
+	}
+	
+	public boolean isModeCreationBatiment(){
+		return modeCreationBatiment;
+	}
+	
+	public void setPositionLabelConstructionBatiment(int x,int y){
+		Rectangle rect = labelConstructionBatiment.getBounds();
+		rect.setBounds(x - Constante.LARGEUR_CASE,y - Constante.HAUTEUR_CASE,(int)rect.getWidth(),(int)rect.getHeight());
+		labelConstructionBatiment.setBounds(rect);
+	}
+	
+	public TypeBatiment getTypeBatimentEnConstruction(){
+		return typeBatimentEnConstruction;
+	}
+	
 }
