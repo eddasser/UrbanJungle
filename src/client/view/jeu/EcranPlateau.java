@@ -90,18 +90,20 @@ public class EcranPlateau extends JPanel{
 			for (int j = 0 ; j < unites.size() ; j++){
 				Unite unite = unites.get(j);
 				Case case_unite = unite.getPosition();
-				Color colorUnite = TypeUnite.getColor(unite.getType());
+				Icon icon = TypeUnite.getIcon(unite.getType());
+				icon.paintIcon(this,g2d,case_unite.getX(),case_unite.getY());
 				
+				/*
 				int x = case_unite.getX();
 				int y = case_unite.getY();
 				// affiche le coutour de l'unite (avec la couleur du joueur)
 				g.setColor(colorJoueur);
-				g.fillOval(x,y,Constante.LARGEUR_CASE,Constante.HAUTEUR_CASE);
+				g.drawOval(x,y,Constante.LARGEUR_CASE,Constante.HAUTEUR_CASE);
 				// affiche l'interieur de l'unite (avec la couleur du type d'unite)
 				g.setColor(colorUnite);
 				g.fillOval(x + epaisseurContour,y + epaisseurContour,Constante.LARGEUR_CASE - 2 * epaisseurContour,Constante.HAUTEUR_CASE - 2
 						* epaisseurContour);
-				
+				*/
 			}
 		}
 	}

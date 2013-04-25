@@ -67,10 +67,10 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					Batiment batiment = new Batiment(type,position);
 					joueur.ajouterBatiment(batiment);
 					joueur.decrementArgent(montant);
-					ecranJeu.cacherModeCreationBatiment();
+					ecranJeu.cacherModeCreation();
 					ecranJeu.update();
 				}else{
-					ecranJeu.cacherModeCreationBatiment();
+					ecranJeu.cacherModeCreation();
 				}
 			}else{
 				if (y <= 46){
@@ -98,7 +98,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 			}
 		}else{
 			// clic droit
-			ecranJeu.cacherModeCreationBatiment();
+			ecranJeu.cacherModeCreation();
 		}
 	}
 	

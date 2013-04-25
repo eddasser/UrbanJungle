@@ -16,6 +16,7 @@ import client.view.NamedJPanel;
 import common.Constante;
 import common.Joueur;
 import common.partie.batiment.TypeBatiment;
+import common.partie.unite.TypeUnite;
 
 
 public class EcranJeu extends NamedJPanel{
@@ -38,9 +39,9 @@ public class EcranJeu extends NamedJPanel{
 	
 	
 	// label qui est affiché (et qui suit la souris) lors du mode création de batiment
-	private JLabel labelConstructionBatiment = new JLabel();
-	private boolean modeCreationBatiment = false;
+	private JLabel labelEnConstruction = new JLabel();
 	private TypeBatiment typeBatimentEnConstruction;
+	private TypeUnite typeUniteEnConstruction;
 	
 	public EcranJeu(JeuPanel jeu,JLayeredPane layeredPane){
 		super("ecranJeu",jeu);
@@ -69,11 +70,11 @@ public class EcranJeu extends NamedJPanel{
 		layeredPane.add(ongletBatiment,new Integer(0));
 		layeredPane.add(ongletUnite,new Integer(0));
 		
-		layeredPane.add(labelConstructionBatiment,new Integer(10));
+		layeredPane.add(labelEnConstruction,new Integer(10));
 		
 		layeredPane.add(ecranAttenteTour,new Integer(200));
 		
-		labelConstructionBatiment.setBounds(Constante.LARGEUR_FENETRE_PRINCIPALE / 2,Constante.HAUTEUR_FENETRE_PRINCIPALE / 2,50,50);
+		labelEnConstruction.setBounds(Constante.LARGEUR_FENETRE_PRINCIPALE / 2,Constante.HAUTEUR_FENETRE_PRINCIPALE / 2,50,50);
 		
 		update();
 		labelArgent.setFont(font);
@@ -174,29 +175,44 @@ public class EcranJeu extends NamedJPanel{
 	
 	public void afficherModeCreationBatiment(TypeBatiment type){
 		cacherTousLesOngets();
-		modeCreationBatiment = true;
 		typeBatimentEnConstruction = type;
-		labelConstructionBatiment.setIcon(TypeBatiment.getIcon(type));
-		labelConstructionBatiment.setVisible(true);
+		labelEnConstruction.setIcon(TypeBatiment.getIcon(type));
+		labelEnConstruction.setVisible(true);
 	}
 	
-	public void cacherModeCreationBatiment(){
-		modeCreationBatiment = false;
-		labelConstructionBatiment.setVisible(false);
+	public void afficherModeCreationUnite(TypeUnite type){
+		cacherTousLesOngets();
+		typeUniteEnConstruction = type;
+		labelEnConstruction.setIcon(TypeUnite.getIcon(type));
+		labelEnConstruction.setVisible(true);
+	}
+	
+	public void cacherModeCreation(){
+		typeBatimentEnConstruction = null;
+		typeUniteEnConstruction = null;
+		labelEnConstruction.setIcon(null);
+		labelEnConstruction.setVisible(false);
 	}
 	
 	public boolean isModeCreationBatiment(){
-		return modeCreationBatiment;
+		return (typeBatimentEnConstruction != null);
+	}
+	
+	public boolean isModeCreationUnite(){
+		return (typeUniteEnConstruction != null);
 	}
 	
 	public void setPositionLabelConstructionBatiment(int x,int y){
-		Rectangle rect = labelConstructionBatiment.getBounds();
+		Rectangle rect = labelEnConstruction.getBounds();
 		rect.setBounds(x - Constante.LARGEUR_CASE,y - Constante.HAUTEUR_CASE,(int)rect.getWidth(),(int)rect.getHeight());
-		labelConstructionBatiment.setBounds(rect);
+		labelEnConstruction.setBounds(rect);
 	}
 	
 	public TypeBatiment getTypeBatimentEnConstruction(){
 		return typeBatimentEnConstruction;
 	}
 	
+	public TypeUnite getTypeUniteEnConstruction(){
+		return typeUniteEnConstruction;
+	}
 }

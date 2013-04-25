@@ -1,6 +1,9 @@
 package common.partie.unite;
 
-import java.awt.Color;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
+import common.Translator;
 
 
 /**
@@ -9,10 +12,39 @@ import java.awt.Color;
 public enum TypeUnite{
 	PETITE_FRAPPE, HOMME_MAIN, CAID, BASTONNEUR, CONSTRUCTEUR;
 	
-	public static int getNiveauBase(TypeUnite type){
-		return 0;
+	private static Icon ICON_PETITE_FRAPPE = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/PETITE_FRAPPE_MIN.png");
+	private static Icon ICON_HOMME_MAIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/HOMME_MAIN_MIN.png");
+	private static Icon ICON_CAID = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/CAID_MIN.png");
+	private static Icon ICON_BASTONNEUR = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/BASTONNEUR_MIN.png");
+	private static Icon ICON_CONSTRUCTEUR = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/CONSTRUCTEUR_MIN.png");
+	
+	public static Icon getIcon(TypeUnite type){
+		Icon icon = null;
+		switch(type){
+			case PETITE_FRAPPE:
+				icon = ICON_PETITE_FRAPPE;
+				break;
+			
+			case HOMME_MAIN:
+				icon = ICON_HOMME_MAIN;
+				break;
+			
+			case CAID:
+				icon = ICON_CAID;
+				break;
+			
+			case BASTONNEUR:
+				icon = ICON_BASTONNEUR;
+				break;
+			
+			case CONSTRUCTEUR:
+				icon = ICON_CONSTRUCTEUR;
+				break;
+		}
+		return icon;
 	}
 	
+	/*
 	public static Color getColor(TypeUnite type){
 		Color color = null;
 		
@@ -39,6 +71,11 @@ public enum TypeUnite{
 		}
 		
 		return color;
+	}
+	*/
+	
+	public static int getNiveauBase(TypeUnite type){
+		return 0;
 	}
 	
 	public static int getPointDeVie(TypeUnite type,int niveau){
