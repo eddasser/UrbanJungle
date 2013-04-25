@@ -62,10 +62,12 @@ public class OngletJoueurPanel extends OngletPanel{
 			panelContenu.add(labelType);
 			
 			
-			JLabel labelPtsAttaque = new JLabel(TypeUnite.getPointAttaque(type,niveau) + " pts");
-			JLabel labelPtsVie = new JLabel(TypeUnite.getPointDeVie(type,niveau) + " pts");
-			JLabel labelSalaire = new JLabel(Constante.formatArgent(TypeUnite.getSalaire(type,niveau)));
-			JLabel labelVitesse = new JLabel(TypeUnite.getVitesse(type,niveau) + " cases");
+			JLabel labelPtsAttaque = new HTMLabel(TypeUnite.getPointAttaque(type,niveau) + " pts ",TypeUnite.getPointAttaque(type,niveau + 1)
+					+ " pts");
+			JLabel labelPtsVie = new HTMLabel(TypeUnite.getPointDeVie(type,niveau) + " pts",TypeUnite.getPointDeVie(type,niveau + 1) + " pts");
+			JLabel labelSalaire = new HTMLabel(Constante.formatArgent(TypeUnite.getSalaire(type,niveau)),Constante.formatArgent(TypeUnite
+					.getSalaire(type,niveau + 1)));
+			JLabel labelVitesse = new HTMLabel(TypeUnite.getVitesse(type,niveau) + " cases",TypeUnite.getVitesse(type,niveau + 1) + " cases");
 			
 			panelContenu.add(labelPtsAttaque);
 			panelContenu.add(labelPtsVie);

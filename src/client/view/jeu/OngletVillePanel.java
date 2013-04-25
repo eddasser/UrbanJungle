@@ -60,10 +60,12 @@ public class OngletVillePanel extends OngletPanel{
 				JLabel label = new JLabel(type.name());
 				panelContenu.add(label);
 				
-				JLabel labelPtsVie = new JLabel(TypeBatiment.getPointDeVie(type,niveau) + " pts");
+				JLabel labelPtsVie = new HTMLabel(TypeBatiment.getPointDeVie(type,niveau) + " pts",TypeBatiment.getPointDeVie(type,niveau + 1)
+						+ " pts");
 				panelContenu.add(labelPtsVie);
 				
-				JLabel labelRevenu = new JLabel(Constante.formatArgent(TypeBatiment.getRevenu(type,niveau)));
+				JLabel labelRevenu = new HTMLabel(Constante.formatArgent(TypeBatiment.getRevenu(type,niveau)),
+						Constante.formatArgent(TypeBatiment.getRevenu(type,niveau + 1)));
 				panelContenu.add(labelRevenu);
 				
 				JButton buttonLevelUp = new JButton(Constante.formatArgent(TypeBatiment.getMontantLevelUp(type,niveau)));
