@@ -80,6 +80,8 @@ public class OngletVillePanel extends OngletPanel{
 	
 	@Override
 	protected void paintBouton(Graphics g){
-		g.fillRect(421,24,183,30);
+		g.fillRect(421,20,46,35);
+		g.fillRect(467,32,95,24);
+		g.fillRect(558,20,47,35);
 	}
 }

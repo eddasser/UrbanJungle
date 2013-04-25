@@ -85,6 +85,8 @@ public class OngletJoueurPanel extends OngletPanel{
 	
 	@Override
 	protected void paintBouton(Graphics g){
-		g.fillRect(90,24,183,30);
+		g.fillRect(90,20,37,35);
+		g.fillRect(127,30,108,24);
+		g.fillRect(233,20,41,35);
 	}
 }

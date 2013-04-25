@@ -2,9 +2,9 @@ package client.view.jeu;
 
 import java.awt.Graphics;
 
-import common.Constante;
-
 import client.JeuPanel;
+
+import common.Constante;
 
 
 /**
@@ -20,7 +20,9 @@ public class OngletMenuPanel extends OngletPanel{
 	
 	@Override
 	protected void paintBouton(Graphics g){
-		g.fillRect(746,24,183,30);
+		g.fillRect(746,20,46,35);
+		g.fillRect(791,32,95,24);
+		g.fillRect(884,20,45,35);
 	}
 	
 }
