@@ -32,12 +32,12 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 	
 	@Override
 	public void mouseDragged(MouseEvent e){
-		ecranJeu.setPositionLabelConstructionBatiment(e.getX(),e.getY());
+		ecranJeu.setPositionSouris(e.getX(),e.getY());
 	}
 	
 	@Override
 	public void mouseMoved(MouseEvent e){
-		ecranJeu.setPositionLabelConstructionBatiment(e.getX(),e.getY());
+		ecranJeu.setPositionSouris(e.getX(),e.getY());
 	}
 	
 	@Override
@@ -79,13 +79,18 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					joueur.decrementArgent(montant);
 				}else{
 					// le joueur est en train de selectionner une unité pour la déplacer
-					
+					Unite unite = joueur.getUniteSurCase(position);
+					if (unite != null){
+						// on active le mode deplacement unite
+						ecranJeu.afficherModeDeplacementUnite(unite);
+					}
 				}
 				ecranJeu.cacherModeCreation();
 				jeu.getClient().update();
 			}else{
 				// cas 2 : l'utilisateur a cliquer en dehors du plateau de jeu
 				ecranJeu.cacherModeCreation();
+				ecranJeu.cacherModeDeplacementUnite();
 				
 				if (y <= 46){
 					// test des trois liens du haut
@@ -113,11 +118,36 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 		}else{
 			// clic droit
 			ecranJeu.cacherModeCreation();
+			ecranJeu.cacherModeDeplacementUnite();
 		}
 	}
 	
 	@Override
 	public void mouseReleased(MouseEvent e){
+		int x = e.getX();
+		int y = e.getY();
+		
+		// on verifie que le laché de clic s'est effectuer sur le plateau de jeu
+		if (x > Constante.DECALAGE_PLATEAU_X && x < (Constante.LARGEUR_PLATEAU + Constante.DECALAGE_PLATEAU_X)
+				&& y > Constante.DECALAGE_PLATEAU_Y && y < (Constante.HAUTEUR_PLATEAU + Constante.DECALAGE_PLATEAU_Y)){
+			
+			// il y a un decalage entre la fenetre et le plateau d'où le Constante.DECALAGE_PLATEAU_X et le
+			// Constante.DECALAGE_PLATEAU_Y
+			x -= Constante.DECALAGE_PLATEAU_X;
+			y -= Constante.DECALAGE_PLATEAU_Y;
+			
+			if (ecranJeu.isModeDeplacementUnite()){
+				// on été en train de deplacer une unite
+				// récuperation de la case du lacher du clic
+				Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
+				Unite unite = ecranJeu.getUniteEnDeplacement();
+				unite.setPosition(position);
+				ecranJeu.cacherModeDeplacementUnite();
+				ecranJeu.update();
+			}
+		}else{
+			ecranJeu.cacherModeDeplacementUnite();
+		}
 	}
 	
 	@Override

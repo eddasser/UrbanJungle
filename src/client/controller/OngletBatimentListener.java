@@ -39,8 +39,8 @@ public class OngletBatimentListener implements MouseListener{
 			if (joueur.getArgent() >= montant){
 				EcranJeu ecranJeu = JeuPanel.getEcranJeu();
 				ecranJeu.afficherModeCreation(type);
-				ecranJeu.setPositionLabelConstructionBatiment(e.getXOnScreen() - Constante.DECALAGE_PLATEAU_X - 2 * Constante.LARGEUR_CASE,
-						e.getYOnScreen() - Constante.DECALAGE_PLATEAU_Y - 2 * Constante.HAUTEUR_CASE);
+				ecranJeu.setPositionSouris(e.getXOnScreen() - Constante.DECALAGE_PLATEAU_X - 2 * Constante.LARGEUR_CASE,e.getYOnScreen()
+						- Constante.DECALAGE_PLATEAU_Y - 2 * Constante.HAUTEUR_CASE);
 				jeu.getClient().update();
 			}else{
 				jeu.notificationJoueur(Translator.translate("PasAssezArgent"));

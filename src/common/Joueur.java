@@ -132,4 +132,20 @@ public class Joueur{
 	public void ajouterUnite(Unite u){
 		unites.add(u);
 	}
+	
+	/*
+	 * retourne l'unite présente sur la case ou NULL
+	 */
+	public Unite getUniteSurCase(Case position){
+		Unite unite = null;
+		
+		for (int i = 0 ; unite == null && i < unites.size() ; i++){
+			Unite unite_courante = unites.get(i);
+			if (unite_courante.getPosition().equals(position)){
+				unite = unite_courante;
+			}
+		}
+		
+		return unite;
+	}
 }
