@@ -20,7 +20,7 @@ public class JCoolButton extends JButton{
 	public JCoolButton(String aNameString){
 		super(aNameString);
 		setContentAreaFilled(false);
-		// setForeground(Color.white);
+		setForeground(Color.white);
 	}
 	
 	@Override

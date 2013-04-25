@@ -40,7 +40,7 @@
   </parameter>
   <parameter>
     <name>DB_PORT</name>
-    <value>8889</value>
+    <value>3306</value>
   </parameter>
   <parameter>
     <name>DB_NAME</name>
@@ -52,7 +52,7 @@
   </parameter>
   <parameter>
     <name>DB_USERPASSWORD</name>
-    <value>root</value>
+    <value></value>
   </parameter>
   
 </configuration>
