@@ -35,12 +35,12 @@ public class Joueur{
 		
 		niveauBatiment = new HashMap<TypeBatiment,Integer>();
 		for (TypeBatiment type : TypeBatiment.values()){
-			niveauBatiment.put(type,TypeBatiment.getNiveauBase(type));
+			niveauBatiment.put(type,type.getNiveauBase());
 		}
 		
 		niveauUnite = new HashMap<TypeUnite,Integer>();
 		for (TypeUnite type : TypeUnite.values()){
-			niveauUnite.put(type,TypeUnite.getNiveauBase(type));
+			niveauUnite.put(type,type.getNiveauBase());
 		}
 	}
 	

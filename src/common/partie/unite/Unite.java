@@ -16,8 +16,8 @@ public class Unite{
 		super();
 		this.type = type;
 		this.position = position;
-		niveau = TypeUnite.getNiveauBase(type);
-		pointsVie = TypeUnite.getPointDeVie(type,niveau);
+		niveau = type.getNiveauBase();
+		pointsVie = type.getPointDeVie(niveau);
 	}
 	
 	public int getNiveau(){

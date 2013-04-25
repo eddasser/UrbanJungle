@@ -60,21 +60,26 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				// Constante.DECALAGE_PLATEAU_Y
 				x -= Constante.DECALAGE_PLATEAU_X;
 				y -= Constante.DECALAGE_PLATEAU_Y;
+				
+				// récuperation de la case du clic
+				Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
+				
 				if (ecranJeu.isModeCreationBatiment()){
 					// on recupere la case la plus proche du clic et on y ajoute le nouveau batiment
-					TypeBatiment type = ecranJeu.getTypeBatimentEnConstruction();
-					int montant = TypeBatiment.getPrix(type,joueur.getNiveauBatiment(type));
-					Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
+					TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
+					int montant = type.getPrix(joueur.getNiveauBatiment(type));
 					Batiment batiment = new Batiment(type,position);
 					joueur.ajouterBatiment(batiment);
 					joueur.decrementArgent(montant);
 				}else if (ecranJeu.isModeCreationUnite()){
-					TypeUnite type = ecranJeu.getTypeUniteEnConstruction();
-					int montant = TypeUnite.getPrix(type,joueur.getNiveauUnite(type));
-					Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
+					TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
+					int montant = type.getPrix(joueur.getNiveauUnite(type));
 					Unite unite = new Unite(type,position);
 					joueur.ajouterUnite(unite);
 					joueur.decrementArgent(montant);
+				}else{
+					// le joueur est en train de selectionner une unité pour la déplacer
+					
 				}
 				ecranJeu.cacherModeCreation();
 				jeu.getClient().update();

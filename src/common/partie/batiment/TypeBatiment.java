@@ -4,11 +4,12 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import common.Translator;
+import common.TypeElementPlateau;
 
 /**
  * @author omar
  */
-public enum TypeBatiment{
+public enum TypeBatiment implements TypeElementPlateau{
 	QG, GARAGE, VENTE_DROGUE, VENTE_ALCOOL, VENTE_ARME, BOOKMAKER;
 	
 	/*
@@ -31,9 +32,10 @@ public enum TypeBatiment{
 	private static Icon ICON_VENTE_ARME_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/VENTE_ARME_MIN.png");
 	private static Icon ICON_BOOKMAKER_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/BOOKMAKER_MIN.png");
 	
-	public static Icon getIcon(TypeBatiment type){
+	
+	public Icon getIcon(){
 		Icon icon = null;
-		switch(type){
+		switch(this){
 			case QG:
 				icon = ICON_QG;
 				break;
@@ -62,9 +64,9 @@ public enum TypeBatiment{
 	}
 	
 	
-	public static Icon getIconMin(TypeBatiment type){
+	public Icon getIconMin(){
 		Icon icon = null;
-		switch(type){
+		switch(this){
 			case QG:
 				icon = ICON_QG_MIN;
 				break;
@@ -92,14 +94,14 @@ public enum TypeBatiment{
 		return icon;
 	}
 	
-	public static int getNiveauBase(TypeBatiment type){
+	public int getNiveauBase(){
 		return 0;
 	}
 	
-	public static int getRevenu(TypeBatiment type,int niveau){
+	public int getRevenu(int niveau){
 		int revenu = 0;
 		
-		switch(type){
+		switch(this){
 			case QG:
 				revenu = 1000;
 				break;
@@ -131,10 +133,10 @@ public enum TypeBatiment{
 	}
 	
 	
-	public static int getPointDeVie(TypeBatiment type,int niveau){
+	public int getPointDeVie(int niveau){
 		int ptsVie = 0;
 		
-		switch(type){
+		switch(this){
 			case QG:
 				ptsVie = 1000;
 				break;
@@ -165,10 +167,10 @@ public enum TypeBatiment{
 		return ptsVie;
 	}
 	
-	public static int getPrix(TypeBatiment type,int niveau){
+	public int getPrix(int niveau){
 		int prix = -1;
 		
-		switch(type){
+		switch(this){
 			case VENTE_DROGUE:
 				prix = 1000;
 				break;
@@ -195,10 +197,10 @@ public enum TypeBatiment{
 		return prix;
 	}
 	
-	public static int getMontantLevelUp(TypeBatiment type,int niveau){
+	public int getMontantLevelUp(int niveau){
 		int montant = 0;
 		
-		switch(type){
+		switch(this){
 			case QG:
 				montant = 1000;
 				break;

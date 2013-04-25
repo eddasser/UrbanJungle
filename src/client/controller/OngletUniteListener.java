@@ -36,10 +36,10 @@ public class OngletUniteListener implements MouseListener{
 		if (e.getButton() == MouseEvent.BUTTON1){
 			// si c'est le clic gauche
 			// si le joueur a les moyen, on procede à la création de l'unité et on lui decrement du montant de d'unité
-			int montant = TypeUnite.getPrix(type,joueur.getNiveauUnite(type));
+			int montant = type.getPrix(joueur.getNiveauUnite(type));
 			if (joueur.getArgent() >= montant){
 				EcranJeu ecranJeu = JeuPanel.getEcranJeu();
-				ecranJeu.afficherModeCreationUnite(type);
+				ecranJeu.afficherModeCreation(type);
 				ecranJeu.setPositionLabelConstructionBatiment(e.getXOnScreen() - Constante.DECALAGE_PLATEAU_X - 2 * Constante.LARGEUR_CASE,
 						e.getYOnScreen() - Constante.DECALAGE_PLATEAU_Y - 2 * Constante.HAUTEUR_CASE);
 				jeu.getClient().update();

@@ -4,12 +4,13 @@ import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 import common.Translator;
+import common.TypeElementPlateau;
 
 
 /**
  * @author omar
  */
-public enum TypeUnite{
+public enum TypeUnite implements TypeElementPlateau{
 	PETITE_FRAPPE, HOMME_MAIN, CAID, BASTONNEUR, CONSTRUCTEUR;
 	
 	/*
@@ -29,9 +30,9 @@ public enum TypeUnite{
 	private static Icon ICON_BASTONNEUR_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/BASTONNEUR_MIN.png");
 	private static Icon ICON_CONSTRUCTEUR_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/CONSTRUCTEUR_MIN.png");
 	
-	public static Icon getIcon(TypeUnite type){
+	public Icon getIcon(){
 		Icon icon = null;
-		switch(type){
+		switch(this){
 			case PETITE_FRAPPE:
 				icon = ICON_PETITE_FRAPPE;
 				break;
@@ -55,9 +56,9 @@ public enum TypeUnite{
 		return icon;
 	}
 	
-	public static Icon getIconMin(TypeUnite type){
+	public Icon getIconMin(){
 		Icon icon = null;
-		switch(type){
+		switch(this){
 			case PETITE_FRAPPE:
 				icon = ICON_PETITE_FRAPPE_MIN;
 				break;
@@ -82,14 +83,14 @@ public enum TypeUnite{
 	}
 	
 	
-	public static int getNiveauBase(TypeUnite type){
+	public int getNiveauBase(){
 		return 0;
 	}
 	
-	public static int getPointDeVie(TypeUnite type,int niveau){
+	public int getPointDeVie(int niveau){
 		int ptsVie = 0;
 		
-		switch(type){
+		switch(this){
 			case PETITE_FRAPPE:
 				ptsVie = 100;
 				break;
@@ -117,10 +118,10 @@ public enum TypeUnite{
 	}
 	
 	
-	public static int getPointAttaque(TypeUnite type,int niveau){
+	public int getPointAttaque(int niveau){
 		int ptsAttaque = 0;
 		
-		switch(type){
+		switch(this){
 			case PETITE_FRAPPE:
 				ptsAttaque = 10;
 				break;
@@ -147,10 +148,10 @@ public enum TypeUnite{
 		return ptsAttaque;
 	}
 	
-	public static int getSalaire(TypeUnite type,int niveau){
+	public int getSalaire(int niveau){
 		int salaire = 0;
 		
-		switch(type){
+		switch(this){
 			case PETITE_FRAPPE:
 				salaire = 20;
 				break;
@@ -177,10 +178,10 @@ public enum TypeUnite{
 		return salaire;
 	}
 	
-	public static int getVitesse(TypeUnite type,int niveau){
+	public int getVitesse(int niveau){
 		int vitesse = 0;
 		
-		switch(type){
+		switch(this){
 			case PETITE_FRAPPE:
 				vitesse = 1;
 				break;
@@ -207,10 +208,10 @@ public enum TypeUnite{
 		return vitesse;
 	}
 	
-	public static int getMontantLevelUp(TypeUnite type,int niveau){
+	public int getMontantLevelUp(int niveau){
 		int montant = 0;
 		
-		switch(type){
+		switch(this){
 			case PETITE_FRAPPE:
 				montant = 100;
 				break;
@@ -238,10 +239,10 @@ public enum TypeUnite{
 	}
 	
 	
-	public static int getPrix(TypeUnite type,int niveau){
+	public int getPrix(int niveau){
 		int prix = -1;
 		
-		switch(type){
+		switch(this){
 			case PETITE_FRAPPE:
 				prix = 100;
 				break;
