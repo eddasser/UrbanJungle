@@ -22,6 +22,8 @@ import common.partie.unite.TypeUnite;
  */
 public class OngletUnitePanel extends OngletPanel{
 	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+
 	public OngletUnitePanel(JeuPanel jeu){
 		super("Création d'unités",jeu);
 	}

@@ -25,6 +25,8 @@ import common.partie.batiment.TypeBatiment;
  */
 public class OngletVillePanel extends OngletPanel{
 	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+
 	public OngletVillePanel(JeuPanel jeu){
 		super("Amélioration des bâtiments",jeu);
 	}

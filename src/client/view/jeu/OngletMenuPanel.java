@@ -2,6 +2,8 @@ package client.view.jeu;
 
 import java.awt.Graphics;
 
+import common.Constante;
+
 import client.JeuPanel;
 
 
@@ -10,6 +12,8 @@ import client.JeuPanel;
  */
 public class OngletMenuPanel extends OngletPanel{
 	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+
 	public OngletMenuPanel(JeuPanel jeu){
 		super("Menu",jeu);
 	}

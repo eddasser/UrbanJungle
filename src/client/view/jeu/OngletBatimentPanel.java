@@ -22,6 +22,8 @@ import common.partie.batiment.TypeBatiment;
  */
 public class OngletBatimentPanel extends OngletPanel{
 	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+
 	public OngletBatimentPanel(JeuPanel jeu){
 		super("Création de bâtiments",jeu);
 	}

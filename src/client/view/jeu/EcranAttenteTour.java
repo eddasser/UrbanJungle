@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 
 import client.JeuPanel;
 
+import common.Constante;
 import common.Translator;
 
 /**
@@ -13,6 +14,8 @@ import common.Translator;
  */
 public class EcranAttenteTour extends OngletPanel{
 	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+
 	/**
 	 * @param name
 	 * @param jeu

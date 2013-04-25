@@ -15,6 +15,8 @@ import common.Translator;
  * @author omar
  */
 public class FondJeu extends JPanel{
+	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private Image imgFond;
 	
 	public FondJeu(){

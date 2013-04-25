@@ -188,6 +188,9 @@ public enum TypeBatiment{
 			case GARAGE:
 				prix = 1000;
 				break;
+				
+			default: // cas QG, on ne peux pas acheter de QG
+				break;
 		}
 		
 		prix += prix * niveau / 10;
