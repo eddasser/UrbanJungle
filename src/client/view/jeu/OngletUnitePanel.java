@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
@@ -15,7 +14,6 @@ import client.controller.OngletUniteListener;
 
 import common.Constante;
 import common.Joueur;
-import common.Translator;
 import common.partie.unite.TypeUnite;
 
 
@@ -44,7 +42,7 @@ public class OngletUnitePanel extends OngletPanel{
 			
 			JLabel label = new JLabel(type.name() + " (" + Constante.formatArgent(TypeUnite.getPrix(type,niveau)) + ")");
 			label.setBorder(BorderFactory.createCompoundBorder(paddingBorder,paddingBorder));
-			Icon icon = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/" + type.name() + ".png");
+			Icon icon = TypeUnite.getIcon(type);
 			label.setIcon(icon);
 			panelContenu.add(label);
 			

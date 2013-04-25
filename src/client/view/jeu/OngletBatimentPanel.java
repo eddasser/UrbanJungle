@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
@@ -15,7 +14,6 @@ import client.controller.OngletBatimentListener;
 
 import common.Constante;
 import common.Joueur;
-import common.Translator;
 import common.partie.batiment.TypeBatiment;
 
 
@@ -44,8 +42,7 @@ public class OngletBatimentPanel extends OngletPanel{
 				int niveau = joueur.getNiveauBatiment(type);
 				JLabel label = new JLabel(type.name() + " (" + Constante.formatArgent(TypeBatiment.getPrix(type,niveau)) + ")");
 				label.setBorder(BorderFactory.createCompoundBorder(paddingBorder,paddingBorder));
-				Icon icon = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/" + type.name() + ".png");
-				// Icon icon = TypeBatiment.getIcon(type);
+				Icon icon = TypeBatiment.getIcon(type);
 				label.setIcon(icon);
 				panelContenu.add(label);
 				

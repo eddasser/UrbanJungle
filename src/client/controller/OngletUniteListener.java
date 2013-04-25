@@ -4,12 +4,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import client.JeuPanel;
+import client.view.jeu.EcranJeu;
 
+import common.Constante;
 import common.Joueur;
 import common.Translator;
-import common.partie.plateau.Case;
 import common.partie.unite.TypeUnite;
-import common.partie.unite.Unite;
 
 /**
  * @author omar
@@ -38,11 +38,10 @@ public class OngletUniteListener implements MouseListener{
 			// si le joueur a les moyen, on procede à la création de l'unité et on lui decrement du montant de d'unité
 			int montant = TypeUnite.getPrix(type,joueur.getNiveauUnite(type));
 			if (joueur.getArgent() >= montant){
-				Case position = jeu.getClient().getPartie().getPlateau().getCases().get(5);
-				position = joueur.getPositionQG();
-				Unite unite = new Unite(type,position);
-				joueur.ajouterUnite(unite);
-				joueur.decrementArgent(montant);
+				EcranJeu ecranJeu = JeuPanel.getEcranJeu();
+				ecranJeu.afficherModeCreationUnite(type);
+				ecranJeu.setPositionLabelConstructionBatiment(e.getXOnScreen() - Constante.DECALAGE_PLATEAU_X - 2 * Constante.LARGEUR_CASE,
+						e.getYOnScreen() - Constante.DECALAGE_PLATEAU_Y - 2 * Constante.HAUTEUR_CASE);
 				jeu.getClient().update();
 			}else{
 				jeu.notificationJoueur(Translator.translate("PasAssezArgent"));

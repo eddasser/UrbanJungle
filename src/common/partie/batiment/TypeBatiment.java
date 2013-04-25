@@ -11,12 +11,25 @@ import common.Translator;
 public enum TypeBatiment{
 	QG, GARAGE, VENTE_DROGUE, VENTE_ALCOOL, VENTE_ARME, BOOKMAKER;
 	
-	private static Icon ICON_QG = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/QG_MIN.png");
-	private static Icon ICON_GARAGE = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/GARAGE_MIN.png");
-	private static Icon ICON_VENTE_DROGUE = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/VENTE_DROGUE_MIN.png");
-	private static Icon ICON_VENTE_ALCOOL = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/VENTE_ALCOOL_MIN.png");
-	private static Icon ICON_VENTE_ARME = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/VENTE_ARME_MIN.png");
-	private static Icon ICON_BOOKMAKER = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/BOOKMAKER_MIN.png");
+	/*
+	 * Il s'agit des icons qui sont affichée lorsque l'on clic sur le menu "batiment", les icones sont rectangulaire et plus grande
+	 */
+	private static Icon ICON_QG = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/QG.png");
+	private static Icon ICON_GARAGE = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/GARAGE.png");
+	private static Icon ICON_VENTE_DROGUE = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/VENTE_DROGUE.png");
+	private static Icon ICON_VENTE_ALCOOL = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/VENTE_ALCOOL.png");
+	private static Icon ICON_VENTE_ARME = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/VENTE_ARME.png");
+	private static Icon ICON_BOOKMAKER = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/BOOKMAKER.png");
+	
+	/*
+	 * Il s'agit ici des icons qui sont affichée sur le plateau (elle sont plus petite et sont carrée)
+	 */
+	private static Icon ICON_QG_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/QG_MIN.png");
+	private static Icon ICON_GARAGE_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/GARAGE_MIN.png");
+	private static Icon ICON_VENTE_DROGUE_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/VENTE_DROGUE_MIN.png");
+	private static Icon ICON_VENTE_ALCOOL_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/VENTE_ALCOOL_MIN.png");
+	private static Icon ICON_VENTE_ARME_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/VENTE_ARME_MIN.png");
+	private static Icon ICON_BOOKMAKER_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/BOOKMAKER_MIN.png");
 	
 	public static Icon getIcon(TypeBatiment type){
 		Icon icon = null;
@@ -48,6 +61,36 @@ public enum TypeBatiment{
 		return icon;
 	}
 	
+	
+	public static Icon getIconMin(TypeBatiment type){
+		Icon icon = null;
+		switch(type){
+			case QG:
+				icon = ICON_QG_MIN;
+				break;
+			
+			case VENTE_DROGUE:
+				icon = ICON_VENTE_DROGUE_MIN;
+				break;
+			
+			case VENTE_ALCOOL:
+				icon = ICON_VENTE_ALCOOL_MIN;
+				break;
+			
+			case BOOKMAKER:
+				icon = ICON_BOOKMAKER_MIN;
+				break;
+			
+			case VENTE_ARME:
+				icon = ICON_VENTE_ARME_MIN;
+				break;
+			
+			case GARAGE:
+				icon = ICON_GARAGE_MIN;
+				break;
+		}
+		return icon;
+	}
 	
 	public static int getNiveauBase(TypeBatiment type){
 		return 0;

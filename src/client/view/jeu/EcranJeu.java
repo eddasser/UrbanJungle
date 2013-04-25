@@ -176,14 +176,14 @@ public class EcranJeu extends NamedJPanel{
 	public void afficherModeCreationBatiment(TypeBatiment type){
 		cacherTousLesOngets();
 		typeBatimentEnConstruction = type;
-		labelEnConstruction.setIcon(TypeBatiment.getIcon(type));
+		labelEnConstruction.setIcon(TypeBatiment.getIconMin(type));
 		labelEnConstruction.setVisible(true);
 	}
 	
 	public void afficherModeCreationUnite(TypeUnite type){
 		cacherTousLesOngets();
 		typeUniteEnConstruction = type;
-		labelEnConstruction.setIcon(TypeUnite.getIcon(type));
+		labelEnConstruction.setIcon(TypeUnite.getIconMin(type));
 		labelEnConstruction.setVisible(true);
 	}
 	
@@ -204,7 +204,7 @@ public class EcranJeu extends NamedJPanel{
 	
 	public void setPositionLabelConstructionBatiment(int x,int y){
 		Rectangle rect = labelEnConstruction.getBounds();
-		rect.setBounds(x - Constante.LARGEUR_CASE,y - Constante.HAUTEUR_CASE,(int)rect.getWidth(),(int)rect.getHeight());
+		rect.setBounds(x - Constante.LARGEUR_CASE * 2 / 3,y - Constante.HAUTEUR_CASE * 2 / 3,(int)rect.getWidth(),(int)rect.getHeight());
 		labelEnConstruction.setBounds(rect);
 	}
 	

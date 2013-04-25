@@ -54,6 +54,9 @@ public class Constante{
 	public final static int DECALAGE_PLATEAU_Y = 60;
 	
 	
+	public final static int ARGENT_DEPART = 2000;
+	
+	
 	/*******************************************/
 	private final static DecimalFormatSymbols DECIMAL_FORMAT_SYMBOLS = DecimalFormatSymbols.getInstance();
 	private final static DecimalFormat DECIMAL_FORMATTER = new DecimalFormat("###,###.##",DECIMAL_FORMAT_SYMBOLS);

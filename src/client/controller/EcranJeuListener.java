@@ -12,6 +12,8 @@ import common.Joueur;
 import common.partie.batiment.Batiment;
 import common.partie.batiment.TypeBatiment;
 import common.partie.plateau.Case;
+import common.partie.unite.TypeUnite;
+import common.partie.unite.Unite;
 
 /**
  * @author omar
@@ -49,17 +51,16 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 		
 		if (e.getButton() == MouseEvent.BUTTON1){
 			// clic gauche
-			if (ecranJeu.isModeCreationBatiment()){
-				// on verifie que l'utilisateur a bien cliquer sur le plateau
-				if (x > Constante.DECALAGE_PLATEAU_X && x < (Constante.LARGEUR_PLATEAU + Constante.DECALAGE_PLATEAU_X)
-						&& y > Constante.DECALAGE_PLATEAU_Y && y < (Constante.HAUTEUR_PLATEAU + Constante.DECALAGE_PLATEAU_Y)){
-					// il y a un decalage entre la fenetre et le plateau d'où le Constante.DECALAGE_PLATEAU_X et le
-					// Constante.DECALAGE_PLATEAU_Y
-					// concernant le Constante.LARGEUR_CASE et le Constante.HAUTEUR_CASE, c'est parce que l'on centre le JLabel (du
-					// batiment)
-					// sur la souris
-					x -= Constante.DECALAGE_PLATEAU_X + Constante.LARGEUR_CASE;
-					y -= Constante.DECALAGE_PLATEAU_Y + Constante.HAUTEUR_CASE;
+			// on test d'abord si l'utilisateur a cliquer sur le plateau, ou s'il a cliquer en dehors du plateau de jeu
+			if (x > Constante.DECALAGE_PLATEAU_X && x < (Constante.LARGEUR_PLATEAU + Constante.DECALAGE_PLATEAU_X)
+					&& y > Constante.DECALAGE_PLATEAU_Y && y < (Constante.HAUTEUR_PLATEAU + Constante.DECALAGE_PLATEAU_Y)){
+				// cas 1: l'utilisateur a cliquer sur le plateau de jeu
+				
+				// il y a un decalage entre la fenetre et le plateau d'où le Constante.DECALAGE_PLATEAU_X et le
+				// Constante.DECALAGE_PLATEAU_Y
+				x -= Constante.DECALAGE_PLATEAU_X;
+				y -= Constante.DECALAGE_PLATEAU_Y;
+				if (ecranJeu.isModeCreationBatiment()){
 					// on recupere la case la plus proche du clic et on y ajoute le nouveau batiment
 					TypeBatiment type = ecranJeu.getTypeBatimentEnConstruction();
 					int montant = TypeBatiment.getPrix(type,joueur.getNiveauBatiment(type));
@@ -67,12 +68,20 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					Batiment batiment = new Batiment(type,position);
 					joueur.ajouterBatiment(batiment);
 					joueur.decrementArgent(montant);
-					ecranJeu.cacherModeCreation();
-					ecranJeu.update();
-				}else{
-					ecranJeu.cacherModeCreation();
+				}else if (ecranJeu.isModeCreationUnite()){
+					TypeUnite type = ecranJeu.getTypeUniteEnConstruction();
+					int montant = TypeUnite.getPrix(type,joueur.getNiveauUnite(type));
+					Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
+					Unite unite = new Unite(type,position);
+					joueur.ajouterUnite(unite);
+					joueur.decrementArgent(montant);
 				}
+				ecranJeu.cacherModeCreation();
+				jeu.getClient().update();
 			}else{
+				// cas 2 : l'utilisateur a cliquer en dehors du plateau de jeu
+				ecranJeu.cacherModeCreation();
+				
 				if (y <= 46){
 					// test des trois liens du haut
 					if (x >= 90 && x <= 275){

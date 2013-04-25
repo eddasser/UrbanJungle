@@ -12,11 +12,22 @@ import common.Translator;
 public enum TypeUnite{
 	PETITE_FRAPPE, HOMME_MAIN, CAID, BASTONNEUR, CONSTRUCTEUR;
 	
-	private static Icon ICON_PETITE_FRAPPE = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/PETITE_FRAPPE_MIN.png");
-	private static Icon ICON_HOMME_MAIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/HOMME_MAIN_MIN.png");
-	private static Icon ICON_CAID = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/CAID_MIN.png");
-	private static Icon ICON_BASTONNEUR = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/BASTONNEUR_MIN.png");
-	private static Icon ICON_CONSTRUCTEUR = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/CONSTRUCTEUR_MIN.png");
+	/*
+	 * Il s'agit des icons qui sont affichée lorsque l'on clic sur le menu "unité", les icones sont rectangulaire et plus grande
+	 */
+	private static Icon ICON_PETITE_FRAPPE = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/PETITE_FRAPPE.png");
+	private static Icon ICON_HOMME_MAIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/HOMME_MAIN.png");
+	private static Icon ICON_CAID = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/CAID.png");
+	private static Icon ICON_BASTONNEUR = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/BASTONNEUR.png");
+	private static Icon ICON_CONSTRUCTEUR = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/CONSTRUCTEUR.png");
+	/*
+	 * Il s'agit ici des icons qui sont affichée sur le plateau (elle sont plus petite et sont carrée)
+	 */
+	private static Icon ICON_PETITE_FRAPPE_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/PETITE_FRAPPE_MIN.png");
+	private static Icon ICON_HOMME_MAIN_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/HOMME_MAIN_MIN.png");
+	private static Icon ICON_CAID_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/CAID_MIN.png");
+	private static Icon ICON_BASTONNEUR_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/BASTONNEUR_MIN.png");
+	private static Icon ICON_CONSTRUCTEUR_MIN = new ImageIcon("ressources/" + Translator.getLangue() + "/images/EcranJeu/CONSTRUCTEUR_MIN.png");
 	
 	public static Icon getIcon(TypeUnite type){
 		Icon icon = null;
@@ -44,35 +55,32 @@ public enum TypeUnite{
 		return icon;
 	}
 	
-	/*
-	public static Color getColor(TypeUnite type){
-		Color color = null;
-		
+	public static Icon getIconMin(TypeUnite type){
+		Icon icon = null;
 		switch(type){
 			case PETITE_FRAPPE:
-				color = Color.lightGray;
+				icon = ICON_PETITE_FRAPPE_MIN;
 				break;
 			
 			case HOMME_MAIN:
-				color = Color.darkGray;
+				icon = ICON_HOMME_MAIN_MIN;
 				break;
 			
 			case CAID:
-				color = Color.black;
+				icon = ICON_CAID_MIN;
 				break;
 			
 			case BASTONNEUR:
-				color = Color.yellow;
+				icon = ICON_BASTONNEUR_MIN;
 				break;
 			
 			case CONSTRUCTEUR:
-				color = Color.green;
+				icon = ICON_CONSTRUCTEUR_MIN;
 				break;
 		}
-		
-		return color;
+		return icon;
 	}
-	*/
+	
 	
 	public static int getNiveauBase(TypeUnite type){
 		return 0;

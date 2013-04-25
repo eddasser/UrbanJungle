@@ -79,7 +79,7 @@ public class EcranPlateau extends JPanel{
 				/*
 				 * Affichage de l'icon du batiment
 				 */
-				Icon icon = TypeBatiment.getIcon(batiment.getType());
+				Icon icon = TypeBatiment.getIconMin(batiment.getType());
 				icon.paintIcon(this,g2d,case_batiment.getX(),case_batiment.getY());
 			}
 			
@@ -90,7 +90,7 @@ public class EcranPlateau extends JPanel{
 			for (int j = 0 ; j < unites.size() ; j++){
 				Unite unite = unites.get(j);
 				Case case_unite = unite.getPosition();
-				Icon icon = TypeUnite.getIcon(unite.getType());
+				Icon icon = TypeUnite.getIconMin(unite.getType());
 				icon.paintIcon(this,g2d,case_unite.getX(),case_unite.getY());
 				
 				/*

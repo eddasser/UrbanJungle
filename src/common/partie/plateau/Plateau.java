@@ -31,8 +31,9 @@ public class Plateau{
 		double distancePlusProche = casePlusProche.getDistance(x,y);
 		
 		for (int i = 1 ; i < cases.size() ; i++){
-			double distanceCourante = cases.get(i).getDistance(x,y);
-			if (distanceCourante < distancePlusProche){
+			Case caseCourante = cases.get(i);
+			double distanceCourante = caseCourante.getDistance(x,y);
+			if (distanceCourante < distancePlusProche && (caseCourante.getX() < x && caseCourante.getY() < y)){
 				casePlusProche = cases.get(i);
 				distancePlusProche = distanceCourante;
 			}
