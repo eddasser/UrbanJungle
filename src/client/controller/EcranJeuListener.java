@@ -51,8 +51,8 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 			// clic gauche
 			if (ecranJeu.isModeCreationBatiment()){
 				// on verifie que l'utilisateur a bien cliquer sur le plateau
-				if (x > Constante.DECALAGE_PLATEAU_X && x < Constante.LARGEUR_PLATEAU && y > Constante.DECALAGE_PLATEAU_Y
-						&& y < Constante.HAUTEUR_PLATEAU){
+				if (x > Constante.DECALAGE_PLATEAU_X && x < (Constante.LARGEUR_PLATEAU + Constante.DECALAGE_PLATEAU_X)
+						&& y > Constante.DECALAGE_PLATEAU_Y && y < (Constante.HAUTEUR_PLATEAU + Constante.DECALAGE_PLATEAU_Y)){
 					// il y a un decalage entre la fenetre et le plateau d'où le Constante.DECALAGE_PLATEAU_X et le
 					// Constante.DECALAGE_PLATEAU_Y
 					// concernant le Constante.LARGEUR_CASE et le Constante.HAUTEUR_CASE, c'est parce que l'on centre le JLabel (du
