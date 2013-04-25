@@ -136,7 +136,7 @@ public enum TypeBatiment{
 		
 		switch(type){
 			case QG:
-				ptsVie = 10000;
+				ptsVie = 1000;
 				break;
 			
 			case VENTE_DROGUE:
