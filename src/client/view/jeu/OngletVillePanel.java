@@ -28,7 +28,7 @@ public class OngletVillePanel extends OngletPanel{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 
 	public OngletVillePanel(JeuPanel jeu){
-		super("Amélioration des bâtiments",jeu);
+		super(Translator.translate("amelioration_batiment"),jeu);
 	}
 	
 	@Override
@@ -41,10 +41,10 @@ public class OngletVillePanel extends OngletPanel{
 		panelContenu.setLayout(new GridLayout(typesBatiment.length + 1,5));
 		
 		panelContenu.add(new JLabel());
-		panelContenu.add(new JLabel(Translator.translate("TypeBatiment")));
-		panelContenu.add(new JLabel(Translator.translate("PointsVie")));
-		panelContenu.add(new JLabel(Translator.translate("Revenu")));
-		panelContenu.add(new JLabel(Translator.translate("NiveauSuperieur")));
+		panelContenu.add(new JLabel(Translator.translate("typeBatiment")));
+		panelContenu.add(new JLabel(Translator.translate("pointsVie")));
+		panelContenu.add(new JLabel(Translator.translate("revenu")));
+		panelContenu.add(new JLabel(Translator.translate("coutNiveauSuperieur")));
 		
 		for (int i = 0 ; i < typesBatiment.length ; i++){
 			TypeBatiment type = typesBatiment[i];
@@ -58,7 +58,7 @@ public class OngletVillePanel extends OngletPanel{
 			labelIcon.setIcon(icon);
 			panelContenu.add(labelIcon);
 			
-			JLabel label = new JLabel(type.name());
+			JLabel label = new JLabel(Translator.translate(type.name()));
 			panelContenu.add(label);
 			
 			JLabel labelPtsVie = new HTMLabel(type.getPointDeVie(niveau) + " pts",type.getPointDeVie(niveau + 1) + " pts");

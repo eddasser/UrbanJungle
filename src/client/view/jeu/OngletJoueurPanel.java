@@ -28,7 +28,7 @@ public class OngletJoueurPanel extends OngletPanel{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 
 	public OngletJoueurPanel(JeuPanel jeu){
-		super("Amélioration des unités",jeu);
+		super(Translator.translate("amelioration_unite"),jeu);
 	}
 	
 	@Override
@@ -41,12 +41,12 @@ public class OngletJoueurPanel extends OngletPanel{
 		panelContenu.setLayout(new GridLayout(typesUnite.length + 1,7));
 		
 		panelContenu.add(new JLabel());
-		panelContenu.add(new JLabel(Translator.translate("TypeUnite")));
-		panelContenu.add(new JLabel(Translator.translate("PointsAttaques")));
-		panelContenu.add(new JLabel(Translator.translate("PointsVie")));
-		panelContenu.add(new JLabel(Translator.translate("Salaire")));
-		panelContenu.add(new JLabel(Translator.translate("Vitesse")));
-		panelContenu.add(new JLabel(Translator.translate("NiveauSuperieur")));
+		panelContenu.add(new JLabel(Translator.translate("typeUnite")));
+		panelContenu.add(new JLabel(Translator.translate("pointsAttaques")));
+		panelContenu.add(new JLabel(Translator.translate("pointsVie")));
+		panelContenu.add(new JLabel(Translator.translate("salaire")));
+		panelContenu.add(new JLabel(Translator.translate("vitesse")));
+		panelContenu.add(new JLabel(Translator.translate("coutNiveauSuperieur")));
 		
 		for (int i = 0 ; i < typesUnite.length ; i++){
 			TypeUnite type = typesUnite[i];
@@ -60,7 +60,7 @@ public class OngletJoueurPanel extends OngletPanel{
 			labelIcon.setIcon(icon);
 			panelContenu.add(labelIcon);
 			
-			JLabel labelType = new JLabel(type.name());
+			JLabel labelType = new JLabel(Translator.translate(type.name()));
 			panelContenu.add(labelType);
 			
 			
