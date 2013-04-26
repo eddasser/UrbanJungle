@@ -16,6 +16,8 @@ import common.Constante;
  * @author omar
  */
 public class EcranAffichageDeplacement extends JPanel{
+	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private JeuPanel jeu;
 	private int x1;
 	private int x2;
