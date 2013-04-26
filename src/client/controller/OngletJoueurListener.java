@@ -28,7 +28,7 @@ public class OngletJoueurListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e){
 		// si le joueur a les moyen, on procede à l'amelioration et on lui decrement du montant de l'amelioration
-		int montantAmelioration = TypeUnite.getMontantLevelUp(type,joueur.getNiveauUnite(type));
+		int montantAmelioration = type.getMontantLevelUp(joueur.getNiveauUnite(type));
 		if (joueur.getArgent() >= montantAmelioration){
 			joueur.incrementeNiveauUnite(type);
 			joueur.decrementArgent(montantAmelioration);

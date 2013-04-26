@@ -28,7 +28,7 @@ public class OngletVilleListener implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e){
 		// si le joueur a les moyen, on procede à l'amelioration et on lui decrement du montant de l'amelioration
-		int montantAmelioration = TypeBatiment.getMontantLevelUp(type,joueur.getNiveauBatiment(type));
+		int montantAmelioration = type.getMontantLevelUp(joueur.getNiveauBatiment(type));
 		if (joueur.getArgent() >= montantAmelioration){
 			joueur.incrementeNiveauBatiment(type);
 			joueur.decrementArgent(montantAmelioration);

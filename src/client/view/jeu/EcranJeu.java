@@ -15,8 +15,11 @@ import client.view.NamedJPanel;
 
 import common.Constante;
 import common.Joueur;
+import common.TypeElementPlateau;
 import common.partie.batiment.TypeBatiment;
+import common.partie.plateau.Case;
 import common.partie.unite.TypeUnite;
+import common.partie.unite.Unite;
 
 
 public class EcranJeu extends NamedJPanel{
@@ -38,10 +41,12 @@ public class EcranJeu extends NamedJPanel{
 	private Font font = new Font("Serif",Font.BOLD,30);
 	
 	
-	// label qui est affiché (et qui suit la souris) lors du mode création de batiment
+	// label qui est affiché (et qui suit la souris) lors du mode création d'un batiment ou d'une unité
 	private JLabel labelEnConstruction = new JLabel();
-	private TypeBatiment typeBatimentEnConstruction;
-	private TypeUnite typeUniteEnConstruction;
+	private TypeElementPlateau typeElementEnConstruction;
+	
+	private EcranAffichageDeplacement ecranAffichageDeplacement;
+	private Unite uniteEnDeplacement;// unité en cours de deplacement qui est a affiché
 	
 	public EcranJeu(JeuPanel jeu,JLayeredPane layeredPane){
 		super("ecranJeu",jeu);
@@ -54,6 +59,7 @@ public class EcranJeu extends NamedJPanel{
 		ongletUnite = new OngletUnitePanel(jeu);
 		ecranAttenteTour = new EcranAttenteTour(jeu);
 		ecranPlateau = new EcranPlateau(jeu);
+		ecranAffichageDeplacement = new EcranAffichageDeplacement(jeu);
 		cacherEcranAttente();
 	}
 	
@@ -73,6 +79,9 @@ public class EcranJeu extends NamedJPanel{
 		layeredPane.add(labelEnConstruction,new Integer(10));
 		
 		layeredPane.add(ecranAttenteTour,new Integer(200));
+		
+		layeredPane.add(ecranAffichageDeplacement,new Integer(100));
+		ecranAffichageDeplacement.setVisible(false);
 		
 		labelEnConstruction.setBounds(Constante.LARGEUR_FENETRE_PRINCIPALE / 2,Constante.HAUTEUR_FENETRE_PRINCIPALE / 2,50,50);
 		
@@ -173,46 +182,59 @@ public class EcranJeu extends NamedJPanel{
 		ongletUnite.updateContent();
 	}
 	
-	public void afficherModeCreationBatiment(TypeBatiment type){
+	public void afficherModeCreation(TypeElementPlateau type){
 		cacherTousLesOngets();
-		typeBatimentEnConstruction = type;
-		labelEnConstruction.setIcon(TypeBatiment.getIconMin(type));
-		labelEnConstruction.setVisible(true);
-	}
-	
-	public void afficherModeCreationUnite(TypeUnite type){
-		cacherTousLesOngets();
-		typeUniteEnConstruction = type;
-		labelEnConstruction.setIcon(TypeUnite.getIconMin(type));
+		typeElementEnConstruction = type;
+		labelEnConstruction.setIcon(type.getIconMin());
 		labelEnConstruction.setVisible(true);
 	}
 	
 	public void cacherModeCreation(){
-		typeBatimentEnConstruction = null;
-		typeUniteEnConstruction = null;
+		typeElementEnConstruction = null;
 		labelEnConstruction.setIcon(null);
 		labelEnConstruction.setVisible(false);
 	}
 	
 	public boolean isModeCreationBatiment(){
-		return (typeBatimentEnConstruction != null);
+		return (typeElementEnConstruction instanceof TypeBatiment);
 	}
 	
 	public boolean isModeCreationUnite(){
-		return (typeUniteEnConstruction != null);
+		return (typeElementEnConstruction instanceof TypeUnite);
 	}
 	
-	public void setPositionLabelConstructionBatiment(int x,int y){
+	public void setPositionSouris(int x,int y){
+		ecranAffichageDeplacement.setPositionSouris(x - Constante.DECALAGE_PLATEAU_X,y - Constante.DECALAGE_PLATEAU_Y);
 		Rectangle rect = labelEnConstruction.getBounds();
 		rect.setBounds(x - Constante.LARGEUR_CASE * 2 / 3,y - Constante.HAUTEUR_CASE * 2 / 3,(int)rect.getWidth(),(int)rect.getHeight());
 		labelEnConstruction.setBounds(rect);
 	}
 	
-	public TypeBatiment getTypeBatimentEnConstruction(){
-		return typeBatimentEnConstruction;
+	public TypeElementPlateau getTypeElementEnConstruction(){
+		return typeElementEnConstruction;
 	}
 	
-	public TypeUnite getTypeUniteEnConstruction(){
-		return typeUniteEnConstruction;
+	public boolean isModeDeplacementUnite(){
+		return (uniteEnDeplacement != null);
 	}
+	
+	public void afficherModeDeplacementUnite(Unite unite){
+		uniteEnDeplacement = unite;
+		Case position = unite.getPosition();
+		int x = position.getX();
+		int y = position.getY();
+		ecranAffichageDeplacement.setPositionUnite(x,y);
+		ecranAffichageDeplacement.setPositionSouris(x,y);
+		ecranAffichageDeplacement.setVisible(true);
+	}
+	
+	public void cacherModeDeplacementUnite(){
+		uniteEnDeplacement = null;
+		ecranAffichageDeplacement.setVisible(false);
+	}
+	
+	public Unite getUniteEnDeplacement(){
+		return uniteEnDeplacement;
+	}
+	
 }

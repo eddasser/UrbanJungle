@@ -178,14 +178,11 @@ public class JeuPanel extends JPanel implements Observer{
 	
 	
 	public void lancerPartieSolo(){
-		// TODO Auto-generated method stub
-		System.out.println("bouton lancer partie solo");
 		chargerEcranJeu();
 	}
 	
 	
 	public void chargerPartieSolo(){
-		// TODO Auto-generated method stub
 		System.out.println("bouton charger partie solo");
 	}
 	

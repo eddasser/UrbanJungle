@@ -35,12 +35,12 @@ public class Joueur{
 		
 		niveauBatiment = new HashMap<TypeBatiment,Integer>();
 		for (TypeBatiment type : TypeBatiment.values()){
-			niveauBatiment.put(type,TypeBatiment.getNiveauBase(type));
+			niveauBatiment.put(type,type.getNiveauBase());
 		}
 		
 		niveauUnite = new HashMap<TypeUnite,Integer>();
 		for (TypeUnite type : TypeUnite.values()){
-			niveauUnite.put(type,TypeUnite.getNiveauBase(type));
+			niveauUnite.put(type,type.getNiveauBase());
 		}
 	}
 	
@@ -131,5 +131,21 @@ public class Joueur{
 	
 	public void ajouterUnite(Unite u){
 		unites.add(u);
+	}
+	
+	/*
+	 * retourne l'unite présente sur la case ou NULL
+	 */
+	public Unite getUniteSurCase(Case position){
+		Unite unite = null;
+		
+		for (int i = 0 ; unite == null && i < unites.size() ; i++){
+			Unite unite_courante = unites.get(i);
+			if (unite_courante.getPosition().equals(position)){
+				unite = unite_courante;
+			}
+		}
+		
+		return unite;
 	}
 }

@@ -64,19 +64,18 @@ public class OngletJoueurPanel extends OngletPanel{
 			panelContenu.add(labelType);
 			
 			
-			JLabel labelPtsAttaque = new HTMLabel(TypeUnite.getPointAttaque(type,niveau) + " pts ",TypeUnite.getPointAttaque(type,niveau + 1)
-					+ " pts");
-			JLabel labelPtsVie = new HTMLabel(TypeUnite.getPointDeVie(type,niveau) + " pts",TypeUnite.getPointDeVie(type,niveau + 1) + " pts");
-			JLabel labelSalaire = new HTMLabel(Constante.formatArgent(TypeUnite.getSalaire(type,niveau)),Constante.formatArgent(TypeUnite
-					.getSalaire(type,niveau + 1)));
-			JLabel labelVitesse = new HTMLabel(TypeUnite.getVitesse(type,niveau) + " cases",TypeUnite.getVitesse(type,niveau + 1) + " cases");
+			JLabel labelPtsAttaque = new HTMLabel(type.getPointAttaque(niveau) + " pts ",type.getPointAttaque(niveau + 1) + " pts");
+			JLabel labelPtsVie = new HTMLabel(type.getPointDeVie(niveau) + " pts",type.getPointDeVie(niveau + 1) + " pts");
+			JLabel labelSalaire = new HTMLabel(Constante.formatArgent(type.getSalaire(niveau)),Constante.formatArgent(type
+					.getSalaire(niveau + 1)));
+			JLabel labelVitesse = new HTMLabel(type.getVitesse(niveau) + " cases",type.getVitesse(niveau + 1) + " cases");
 			
 			panelContenu.add(labelPtsAttaque);
 			panelContenu.add(labelPtsVie);
 			panelContenu.add(labelSalaire);
 			panelContenu.add(labelVitesse);
 			
-			JButton buttonLevelUp = new JButton(Constante.formatArgent(TypeUnite.getMontantLevelUp(type,niveau)));
+			JButton buttonLevelUp = new JButton(Constante.formatArgent(type.getMontantLevelUp(niveau)));
 			panelContenu.add(buttonLevelUp);
 			
 			buttonLevelUp.addActionListener(new OngletJoueurListener(jeu,joueur,type));
