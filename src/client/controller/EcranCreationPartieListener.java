@@ -42,7 +42,7 @@ public class EcranCreationPartieListener implements ActionListener{
 			}
 		}else if (boutonClique.equals(ecranCreationPartie.getRetour()))// retour
 		{
-			jeu.chargerEcranChoixTypePartie();
+			jeu.chargerEcranMenuMultijoueur();
 		}
 		
 	}
