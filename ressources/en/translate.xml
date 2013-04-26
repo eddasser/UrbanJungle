@@ -72,7 +72,6 @@
 		<name>rafraichir</name>
 		<value>Refresh</value>
 	</parameter>
-	
 	<parameter>
 		<name>etatAttenteJoueur</name>
 		<value>Waiting for players</value>
@@ -117,7 +116,6 @@
 		<name>champsNomPartieVide</name>
 		<value>You must choose a name for the game</value>
 	</parameter>
-	
 	<parameter>
 		<name>creation_batiment</name>
 		<value>buildings creation</value>
@@ -134,7 +132,6 @@
 		<name>amelioration_batiment</name>
 		<value>buildings upgrade</value>
 	</parameter>
-	
 	<parameter>
 		<name>typeUnite</name>
 		<value>Units</value>
@@ -159,7 +156,6 @@
 		<name>coutNiveauSuperieur</name>
 		<value>Upgrade cost</value>
 	</parameter>
-	
 	<parameter>
 		<name>PETITE_FRAPPE</name>
 		<value>henchman</value>
@@ -180,7 +176,6 @@
 		<name>CONSTRUCTEUR</name>
 		<value>Constructor</value>
 	</parameter>
-	
 	<parameter>
 		<name>typeBatiment</name>
 		<value>Buildings</value>
@@ -189,7 +184,6 @@
 		<name>revenu</name>
 		<value>Money per turn</value>
 	</parameter>
-	
 	<parameter>
 		<name>QG</name>
 		<value>GQ</value>
@@ -213,5 +207,25 @@
 	<parameter>
 		<name>BOOKMAKER</name>
 		<value>Bookmaker</value>
+	</parameter>
+	<parameter>
+		<name>quitterPartie</name>
+		<value>Leave the game</value>
+	</parameter>
+	<parameter>
+		<name>sauvegarderPartie</name>
+		<value>save game</value>
+	</parameter>
+	<parameter>
+		<name>choixLangue</name>
+		<value>  change the language</value>
+	</parameter>
+	<parameter>
+		<name>appliquer</name>
+		<value>Apply</value>
+	</parameter>
+	<parameter>
+		<name>demandeConfirmationQuitterPartie</name>
+		<value>All data not save will be lost, do you really want to quit the game ? </value>
 	</parameter>
 </configuration>

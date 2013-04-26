@@ -132,7 +132,6 @@
 		<name>amelioration_batiment</name>
 		<value>Amélioration des bâtiments</value>
 	</parameter>
-	
 	<parameter>
 		<name>typeUnite</name>
 		<value>Unités</value>
@@ -157,7 +156,6 @@
 		<name>coutNiveauSuperieur</name>
 		<value>Coût niveau suivant</value>
 	</parameter>
-	
 	<parameter>
 		<name>PETITE_FRAPPE</name>
 		<value>Petite frappe</value>
@@ -178,7 +176,6 @@
 		<name>CONSTRUCTEUR</name>
 		<value>Constructeur</value>
 	</parameter>
-	
 	<parameter>
 		<name>typeBatiment</name>
 		<value>Bâtiments</value>
@@ -187,7 +184,6 @@
 		<name>revenu</name>
 		<value>Revenus par tour</value>
 	</parameter>
-	
 	<parameter>
 		<name>QG</name>
 		<value>GQ</value>
@@ -211,5 +207,25 @@
 	<parameter>
 		<name>BOOKMAKER</name>
 		<value>Bookmaker</value>
+	</parameter>
+	<parameter>
+		<name>quitterPartie</name>
+		<value>Quitter la partie</value>
+	</parameter>
+	<parameter>
+		<name>sauvegarderPartie</name>
+		<value>Sauvegarder la partie</value>
+	</parameter>
+	<parameter>
+		<name>choixLangue</name>
+		<value>   changer la langue</value>
+	</parameter>
+	<parameter>
+		<name>appliquer</name>
+		<value>Appliquer</value>
+	</parameter>
+	<parameter>
+		<name>demandeConfirmationQuitterPartie</name>
+		<value>Toutes les données non sauvegardées seront perdues, voulez vous vraiment quitter ? </value>
 	</parameter>
 </configuration>

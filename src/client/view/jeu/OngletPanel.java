@@ -23,7 +23,7 @@ public abstract class OngletPanel extends JPanel{
 	protected JPanel panelTitre = new RoundedPanel();
 	protected JPanel panelContenu = new RoundedPanel();
 	protected JeuPanel jeu;
-	
+
 	public OngletPanel(String name,JeuPanel jeu){
 		super();
 		this.jeu = jeu;
@@ -59,4 +59,14 @@ public abstract class OngletPanel extends JPanel{
 	protected void updateContent(){
 		panelContenu.removeAll();
 	}
+	
+	public JeuPanel getJeu() {
+		return jeu;
+	}
+
+	public JPanel getPanelContenu() {
+		return panelContenu;
+	}
+	
+	
 }

@@ -233,4 +233,8 @@ public class JeuPanel extends JPanel implements Observer{
 		client = (Client)o;
 		((EcranJeu)ecranJeu).update();
 	}
+
+	public void detruirePartie() {
+		//TODO reset toutes les objet qui stock les infos de la partie car on la quitte
+	}
 }
