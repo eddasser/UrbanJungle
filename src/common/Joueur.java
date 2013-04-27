@@ -23,8 +23,7 @@ public class Joueur{
 	private ArrayList<Batiment> batiments;
 	
 	// niveau pour les types de batiments et unités pour le joueur courant
-	private HashMap<TypeBatiment,Integer> niveauBatiment;
-	private HashMap<TypeUnite,Integer> niveauUnite;
+	private HashMap<TypeElementPlateau,Integer> niveaux;
 	
 	private int argent;
 	
@@ -33,14 +32,12 @@ public class Joueur{
 		batiments = new ArrayList<Batiment>();
 		argent = Constante.ARGENT_DEPART;
 		
-		niveauBatiment = new HashMap<TypeBatiment,Integer>();
+		niveaux = new HashMap<TypeElementPlateau,Integer>();
 		for (TypeBatiment type : TypeBatiment.values()){
-			niveauBatiment.put(type,type.getNiveauBase());
+			niveaux.put(type,type.getNiveauBase());
 		}
-		
-		niveauUnite = new HashMap<TypeUnite,Integer>();
 		for (TypeUnite type : TypeUnite.values()){
-			niveauUnite.put(type,type.getNiveauBase());
+			niveaux.put(type,type.getNiveauBase());
 		}
 	}
 	
@@ -52,14 +49,9 @@ public class Joueur{
 		password = _password;
 	}
 	
-	public void incrementeNiveauBatiment(TypeBatiment type){
-		int niveau = niveauBatiment.get(type) + 1;
-		niveauBatiment.put(type,niveau);
-	}
-	
-	public void incrementeNiveauUnite(TypeUnite type){
-		int niveau = niveauUnite.get(type) + 1;
-		niveauUnite.put(type,niveau);
+	public void incrementeNiveau(TypeElementPlateau type){
+		int niveau = niveaux.get(type) + 1;
+		niveaux.put(type,niveau);
 	}
 	
 	public void incrementArgent(int montant){
@@ -80,12 +72,8 @@ public class Joueur{
 		return position;
 	}
 	
-	public int getNiveauBatiment(TypeBatiment type){
-		return niveauBatiment.get(type);
-	}
-	
-	public int getNiveauUnite(TypeUnite type){
-		return niveauUnite.get(type);
+	public int getNiveau(TypeElementPlateau type){
+		return niveaux.get(type);
 	}
 	
 	public Socket getSocket(){
@@ -147,6 +135,24 @@ public class Joueur{
 		}
 		
 		return unite;
+	}
+	
+	/*
+	 * retourne l'unite présente sur la case ou NULL
+	 */
+	public Batiment getBatimentSurCase(Case position){
+		Batiment batiment = null;
+		
+		for (int i = 0 ; batiment == null && i < batiments.size() ; i++){
+			Batiment batiment_courante = batiments.get(i);
+			Case postionCentreBatiment = new Case(batiment_courante.getPosition().getX() + Constante.LARGEUR_CASE,batiment_courante
+					.getPosition().getY() + Constante.HAUTEUR_CASE);
+			if (postionCentreBatiment.getDistance(position) <= Constante.LARGEUR_CASE){
+				batiment = batiment_courante;
+			}
+		}
+		
+		return batiment;
 	}
 	
 	/*

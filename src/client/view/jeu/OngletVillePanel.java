@@ -48,7 +48,7 @@ public class OngletVillePanel extends OngletPanel{
 			TypeBatiment type = typesBatiment[i];
 			Client client = jeu.getClient();
 			Joueur joueur = client.getJoueur();
-			int niveau = joueur.getNiveauBatiment(type);
+			int niveau = joueur.getNiveau(type);
 			
 			JLabel labelIcon = new JLabel();
 			labelIcon.setBorder(BorderFactory.createCompoundBorder(paddingBorder,paddingBorder));

@@ -4,6 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.SwingUtilities;
+
 import client.JeuPanel;
 import client.view.jeu.EcranJeu;
 
@@ -50,7 +52,32 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 		int x = e.getX();
 		int y = e.getY();
 		
-		if (e.getButton() == MouseEvent.BUTTON1){
+		if (SwingUtilities.isRightMouseButton(e)){
+			// s'il y a un double clic droit
+			ecranJeu.cacherToolTip();
+			
+			// il y a un decalage entre la fenetre et le plateau d'où le Constante.DECALAGE_PLATEAU_X et le
+			// Constante.DECALAGE_PLATEAU_Y
+			x -= Constante.DECALAGE_PLATEAU_X;
+			y -= Constante.DECALAGE_PLATEAU_Y;
+			
+			// on recupere la case la plus proche du clic
+			Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
+			
+			// on recupere l'unite eventuellement presente sur la case
+			Unite unite = joueur.getUniteSurCase(position);
+			if (unite != null){
+				ecranJeu.afficherToolTip(unite,joueur.getNiveau(unite.getType()));
+			}else{
+				// sinon on essaye de recuperer le batiment sur lequel il a cliquer
+				Batiment batiment = joueur.getBatimentSurCase(position);
+				if (batiment != null){
+					ecranJeu.afficherToolTip(batiment,joueur.getNiveau(batiment.getType()));
+				}
+			}
+		}else if (e.getButton() == MouseEvent.BUTTON1){
+			ecranJeu.cacherToolTip();
+			
 			// clic gauche
 			// on test d'abord si l'utilisateur a cliquer sur le plateau, ou s'il a cliquer en dehors du plateau de jeu
 			if (x > Constante.DECALAGE_PLATEAU_X && x < (Constante.LARGEUR_PLATEAU + Constante.DECALAGE_PLATEAU_X)
@@ -69,7 +96,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				if (ecranJeu.isModeCreationBatiment()){
 					if (jeu.getClient().getPartie().peutConstruireBatimentPosition(position) && joueur.aUniteConstructionProche(position)){
 						TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
-						int montant = type.getPrix(joueur.getNiveauBatiment(type));
+						int montant = type.getPrix(joueur.getNiveau(type));
 						Batiment batiment = new Batiment(type,position);
 						joueur.ajouterBatiment(batiment);
 						joueur.decrementArgent(montant);
@@ -80,7 +107,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				}else if (ecranJeu.isModeCreationUnite()){
 					if (joueur.presenceDeBatimentAProximitePosition(position)){
 						TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
-						int montant = type.getPrix(joueur.getNiveauUnite(type));
+						int montant = type.getPrix(joueur.getNiveau(type));
 						Unite unite = new Unite(type,position);
 						joueur.ajouterUnite(unite);
 						joueur.decrementArgent(montant);
@@ -127,9 +154,10 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				}
 			}
 		}else{
-			// clic droit
+			// autre clic
 			ecranJeu.cacherModeCreation();
 			ecranJeu.cacherModeDeplacementUnite();
+			ecranJeu.cacherToolTip();
 		}
 	}
 	

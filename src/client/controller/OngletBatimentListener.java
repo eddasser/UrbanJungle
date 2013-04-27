@@ -35,7 +35,7 @@ public class OngletBatimentListener implements MouseListener{
 		if (e.getButton() == MouseEvent.BUTTON1){
 			// si c'est le clic gauche
 			// si le joueur a les moyen, on active le mode creation batiment de la vue
-			int montant = type.getPrix(joueur.getNiveauBatiment(type));
+			int montant = type.getPrix(joueur.getNiveau(type));
 			if (joueur.getArgent() >= montant){
 				EcranJeu ecranJeu = JeuPanel.getEcranJeu();
 				ecranJeu.afficherModeCreation(type);

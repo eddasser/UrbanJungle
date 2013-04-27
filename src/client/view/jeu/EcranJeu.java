@@ -14,6 +14,7 @@ import client.controller.EcranJeuListener;
 import client.view.NamedJPanel;
 
 import common.Constante;
+import common.ElementPlateau;
 import common.Joueur;
 import common.TypeElementPlateau;
 import common.partie.batiment.TypeBatiment;
@@ -48,6 +49,8 @@ public class EcranJeu extends NamedJPanel{
 	private EcranAffichageDeplacement ecranAffichageDeplacement;
 	private Unite uniteEnDeplacement;// unité en cours de deplacement qui est a affiché
 	
+	private ToolTipInfo tooltip;
+	
 	public EcranJeu(JeuPanel jeu,JLayeredPane layeredPane){
 		super("ecranJeu",jeu);
 		this.layeredPane = layeredPane;
@@ -60,6 +63,7 @@ public class EcranJeu extends NamedJPanel{
 		ecranAttenteTour = new EcranAttenteTour(jeu);
 		ecranPlateau = new EcranPlateau(jeu);
 		ecranAffichageDeplacement = new EcranAffichageDeplacement(jeu);
+		tooltip = new ToolTipInfo();
 		cacherEcranAttente();
 	}
 	
@@ -70,6 +74,8 @@ public class EcranJeu extends NamedJPanel{
 		
 		layeredPane.add(labelCouleurJoueur,new Integer(-500));
 		
+		layeredPane.add(tooltip,new Integer(-100));
+		
 		layeredPane.add(ongletJoueur,new Integer(0));
 		layeredPane.add(ongletVille,new Integer(0));
 		layeredPane.add(ongletMenu,new Integer(0));
@@ -77,6 +83,7 @@ public class EcranJeu extends NamedJPanel{
 		layeredPane.add(ongletUnite,new Integer(0));
 		
 		layeredPane.add(labelEnConstruction,new Integer(10));
+		tooltip.setVisible(false);
 		
 		layeredPane.add(ecranAttenteTour,new Integer(200));
 		
@@ -244,4 +251,12 @@ public class EcranJeu extends NamedJPanel{
 		return uniteEnDeplacement;
 	}
 	
+	public void afficherToolTip(ElementPlateau elt,int niveau){
+		tooltip.setElement(elt,niveau);
+		tooltip.setVisible(true);
+	}
+	
+	public void cacherToolTip(){
+		tooltip.setVisible(false);
+	}
 }
