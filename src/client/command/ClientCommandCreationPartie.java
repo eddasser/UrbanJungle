@@ -21,7 +21,6 @@ public class ClientCommandCreationPartie extends ClientCommand{
 		}else{
 			jeu.notificationJoueur(Translator.translate("creationPartieReussie"));
 			jeu.chargerEcranAttenteJoueur();
-			jeu.chargerEcranMenuMultijoueur();
 		}
 	}
 	
