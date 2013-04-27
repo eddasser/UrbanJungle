@@ -252,4 +252,8 @@
 		<name>partieChargeKO</name>
 		<value>Un problème est survenu durant le chargement de la partie ... (T_T) </value>
 	</parameter>
+	<parameter>
+		<name>choisirPartieACharger</name>
+		<value>choisir une partie a charger</value>
+	</parameter>
 </configuration>

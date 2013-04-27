@@ -21,7 +21,7 @@ import client.view.EcranMenuMultijoueur;
 import client.view.EcranSauvegardePartie;
 import client.view.EcranTitre;
 import client.view.NamedJPanel;
-import client.view.ecranChoixChargementPartie;
+import client.view.EcranChoixChargementPartie;
 import client.view.jeu.EcranJeu;
 
 import common.Constante;
@@ -102,7 +102,7 @@ public class JeuPanel extends JPanel implements Observer{
 		ecranSauvegardePartie = new EcranSauvegardePartie(this);
 		
 		//ecran de chargement d'une partie
-		ecranChoixChargementPartie =  new ecranChoixChargementPartie(this);
+		ecranChoixChargementPartie =  new EcranChoixChargementPartie(this);
 		
 		ecranJeu = new EcranJeu(this,aLayeredPane);
 		
@@ -266,6 +266,7 @@ public class JeuPanel extends JPanel implements Observer{
 	public boolean sauvegardePartie(String nomSauvegarde) {
 		boolean res = true;
 		res = gestionnaireSauvegarde.sauvegarderPartie(client.getPartie(), nomSauvegarde);
+		((EcranChoixChargementPartie)ecranChoixChargementPartie).majListePartie(nomSauvegarde);
 		return res;
 	}
 	

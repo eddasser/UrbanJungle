@@ -252,4 +252,8 @@
 		<name>partieChargeKO</name>
 		<value>A problem occurs during the loading ... (T_T) </value>
 	</parameter>
+	<parameter>
+		<name>choisirPartieACharger</name>
+		<value>choose a game to load </value>
+	</parameter>
 </configuration>
