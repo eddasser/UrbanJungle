@@ -167,4 +167,24 @@ public class Partie{
 		this.plateau = plateau;
 	}
 	
+	public boolean peutConstruireBatimentPosition(Case position){
+		boolean peutConstruire = true;
+		
+		// on verifie d'abord qu'il n'y a pas d'autres batiment d'aucun joueur a cette position
+		for (int i = 0 ; peutConstruire && i < listeParticipants.size() ; i++){
+			if (listeParticipants.get(i).presenceDeBatimentPosition(position)){
+				peutConstruire = false;
+			}
+		}
+		
+		// on verifie ensuite qu'il n'y a aucune unité à cette position
+		for (int i = 0 ; peutConstruire && i < listeParticipants.size() ; i++){
+			if (listeParticipants.get(i).presenceDeUnitePosition(position)){
+				peutConstruire = false;
+			}
+		}
+		
+		return peutConstruire;
+	}
+	
 }

@@ -9,6 +9,7 @@ import client.view.jeu.EcranJeu;
 
 import common.Constante;
 import common.Joueur;
+import common.Translator;
 import common.partie.batiment.Batiment;
 import common.partie.batiment.TypeBatiment;
 import common.partie.plateau.Case;
@@ -62,15 +63,20 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				y -= Constante.DECALAGE_PLATEAU_Y;
 				
 				// récuperation de la case du clic
+				// on recupere la case la plus proche du clic et on y ajoute le nouveau batiment
 				Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
 				
 				if (ecranJeu.isModeCreationBatiment()){
-					// on recupere la case la plus proche du clic et on y ajoute le nouveau batiment
-					TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
-					int montant = type.getPrix(joueur.getNiveauBatiment(type));
-					Batiment batiment = new Batiment(type,position);
-					joueur.ajouterBatiment(batiment);
-					joueur.decrementArgent(montant);
+					if (jeu.getClient().getPartie().peutConstruireBatimentPosition(position) && joueur.aUniteConstructionProche(position)){
+						TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
+						int montant = type.getPrix(joueur.getNiveauBatiment(type));
+						Batiment batiment = new Batiment(type,position);
+						joueur.ajouterBatiment(batiment);
+						joueur.decrementArgent(montant);
+					}else{
+						ecranJeu.cacherModeCreation();
+						jeu.notificationJoueur(Translator.translate("ZoneImpossibleConstruire"));
+					}
 				}else if (ecranJeu.isModeCreationUnite()){
 					TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
 					int montant = type.getPrix(joueur.getNiveauUnite(type));

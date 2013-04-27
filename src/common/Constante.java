@@ -55,6 +55,7 @@ public class Constante{
 	
 	
 	public final static int ARGENT_DEPART = 2000;
+	public final static int NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT = 2;
 	
 	
 	/*******************************************/

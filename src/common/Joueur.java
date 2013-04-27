@@ -148,4 +148,60 @@ public class Joueur{
 		
 		return unite;
 	}
+	
+	/*
+	 * retourne true s'il y a une unite du joueur sur cette position
+	 */
+	public boolean presenceDeUnitePosition(Case position){
+		boolean presenceUnite = false;
+		
+		for (int i = 0 ; !presenceUnite && i < unites.size() ; i++){
+			Unite unite = unites.get(i);
+			Case positionUnite = unite.getPosition();
+			if (positionUnite.getX() >= position.getX() && positionUnite.getX() <= (position.getX() + 2 * Constante.LARGEUR_CASE)){
+				if (positionUnite.getY() >= position.getY() && positionUnite.getY() <= (position.getY() + 2 * Constante.HAUTEUR_CASE)){
+					presenceUnite = true;
+				}
+			}
+		}
+		return presenceUnite;
+	}
+	
+	/*
+	 * retourne true s'il y a un batiment du joueur sur cette position
+	 */
+	public boolean presenceDeBatimentPosition(Case position){
+		boolean presenceBatiment = false;
+		
+		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
+			Batiment bat = batiments.get(i);
+			Case positionBat = bat.getPosition();
+			if (position.getX() < (positionBat.getX() + 2 * Constante.LARGEUR_CASE)){
+				if (position.getY() < (positionBat.getY() + 2 * Constante.HAUTEUR_CASE)){
+					presenceBatiment = true;
+				}
+			}
+		}
+		return presenceBatiment;
+	}
+	
+	
+	public boolean aUniteConstructionProche(Case position){
+		boolean aUniteConstructeur = false;
+		
+		for (int i = 0 ; i < unites.size() ; i++){
+			Unite unite = unites.get(i);
+			if (unite.getType() == TypeUnite.CONSTRUCTEUR){
+				// on calcul la distance entre l'unite et l'endroit où il veux construire
+				double distanceUnite = position.getDistance(unite.getPosition());
+				// on convertit la distance en nombre de cases
+				distanceUnite /= Constante.LARGEUR_CASE;
+				if (distanceUnite <= Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT){
+					aUniteConstructeur = true;
+				}
+			}
+		}
+		
+		return aUniteConstructeur;
+	}
 }
