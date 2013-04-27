@@ -152,7 +152,11 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				// récuperation de la case du lacher du clic
 				Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
 				Unite unite = ecranJeu.getUniteEnDeplacement();
-				unite.setPosition(position);
+				if (unite.deplacementPossibleVersPosition(x,y)){
+					int distance = (int)(position.getDistance(unite.getPosition()) / Constante.LARGEUR_CASE);
+					unite.decrementDeplacementRestant(distance);
+					unite.setPosition(position);
+				}
 				ecranJeu.cacherModeDeplacementUnite();
 				ecranJeu.update();
 			}

@@ -23,11 +23,13 @@ public class EcranAffichageDeplacement extends JPanel{
 	private int y2;
 	
 	private final static int LARGEUR_FLECHE = 6;
+	private boolean deplacementAutorise;
 	
 	public EcranAffichageDeplacement(JeuPanel jeu){
 		this.jeu = jeu;
 		setBounds(Constante.DECALAGE_PLATEAU_X,Constante.DECALAGE_PLATEAU_Y,Constante.LARGEUR_PLATEAU,Constante.HAUTEUR_PLATEAU);
 		setOpaque(false);
+		deplacementAutorise = true;
 	}
 	
 	@Override
@@ -40,7 +42,11 @@ public class EcranAffichageDeplacement extends JPanel{
 		Graphics2D g2d = (Graphics2D)g.create();
 		
 		g2d.setStroke(new BasicStroke(3));
-		g2d.setColor(Color.yellow);
+		if (deplacementAutorise){
+			g2d.setColor(Color.yellow);
+		}else{
+			g2d.setColor(Color.red);
+		}
 		
 		double dx = x2 - x1, dy = y2 - y1;
 		double angle = Math.atan2(dy,dx);
@@ -65,4 +71,9 @@ public class EcranAffichageDeplacement extends JPanel{
 		y2 = y;
 		repaint();
 	}
+	
+	public void setDeplacementAutorise(boolean deplacementAutorise){
+		this.deplacementAutorise = deplacementAutorise;
+	}
+	
 }

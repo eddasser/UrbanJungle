@@ -204,7 +204,14 @@ public class EcranJeu extends NamedJPanel{
 	}
 	
 	public void setPositionSouris(int x,int y){
-		ecranAffichageDeplacement.setPositionSouris(x - Constante.DECALAGE_PLATEAU_X,y - Constante.DECALAGE_PLATEAU_Y);
+		if (uniteEnDeplacement != null){
+			x -= Constante.DECALAGE_PLATEAU_X;
+			y -= Constante.DECALAGE_PLATEAU_Y;
+			
+			ecranAffichageDeplacement.setDeplacementAutorise(uniteEnDeplacement.deplacementPossibleVersPosition(x,y));
+			ecranAffichageDeplacement.setPositionSouris(x,y);
+		}
+		
 		Rectangle rect = labelEnConstruction.getBounds();
 		rect.setBounds(x - Constante.LARGEUR_CASE * 2 / 3,y - Constante.HAUTEUR_CASE * 2 / 3,(int)rect.getWidth(),(int)rect.getHeight());
 		labelEnConstruction.setBounds(rect);
