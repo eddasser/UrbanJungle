@@ -49,6 +49,10 @@ public class Joueur{
 		password = _password;
 	}
 	
+	public String getLogin(){
+		return login;
+	}
+	
 	public void incrementeNiveau(TypeElementPlateau type){
 		int niveau = niveaux.get(type) + 1;
 		niveaux.put(type,niveau);

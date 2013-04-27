@@ -13,11 +13,13 @@ import server.command.ServerCommandFactory;
  * @author omar
  */
 public class ClientListener implements Runnable{
+	private Server server;
 	private Socket socket;
 	private ObjectOutputStream out; // flux de sortie d'objet
 	private ObjectInputStream in; // flux d'entrée d'objet
 	
-	public ClientListener(Socket _socket){
+	public ClientListener(Server server,Socket _socket){
+		this.server = server;
 		try{
 			socket = _socket;
 			out = new ObjectOutputStream(socket.getOutputStream());
@@ -32,6 +34,10 @@ public class ClientListener implements Runnable{
 	
 	public Socket getSocket(){
 		return socket;
+	}
+	
+	public Server getServer(){
+		return server;
 	}
 	
 	public void send(String[] args){
