@@ -78,11 +78,16 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 						jeu.notificationJoueur(Translator.translate("ZoneImpossibleConstruire"));
 					}
 				}else if (ecranJeu.isModeCreationUnite()){
-					TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
-					int montant = type.getPrix(joueur.getNiveauUnite(type));
-					Unite unite = new Unite(type,position);
-					joueur.ajouterUnite(unite);
-					joueur.decrementArgent(montant);
+					if (joueur.presenceDeBatimentAProximitePosition(position)){
+						TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
+						int montant = type.getPrix(joueur.getNiveauUnite(type));
+						Unite unite = new Unite(type,position);
+						joueur.ajouterUnite(unite);
+						joueur.decrementArgent(montant);
+					}else{
+						ecranJeu.cacherModeCreation();
+						jeu.notificationJoueur(Translator.translate("AbsenceBatimentAProximitePourCreeUnite"));
+					}
 				}else{
 					// le joueur est en train de selectionner une unité pour la déplacer
 					Unite unite = joueur.getUniteSurCase(position);

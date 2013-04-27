@@ -185,7 +185,10 @@ public class Joueur{
 		return presenceBatiment;
 	}
 	
-	
+	/*
+	 * methode qui verifie la présence d'une unité de construction à proximité de la position en parametre
+	 * (pour construire un batiment, il faut un "constructeur" a proximité)
+	 */
 	public boolean aUniteConstructionProche(Case position){
 		boolean aUniteConstructeur = false;
 		
@@ -203,5 +206,28 @@ public class Joueur{
 		}
 		
 		return aUniteConstructeur;
+	}
+	
+	
+	/*
+	 * retourne true s'il y a un batiment du joueur a proximité de la position
+	 * (il est nécéssaire d'avoir un batiment a proximité pour pouvoir créer une unité)
+	 */
+	public boolean presenceDeBatimentAProximitePosition(Case position){
+		boolean presenceBatiment = false;
+		
+		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
+			Batiment bat = batiments.get(i);
+			// on calcul la distance entre le batiment et l'endroit où il veux construire son unité
+			// on calcul bien sur la distance a partir du centre du batiment
+			double distance = position.getDistance(bat.getPosition().getX() + Constante.LARGEUR_CASE,bat.getPosition().getY()
+					+ Constante.HAUTEUR_CASE);
+			// on convertit la distance en nombre de cases
+			distance /= Constante.LARGEUR_CASE;
+			if (distance <= Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE){
+				presenceBatiment = true;
+			}
+		}
+		return presenceBatiment;
 	}
 }
