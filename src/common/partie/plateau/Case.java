@@ -1,6 +1,12 @@
 package common.partie.plateau;
 
-public class Case{
+import java.io.Serializable;
+
+import common.Constante;
+
+public class Case implements Serializable{
+	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private int x;
 	private int y;
 	

@@ -1,5 +1,6 @@
 package common;
 
+import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +13,9 @@ import common.partie.plateau.Case;
 import common.partie.unite.TypeUnite;
 import common.partie.unite.Unite;
 
-public class Joueur{
+public class Joueur implements Serializable{
+	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	// info pour partie réseau
 	private ClientListener clientListener; // socket a utiliser pour contacter le client
 	private String login;

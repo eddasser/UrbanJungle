@@ -1,10 +1,13 @@
 package common.partie.plateau;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import common.Constante;
 
-public class Plateau{
+public class Plateau implements Serializable{
+	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private ArrayList<Case> cases;
 	
 	public Plateau(){

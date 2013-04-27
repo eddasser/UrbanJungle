@@ -1,5 +1,7 @@
 package common.partie.batiment;
 
+import java.io.Serializable;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -9,7 +11,7 @@ import common.TypeElementPlateau;
 /**
  * @author omar
  */
-public enum TypeBatiment implements TypeElementPlateau{
+public enum TypeBatiment implements TypeElementPlateau, Serializable{
 	QG, GARAGE, VENTE_DROGUE, VENTE_ALCOOL, VENTE_ARME, BOOKMAKER;
 	
 	/*

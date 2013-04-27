@@ -1,11 +1,16 @@
 package common.partie.unite;
 
+import java.io.Serializable;
+
+import common.Constante;
 import common.partie.plateau.Case;
 
 /**
  * @author omar
  */
-public class Unite{
+public class Unite implements Serializable{
+	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	protected int niveau;// niveau courant de l'unité, agit comme un facteur
 	protected int pointsVie;// point de vie actuel de l'unité
 	

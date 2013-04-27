@@ -1,5 +1,7 @@
 package common.partie.unite;
 
+import java.io.Serializable;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -10,7 +12,7 @@ import common.TypeElementPlateau;
 /**
  * @author omar
  */
-public enum TypeUnite implements TypeElementPlateau{
+public enum TypeUnite implements TypeElementPlateau, Serializable{
 	PETITE_FRAPPE, HOMME_MAIN, CAID, BASTONNEUR, CONSTRUCTEUR;
 	
 	/*
