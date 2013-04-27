@@ -244,4 +244,12 @@
 		<name>partieSauvegardeKO</name>
 		<value>A problem occurs during the saving ... (T_T) </value>
 	</parameter>
+	<parameter>
+		<name>partieChargeOK</name>
+		<value>The game has been load ... (^_^) </value>
+	</parameter>
+	<parameter>
+		<name>partieChargeKO</name>
+		<value>A problem occurs during the loading ... (T_T) </value>
+	</parameter>
 </configuration>

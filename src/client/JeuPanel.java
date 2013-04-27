@@ -21,6 +21,7 @@ import client.view.EcranMenuMultijoueur;
 import client.view.EcranSauvegardePartie;
 import client.view.EcranTitre;
 import client.view.NamedJPanel;
+import client.view.ecranChoixChargementPartie;
 import client.view.jeu.EcranJeu;
 
 import common.Constante;
@@ -46,6 +47,7 @@ public class JeuPanel extends JPanel implements Observer{
 	private static NamedJPanel ecranCreationPartie;
 	private static NamedJPanel ecranJeu;
 	private static NamedJPanel ecranSauvegardePartie;
+	private static NamedJPanel ecranChoixChargementPartie;
 	
 	private Client client;
 	private ServerListener dialogueServeur;
@@ -99,6 +101,9 @@ public class JeuPanel extends JPanel implements Observer{
 		//ecran de sauvegarde d'une partie
 		ecranSauvegardePartie = new EcranSauvegardePartie(this);
 		
+		//ecran de chargement d'une partie
+		ecranChoixChargementPartie =  new ecranChoixChargementPartie(this);
+		
 		ecranJeu = new EcranJeu(this,aLayeredPane);
 		
 		/** ajout des écrans au container du gestionnaire d'écran */
@@ -112,6 +117,7 @@ public class JeuPanel extends JPanel implements Observer{
 		this.add(ecranCreationPartie,ecranCreationPartie.getName());
 		this.add(ecranJeu,ecranJeu.getName());
 		this.add(ecranSauvegardePartie,ecranSauvegardePartie.getName());
+		this.add(ecranChoixChargementPartie,ecranChoixChargementPartie.getName());
 		
 		cardlayout.first(this); // on affiche le premier ecran, l'écran titre du jeu
 		
@@ -193,7 +199,7 @@ public class JeuPanel extends JPanel implements Observer{
 	
 	
 	public void chargerPartieSolo(){
-		System.out.println("bouton charger partie solo");
+		cardlayout.show(this,ecranChoixChargementPartie.getName());
 	}
 	
 	public void chargerEcranCreationPartie(){
@@ -249,7 +255,7 @@ public class JeuPanel extends JPanel implements Observer{
 	}
 
 	public void detruirePartie() {
-		//TODO reset toutes les objet qui stock les infos de la partie car on la quitte
+		//TODO reset toutes les objets qui stock les infos de la partie car on la quitte
 	}
 
 	/** cette methode se charge de deleguer la sauvergarder l'etat de la partie courante en faisant appelle a la classe destionnaire sauvegarde
@@ -261,5 +267,22 @@ public class JeuPanel extends JPanel implements Observer{
 		boolean res = true;
 		res = gestionnaireSauvegarde.sauvegarderPartie(client.getPartie(), nomSauvegarde);
 		return res;
+	}
+	
+	/** cette methode charge une partie sauvegarde a partir d'un nom de partie*/
+	public void chargePartie(String nomSauvegarde){
+		// on charge la partie
+		Partie partieCharge = gestionnaireSauvegarde.chargerPartie(nomSauvegarde);
+		
+		if (partieCharge != null){
+			notificationJoueur(Translator.translate("partieChargeOK"));
+			// on met a jour le client
+			client.setPartie(partieCharge);
+			// on charge l'ecran de jeu
+			chargerEcranJeu();
+		}
+		else{// si le chargement a echoué
+			notificationJoueur(Translator.translate("partieChargeKO"));
+		}
 	}
 }

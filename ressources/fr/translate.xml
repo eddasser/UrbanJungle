@@ -244,4 +244,12 @@
 		<name>partieSauvegardeKO</name>
 		<value>Un problème est survenu durant la sauvegarde ... (T_T) </value>
 	</parameter>
+	<parameter>
+		<name>partieChargeOK</name>
+		<value>La partie a été chargé ... (^_^) </value>
+	</parameter>
+	<parameter>
+		<name>partieChargeKO</name>
+		<value>Un problème est survenu durant le chargement de la partie ... (T_T) </value>
+	</parameter>
 </configuration>
