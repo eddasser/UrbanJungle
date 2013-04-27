@@ -26,6 +26,9 @@ public class OngletMenuPanelListener implements ActionListener{
 		else if (event.getSource() == menuPanel.getButtonSauvegarder() ){
 			System.out.println("bouton sauvegarder actif");
 			//TODO definir la liste des truc a inclure dans la sauvegarde ( juste la partie ?, plus que sa ? )
+			
+			menuPanel.getJeu().chargerEcranSauvegardePartie();// on apelle la vue de sauvegarde
+			
 		}
 		else if (event.getSource() == menuPanel.getButtonQuitter() ){
 			System.out.println("quit");

@@ -18,6 +18,7 @@ import client.view.EcranCreationPartie;
 import client.view.EcranLoader;
 import client.view.EcranLogin;
 import client.view.EcranMenuMultijoueur;
+import client.view.EcranSauvegardePartie;
 import client.view.EcranTitre;
 import client.view.NamedJPanel;
 import client.view.jeu.EcranJeu;
@@ -44,17 +45,22 @@ public class JeuPanel extends JPanel implements Observer{
 	private static NamedJPanel ecranMenuMultijoueur;
 	private static NamedJPanel ecranCreationPartie;
 	private static NamedJPanel ecranJeu;
+	private static NamedJPanel ecranSauvegardePartie;
 	
 	private Client client;
 	private ServerListener dialogueServeur;
 	
 	private boolean accesServeur;
 	
+	private GestionnaireSauvegarde gestionnaireSauvegarde;
+	
 	public JeuPanel(JLayeredPane aLayeredPane,Client client){
 		super(cardlayout);
 		this.client = client;
 		// de base l'acces serveur est ok, si un problème est detecté ensuite en tentant de le joindre, il passera a false
 		accesServeur = true;
+		
+		gestionnaireSauvegarde = new GestionnaireSauvegarde();
 		
 		
 		/** création des écrans */
@@ -90,6 +96,9 @@ public class JeuPanel extends JPanel implements Observer{
 		// ecran de creation d'une partie
 		ecranCreationPartie = new EcranCreationPartie(this);
 		
+		//ecran de sauvegarde d'une partie
+		ecranSauvegardePartie = new EcranSauvegardePartie(this);
+		
 		ecranJeu = new EcranJeu(this,aLayeredPane);
 		
 		/** ajout des écrans au container du gestionnaire d'écran */
@@ -102,6 +111,7 @@ public class JeuPanel extends JPanel implements Observer{
 		this.add(ecranMenuMultijoueur,ecranMenuMultijoueur.getName());
 		this.add(ecranCreationPartie,ecranCreationPartie.getName());
 		this.add(ecranJeu,ecranJeu.getName());
+		this.add(ecranSauvegardePartie,ecranSauvegardePartie.getName());
 		
 		cardlayout.first(this); // on affiche le premier ecran, l'écran titre du jeu
 		
@@ -199,6 +209,10 @@ public class JeuPanel extends JPanel implements Observer{
 		((EcranJeu)ecranJeu).afficherPlateau();
 	}
 	
+	public void chargerEcranSauvegardePartie(){
+		cardlayout.show(this,ecranSauvegardePartie.getName());
+	}
+	
 	public void lancerMultijoueurs(){
 		cardlayout.show(this,ecranLogin.getName());
 	}
@@ -236,5 +250,16 @@ public class JeuPanel extends JPanel implements Observer{
 
 	public void detruirePartie() {
 		//TODO reset toutes les objet qui stock les infos de la partie car on la quitte
+	}
+
+	/** cette methode se charge de deleguer la sauvergarder l'etat de la partie courante en faisant appelle a la classe destionnaire sauvegarde
+	 * 
+	 * @param nomPartie, le nom choisi pour la sauvegarde par l'utilisateur dans la vue de sauvegarde de la partie
+	 * @return res, boolean true si la sauvegarde s'est bien passé, false si une erreur est survenue
+	 */
+	public boolean sauvegardePartie(String nomSauvegarde) {
+		boolean res = true;
+		res = gestionnaireSauvegarde.sauvegarderPartie(client.getPartie(), nomSauvegarde);
+		return res;
 	}
 }

@@ -228,4 +228,20 @@
 		<name>demandeConfirmationQuitterPartie</name>
 		<value>Toutes les données non sauvegardées seront perdues, voulez vous vraiment quitter ? </value>
 	</parameter>
+	<parameter>
+		<name>choisirNomSauvegarde</name>
+		<value>Choisir un nom pour la sauvegarde</value>
+	</parameter>
+	<parameter>
+		<name>champsNomSauvegardeVide</name>
+		<value>Vous devez choisir un nom de sauvegarde</value>
+	</parameter>
+	<parameter>
+		<name>partieSauvegardeOK</name>
+		<value>La partie a été sauvegardé ... (^_^) </value>
+	</parameter>
+	<parameter>
+		<name>partieSauvegardeKO</name>
+		<value>Un problème est survenu durant la sauvegarde ... (T_T) </value>
+	</parameter>
 </configuration>
