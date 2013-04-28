@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import client.controller.EcranResultatTentativeConnexionListener;
 import client.controller.EcranTitreListener;
+import client.view.EcranChoixChargementPartie;
 import client.view.EcranChoixTypePartie;
 import client.view.EcranConnexionServeurImpossible;
 import client.view.EcranConnexionServeurPossible;
@@ -18,10 +19,8 @@ import client.view.EcranCreationPartie;
 import client.view.EcranLoader;
 import client.view.EcranLogin;
 import client.view.EcranMenuMultijoueur;
-import client.view.EcranSauvegardePartie;
 import client.view.EcranTitre;
 import client.view.NamedJPanel;
-import client.view.EcranChoixChargementPartie;
 import client.view.jeu.EcranJeu;
 
 import common.Constante;
@@ -46,7 +45,6 @@ public class JeuPanel extends JPanel implements Observer{
 	private static NamedJPanel ecranMenuMultijoueur;
 	private static NamedJPanel ecranCreationPartie;
 	private static NamedJPanel ecranJeu;
-	private static NamedJPanel ecranSauvegardePartie;
 	private static NamedJPanel ecranChoixChargementPartie;
 	
 	private Client client;
@@ -98,9 +96,6 @@ public class JeuPanel extends JPanel implements Observer{
 		// ecran de creation d'une partie
 		ecranCreationPartie = new EcranCreationPartie(this);
 		
-		//ecran de sauvegarde d'une partie
-		ecranSauvegardePartie = new EcranSauvegardePartie(this);
-		
 		//ecran de chargement d'une partie
 		ecranChoixChargementPartie =  new EcranChoixChargementPartie(this);
 		
@@ -116,7 +111,6 @@ public class JeuPanel extends JPanel implements Observer{
 		this.add(ecranMenuMultijoueur,ecranMenuMultijoueur.getName());
 		this.add(ecranCreationPartie,ecranCreationPartie.getName());
 		this.add(ecranJeu,ecranJeu.getName());
-		this.add(ecranSauvegardePartie,ecranSauvegardePartie.getName());
 		this.add(ecranChoixChargementPartie,ecranChoixChargementPartie.getName());
 		
 		cardlayout.first(this); // on affiche le premier ecran, l'écran titre du jeu
@@ -215,10 +209,6 @@ public class JeuPanel extends JPanel implements Observer{
 		((EcranJeu)ecranJeu).afficherPlateau();
 	}
 	
-	public void chargerEcranSauvegardePartie(){
-		cardlayout.show(this,ecranSauvegardePartie.getName());
-	}
-	
 	public void lancerMultijoueurs(){
 		cardlayout.show(this,ecranLogin.getName());
 	}
@@ -266,7 +256,15 @@ public class JeuPanel extends JPanel implements Observer{
 	public boolean sauvegardePartie(String nomSauvegarde) {
 		boolean res = true;
 		res = gestionnaireSauvegarde.sauvegarderPartie(client.getPartie(), nomSauvegarde);
-		((EcranChoixChargementPartie)ecranChoixChargementPartie).majListePartie(nomSauvegarde);
+		
+		// on notifie au joueur si la sauvegarde a reussi ou non
+		if (res){ //partie sauvegardé
+			notificationJoueur(Translator.translate("partieSauvegardeOK"));
+			((EcranChoixChargementPartie)ecranChoixChargementPartie).majListePartie(nomSauvegarde);
+		}else{ //echec de la sauvegarde
+			notificationJoueur(Translator.translate("partieSauvegardeKO"));
+		}
+		
 		return res;
 	}
 	

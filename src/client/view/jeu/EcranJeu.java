@@ -37,6 +37,8 @@ public class EcranJeu extends NamedJPanel{
 	private EcranPlateau ecranPlateau;
 	private EcranAttenteTour ecranAttenteTour;
 	
+	private EcranSauvegardePartie ecranSauvegardePartie;
+	
 	private JLabel labelCouleurJoueur = new JLabel();
 	private JLabel labelArgent = new JLabel("ARGENT :",JLabel.RIGHT);
 	private Font font = new Font("Serif",Font.BOLD,30);
@@ -63,6 +65,7 @@ public class EcranJeu extends NamedJPanel{
 		ecranAttenteTour = new EcranAttenteTour(jeu);
 		ecranPlateau = new EcranPlateau(jeu);
 		ecranAffichageDeplacement = new EcranAffichageDeplacement(jeu);
+		ecranSauvegardePartie = new EcranSauvegardePartie(jeu);
 		tooltip = new ToolTipInfo();
 		cacherEcranAttente();
 	}
@@ -86,6 +89,8 @@ public class EcranJeu extends NamedJPanel{
 		tooltip.setVisible(false);
 		
 		layeredPane.add(ecranAttenteTour,new Integer(200));
+		
+		layeredPane.add(ecranSauvegardePartie,new Integer(250));
 		
 		layeredPane.add(ecranAffichageDeplacement,new Integer(100));
 		ecranAffichageDeplacement.setVisible(false);
@@ -169,6 +174,14 @@ public class EcranJeu extends NamedJPanel{
 	
 	public void cacherEcranAttente(){
 		ecranAttenteTour.setVisible(false);
+	}
+	
+	public void afficherEcranSauvegardePartie(){
+		ecranSauvegardePartie.setVisible(true);
+	}
+	
+	public void cacherEcranSauvegardePartie(){
+		ecranSauvegardePartie.setVisible(false);
 	}
 	
 	@Override
@@ -265,5 +278,8 @@ public class EcranJeu extends NamedJPanel{
 		cacherModeCreation();
 		cacherModeDeplacementUnite();
 		cacherEcranAttente();
+		cacherEcranSauvegardePartie();
 	}
+	
+	
 }

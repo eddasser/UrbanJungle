@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import client.JeuPanel;
-import client.view.EcranSauvegardePartie;
+import client.view.jeu.EcranSauvegardePartie;
 
 import common.Translator;
 
@@ -31,14 +31,7 @@ public class EcranSauvegardePartieListener implements ActionListener{
 				jeu.notificationJoueur(Translator.translate("champsNomSauvegardeVide"));
 			}else{
 				// on apelle la methode sauvegarde dans Jeu panel
-				boolean etatSauvegarde = ecranSauvegardePartie.getJeu().sauvegardePartie(ecranSauvegardePartie.getFieldSauvegardeName().getText());
-				
-				// on notifie au joueur si la sauvegarde a reussi ou non
-				if (etatSauvegarde){ //partie sauvegardé
-					jeu.notificationJoueur(Translator.translate("partieSauvegardeOK"));
-				}else{ //echec de la sauvegarde
-					jeu.notificationJoueur(Translator.translate("partieSauvegardeKO"));
-				}
+				jeu.sauvegardePartie(ecranSauvegardePartie.getFieldSauvegardeName().getText());
 				
 				// on retourne au jeu
 				jeu.chargerEcranJeu();

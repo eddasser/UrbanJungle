@@ -1,4 +1,4 @@
-package client.view;
+package client.view.jeu;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -8,15 +8,17 @@ import java.util.Date;
 
 import javax.imageio.ImageIO;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import client.JeuPanel;
+import client.controller.EcranSauvegardePartieListener;
+import client.view.JCoolButton;
 
 import common.Constante;
 import common.Translator;
 
-import client.JeuPanel;
-import client.controller.EcranSauvegardePartieListener;
-
-public class EcranSauvegardePartie extends NamedJPanel{
+public class EcranSauvegardePartie extends JPanel{
 
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 
@@ -27,14 +29,13 @@ public class EcranSauvegardePartie extends NamedJPanel{
 
 	
 	public EcranSauvegardePartie(JeuPanel jeu) {
-		super("ecranSauvegardePartie",jeu);
-		
+	
 		setLayout(null);
 		EcranSauvegardePartieListener listener = new EcranSauvegardePartieListener(jeu, this);
 		
 		
 		labelNameSauvegarde = new JLabel(Translator.translate("choisirNomSauvegarde"));
-		labelNameSauvegarde.setBounds(300, 200, 200, 50);
+		labelNameSauvegarde.setBounds(300, 200, 200, 50); 
 		add(labelNameSauvegarde);
 		
 		fieldSauvegardeName = new JTextField(new Date().toString());

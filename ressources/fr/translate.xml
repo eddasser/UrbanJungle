@@ -214,11 +214,11 @@
 	</parameter>
 	<parameter>
 		<name>sauvegarderPartie</name>
-		<value>Sauvegarder la partie</value>
+		<value>Sauvegarder</value>
 	</parameter>
 	<parameter>
 		<name>choixLangue</name>
-		<value>   changer la langue</value>
+		<value>changer la langue</value>
 	</parameter>
 	<parameter>
 		<name>appliquer</name>

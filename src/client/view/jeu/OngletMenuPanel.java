@@ -66,11 +66,13 @@ public class OngletMenuPanel extends OngletPanel{
 		panelContenu.add(boutonApply);
 			
 		panelContenu.add(new JLabel());
-		panelContenu.add(new JLabel());
-		panelContenu.add(new JLabel());
-		panelContenu.add(new JLabel());
-		panelContenu.add(new JLabel());
-		panelContenu.add(new JLabel());
+		
+		panelContenu.add(new JLabel("-----------------------------------------"));
+		panelContenu.add(new JLabel("-----------------------------------------"));
+		panelContenu.add(new JLabel("-----------------------------------------"));
+		panelContenu.add(new JLabel("-----------------------------------------"));
+		panelContenu.add(new JLabel("----------------------------------------"));
+		
 		panelContenu.add(new JLabel());
 		
 		// bouton pour sauvegarder la partie
