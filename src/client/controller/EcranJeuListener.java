@@ -151,6 +151,12 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 						// lien unités
 						ecranJeu.afficherOngletUnite();
 					}
+				}else if (y >= 570){
+					// lien en bas du plateau
+					if (x >= 80 && x <= 330){
+						// lien passer tour
+						System.out.println("Passer tour");
+					}
 				}
 			}
 		}else{
