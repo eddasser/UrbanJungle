@@ -236,4 +236,24 @@ public class Joueur{
 		}
 		return presenceBatiment;
 	}
+	
+	
+	/*
+	 * cette methode est appelé a chaque tour
+	 * elle met a jour le montant d'argent du joueur :
+	 * augmente en fonction des batiments (revenu) qu'il a 
+	 * et diminue en fonction des unités (salaire) qu'il a
+	 */
+	public void majArgentTour(){
+		int montant = 0;
+		for (int i = 0 ; i < batiments.size() ; i++){
+			TypeBatiment type = (TypeBatiment)batiments.get(i).getType();
+			montant += type.getRevenu(getNiveau(type));
+		}
+		for (int i = 0 ; i < unites.size() ; i++){
+			TypeUnite type = (TypeUnite)unites.get(i).getType();
+			montant -= type.getSalaire(getNiveau(type));
+		}
+		argent += montant;
+	}
 }

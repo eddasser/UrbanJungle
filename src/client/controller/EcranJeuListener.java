@@ -3,6 +3,8 @@ package client.controller;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.SwingUtilities;
 
@@ -11,7 +13,9 @@ import client.view.jeu.EcranJeu;
 
 import common.Constante;
 import common.Joueur;
+import common.Partie;
 import common.Translator;
+import common.ia.JoueurIA;
 import common.partie.batiment.Batiment;
 import common.partie.batiment.TypeBatiment;
 import common.partie.plateau.Case;
@@ -52,7 +56,11 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 		int x = e.getX();
 		int y = e.getY();
 		
-		if (jeu.getClient().getPartie().getJoueurCourant().equals(joueur)){
+		final Partie partie = jeu.getClient().getPartie();
+		Joueur joueurCourant = partie.getJoueurCourant();
+		
+		if (joueurCourant.equals(joueur)){
+			// si c'est a nous de jouer
 			
 			if (SwingUtilities.isRightMouseButton(e)){
 				// s'il y a un double clic droit
@@ -64,7 +72,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				y -= Constante.DECALAGE_PLATEAU_Y;
 				
 				// on recupere la case la plus proche du clic
-				Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
+				Case position = partie.getPlateau().getCasePlusProche(x,y);
 				
 				// on recupere l'unite eventuellement presente sur la case
 				Unite unite = joueur.getUniteSurCase(position);
@@ -93,7 +101,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					
 					// récuperation de la case du clic
 					// on recupere la case la plus proche du clic et on y ajoute le nouveau batiment
-					Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
+					Case position = partie.getPlateau().getCasePlusProche(x,y);
 					
 					if (ecranJeu.isModeCreationBatiment()){
 						if (jeu.getClient().getPartie().peutConstruireBatimentPosition(position) && joueur.aUniteConstructionProche(position)){
@@ -158,8 +166,34 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 						if (x >= 80 && x <= 330){
 							// lien passer tour
 							ecranJeu.cacheTousLesEcrans();
-							jeu.getClient().getPartie().passerTour();
 							ecranJeu.afficherEcranAttente();
+							
+							if (partie.isSolo()){
+								// s'il s'agit d'une partie en mode solo
+								// on fait jouer l'IA
+								partie.passerTour();
+								JoueurIA joueurIA = (JoueurIA)partie.getJoueurCourant();
+								joueurIA.majArgentTour();
+								joueurIA.jouer(partie);
+								
+								int random = (int)(3000 * Math.random()) + 2000;
+								Timer timer = new Timer();
+								timer.schedule(new TimerTask(){
+									@Override
+									public void run(){
+										// on fait passer le tour de l'IA
+										// apres un delais aléatoire
+										joueur.majArgentTour();
+										partie.passerTour();
+										ecranJeu.cacheTousLesEcrans();
+										ecranJeu.update();
+									}
+								},random);
+							}else{
+								// s'il s'agit d'une partie en reseau
+								// on envois la partie au server
+							}
+							
 						}
 					}
 				}

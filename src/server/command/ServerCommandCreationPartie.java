@@ -19,7 +19,7 @@ public class ServerCommandCreationPartie extends ServerCommand{
 		int nbJoueur = Integer.parseInt(arguments[2]);
 		
 		Joueur joueur = Server.getJoueur(_client.getSocket());
-		Partie partie = new Partie(nomPartie,nbJoueur,passwordPartie);
+		Partie partie = new Partie(nomPartie,nbJoueur,passwordPartie,false);
 		partie.addJoueur(joueur);
 		partie.setJoueurCourant(joueur); // Le createur jouera en premier
 		Server.add(partie);
