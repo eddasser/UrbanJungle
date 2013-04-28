@@ -259,4 +259,11 @@ public class EcranJeu extends NamedJPanel{
 	public void cacherToolTip(){
 		tooltip.setVisible(false);
 	}
+	
+	public void cacheTousLesEcrans(){
+		cacherTousLesOngets();
+		cacherModeCreation();
+		cacherModeDeplacementUnite();
+		cacherEcranAttente();
+	}
 }
