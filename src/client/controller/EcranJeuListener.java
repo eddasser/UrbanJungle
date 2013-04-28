@@ -173,7 +173,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 								// on fait jouer l'IA
 								partie.passerTour();
 								JoueurIA joueurIA = (JoueurIA)partie.getJoueurCourant();
-								joueurIA.majArgentTour();
+								joueurIA.majTour();
 								joueurIA.jouer(partie);
 								
 								int random = (int)(3000 * Math.random()) + 2000;
@@ -183,7 +183,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 									public void run(){
 										// on fait passer le tour de l'IA
 										// apres un delais aléatoire
-										joueur.majArgentTour();
+										joueur.majTour();
 										partie.passerTour();
 										ecranJeu.cacheTousLesEcrans();
 										ecranJeu.update();

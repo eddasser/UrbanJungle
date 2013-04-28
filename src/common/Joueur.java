@@ -237,6 +237,14 @@ public class Joueur{
 		return presenceBatiment;
 	}
 	
+	/*
+	 * cette methode est appelé a chaque tour
+	 * elle met à jour l'argent et le deplacement des unités
+	 */
+	public void majTour(){
+		majArgentTour();
+		majDeplacementUniteTour();
+	}
 	
 	/*
 	 * cette methode est appelé a chaque tour
@@ -244,7 +252,7 @@ public class Joueur{
 	 * augmente en fonction des batiments (revenu) qu'il a 
 	 * et diminue en fonction des unités (salaire) qu'il a
 	 */
-	public void majArgentTour(){
+	private void majArgentTour(){
 		int montant = 0;
 		for (int i = 0 ; i < batiments.size() ; i++){
 			TypeBatiment type = (TypeBatiment)batiments.get(i).getType();
@@ -255,5 +263,17 @@ public class Joueur{
 			montant -= type.getSalaire(getNiveau(type));
 		}
 		argent += montant;
+	}
+	
+	/*
+	 * cette methode est appelé a chaque tour
+	 * elle reinitialise la capacite de deplacement de toutes les unités
+	 */
+	private void majDeplacementUniteTour(){
+		for (int i = 0 ; i < unites.size() ; i++){
+			Unite unite = unites.get(i);
+			TypeUnite type = (TypeUnite)unite.getType();
+			unite.setDeplacementRestant(type.getVitesse(getNiveau(type)));
+		}
 	}
 }
