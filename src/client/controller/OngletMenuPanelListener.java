@@ -22,14 +22,15 @@ public class OngletMenuPanelListener implements ActionListener{
 		
 		if (event.getSource() == menuPanel.getBoutonApply() ){
 			Translator.changeLanguage(((String)menuPanel.getCombo().getSelectedItem()).substring(0, 2)); 
-			//TODO trouver pk sa a autant de mal a changer l'interface ( probleme rafraichissement ?,
+			JeuPanel.getEcranJeu().update(); //maj de l'interface
+			JeuPanel.getEcranJeu().cacherTousLesOngets();
+			JeuPanel.getEcranJeu().afficherOngletMenu();
 		}
 		else if (event.getSource() == menuPanel.getButtonSauvegarder() ){
-			System.out.println("bouton sauvegarder actif");
 			JeuPanel.getEcranJeu().afficherEcranSauvegardePartie();// on apelle la vue de sauvegarde
 		}
 		else if (event.getSource() == menuPanel.getButtonQuitter() ){
-			System.out.println("quit");
+
 			int reponse = JOptionPane.showConfirmDialog(menuPanel.getPanelContenu(), Translator.translate("demandeConfirmationQuitterPartie"));
 			if (reponse == 0){
 				menuPanel.getJeu().detruirePartie();

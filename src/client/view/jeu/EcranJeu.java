@@ -115,7 +115,7 @@ public class EcranJeu extends NamedJPanel{
 		addMouseMotionListener(ejl);
 	}
 	
-	private void cacherTousLesOngets(){
+	public void cacherTousLesOngets(){
 		ongletJoueur.setVisible(false);
 		ongletVille.setVisible(false);
 		ongletMenu.setVisible(false);
