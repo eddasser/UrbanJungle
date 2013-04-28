@@ -18,13 +18,12 @@ public class ServerCommandCreationPartie extends ServerCommand{
 		String passwordPartie = arguments[1];
 		int nbJoueur = Integer.parseInt(arguments[2]);
 		
-		Server server = _client.getServer();
-		
-		Joueur joueur = server.getJoueur(_client.getSocket());
-		Partie partie = new Partie(nomPartie,nbJoueur,passwordPartie);
+		Joueur joueur = Server.getJoueur(_client.getSocket());
+		Partie partie = new Partie(nomPartie,nbJoueur,passwordPartie,false);
+
 		partie.addJoueur(joueur);
 		partie.setJoueurCourant(joueur); // Le createur jouera en premier
-		server.add(partie);
+
 		
 		Boolean creationOk = true;// on part du principe ou il n'y a aucune limitation pour la création d'une partie
 		

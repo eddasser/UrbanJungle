@@ -49,10 +49,6 @@ public class Joueur{
 		password = _password;
 	}
 	
-	public String getLogin(){
-		return login;
-	}
-	
 	public void incrementeNiveau(TypeElementPlateau type){
 		int niveau = niveaux.get(type) + 1;
 		niveaux.put(type,niveau);
@@ -84,6 +80,11 @@ public class Joueur{
 		return clientListener.getSocket();
 	}
 	
+	
+	public String getLogin() {
+		return login;
+	}
+
 	public void send(String[] args){
 		clientListener.send(args);
 	}
@@ -202,11 +203,14 @@ public class Joueur{
 	public boolean aUniteConstructionProche(Case position){
 		boolean aUniteConstructeur = false;
 		
-		for (int i = 0 ; i < unites.size() ; i++){
+		Case centreBatiment = new Case(position.getX() + Constante.LARGEUR_CASE,position.getY() + Constante.HAUTEUR_CASE);
+		
+		for (int i = 0 ; !aUniteConstructeur && i < unites.size() ; i++){
 			Unite unite = unites.get(i);
 			if (unite.getType() == TypeUnite.CONSTRUCTEUR){
+				Case centreUnite = unite.getCentre();
 				// on calcul la distance entre l'unite et l'endroit où il veux construire
-				double distanceUnite = position.getDistance(unite.getPosition());
+				double distanceUnite = centreBatiment.getDistance(centreUnite);
 				// on convertit la distance en nombre de cases
 				distanceUnite /= Constante.LARGEUR_CASE;
 				if (distanceUnite <= Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT){
@@ -214,7 +218,6 @@ public class Joueur{
 				}
 			}
 		}
-		
 		return aUniteConstructeur;
 	}
 	
@@ -228,10 +231,11 @@ public class Joueur{
 		
 		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
 			Batiment bat = batiments.get(i);
+			Case centreBatiment = bat.getCentre();
+			Case centrePosition = new Case(position.getX() + Constante.LARGEUR_CASE / 2,position.getY() + Constante.HAUTEUR_CASE / 2);
 			// on calcul la distance entre le batiment et l'endroit où il veux construire son unité
 			// on calcul bien sur la distance a partir du centre du batiment
-			double distance = position.getDistance(bat.getPosition().getX() + Constante.LARGEUR_CASE,bat.getPosition().getY()
-					+ Constante.HAUTEUR_CASE);
+			double distance = centreBatiment.getDistance(centrePosition);
 			// on convertit la distance en nombre de cases
 			distance /= Constante.LARGEUR_CASE;
 			if (distance <= Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE){
@@ -239,5 +243,45 @@ public class Joueur{
 			}
 		}
 		return presenceBatiment;
+	}
+	
+	/*
+	 * cette methode est appelé a chaque tour
+	 * elle met à jour l'argent et le deplacement des unités
+	 */
+	public void majTour(){
+		majArgentTour();
+		majDeplacementUniteTour();
+	}
+	
+	/*
+	 * cette methode est appelé a chaque tour
+	 * elle met a jour le montant d'argent du joueur :
+	 * augmente en fonction des batiments (revenu) qu'il a 
+	 * et diminue en fonction des unités (salaire) qu'il a
+	 */
+	private void majArgentTour(){
+		int montant = 0;
+		for (int i = 0 ; i < batiments.size() ; i++){
+			TypeBatiment type = (TypeBatiment)batiments.get(i).getType();
+			montant += type.getRevenu(getNiveau(type));
+		}
+		for (int i = 0 ; i < unites.size() ; i++){
+			TypeUnite type = (TypeUnite)unites.get(i).getType();
+			montant -= type.getSalaire(getNiveau(type));
+		}
+		argent += montant;
+	}
+	
+	/*
+	 * cette methode est appelé a chaque tour
+	 * elle reinitialise la capacite de deplacement de toutes les unités
+	 */
+	private void majDeplacementUniteTour(){
+		for (int i = 0 ; i < unites.size() ; i++){
+			Unite unite = unites.get(i);
+			TypeUnite type = (TypeUnite)unite.getType();
+			unite.setDeplacementRestant(type.getVitesse(getNiveau(type)));
+		}
 	}
 }

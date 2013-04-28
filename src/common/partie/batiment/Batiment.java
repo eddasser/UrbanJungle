@@ -1,6 +1,5 @@
 package common.partie.batiment;
 
-
 import java.io.Serializable;
 import common.Constante;
 import common.ElementPlateau;
@@ -13,6 +12,14 @@ public class Batiment extends ElementPlateau implements Serializable{
 	
 	public Batiment(TypeBatiment type,Case position){
 		super(type,position);
+	}
+	
+	@Override
+	public Case getCentre(){
+		int x = position.getX();
+		int y = position.getY();
+		Case centre = new Case(x + Constante.LARGEUR_CASE,y + Constante.HAUTEUR_CASE);
+		return centre;
 	}
 	
 }

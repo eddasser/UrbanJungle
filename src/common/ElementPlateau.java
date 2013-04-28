@@ -18,6 +18,11 @@ public abstract class ElementPlateau{
 		pointsVie = type.getPointDeVie(0);
 	}
 	
+	/*
+	 *  retourne la position centrale de l'element
+	 */
+	public abstract Case getCentre();
+	
 	
 	public int getPointsVie(){
 		return pointsVie;

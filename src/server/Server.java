@@ -41,7 +41,7 @@ public class Server extends Observable{
 		return parties.get(id);
 	}
 	
-	public Joueur getJoueur(Socket socket){
+	public static Joueur getJoueur(Socket socket){
 		Joueur joueur = null;
 		for (int i = 0 ; i < joueurs.size() && joueur == null ; i++){
 			if (joueurs.get(i).getSocket().equals(socket)){
