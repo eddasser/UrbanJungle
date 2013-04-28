@@ -12,7 +12,7 @@ public class Partie{
 	private String nomPartie; // nom donné a la parti par son créateur
 	private int nbJoueur; // nb de joueur requis pour cette partie
 	private ArrayList<Joueur> listeParticipants; // liste des joueurs participants a cette partie
-	private Joueur joueurCourant; // Joueur qui joue a un instant donne (change a chaque tour)
+	private int indiceJoueurCourant; // indice dans la liste du Joueur qui joue a un instant donne (change a chaque tour)
 	private Etat etatDeLaPartie; // etat de la partie possible : "en cours" ou "en attente"
 	private String password;// password de la partie, si null alors la partie est public sinon elle est privé
 	private Plateau plateau;// plateau de jeu
@@ -152,11 +152,11 @@ public class Partie{
 	}
 	
 	public Joueur getJoueurCourant(){
-		return joueurCourant;
+		return listeParticipants.get(indiceJoueurCourant);
 	}
 	
 	public void setJoueurCourant(Joueur joueurCourant){
-		this.joueurCourant = joueurCourant;
+		indiceJoueurCourant = listeParticipants.indexOf(joueurCourant);
 	}
 	
 	public Plateau getPlateau(){
@@ -185,6 +185,13 @@ public class Partie{
 		}
 		
 		return peutConstruire;
+	}
+	
+	public void passerTour(){
+		indiceJoueurCourant++;
+		if (indiceJoueurCourant >= listeParticipants.size()){
+			indiceJoueurCourant = 0;
+		}
 	}
 	
 }
