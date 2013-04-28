@@ -3,58 +3,51 @@ package common.partie.unite;
 import java.io.Serializable;
 
 import common.Constante;
+import common.ElementPlateau;
+
 import common.partie.plateau.Case;
 
 /**
  * @author omar
  */
-public class Unite implements Serializable{
+public class Unite extends ElementPlateau implements Serializable{
 	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
-	protected int niveau;// niveau courant de l'unité, agit comme un facteur
-	protected int pointsVie;// point de vie actuel de l'unité
-	
-	protected Case position; // Position actuelle de l'unite
-	protected TypeUnite type;// type de l'unite
+	private int deplacementRestant;// nombre de case que l'unite peut encore parcourrir
 	
 	public Unite(TypeUnite type,Case position){
-		super();
-		this.type = type;
-		this.position = position;
-		niveau = type.getNiveauBase();
-		pointsVie = type.getPointDeVie(niveau);
+		super(type,position);
+		deplacementRestant = type.getVitesse(0);
 	}
 	
-	public int getNiveau(){
-		return niveau;
+	public int getDeplacementRestant(){
+		return deplacementRestant;
 	}
 	
-	public int getPointsVie(){
-		return pointsVie;
+	public void setDeplacementRestant(int deplacementRestant){
+		this.deplacementRestant = deplacementRestant;
 	}
 	
-	public Case getPosition(){
-		return position;
+	public boolean deplacementPossibleVersPosition(int x,int y){
+		boolean deplacementPossible = false;
+		
+		// on part de la position centrale de la case ou se trouve l'unite
+		Case positionCentre = new Case(position.getX() + Constante.LARGEUR_CASE / 2,position.getY() + Constante.HAUTEUR_CASE / 2);
+		
+		// on calcul la distance maximal que peut parcourrir l'unite (on ajoute une marge = Constante.LARGEUR_CASE / 2 car on par du centre
+		double dMax = deplacementRestant * Constante.LARGEUR_CASE + Constante.LARGEUR_CASE / 2;
+		
+		// on calcul la distance total a parcourir
+		double dTotal = positionCentre.getDistance(x,y);
+		
+		if (dTotal <= dMax){
+			deplacementPossible = true;
+		}
+		
+		return deplacementPossible;
 	}
 	
-	public TypeUnite getType(){
-		return type;
+	public void decrementDeplacementRestant(int nbCases){
+		deplacementRestant -= nbCases;
 	}
-	
-	public void setNiveau(int niveau){
-		this.niveau = niveau;
-	}
-	
-	public void setPointsVie(int pointsVie){
-		this.pointsVie = pointsVie;
-	}
-	
-	public void setPosition(Case position){
-		this.position = position;
-	}
-	
-	public void setType(TypeUnite type){
-		this.type = type;
-	}
-	
 }

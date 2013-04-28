@@ -1,6 +1,5 @@
 package common;
 
-import java.io.Serializable;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,9 +12,7 @@ import common.partie.plateau.Case;
 import common.partie.unite.TypeUnite;
 import common.partie.unite.Unite;
 
-public class Joueur implements Serializable{
-	
-	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+public class Joueur{
 	// info pour partie réseau
 	private ClientListener clientListener; // socket a utiliser pour contacter le client
 	private String login;
@@ -26,8 +23,7 @@ public class Joueur implements Serializable{
 	private ArrayList<Batiment> batiments;
 	
 	// niveau pour les types de batiments et unités pour le joueur courant
-	private HashMap<TypeBatiment,Integer> niveauBatiment;
-	private HashMap<TypeUnite,Integer> niveauUnite;
+	private HashMap<TypeElementPlateau,Integer> niveaux;
 	
 	private int argent;
 	
@@ -36,14 +32,12 @@ public class Joueur implements Serializable{
 		batiments = new ArrayList<Batiment>();
 		argent = Constante.ARGENT_DEPART;
 		
-		niveauBatiment = new HashMap<TypeBatiment,Integer>();
+		niveaux = new HashMap<TypeElementPlateau,Integer>();
 		for (TypeBatiment type : TypeBatiment.values()){
-			niveauBatiment.put(type,type.getNiveauBase());
+			niveaux.put(type,type.getNiveauBase());
 		}
-		
-		niveauUnite = new HashMap<TypeUnite,Integer>();
 		for (TypeUnite type : TypeUnite.values()){
-			niveauUnite.put(type,type.getNiveauBase());
+			niveaux.put(type,type.getNiveauBase());
 		}
 	}
 	
@@ -55,14 +49,13 @@ public class Joueur implements Serializable{
 		password = _password;
 	}
 	
-	public void incrementeNiveauBatiment(TypeBatiment type){
-		int niveau = niveauBatiment.get(type) + 1;
-		niveauBatiment.put(type,niveau);
+	public String getLogin(){
+		return login;
 	}
 	
-	public void incrementeNiveauUnite(TypeUnite type){
-		int niveau = niveauUnite.get(type) + 1;
-		niveauUnite.put(type,niveau);
+	public void incrementeNiveau(TypeElementPlateau type){
+		int niveau = niveaux.get(type) + 1;
+		niveaux.put(type,niveau);
 	}
 	
 	public void incrementArgent(int montant){
@@ -83,12 +76,8 @@ public class Joueur implements Serializable{
 		return position;
 	}
 	
-	public int getNiveauBatiment(TypeBatiment type){
-		return niveauBatiment.get(type);
-	}
-	
-	public int getNiveauUnite(TypeUnite type){
-		return niveauUnite.get(type);
+	public int getNiveau(TypeElementPlateau type){
+		return niveaux.get(type);
 	}
 	
 	public Socket getSocket(){
@@ -150,5 +139,105 @@ public class Joueur implements Serializable{
 		}
 		
 		return unite;
+	}
+	
+	/*
+	 * retourne l'unite présente sur la case ou NULL
+	 */
+	public Batiment getBatimentSurCase(Case position){
+		Batiment batiment = null;
+		
+		for (int i = 0 ; batiment == null && i < batiments.size() ; i++){
+			Batiment batiment_courante = batiments.get(i);
+			Case postionCentreBatiment = new Case(batiment_courante.getPosition().getX() + Constante.LARGEUR_CASE,batiment_courante
+					.getPosition().getY() + Constante.HAUTEUR_CASE);
+			if (postionCentreBatiment.getDistance(position) <= Constante.LARGEUR_CASE){
+				batiment = batiment_courante;
+			}
+		}
+		
+		return batiment;
+	}
+	
+	/*
+	 * retourne true s'il y a une unite du joueur sur cette position
+	 */
+	public boolean presenceDeUnitePosition(Case position){
+		boolean presenceUnite = false;
+		
+		for (int i = 0 ; !presenceUnite && i < unites.size() ; i++){
+			Unite unite = unites.get(i);
+			Case positionUnite = unite.getPosition();
+			if (positionUnite.getX() >= position.getX() && positionUnite.getX() <= (position.getX() + 2 * Constante.LARGEUR_CASE)){
+				if (positionUnite.getY() >= position.getY() && positionUnite.getY() <= (position.getY() + 2 * Constante.HAUTEUR_CASE)){
+					presenceUnite = true;
+				}
+			}
+		}
+		return presenceUnite;
+	}
+	
+	/*
+	 * retourne true s'il y a un batiment du joueur sur cette position
+	 */
+	public boolean presenceDeBatimentPosition(Case position){
+		boolean presenceBatiment = false;
+		
+		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
+			Batiment bat = batiments.get(i);
+			Case positionBat = bat.getPosition();
+			if (position.getX() < (positionBat.getX() + 2 * Constante.LARGEUR_CASE)){
+				if (position.getY() < (positionBat.getY() + 2 * Constante.HAUTEUR_CASE)){
+					presenceBatiment = true;
+				}
+			}
+		}
+		return presenceBatiment;
+	}
+	
+	/*
+	 * methode qui verifie la présence d'une unité de construction à proximité de la position en parametre
+	 * (pour construire un batiment, il faut un "constructeur" a proximité)
+	 */
+	public boolean aUniteConstructionProche(Case position){
+		boolean aUniteConstructeur = false;
+		
+		for (int i = 0 ; i < unites.size() ; i++){
+			Unite unite = unites.get(i);
+			if (unite.getType() == TypeUnite.CONSTRUCTEUR){
+				// on calcul la distance entre l'unite et l'endroit où il veux construire
+				double distanceUnite = position.getDistance(unite.getPosition());
+				// on convertit la distance en nombre de cases
+				distanceUnite /= Constante.LARGEUR_CASE;
+				if (distanceUnite <= Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT){
+					aUniteConstructeur = true;
+				}
+			}
+		}
+		
+		return aUniteConstructeur;
+	}
+	
+	
+	/*
+	 * retourne true s'il y a un batiment du joueur a proximité de la position
+	 * (il est nécéssaire d'avoir un batiment a proximité pour pouvoir créer une unité)
+	 */
+	public boolean presenceDeBatimentAProximitePosition(Case position){
+		boolean presenceBatiment = false;
+		
+		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
+			Batiment bat = batiments.get(i);
+			// on calcul la distance entre le batiment et l'endroit où il veux construire son unité
+			// on calcul bien sur la distance a partir du centre du batiment
+			double distance = position.getDistance(bat.getPosition().getX() + Constante.LARGEUR_CASE,bat.getPosition().getY()
+					+ Constante.HAUTEUR_CASE);
+			// on convertit la distance en nombre de cases
+			distance /= Constante.LARGEUR_CASE;
+			if (distance <= Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE){
+				presenceBatiment = true;
+			}
+		}
+		return presenceBatiment;
 	}
 }

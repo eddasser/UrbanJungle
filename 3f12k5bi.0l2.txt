@@ -1,0 +1,71 @@
+﻿Merge remote-tracking branch 'origin/creation_vue_serveur' into creation_vue_jeuSolo
+
+Conflicts:
+	src/client/view/JCoolButton.java
+	src/client/view/jeu/OngletBatimentPanel.java
+	src/common/Joueur.java
+	src/common/Partie.java
+	src/common/partie/batiment/Batiment.java
+	src/common/partie/unite/Unite.java
+	src/server/ClientListener.java
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch creation_vue_jeuSolo
+# All conflicts fixed but you are still merging.
+#   (use "git commit" to conclude merge)
+#
+# Changes to be committed:
+#
+#	new file:   ressources/server/UrbanJungleServer.gif
+#	new file:   ressources/server/UrbanJungleServer.jpg
+#	new file:   ressources/server/UrbanJungleServer.png
+#	modified:   src/client/controller/EcranJeuListener.java
+#	modified:   src/client/controller/OngletBatimentListener.java
+#	modified:   src/client/controller/OngletJoueurListener.java
+#	modified:   src/client/controller/OngletUniteListener.java
+#	modified:   src/client/controller/OngletVilleListener.java
+#	modified:   src/client/view/JCoolButton.java
+#	modified:   src/client/view/jeu/EcranAffichageDeplacement.java
+#	modified:   src/client/view/jeu/EcranJeu.java
+#	modified:   src/client/view/jeu/OngletBatimentPanel.java
+#	modified:   src/client/view/jeu/OngletJoueurPanel.java
+#	modified:   src/client/view/jeu/OngletUnitePanel.java
+#	modified:   src/client/view/jeu/OngletVillePanel.java
+#	new file:   src/client/view/jeu/ToolTipInfo.java
+#	modified:   src/common/Constante.java
+#	new file:   src/common/ElementPlateau.java
+#	modified:   src/common/Joueur.java
+#	modified:   src/common/Partie.java
+#	modified:   src/common/partie/batiment/Batiment.java
+#	modified:   src/common/partie/plateau/Case.java
+#	modified:   src/common/partie/unite/Unite.java
+#	modified:   src/server/ClientListener.java
+#	modified:   src/server/Server.java
+#	modified:   src/server/ServerListener.java
+#	modified:   src/server/command/ServerCommandCreationCompte.java
+#	modified:   src/server/command/ServerCommandCreationPartie.java
+#	modified:   src/server/command/ServerCommandDemandeConnexion.java
+#	modified:   src/server/command/ServerCommandListePartie.java
+#	modified:   src/server/command/ServerCommandRejoindrePartie.java
+#	new file:   src/server/view/MonModele.java
+#	new file:   src/server/view/VueListeJoueurs.java
+#	new file:   src/server/view/VueListeParties.java
+#	new file:   src/server/view/VueServer.java
+#
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   src/client/view/jeu/ToolTipInfo.java
+#	modified:   src/server/view/VueListeJoueurs.java
+#	modified:   src/server/view/VueListeParties.java
+#	modified:   src/server/view/VueServer.java
+#
+

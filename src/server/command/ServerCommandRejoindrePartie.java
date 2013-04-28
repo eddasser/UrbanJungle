@@ -16,11 +16,13 @@ public class ServerCommandRejoindrePartie extends ServerCommand{
 	
 	@Override
 	public void execute(ClientListener _client){
+		Server server = _client.getServer();
+		
 		int idPartie = Integer.parseInt(arguments[0]);
 		String password = arguments[1];
 		
-		Joueur joueur = Server.getJoueur(_client.getSocket());
-		Partie partie = Server.getParte(idPartie);
+		Joueur joueur = server.getJoueur(_client.getSocket());
+		Partie partie = server.getParte(idPartie);
 		
 		
 		boolean rejoint = false;

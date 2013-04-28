@@ -41,7 +41,7 @@ public class OngletUnitePanel extends OngletPanel{
 			TypeUnite type = typesUnite[i];
 			Client client = jeu.getClient();
 			Joueur joueur = client.getJoueur();
-			int niveau = joueur.getNiveauUnite(type);
+			int niveau = joueur.getNiveau(type);
 			
 			JLabel label = new JLabel(Translator.translate(type.name()) + " (" + Constante.formatArgent(type.getPrix(niveau)) + ")");
 			label.setBorder(BorderFactory.createCompoundBorder(paddingBorder,paddingBorder));

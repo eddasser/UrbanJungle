@@ -1,6 +1,5 @@
 package common;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 import common.partie.batiment.Batiment;
@@ -9,9 +8,7 @@ import common.partie.plateau.Case;
 import common.partie.plateau.Plateau;
 
 
-public class Partie implements Serializable{
-	
-	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+public class Partie{
 	private String nomPartie; // nom donné a la parti par son créateur
 	private int nbJoueur; // nb de joueur requis pour cette partie
 	private ArrayList<Joueur> listeParticipants; // liste des joueurs participants a cette partie
@@ -168,6 +165,26 @@ public class Partie implements Serializable{
 	
 	public void setPlateau(Plateau plateau){
 		this.plateau = plateau;
+	}
+	
+	public boolean peutConstruireBatimentPosition(Case position){
+		boolean peutConstruire = true;
+		
+		// on verifie d'abord qu'il n'y a pas d'autres batiment d'aucun joueur a cette position
+		for (int i = 0 ; peutConstruire && i < listeParticipants.size() ; i++){
+			if (listeParticipants.get(i).presenceDeBatimentPosition(position)){
+				peutConstruire = false;
+			}
+		}
+		
+		// on verifie ensuite qu'il n'y a aucune unité à cette position
+		for (int i = 0 ; peutConstruire && i < listeParticipants.size() ; i++){
+			if (listeParticipants.get(i).presenceDeUnitePosition(position)){
+				peutConstruire = false;
+			}
+		}
+		
+		return peutConstruire;
 	}
 	
 }

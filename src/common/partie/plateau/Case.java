@@ -35,4 +35,8 @@ public class Case implements Serializable{
 	public double getDistance(int x1,int y1){
 		return Math.sqrt((x1 - x) * (x1 - x) + (y1 - y) * (y1 - y));
 	}
+	
+	public double getDistance(Case position){
+		return getDistance(position.getX(),position.getY());
+	}
 }

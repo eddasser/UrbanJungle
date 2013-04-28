@@ -54,7 +54,9 @@ public class Constante{
 	public final static int DECALAGE_PLATEAU_Y = 60;
 	
 	
-	public final static int ARGENT_DEPART = 2000;
+	public final static int ARGENT_DEPART = 20000;
+	public final static int NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT = 2;
+	public final static int NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE = 3;
 	
 	
 	/*******************************************/
