@@ -244,10 +244,6 @@ public class JeuPanel extends JPanel implements Observer{
 		((EcranJeu)ecranJeu).update();
 	}
 
-	public void detruirePartie() {
-		//TODO reset toutes les objets qui stock les infos de la partie car on la quitte
-	}
-
 	/** cette methode se charge de deleguer la sauvergarder l'etat de la partie courante en faisant appelle a la classe destionnaire sauvegarde
 	 * 
 	 * @param nomPartie, le nom choisi pour la sauvegarde par l'utilisateur dans la vue de sauvegarde de la partie
