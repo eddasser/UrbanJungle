@@ -15,6 +15,14 @@ public class Unite extends ElementPlateau{
 		deplacementRestant = type.getVitesse(0);
 	}
 	
+	@Override
+	public Case getCentre(){
+		int x = position.getX();
+		int y = position.getY();
+		Case centre = new Case(x + Constante.LARGEUR_CASE / 2,y + Constante.HAUTEUR_CASE / 2);
+		return centre;
+	}
+	
 	public int getDeplacementRestant(){
 		return deplacementRestant;
 	}

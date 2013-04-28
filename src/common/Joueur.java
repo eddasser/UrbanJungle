@@ -198,11 +198,14 @@ public class Joueur{
 	public boolean aUniteConstructionProche(Case position){
 		boolean aUniteConstructeur = false;
 		
-		for (int i = 0 ; i < unites.size() ; i++){
+		Case centreBatiment = new Case(position.getX() + Constante.LARGEUR_CASE,position.getY() + Constante.HAUTEUR_CASE);
+		
+		for (int i = 0 ; !aUniteConstructeur && i < unites.size() ; i++){
 			Unite unite = unites.get(i);
 			if (unite.getType() == TypeUnite.CONSTRUCTEUR){
+				Case centreUnite = unite.getCentre();
 				// on calcul la distance entre l'unite et l'endroit où il veux construire
-				double distanceUnite = position.getDistance(unite.getPosition());
+				double distanceUnite = centreBatiment.getDistance(centreUnite);
 				// on convertit la distance en nombre de cases
 				distanceUnite /= Constante.LARGEUR_CASE;
 				if (distanceUnite <= Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT){
@@ -210,7 +213,6 @@ public class Joueur{
 				}
 			}
 		}
-		
 		return aUniteConstructeur;
 	}
 	
@@ -224,10 +226,11 @@ public class Joueur{
 		
 		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
 			Batiment bat = batiments.get(i);
+			Case centreBatiment = bat.getCentre();
+			Case centrePosition = new Case(position.getX() + Constante.LARGEUR_CASE / 2,position.getY() + Constante.HAUTEUR_CASE / 2);
 			// on calcul la distance entre le batiment et l'endroit où il veux construire son unité
 			// on calcul bien sur la distance a partir du centre du batiment
-			double distance = position.getDistance(bat.getPosition().getX() + Constante.LARGEUR_CASE,bat.getPosition().getY()
-					+ Constante.HAUTEUR_CASE);
+			double distance = centreBatiment.getDistance(centrePosition);
 			// on convertit la distance en nombre de cases
 			distance /= Constante.LARGEUR_CASE;
 			if (distance <= Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE){
