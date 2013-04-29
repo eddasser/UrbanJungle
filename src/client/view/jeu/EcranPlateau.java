@@ -90,20 +90,28 @@ public class EcranPlateau extends JPanel{
 			for (int j = 0 ; j < unites.size() ; j++){
 				Unite unite = unites.get(j);
 				Case case_unite = unite.getPosition();
+				
+				
+				/*
+				 * Affichage du contour du batiment (avec la couleur du joueur)
+				 */
+				g.fillRect(case_unite.getX() - epaisseurContour,case_unite.getY() - epaisseurContour,
+						(Constante.LARGEUR_CASE + (epaisseurContour*2)),(Constante.HAUTEUR_CASE + (epaisseurContour*2)));
+				
+				
 				Icon icon = unite.getType().getIconMin();
 				icon.paintIcon(this,g2d,case_unite.getX(),case_unite.getY());
 				
-				/*
-				int x = case_unite.getX();
-				int y = case_unite.getY();
-				// affiche le coutour de l'unite (avec la couleur du joueur)
-				g.setColor(colorJoueur);
-				g.drawOval(x,y,Constante.LARGEUR_CASE,Constante.HAUTEUR_CASE);
-				// affiche l'interieur de l'unite (avec la couleur du type d'unite)
-				g.setColor(colorUnite);
-				g.fillOval(x + epaisseurContour,y + epaisseurContour,Constante.LARGEUR_CASE - 2 * epaisseurContour,Constante.HAUTEUR_CASE - 2
-						* epaisseurContour);
-				*/
+//				int x = case_unite.getX();
+//				int y = case_unite.getY();
+//				// affiche le coutour de l'unite (avec la couleur du joueur)
+//				g.setColor(colorJoueur);
+//				g.drawOval(x,y,Constante.LARGEUR_CASE,Constante.HAUTEUR_CASE);
+//				// affiche l'interieur de l'unite (avec la couleur du type d'unite)
+//				//g.setColor(colorUnite);
+//				g.fillOval(x + epaisseurContour,y + epaisseurContour,Constante.LARGEUR_CASE - 2 * epaisseurContour,Constante.HAUTEUR_CASE - 2
+//						* epaisseurContour);
+				
 			}
 		}
 	}
