@@ -1,5 +1,6 @@
 package client;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,11 +39,11 @@ public class GestionnaireSauvegarde {
 	}
 	
 	
-	public Client chargerPartie(String nomSauvegarde){
+	public Client chargerPartie(File nomPartieACharger){
 		Client partieDeserialise = null;
 		
 		try {
-			FileInputStream fis = new FileInputStream("sauvegardes/"+nomSauvegarde);
+			FileInputStream fis = new FileInputStream(nomPartieACharger);
 			ObjectInputStream ois= new ObjectInputStream(fis);
 			
 			try {

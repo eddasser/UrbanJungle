@@ -1,6 +1,7 @@
 package client;
 
 import java.awt.CardLayout;
+import java.io.File;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -265,9 +266,9 @@ public class JeuPanel extends JPanel implements Observer{
 	}
 	
 	/** cette methode charge une partie sauvegarde a partir d'un nom de partie*/
-	public void chargePartie(String nomSauvegarde){
+	public void chargePartie(File nomPartieACharger){
 		// on charge la partie
-		Client clientCharge = gestionnaireSauvegarde.chargerPartie(nomSauvegarde);
+		Client clientCharge = gestionnaireSauvegarde.chargerPartie(nomPartieACharger);
 		
 		if (clientCharge != null){
 			notificationJoueur(Translator.translate("partieChargeOK"));

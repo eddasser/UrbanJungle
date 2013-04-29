@@ -41,14 +41,14 @@ public class EcranChoixTypePartieListener implements ActionListener{
 			
 			partie.initialiserPartie();
 			jeu.lancerPartieSolo();
-		}else if (boutonClique.equals(ecranChoixTypeDePartie.getChargerPartie())) // charger partie
-		{
+		}else if (boutonClique.equals(ecranChoixTypeDePartie.getChargerPartie())){ // charger partie
+		
 			jeu.chargerPartieSolo();
-		}else if (boutonClique.equals(ecranChoixTypeDePartie.getPartieEnLigne())) // partie multi
-		{
+		}else if (boutonClique.equals(ecranChoixTypeDePartie.getPartieEnLigne())){ // partie multi
+		
 			jeu.chargerEcranLoader();
-		}else if (boutonClique.equals(ecranChoixTypeDePartie.getQuitter())) // quitter
-		{
+		}else if (boutonClique.equals(ecranChoixTypeDePartie.getQuitter())){ // quitter
+		
 			System.exit(0);
 		}else{
 			System.out.println("probleme, cas impossible");

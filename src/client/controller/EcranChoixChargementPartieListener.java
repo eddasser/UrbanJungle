@@ -2,7 +2,7 @@ package client.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.File;
 
 import client.JeuPanel;
 import client.view.EcranChoixChargementPartie;
@@ -13,12 +13,12 @@ public class EcranChoixChargementPartieListener implements ActionListener{
 	private JeuPanel jeu;
 	private EcranChoixChargementPartie ecranChoixChargementPartie;
 	
-	private ArrayList<String> listeSauvegardes;
+	private File[] listeSauvegardes;
 	
-	public EcranChoixChargementPartieListener(JeuPanel jeuParam,EcranChoixChargementPartie ecranChoixChargementPartie_, ArrayList<String> listeSauvegardes2){
+	public EcranChoixChargementPartieListener(JeuPanel jeuParam,EcranChoixChargementPartie ecranChoixChargementPartie_, File[] listeSauvegardesTmp){
 		jeu = jeuParam;
 		ecranChoixChargementPartie = ecranChoixChargementPartie_;
-		listeSauvegardes = listeSauvegardes2;
+		listeSauvegardes = listeSauvegardesTmp;
 	}
 	
 	@Override
@@ -29,7 +29,7 @@ public class EcranChoixChargementPartieListener implements ActionListener{
 		if (boutonClique.equals(ecranChoixChargementPartie.getChargerPartie())) // creer partie
 		{
 			int numeroSauvegarde = ecranChoixChargementPartie.getTable().getSelectedRow();
-			String nomPartieACharger = listeSauvegardes.get(numeroSauvegarde);
+			File nomPartieACharger = listeSauvegardes[numeroSauvegarde];
 			
 			jeu.chargePartie(nomPartieACharger);
 			
