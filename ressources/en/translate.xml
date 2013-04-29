@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<parameter>
 		<name>partieSolo</name>
@@ -70,5 +71,189 @@
 	<parameter>
 		<name>rafraichir</name>
 		<value>Refresh</value>
+	</parameter>
+	<parameter>
+		<name>etatAttenteJoueur</name>
+		<value>Waiting for players</value>
+	</parameter>
+	<parameter>
+		<name>etatCommencee</name>
+		<value>Started</value>
+	</parameter>
+	<parameter>
+		<name>etatSauvegardee</name>
+		<value>Saved</value>
+	</parameter>
+	<parameter>
+		<name>saisirMotdepasseReprendrePartie</name>
+		<value>To join the game you must give the password</value>
+	</parameter>
+	<parameter>
+		<name>partieDejaCommencee</name>
+		<value>The game is already started, you cannot join it now</value>
+	</parameter>
+	<parameter>
+		<name>motDePasseIncorrect</name>
+		<value>wrong password</value>
+	</parameter>
+	<parameter>
+		<name>creer</name>
+		<value>Create</value>
+	</parameter>
+	<parameter>
+		<name>nomPartie</name>
+		<value>Name</value>
+	</parameter>
+	<parameter>
+		<name>passwordPartie</name>
+		<value>Password</value>
+	</parameter>
+	<parameter>
+		<name>nbJoueur</name>
+		<value>Number of player</value>
+	</parameter>
+	<parameter>
+		<name>champsNomPartieVide</name>
+		<value>You must choose a name for the game</value>
+	</parameter>
+	<parameter>
+		<name>creation_batiment</name>
+		<value>buildings creation</value>
+	</parameter>
+	<parameter>
+		<name>amelioration_unite</name>
+		<value>Units upgrade</value>
+	</parameter>
+	<parameter>
+		<name>creation_unite</name>
+		<value>Units creation</value>
+	</parameter>
+	<parameter>
+		<name>amelioration_batiment</name>
+		<value>buildings upgrade</value>
+	</parameter>
+	<parameter>
+		<name>typeUnite</name>
+		<value>Units</value>
+	</parameter>
+	<parameter>
+		<name>pointsAttaques</name>
+		<value>Attack</value>
+	</parameter>
+	<parameter>
+		<name>pointsVie</name>
+		<value>Life</value>
+	</parameter>
+	<parameter>
+		<name>salaire</name>
+		<value>Cost per turn</value>
+	</parameter>
+	<parameter>
+		<name>vitesse</name>
+		<value>Speed</value>
+	</parameter>
+	<parameter>
+		<name>coutNiveauSuperieur</name>
+		<value>Upgrade cost</value>
+	</parameter>
+	<parameter>
+		<name>PETITE_FRAPPE</name>
+		<value>henchman</value>
+	</parameter>
+	<parameter>
+		<name>HOMME_MAIN</name>
+		<value>hitman</value>
+	</parameter>
+	<parameter>
+		<name>CAID</name>
+		<value>Caid</value>
+	</parameter>
+	<parameter>
+		<name>BASTONNEUR</name>
+		<value>knocker</value>
+	</parameter>
+	<parameter>
+		<name>CONSTRUCTEUR</name>
+		<value>Constructor</value>
+	</parameter>
+	<parameter>
+		<name>typeBatiment</name>
+		<value>Buildings</value>
+	</parameter>
+	<parameter>
+		<name>revenu</name>
+		<value>Money per turn</value>
+	</parameter>
+	<parameter>
+		<name>QG</name>
+		<value>GQ</value>
+	</parameter>
+	<parameter>
+		<name>GARAGE</name>
+		<value>Garage</value>
+	</parameter>
+	<parameter>
+		<name>VENTE_DROGUE</name>
+		<value>Drog selling</value>
+	</parameter>
+	<parameter>
+		<name>VENTE_ALCOOL</name>
+		<value>alcohol selling</value>
+	</parameter>
+	<parameter>
+		<name>VENTE_ARME</name>
+		<value>guns selling</value>
+	</parameter>
+	<parameter>
+		<name>BOOKMAKER</name>
+		<value>Bookmaker</value>
+	</parameter>
+	<parameter>
+		<name>quitterPartie</name>
+		<value>Leave the game</value>
+	</parameter>
+	<parameter>
+		<name>sauvegarderPartie</name>
+		<value>save game</value>
+	</parameter>
+	<parameter>
+		<name>choixLangue</name>
+		<value>  change the language</value>
+	</parameter>
+	<parameter>
+		<name>appliquer</name>
+		<value>Apply</value>
+	</parameter>
+	<parameter>
+		<name>demandeConfirmationQuitterPartie</name>
+		<value>All data not save will be lost, do you really want to quit the game ? </value>
+	</parameter>
+	<parameter>
+		<name>choisirNomSauvegarde</name>
+		<value>Choose a name for the save</value>
+	</parameter>
+	<parameter>
+		<name>champsNomSauvegardeVide</name>
+		<value>You must choose a name for the save</value>
+	</parameter>
+	<parameter>
+		<name>partieSauvegardeOK</name>
+		<value>The game has been saved ... (^_^) </value>
+	</parameter>
+	<parameter>
+		<name>partieSauvegardeKO</name>
+		<value>A problem occurs during the saving ... (T_T) </value>
+	</parameter>
+	<parameter>
+		<name>partieChargeOK</name>
+		<value>The game has been load ... (^_^) </value>
+	</parameter>
+	<parameter>
+		<name>partieChargeKO</name>
+		<value>A problem occurs during the loading ... (T_T) </value>
+	</parameter>
+	<parameter>
+		<name>choisirPartieACharger</name>
+		<value>choose a game to load </value>
 	</parameter>
 </configuration>

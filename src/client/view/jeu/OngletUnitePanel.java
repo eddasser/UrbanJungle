@@ -14,6 +14,7 @@ import client.controller.OngletUniteListener;
 
 import common.Constante;
 import common.Joueur;
+import common.Translator;
 import common.partie.unite.TypeUnite;
 
 
@@ -22,8 +23,10 @@ import common.partie.unite.TypeUnite;
  */
 public class OngletUnitePanel extends OngletPanel{
 	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+
 	public OngletUnitePanel(JeuPanel jeu){
-		super("Création d'unités",jeu);
+		super(Translator.translate("creation_unite"),jeu);
 	}
 	
 	@Override
@@ -40,7 +43,7 @@ public class OngletUnitePanel extends OngletPanel{
 			Joueur joueur = client.getJoueur();
 			int niveau = joueur.getNiveau(type);
 			
-			JLabel label = new JLabel(type.name() + " (" + Constante.formatArgent(type.getPrix(niveau)) + ")");
+			JLabel label = new JLabel(Translator.translate(type.name()) + " (" + Constante.formatArgent(type.getPrix(niveau)) + ")");
 			label.setBorder(BorderFactory.createCompoundBorder(paddingBorder,paddingBorder));
 			Icon icon = type.getIcon();
 			label.setIcon(icon);
@@ -52,6 +55,6 @@ public class OngletUnitePanel extends OngletPanel{
 	
 	@Override
 	protected void paintBouton(Graphics g){
-		g.fillRect(30,320,60,187);
+		g.fillRect(30,319,60,189);
 	}
 }

@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 import client.controller.EcranResultatTentativeConnexionListener;
 import client.controller.EcranTitreListener;
+import client.view.EcranChoixChargementPartie;
 import client.view.EcranChoixTypePartie;
 import client.view.EcranConnexionServeurImpossible;
 import client.view.EcranConnexionServeurPossible;
@@ -44,17 +45,22 @@ public class JeuPanel extends JPanel implements Observer{
 	private static NamedJPanel ecranMenuMultijoueur;
 	private static NamedJPanel ecranCreationPartie;
 	private static NamedJPanel ecranJeu;
+	private static NamedJPanel ecranChoixChargementPartie;
 	
 	private Client client;
 	private ServerListener dialogueServeur;
 	
 	private boolean accesServeur;
 	
+	private GestionnaireSauvegarde gestionnaireSauvegarde;
+	
 	public JeuPanel(JLayeredPane aLayeredPane,Client client){
 		super(cardlayout);
 		this.client = client;
 		// de base l'acces serveur est ok, si un problème est detecté ensuite en tentant de le joindre, il passera a false
 		accesServeur = true;
+		
+		gestionnaireSauvegarde = new GestionnaireSauvegarde();
 		
 		
 		/** création des écrans */
@@ -90,6 +96,9 @@ public class JeuPanel extends JPanel implements Observer{
 		// ecran de creation d'une partie
 		ecranCreationPartie = new EcranCreationPartie(this);
 		
+		//ecran de chargement d'une partie
+		ecranChoixChargementPartie =  new EcranChoixChargementPartie(this);
+		
 		ecranJeu = new EcranJeu(this,aLayeredPane);
 		
 		/** ajout des écrans au container du gestionnaire d'écran */
@@ -102,6 +111,7 @@ public class JeuPanel extends JPanel implements Observer{
 		this.add(ecranMenuMultijoueur,ecranMenuMultijoueur.getName());
 		this.add(ecranCreationPartie,ecranCreationPartie.getName());
 		this.add(ecranJeu,ecranJeu.getName());
+		this.add(ecranChoixChargementPartie,ecranChoixChargementPartie.getName());
 		
 		cardlayout.first(this); // on affiche le premier ecran, l'écran titre du jeu
 		
@@ -183,7 +193,7 @@ public class JeuPanel extends JPanel implements Observer{
 	
 	
 	public void chargerPartieSolo(){
-		System.out.println("bouton charger partie solo");
+		cardlayout.show(this,ecranChoixChargementPartie.getName());
 	}
 	
 	public void chargerEcranCreationPartie(){
@@ -232,5 +242,42 @@ public class JeuPanel extends JPanel implements Observer{
 	public void update(Observable o,Object arg){
 		client = (Client)o;
 		((EcranJeu)ecranJeu).update();
+	}
+
+	/** cette methode se charge de deleguer la sauvergarder l'etat de la partie courante en faisant appelle a la classe destionnaire sauvegarde
+	 * 
+	 * @param nomPartie, le nom choisi pour la sauvegarde par l'utilisateur dans la vue de sauvegarde de la partie
+	 * @return res, boolean true si la sauvegarde s'est bien passé, false si une erreur est survenue
+	 */
+	public boolean sauvegardePartie(String nomSauvegarde) {
+		boolean res = true;
+		res = gestionnaireSauvegarde.sauvegarderPartie(client, nomSauvegarde);
+		
+		// on notifie au joueur si la sauvegarde a reussi ou non
+		if (res){ //partie sauvegardé
+			notificationJoueur(Translator.translate("partieSauvegardeOK"));
+			((EcranChoixChargementPartie)ecranChoixChargementPartie).majListePartie(nomSauvegarde);
+		}else{ //echec de la sauvegarde
+			notificationJoueur(Translator.translate("partieSauvegardeKO"));
+		}
+		
+		return res;
+	}
+	
+	/** cette methode charge une partie sauvegarde a partir d'un nom de partie*/
+	public void chargePartie(String nomSauvegarde){
+		// on charge la partie
+		Client clientCharge = gestionnaireSauvegarde.chargerPartie(nomSauvegarde);
+		
+		if (clientCharge != null){
+			notificationJoueur(Translator.translate("partieChargeOK"));
+			// on met a jour le client
+			client = clientCharge;
+			// on charge l'ecran de jeu
+			chargerEcranJeu();
+		}
+		else{// si le chargement a echoué
+			notificationJoueur(Translator.translate("partieChargeKO"));
+		}
 	}
 }

@@ -89,10 +89,6 @@
 		<value>Pour reprendre la partie vous devez saisir le mot de passe</value>
 	</parameter>
 	<parameter>
-		<name>saisirMotdepasseRejoindrePartie</name>
-		<value>Pour rejoindre la partie vous devez saisir le mot de passe</value>
-	</parameter>
-	<parameter>
 		<name>partieDejaCommencee</name>
 		<value>Cette partie est déjà est déjà commencée. Vous ne pouvez plus la rejoindre</value>
 	</parameter>
@@ -119,5 +115,145 @@
 	<parameter>
 		<name>champsNomPartieVide</name>
 		<value>Vous devez choisir un nom de partie</value>
+	</parameter>
+	<parameter>
+		<name>creation_batiment</name>
+		<value>Création de bâtiments</value>
+	</parameter>
+	<parameter>
+		<name>amelioration_unite</name>
+		<value>Amélioration des unités</value>
+	</parameter>
+	<parameter>
+		<name>creation_unite</name>
+		<value>Création d'unités</value>
+	</parameter>
+	<parameter>
+		<name>amelioration_batiment</name>
+		<value>Amélioration des bâtiments</value>
+	</parameter>
+	<parameter>
+		<name>typeUnite</name>
+		<value>Unités</value>
+	</parameter>
+	<parameter>
+		<name>pointsAttaques</name>
+		<value>Points d'attaque</value>
+	</parameter>
+	<parameter>
+		<name>pointsVie</name>
+		<value>Points de vie</value>
+	</parameter>
+	<parameter>
+		<name>salaire</name>
+		<value>Coût par tour</value>
+	</parameter>
+	<parameter>
+		<name>vitesse</name>
+		<value>Vitesse</value>
+	</parameter>
+	<parameter>
+		<name>coutNiveauSuperieur</name>
+		<value>Coût niveau suivant</value>
+	</parameter>
+	<parameter>
+		<name>PETITE_FRAPPE</name>
+		<value>Petite frappe</value>
+	</parameter>
+	<parameter>
+		<name>HOMME_MAIN</name>
+		<value>Homme de main</value>
+	</parameter>
+	<parameter>
+		<name>CAID</name>
+		<value>Caid</value>
+	</parameter>
+	<parameter>
+		<name>BASTONNEUR</name>
+		<value>Bastonneur</value>
+	</parameter>
+	<parameter>
+		<name>CONSTRUCTEUR</name>
+		<value>Constructeur</value>
+	</parameter>
+	<parameter>
+		<name>typeBatiment</name>
+		<value>Bâtiments</value>
+	</parameter>
+	<parameter>
+		<name>revenu</name>
+		<value>Revenus par tour</value>
+	</parameter>
+	<parameter>
+		<name>QG</name>
+		<value>GQ</value>
+	</parameter>
+	<parameter>
+		<name>GARAGE</name>
+		<value>Garage</value>
+	</parameter>
+	<parameter>
+		<name>VENTE_DROGUE</name>
+		<value>Trafic de drogue</value>
+	</parameter>
+	<parameter>
+		<name>VENTE_ALCOOL</name>
+		<value>Trafic d'alcool</value>
+	</parameter>
+	<parameter>
+		<name>VENTE_ARME</name>
+		<value>Trafic d'arme</value>
+	</parameter>
+	<parameter>
+		<name>BOOKMAKER</name>
+		<value>Bookmaker</value>
+	</parameter>
+	<parameter>
+		<name>quitterPartie</name>
+		<value>Quitter la partie</value>
+	</parameter>
+	<parameter>
+		<name>sauvegarderPartie</name>
+		<value>Sauvegarder</value>
+	</parameter>
+	<parameter>
+		<name>choixLangue</name>
+		<value>changer la langue</value>
+	</parameter>
+	<parameter>
+		<name>appliquer</name>
+		<value>Appliquer</value>
+	</parameter>
+	<parameter>
+		<name>demandeConfirmationQuitterPartie</name>
+		<value>Toutes les données non sauvegardées seront perdues, voulez vous vraiment quitter ? </value>
+	</parameter>
+	<parameter>
+		<name>choisirNomSauvegarde</name>
+		<value>Choisir un nom pour la sauvegarde</value>
+	</parameter>
+	<parameter>
+		<name>champsNomSauvegardeVide</name>
+		<value>Vous devez choisir un nom de sauvegarde</value>
+	</parameter>
+	<parameter>
+		<name>partieSauvegardeOK</name>
+		<value>La partie a été sauvegardé ... (^_^) </value>
+	</parameter>
+	<parameter>
+		<name>partieSauvegardeKO</name>
+		<value>Un problème est survenu durant la sauvegarde ... (T_T) </value>
+	</parameter>
+	<parameter>
+		<name>partieChargeOK</name>
+		<value>La partie a été chargé ... (^_^) </value>
+	</parameter>
+	<parameter>
+		<name>partieChargeKO</name>
+		<value>Un problème est survenu durant le chargement de la partie ... (T_T) </value>
+	</parameter>
+	<parameter>
+		<name>choisirPartieACharger</name>
+		<value>choisir une partie a charger</value>
 	</parameter>
 </configuration>

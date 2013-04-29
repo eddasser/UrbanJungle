@@ -19,6 +19,8 @@ import common.partie.unite.Unite;
  * @author omar
  */
 public class ToolTipInfo extends RoundedPanel{
+
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private ElementPlateau element;
 	private int niveau;
 	

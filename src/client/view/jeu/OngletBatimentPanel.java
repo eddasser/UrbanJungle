@@ -14,6 +14,7 @@ import client.controller.OngletBatimentListener;
 
 import common.Constante;
 import common.Joueur;
+import common.Translator;
 import common.partie.batiment.TypeBatiment;
 
 
@@ -22,8 +23,10 @@ import common.partie.batiment.TypeBatiment;
  */
 public class OngletBatimentPanel extends OngletPanel{
 	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+
 	public OngletBatimentPanel(JeuPanel jeu){
-		super("Création de bâtiments",jeu);
+		super(Translator.translate("creation_batiment"),jeu);
 	}
 	
 	@Override
@@ -40,7 +43,7 @@ public class OngletBatimentPanel extends OngletPanel{
 				Client client = jeu.getClient();
 				Joueur joueur = client.getJoueur();
 				int niveau = joueur.getNiveau(type);
-				JLabel label = new JLabel(type.name() + " (" + Constante.formatArgent(type.getPrix(niveau)) + ")");
+				JLabel label = new JLabel(Translator.translate(type.name()) + " (" + Constante.formatArgent(type.getPrix(niveau)) + ")");
 				label.setBorder(BorderFactory.createCompoundBorder(paddingBorder,paddingBorder));
 				Icon icon = type.getIcon();
 				label.setIcon(icon);
@@ -53,7 +56,7 @@ public class OngletBatimentPanel extends OngletPanel{
 	
 	@Override
 	protected void paintBouton(Graphics g){
-		g.fillRect(30,83,60,187);
+		g.fillRect(30,82,60,189);
 	}
 	
 }

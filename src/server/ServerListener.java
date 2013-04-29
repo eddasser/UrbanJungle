@@ -7,21 +7,24 @@ import java.net.ServerSocket;
  * @author omar
  */
 public class ServerListener extends Thread{
-	private ServerSocket server;
+	private Server server;
+	private ServerSocket serverSocket;
 	private boolean continuer;
 	
-	public ServerListener(){
+	public ServerListener(Server server){
+		this.server = server;
 		try{
-			server = new ServerSocket();
+			serverSocket = new ServerSocket();
 		}catch (IOException e){
 			e.printStackTrace();
 		}
 		continuer = true;
 	}
 	
-	public ServerListener(int port){
+	public ServerListener(Server server,int port){
+		this.server = server;
 		try{
-			server = new ServerSocket(port);
+			serverSocket = new ServerSocket(port);
 		}catch (IOException e){
 			e.printStackTrace();
 		}
@@ -32,7 +35,7 @@ public class ServerListener extends Thread{
 	public void run(){
 		while (continuer){
 			try{
-				new ClientListener(server.accept());
+				new ClientListener(server,serverSocket.accept());
 			}catch (IOException e){
 				e.printStackTrace();
 			}
@@ -42,4 +45,9 @@ public class ServerListener extends Thread{
 	public void arreter(){
 		continuer = false;
 	}
+	
+	public Server getServer(){
+		return server;
+	}
+	
 }

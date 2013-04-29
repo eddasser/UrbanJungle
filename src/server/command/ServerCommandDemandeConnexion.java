@@ -16,12 +16,15 @@ public class ServerCommandDemandeConnexion extends ServerCommand{
 		String login = arguments[0];
 		String password = arguments[1];
 		
+		Server server = _client.getServer();
+		
+		
 		// le client demande au serveur a se connecter
 		boolean resultatVerif = DBConnexion.verificationIdentifiantsConnection(login,password);
 		
 		if (resultatVerif){
 			// on ajoute le joueur a la liste des joueurs connectés au serveur
-			Server.add(new Joueur(_client,login,password));
+			server.add(new Joueur(_client,login,password));
 		}
 		
 		String[] args = { Constante.COMMANDE_DEMANDE_CONNEXION,Boolean.toString(resultatVerif) };

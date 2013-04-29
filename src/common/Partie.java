@@ -1,5 +1,6 @@
 package common;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import common.partie.batiment.Batiment;
@@ -8,14 +9,17 @@ import common.partie.plateau.Case;
 import common.partie.plateau.Plateau;
 
 
-public class Partie{
+public class Partie implements Serializable{
+
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private String nomPartie; // nom donné a la parti par son créateur
 	private int nbJoueur; // nb de joueur requis pour cette partie
 	private ArrayList<Joueur> listeParticipants; // liste des joueurs participants a cette partie
-	private Joueur joueurCourant; // Joueur qui joue a un instant donne (change a chaque tour)
+	private int indiceJoueurCourant; // indice dans la liste du Joueur qui joue a un instant donne (change a chaque tour)
 	private Etat etatDeLaPartie; // etat de la partie possible : "en cours" ou "en attente"
 	private String password;// password de la partie, si null alors la partie est public sinon elle est privé
 	private Plateau plateau;// plateau de jeu
+	private boolean solo;// indique si la partie est en solo (vs IA) ou pas
 	
 	public Partie(){
 		nomPartie = "";
@@ -23,13 +27,15 @@ public class Partie{
 		listeParticipants = new ArrayList<Joueur>();
 		plateau = new Plateau();
 		etatDeLaPartie = Etat.EN_ATTENTE_JOUEUR;
+		solo = false;
 	}
 	
-	public Partie(String nomPartieParam,int nbJoueurParam,String passwordParam){
+	public Partie(String nomPartieParam,int nbJoueurParam,String passwordParam,boolean solo){
 		this();
 		nomPartie = nomPartieParam;
 		nbJoueur = nbJoueurParam;
 		password = passwordParam;
+		this.solo = solo;
 	}
 	
 	public void initialiserPartie(){
@@ -152,15 +158,23 @@ public class Partie{
 	}
 	
 	public Joueur getJoueurCourant(){
-		return joueurCourant;
+		return listeParticipants.get(indiceJoueurCourant);
 	}
 	
 	public void setJoueurCourant(Joueur joueurCourant){
-		this.joueurCourant = joueurCourant;
+		indiceJoueurCourant = listeParticipants.indexOf(joueurCourant);
 	}
 	
 	public Plateau getPlateau(){
 		return plateau;
+	}
+	
+	public boolean isSolo(){
+		return solo;
+	}
+	
+	public void setSolo(boolean solo){
+		this.solo = solo;
 	}
 	
 	public void setPlateau(Plateau plateau){
@@ -187,4 +201,10 @@ public class Partie{
 		return peutConstruire;
 	}
 	
+	public void passerTour(){
+		indiceJoueurCourant++;
+		if (indiceJoueurCourant >= listeParticipants.size()){
+			indiceJoueurCourant = 0;
+		}
+	}	
 }

@@ -9,11 +9,14 @@ import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 
+import common.Constante;
+
 /**
  * @author omar
  */
 public class RoundedPanel extends JPanel{
-	
+
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	/** Stroke size. it is recommended to set it to 1 for better view */
 	protected int strokeSize = 1;
 	/** Color of shadow */

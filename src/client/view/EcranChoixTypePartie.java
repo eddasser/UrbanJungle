@@ -32,11 +32,9 @@ public class EcranChoixTypePartie extends NamedJPanel{
 		partieSolo = new JCoolButton(Translator.translate("partieSolo")); // bouton partie solo
 		chargerPartie = new JCoolButton(Translator.translate("chargerPartie")); // bouton partie solo
 		quitter = new JCoolButton(Translator.translate("quitterJeu")); // bouton quitter le jeu
-		partieEnLigne = new JCoolButton(Translator.translate("partieMulti")); // bouton partie en ligne ( aparait si le serveur est
-																				// joignable )
+		partieEnLigne = new JCoolButton(Translator.translate("partieMulti")); // bouton partie en ligne ( aparait si le serveur est joignable )
 		
-		EcranChoixTypePartieListener ecranChoixTypePartieListener = new EcranChoixTypePartieListener(jeu,this); // ajout du listener aux
-																												// boutons
+		EcranChoixTypePartieListener ecranChoixTypePartieListener = new EcranChoixTypePartieListener(jeu,this); // ajout du listener aux boutons
 		partieSolo.addActionListener(ecranChoixTypePartieListener);
 		chargerPartie.addActionListener(ecranChoixTypePartieListener);
 		quitter.addActionListener(ecranChoixTypePartieListener);

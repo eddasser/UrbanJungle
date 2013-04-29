@@ -9,6 +9,8 @@ import client.view.JCoolButton;
 
 import common.Joueur;
 import common.Partie;
+import common.ia.JoueurIA;
+import common.ia.JoueurIAHasard;
 
 
 public class EcranChoixTypePartieListener implements ActionListener{
@@ -29,8 +31,8 @@ public class EcranChoixTypePartieListener implements ActionListener{
 		if (boutonClique.equals(ecranChoixTypeDePartie.getPartieSolo())) // partie solo
 		{
 			Joueur joueur = new Joueur(null,"Local","");// joueur courant
-			Joueur joueurIA = new Joueur(null,"IA","");
-			Partie partie = new Partie("Partie Locale",2,"");
+			JoueurIA joueurIA = new JoueurIAHasard();
+			Partie partie = new Partie("Partie Locale",2,"",true);
 			jeu.getClient().setJoueur(joueur);
 			jeu.getClient().setPartie(partie);
 			

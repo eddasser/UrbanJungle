@@ -1,18 +1,31 @@
 package common.partie.unite;
 
+import java.io.Serializable;
+
 import common.Constante;
 import common.ElementPlateau;
+
 import common.partie.plateau.Case;
 
 /**
  * @author omar
  */
-public class Unite extends ElementPlateau{
+public class Unite extends ElementPlateau implements Serializable{
+	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private int deplacementRestant;// nombre de case que l'unite peut encore parcourrir
 	
 	public Unite(TypeUnite type,Case position){
 		super(type,position);
 		deplacementRestant = type.getVitesse(0);
+	}
+	
+	@Override
+	public Case getCentre(){
+		int x = position.getX();
+		int y = position.getY();
+		Case centre = new Case(x + Constante.LARGEUR_CASE / 2,y + Constante.HAUTEUR_CASE / 2);
+		return centre;
 	}
 	
 	public int getDeplacementRestant(){

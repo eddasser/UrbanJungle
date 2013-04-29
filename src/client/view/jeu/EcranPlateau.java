@@ -23,6 +23,8 @@ import common.partie.unite.Unite;
  * @author omar
  */
 public class EcranPlateau extends JPanel{
+	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private JeuPanel jeu;
 	private final static int epaisseurContour = 2;
 	

@@ -1,5 +1,6 @@
 package client;
 
+import java.io.Serializable;
 import java.util.Observable;
 
 import javax.swing.ImageIcon;
@@ -17,7 +18,10 @@ import common.Translator;
 /**
  * @author omar
  */
-public class Client extends Observable{
+public class Client extends Observable implements Serializable{
+	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+	
 	private Partie partie;// partie courante
 	private Joueur joueur;// joueur courant
 	

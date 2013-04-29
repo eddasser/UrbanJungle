@@ -3,7 +3,10 @@ package server;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.net.Socket;
+
+import common.Constante;
 
 import server.command.ServerCommand;
 import server.command.ServerCommandFactory;
@@ -12,12 +15,16 @@ import server.command.ServerCommandFactory;
 /**
  * @author omar
  */
-public class ClientListener implements Runnable{
+
+public class ClientListener implements Runnable, Serializable{	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+	private Server server;
 	private Socket socket;
 	private ObjectOutputStream out; // flux de sortie d'objet
 	private ObjectInputStream in; // flux d'entrée d'objet
 	
-	public ClientListener(Socket _socket){
+	public ClientListener(Server server,Socket _socket){
+		this.server = server;
 		try{
 			socket = _socket;
 			out = new ObjectOutputStream(socket.getOutputStream());
@@ -32,6 +39,10 @@ public class ClientListener implements Runnable{
 	
 	public Socket getSocket(){
 		return socket;
+	}
+	
+	public Server getServer(){
+		return server;
 	}
 	
 	public void send(String[] args){

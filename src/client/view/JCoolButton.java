@@ -1,3 +1,4 @@
+
 package client.view;
 
 import java.awt.Color;
@@ -33,3 +34,4 @@ public class JCoolButton extends JButton{
 		g.drawString(txt,getWidth() / 2 - txt.length() * fontSize / 4,getHeight() / 2);
 	}
 }
+

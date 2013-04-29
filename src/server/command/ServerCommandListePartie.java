@@ -16,8 +16,10 @@ public class ServerCommandListePartie extends ServerCommand{
 	
 	@Override
 	public void execute(ClientListener _client){
+		Server server = _client.getServer();
+		
 		// le client demande au serveur a recuperer la liste des parties crées
-		ArrayList<Partie> parties = Server.getParties();
+		ArrayList<Partie> parties = server.getParties();
 		String[] args = new String[parties.size() + 1];
 		
 		args[0] = Constante.COMMANDE_LISTE_PARTIES;

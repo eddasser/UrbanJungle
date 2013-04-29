@@ -22,7 +22,8 @@ public class ServerCommandCreationCompte extends ServerCommand{
 		
 		if (resultatVerif){
 			// on ajoute le joueur a la liste des joueurs connectés au serveur
-			Server.add(new Joueur(_client,login,password));
+			Server server = _client.getServer();
+			server.add(new Joueur(_client,login,password));
 		}
 		String[] args = { Constante.COMMANDE_CREATION_COMPTE,Boolean.toString(resultatVerif) };
 		_client.send(args);
