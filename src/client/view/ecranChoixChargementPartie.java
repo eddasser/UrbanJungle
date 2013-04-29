@@ -29,6 +29,8 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 	public EcranChoixChargementPartie(JeuPanel jeu) {
 		super("ecranChoixChargementPartie", jeu);
 		
+		listeSauvegardes = new ArrayList<>();
+		
 		//label titre
 		labelChargementPartie = new JLabel(Translator.translate("choisirPartieACharger"));
 		labelChargementPartie.setBounds(400, 100, 200, 50);

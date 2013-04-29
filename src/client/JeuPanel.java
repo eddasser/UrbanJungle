@@ -251,7 +251,7 @@ public class JeuPanel extends JPanel implements Observer{
 	 */
 	public boolean sauvegardePartie(String nomSauvegarde) {
 		boolean res = true;
-		res = gestionnaireSauvegarde.sauvegarderPartie(client.getPartie(), nomSauvegarde);
+		res = gestionnaireSauvegarde.sauvegarderPartie(client, nomSauvegarde);
 		
 		// on notifie au joueur si la sauvegarde a reussi ou non
 		if (res){ //partie sauvegardé
@@ -267,12 +267,12 @@ public class JeuPanel extends JPanel implements Observer{
 	/** cette methode charge une partie sauvegarde a partir d'un nom de partie*/
 	public void chargePartie(String nomSauvegarde){
 		// on charge la partie
-		Partie partieCharge = gestionnaireSauvegarde.chargerPartie(nomSauvegarde);
+		Client clientCharge = gestionnaireSauvegarde.chargerPartie(nomSauvegarde);
 		
-		if (partieCharge != null){
+		if (clientCharge != null){
 			notificationJoueur(Translator.translate("partieChargeOK"));
 			// on met a jour le client
-			client.setPartie(partieCharge);
+			client = clientCharge;
 			// on charge l'ecran de jeu
 			chargerEcranJeu();
 		}

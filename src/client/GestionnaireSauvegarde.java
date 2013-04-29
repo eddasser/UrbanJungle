@@ -11,15 +11,15 @@ import common.Partie;
 /** cette classe va se charger de gerer la sauvegarde des parties et le chargement des parties */
 public class GestionnaireSauvegarde {
 	
-	public boolean sauvegarderPartie(Partie partie, String nomSauvegarde){
+	public boolean sauvegarderPartie(Client client, String nomSauvegarde){
 		boolean res = true;
 		try {
 			FileOutputStream fos = new FileOutputStream("sauvegardes/"+nomSauvegarde);
 			ObjectOutputStream oos= new ObjectOutputStream(fos);
 			
 			try {
-				// sérialisation de la partie
-				oos.writeObject(partie); 
+				// serialisation de la partie
+				oos.writeObject(client); 
 				oos.flush();
 			} finally {
 				//fermeture des flux
@@ -32,14 +32,14 @@ public class GestionnaireSauvegarde {
 		} catch(IOException ioe) {
 			System.out.println("ERRUER IO LORS DE LA SAUVEGARDE");
 			res = false;
-//			ioe.printStackTrace();
+			ioe.printStackTrace();
 		}
 		return res;
 	}
 	
 	
-	public Partie chargerPartie(String nomSauvegarde){
-		Partie partieDeserialise = null;
+	public Client chargerPartie(String nomSauvegarde){
+		Client partieDeserialise = null;
 		
 		try {
 			FileInputStream fis = new FileInputStream("sauvegardes/"+nomSauvegarde);
@@ -47,7 +47,7 @@ public class GestionnaireSauvegarde {
 			
 			try {
 				// desérialisation de la partie
-				partieDeserialise= (Partie) ois.readObject();
+				partieDeserialise= (Client) ois.readObject();
 
 			} finally {
 				//fermeture des flux
@@ -59,10 +59,10 @@ public class GestionnaireSauvegarde {
 			}
 		} catch(IOException ioe) {
 			System.out.println("ERREUR IO LORS DU CHARGEMENT");
-//			ioe.printStackTrace();
+			ioe.printStackTrace();
 		}catch (ClassNotFoundException e) {
 			System.out.println("ERREUR CLASS_NOT_FOUND LORS DU CHARGEMENT");
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 		return partieDeserialise;
 	}

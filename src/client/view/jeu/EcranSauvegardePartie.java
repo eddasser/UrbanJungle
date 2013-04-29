@@ -33,22 +33,27 @@ public class EcranSauvegardePartie extends JPanel{
 		setLayout(null);
 		EcranSauvegardePartieListener listener = new EcranSauvegardePartieListener(jeu, this);
 		
+		int width = Constante.LARGEUR_FENETRE_PRINCIPALE;
+		int height = Constante.HAUTEUR_FENETRE_PRINCIPALE;
+		setBounds(0,0,width,height);
 		
 		labelNameSauvegarde = new JLabel(Translator.translate("choisirNomSauvegarde"));
-		labelNameSauvegarde.setBounds(300, 200, 200, 50); 
+		labelNameSauvegarde.setBounds(412, 250, 200, 50); 
 		add(labelNameSauvegarde);
 		
-		fieldSauvegardeName = new JTextField(new Date().toString());
-		fieldSauvegardeName.setBounds(300, 300, 200, 50);
+		String nomSauvegardeParDefaut= new Date().toString();
+		nomSauvegardeParDefaut = nomSauvegardeParDefaut.replaceAll(" |:", "");
+		fieldSauvegardeName = new JTextField(nomSauvegardeParDefaut);
+		fieldSauvegardeName.setBounds(412, 350, 200, 50);
 		add(fieldSauvegardeName);
 		
 		boutonSauvegarder = new JCoolButton(Translator.translate("sauvegarderPartie"));
-		boutonSauvegarder.setBounds(200, 500, 200, 50);
+		boutonSauvegarder.setBounds(312, 450, 150, 50);
 		boutonSauvegarder.addActionListener(listener);
 		add(boutonSauvegarder);
 		
 		boutonRetour = new JCoolButton(Translator.translate("retour"));
-		boutonRetour.setBounds(500, 500, 200, 50);
+		boutonRetour.setBounds(590, 450, 150, 50);
 		boutonRetour.addActionListener(listener);
 		add(boutonRetour);
 	}

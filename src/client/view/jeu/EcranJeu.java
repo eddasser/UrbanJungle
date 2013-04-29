@@ -95,6 +95,7 @@ public class EcranJeu extends NamedJPanel{
 			layeredPane.add(ecranAttenteTour,new Integer(200));
 			
 			layeredPane.add(ecranSauvegardePartie,new Integer(250));
+			ecranSauvegardePartie.setVisible(false);
 			
 			layeredPane.add(ecranAffichageDeplacement,new Integer(100));
 			ecranAffichageDeplacement.setVisible(false);

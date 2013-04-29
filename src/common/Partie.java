@@ -1,5 +1,6 @@
 package common;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import common.partie.batiment.Batiment;
@@ -8,7 +9,9 @@ import common.partie.plateau.Case;
 import common.partie.plateau.Plateau;
 
 
-public class Partie{
+public class Partie implements Serializable{
+
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private String nomPartie; // nom donné a la parti par son créateur
 	private int nbJoueur; // nb de joueur requis pour cette partie
 	private ArrayList<Joueur> listeParticipants; // liste des joueurs participants a cette partie

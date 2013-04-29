@@ -32,13 +32,12 @@ public class EcranSauvegardePartieListener implements ActionListener{
 			}else{
 				// on apelle la methode sauvegarde dans Jeu panel
 				jeu.sauvegardePartie(ecranSauvegardePartie.getFieldSauvegardeName().getText());
-				
+			}	
 				// on retourne au jeu
-				jeu.chargerEcranJeu();
-			}
+				JeuPanel.getEcranJeu().cacherEcranSauvegardePartie();
 		}else if (evenement.getSource().equals(ecranSauvegardePartie.getBoutonRetour()))// retour
 		{
-			jeu.chargerEcranJeu();
+			JeuPanel.getEcranJeu().cacherEcranSauvegardePartie();
 		}
 		
 	}
