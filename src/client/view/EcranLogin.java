@@ -69,6 +69,9 @@ public class EcranLogin extends NamedJPanel{
 			
 			g.drawImage(img,0,0,getWidth(),getHeight(),this);// Pour une image de fond
 			
+			retour.setText(Translator.translate("retour"));
+			creerCompte.setText(Translator.translate("creerCompte"));
+			
 		}catch (IOException e){
 			if (Constante.MODE_DEBUG){
 				System.out.println("problème lors du chargement de l'image de fond");

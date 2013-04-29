@@ -93,6 +93,12 @@ public class EcranCreationPartie extends NamedJPanel{
 			
 			g.drawImage(img,0,0,getWidth(),getHeight(),this);// Pour une image de fond
 			
+			labelName.setText(Translator.translate("nomPartie"));
+			labelPassword.setText(Translator.translate("passwordPartie"));
+			labelNbJoueur.setText(Translator.translate("nbJoueur"));
+			creation.setText(Translator.translate("creer"));
+			retour.setText(Translator.translate("retour"));
+			
 		}catch (IOException e){
 			if (Constante.MODE_DEBUG){
 				System.out.println("problème lors du chargement de l'image de fond");

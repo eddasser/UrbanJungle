@@ -281,4 +281,19 @@ public class JeuPanel extends JPanel implements Observer{
 			notificationJoueur(Translator.translate("partieChargeKO"));
 		}
 	}
+
+	public static NamedJPanel getEcranTestConnexionOk() {
+		return ecranTestConnexionOk;
+	}
+
+	public static NamedJPanel getEcranTestConnexionKO() {
+		return ecranTestConnexionKO;
+	}
+
+	//cette methode permet de mettre a jour les panels qui ont pour fond un jlabel avec un gif
+	public static void changeLanguage(String langue) {
+		((EcranConnexionServeurImpossible) ecranTestConnexionKO).changeLanguage(langue);
+		((EcranConnexionServeurPossible) ecranTestConnexionOk).changeLanguage(langue);
+	}
+
 }

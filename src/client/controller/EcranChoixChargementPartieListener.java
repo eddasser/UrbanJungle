@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import common.Translator;
+
 import client.JeuPanel;
 import client.view.EcranChoixChargementPartie;
 import client.view.JCoolButton;
@@ -29,9 +31,13 @@ public class EcranChoixChargementPartieListener implements ActionListener{
 		if (boutonClique.equals(ecranChoixChargementPartie.getChargerPartie())) // creer partie
 		{
 			int numeroSauvegarde = ecranChoixChargementPartie.getTable().getSelectedRow();
-			File nomPartieACharger = listeSauvegardes[numeroSauvegarde];
 			
-			jeu.chargePartie(nomPartieACharger);
+			if (numeroSauvegarde != -1){
+				File nomPartieACharger = listeSauvegardes[numeroSauvegarde];
+				jeu.chargePartie(nomPartieACharger);
+			}else{
+				jeu.notificationJoueur(Translator.translate("aucunePartieSelectionne"));
+			}
 			
 		}else if (boutonClique.equals(ecranChoixChargementPartie.getRetour())) // deconnection
 		{

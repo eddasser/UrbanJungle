@@ -215,6 +215,8 @@ public class EcranJeu extends NamedJPanel{
 		ongletMenu.updateContent();
 		ongletBatiment.updateContent();
 		ongletUnite.updateContent();
+		
+		ecranAttenteTour.repaint();
 	}
 	
 	public void afficherModeCreation(TypeElementPlateau type){

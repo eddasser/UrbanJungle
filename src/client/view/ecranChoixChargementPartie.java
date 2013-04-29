@@ -60,7 +60,7 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 		EcranChoixChargementPartieListener listener = new EcranChoixChargementPartieListener(jeu, this, listeSauvegardesTmp);
 		
 		//boutton charger, charge la partie actuellement selectionné dans la jTable
-		chargerPartie = new JCoolButton(Translator.translate("charger"));
+		chargerPartie = new JCoolButton(Translator.translate("chargerPartie"));
 		chargerPartie.setBounds(262, 500, 200, 50);
 		chargerPartie.addActionListener(listener);
 		add(chargerPartie);
@@ -78,6 +78,14 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 			Image img = ImageIO.read(new File("ressources/" + Translator.getLangue()
 					+ "/images/EcranChoixTypePartie/fondEcranChoixTypePartie.jpg"));
 			g.drawImage(img,0,0,getWidth(),getHeight(),this);// Pour une image de fond
+			
+			//maj de l'interface en cas de changement de langue
+			chargerPartie.setText(Translator.translate("chargerPartie"));
+			retour.setText(Translator.translate("retour"));
+			
+			//maj du titre de la colonne de la table
+			table.getColumnModel().getColumn(0).setHeaderValue(Translator.translate("choisirPartieACharger"));
+			table.getTableHeader().resizeAndRepaint();
 			
 		}catch (IOException e){
 			if (Constante.MODE_DEBUG){
@@ -102,7 +110,6 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 
 	public void majListePartie(String nomSauvegarde) {
 		listeSauvegardes.add(nomSauvegarde);
-		//TODO refresh la table avec le nouveau contenu de la liste
 	}
 	
 }

@@ -280,4 +280,8 @@
 		<name>creationPartieReussie</name>
 		<value>The game was created successfully</value>
 	</parameter>
+	<parameter>
+		<name>aucunePartieSelectionne</name>
+		<value>You need to select a save</value>
+	</parameter>
 </configuration>

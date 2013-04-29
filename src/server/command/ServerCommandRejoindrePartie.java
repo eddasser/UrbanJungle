@@ -21,7 +21,7 @@ public class ServerCommandRejoindrePartie extends ServerCommand{
 		int idPartie = Integer.parseInt(arguments[0]);
 		String password = arguments[1];
 		
-		Joueur joueur = server.getJoueur(_client.getSocket());
+		Joueur joueur = Server.getJoueur(_client.getSocket());
 		Partie partie = server.getParte(idPartie);
 		
 		

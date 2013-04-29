@@ -52,6 +52,7 @@ public class OngletBatimentPanel extends OngletPanel{
 				label.addMouseListener(new OngletBatimentListener(jeu,joueur,type));
 			}
 		}
+		setLabelTitre(Translator.translate("creation_batiment"));
 	}
 	
 	@Override

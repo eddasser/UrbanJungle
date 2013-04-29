@@ -80,6 +80,7 @@ public class OngletJoueurPanel extends OngletPanel{
 			
 			buttonLevelUp.addActionListener(new OngletJoueurListener(jeu,joueur,type));
 		}
+		setLabelTitre(Translator.translate("amelioration_unite"));
 	}
 	
 	@Override

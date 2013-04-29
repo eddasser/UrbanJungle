@@ -51,6 +51,7 @@ public class OngletUnitePanel extends OngletPanel{
 			
 			label.addMouseListener(new OngletUniteListener(jeu,joueur,type));
 		}
+		setLabelTitre(Translator.translate("creation_unite"));
 	}
 	
 	@Override

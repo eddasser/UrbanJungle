@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import common.Partie;
-
 /** cette classe va se charger de gerer la sauvegarde des parties et le chargement des parties */
 public class GestionnaireSauvegarde {
 	

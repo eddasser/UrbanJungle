@@ -1,5 +1,6 @@
 package common.ia;
 
+import common.Constante;
 import common.Partie;
 
 
@@ -8,6 +9,8 @@ import common.Partie;
  */
 public class JoueurIAHasard extends JoueurIA{
 	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+
 	public JoueurIAHasard(){
 		super(null,"IA","");
 	}

@@ -96,6 +96,11 @@ public class EcranChoixTypePartie extends NamedJPanel{
 			
 			placementComposant(4);
 			
+			partieSolo.setText(Translator.translate("partieSolo")); // bouton partie solo
+			chargerPartie.setText(Translator.translate("chargerPartie")); // bouton partie solo
+			quitter.setText(Translator.translate("quitterJeu")); // bouton quitter le jeu
+			partieEnLigne.setText(Translator.translate("partieMulti"));
+			
 		}catch (IOException e){
 			if (Constante.MODE_DEBUG){
 				System.out.println("problème lors du chargement de l'image de fond");
