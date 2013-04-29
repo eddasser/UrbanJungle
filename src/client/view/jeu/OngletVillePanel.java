@@ -72,6 +72,7 @@ public class OngletVillePanel extends OngletPanel{
 			
 			buttonLevelUp.addActionListener(new OngletVilleListener(jeu,joueur,type));
 		}
+		setLabelTitre(Translator.translate("amelioration_batiment"));
 	}
 	
 	@Override

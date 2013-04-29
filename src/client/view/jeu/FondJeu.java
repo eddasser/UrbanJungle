@@ -31,6 +31,11 @@ public class FondJeu extends JPanel{
 	
 	@Override
 	public void paintComponent(Graphics g){
+		try {
+			imgFond = ImageIO.read(new File("ressources/" + Translator.getLangue() + "/images/EcranJeu/fond.gif"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		g.drawImage(imgFond,0,0,getWidth(),getHeight(),this);// Pour une image de fond
 	}
 	

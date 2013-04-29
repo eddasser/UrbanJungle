@@ -21,6 +21,8 @@ import common.Translator;
 public class EcranAttenteTour extends JPanel{
 	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
+	
+	private JLabel labelFond = new JLabel();
 
 	/**
 	 * @param name
@@ -34,9 +36,9 @@ public class EcranAttenteTour extends JPanel{
 		int height = 585;
 		setBounds(0,0,width,height);
 		
-		JLabel label = new JLabel("<html><h1>" + Translator.translate("PasAVotreTourDeJouer") + "</h1></html>",SwingConstants.CENTER);
-		label.setBounds(width / 4,85,width / 2,200);
-		this.add(label);
+		JLabel labelFond = new JLabel("<html><h1>" + Translator.translate("PasAVotreTourDeJouer") + "</h1></html>",SwingConstants.CENTER);
+		labelFond.setBounds(width / 4,85,width / 2,200);
+		this.add(labelFond);
 		setOpaque(false);
 	}
 	
@@ -52,6 +54,8 @@ public class EcranAttenteTour extends JPanel{
 		// g2d.fillOval(point.x,point.y,120,60);
 		g2d.setColor(backgroundColor);
 		g2d.fillRect(70,50,getWidth(),getHeight());
+		
+		labelFond.setText("<html><h1>" + Translator.translate("PasAVotreTourDeJouer") + "</h1></html>");
 	}
 	
 	

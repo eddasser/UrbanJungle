@@ -256,4 +256,32 @@
 		<name>choisirPartieACharger</name>
 		<value>choisir une partie a charger</value>
 	</parameter>
+	<parameter>
+		<name>PasAVotreTourDeJouer</name>
+		<value>Ce n'est pas à votre tour de jouer</value>
+	</parameter>
+	<parameter>
+		<name>AbsenceBatimentAProximitePourCreeUnite</name>
+		<value>Une unité ne peux etre construite que dans une case vide à deux case de distance maximum d'un bâtiment</value>
+	</parameter>
+	<parameter>
+		<name>ZoneImpossibleConstruire</name>
+		<value>Vous ne pouvez pas construire dans cette zone ( zone obstrué ou absence de constructeur a proximité</value>
+	</parameter>
+	<parameter>
+		<name>PasAssezArgent</name>
+		<value>Vous n'avez pas assez d'argent</value>
+	</parameter>
+	<parameter>
+		<name>creationPartieImpossible</name>
+		<value>Une erreur est survenue durant la création de la partie</value>
+	</parameter>
+	<parameter>
+		<name>creationPartieReussie</name>
+		<value>La partie a été crée avec succes</value>
+	</parameter>
+	<parameter>
+		<name>aucunePartieSelectionne</name>
+		<value>Vous devez selectionner une partie</value>
+	</parameter>
 </configuration>

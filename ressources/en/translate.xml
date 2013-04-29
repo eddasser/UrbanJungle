@@ -256,4 +256,32 @@
 		<name>choisirPartieACharger</name>
 		<value>choose a game to load </value>
 	</parameter>
+	<parameter>
+		<name>PasAVotreTourDeJouer</name>
+		<value>This is not your turn !</value>
+	</parameter>
+	<parameter>
+		<name>AbsenceBatimentAProximitePourCreeUnite</name>
+		<value>You can add a unit in a free case at a distance of 2 cases maximum of a building</value>
+	</parameter>
+	<parameter>
+		<name>ZoneImpossibleConstruire</name>
+		<value>You cannot construct in this area (area obstruct or no constructor around)</value>
+	</parameter>
+	<parameter>
+		<name>PasAssezArgent</name>
+		<value>You don't have enough money</value>
+	</parameter>
+	<parameter>
+		<name>creationPartieImpossible</name>
+		<value>An error occurs during the creation of the game</value>
+	</parameter>
+	<parameter>
+		<name>creationPartieReussie</name>
+		<value>The game was created successfully</value>
+	</parameter>
+	<parameter>
+		<name>aucunePartieSelectionne</name>
+		<value>You need to select a save</value>
+	</parameter>
 </configuration>

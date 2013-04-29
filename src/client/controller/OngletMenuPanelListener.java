@@ -22,9 +22,10 @@ public class OngletMenuPanelListener implements ActionListener{
 		
 		if (event.getSource() == menuPanel.getBoutonApply() ){
 			Translator.changeLanguage(((String)menuPanel.getCombo().getSelectedItem()).substring(0, 2)); 
+			JeuPanel.changeLanguage(((String)menuPanel.getCombo().getSelectedItem()).substring(0, 2));
+			
 			JeuPanel.getEcranJeu().update(); //maj de l'interface
-			JeuPanel.getEcranJeu().cacherTousLesOngets();
-			JeuPanel.getEcranJeu().afficherOngletMenu();
+			JeuPanel.getEcranJeu().repaint();
 		}
 		else if (event.getSource() == menuPanel.getButtonSauvegarder() ){
 			JeuPanel.getEcranJeu().afficherEcranSauvegardePartie();// on apelle la vue de sauvegarde
@@ -36,8 +37,6 @@ public class OngletMenuPanelListener implements ActionListener{
 				JeuPanel.getEcranJeu().cacherPlateau();
 				menuPanel.getJeu().chargerEcranChoixTypePartie();
 			}
-		}
-		
+		}	
 	}
-
 }

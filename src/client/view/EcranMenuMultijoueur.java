@@ -130,6 +130,11 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 			Image img = null;
 			img = ImageIO.read(new File("ressources/" + Translator.getLangue() + "/images/EcranMenuMultijoueur/fondEcranMenuMultijoueur.png"));
 			g.drawImage(img,0,0,getWidth(),getHeight(),this);// Pour une image de fond
+			
+			creerPartie.setText(Translator.translate("creerPartie"));
+			deconnexion.setText(Translator.translate("deconnexion"));
+			rafraichir.setText(Translator.translate("rafraichir"));
+			
 		}catch (IOException e){
 			if (Constante.MODE_DEBUG){
 				System.out.println("problème lors du chargement de l'image de fond");

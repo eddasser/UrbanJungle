@@ -23,6 +23,7 @@ public abstract class OngletPanel extends JPanel{
 	protected JPanel panelTitre = new RoundedPanel();
 	protected JPanel panelContenu = new RoundedPanel();
 	protected JeuPanel jeu;
+	protected JLabel labelTitre;
 
 	public OngletPanel(String name,JeuPanel jeu){
 		super();
@@ -41,9 +42,9 @@ public abstract class OngletPanel extends JPanel{
 		
 		panelContenu.setBorder(new EmptyBorder(10,10,10,10));
 		
-		JLabel label = new JLabel("<html><h1>" + name + "</h1></html>",SwingConstants.CENTER);
+		labelTitre = new JLabel("<html><h1>" + name + "</h1></html>",SwingConstants.CENTER);
 		// label.setBounds(getWidth() / 2 - 50,50,150,100);
-		panelTitre.add(label);
+		panelTitre.add(labelTitre);
 		updateContent();
 	}
 	
@@ -68,5 +69,8 @@ public abstract class OngletPanel extends JPanel{
 		return panelContenu;
 	}
 	
+	public void setLabelTitre(String label){
+		labelTitre.setText("<html><h1>" + label + "</h1></html>");
+	}
 	
 }

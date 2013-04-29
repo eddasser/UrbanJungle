@@ -2,6 +2,7 @@ package common.ia;
 
 import server.ClientListener;
 
+import common.Constante;
 import common.Joueur;
 import common.Partie;
 
@@ -9,6 +10,8 @@ import common.Partie;
  * @author omar
  */
 public abstract class JoueurIA extends Joueur{
+	
+	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	
 	public JoueurIA(){
 		super();
