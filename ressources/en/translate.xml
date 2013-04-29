@@ -272,4 +272,12 @@
 		<name>PasAssezArgent</name>
 		<value>You don't have enough money</value>
 	</parameter>
+	<parameter>
+		<name>creationPartieImpossible</name>
+		<value>An error occurs during the creation of the game</value>
+	</parameter>
+	<parameter>
+		<name>creationPartieReussie</name>
+		<value>The game was created successfully</value>
+	</parameter>
 </configuration>

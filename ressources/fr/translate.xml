@@ -272,4 +272,12 @@
 		<name>PasAssezArgent</name>
 		<value>Vous n'avez pas assez d'argent</value>
 	</parameter>
+	<parameter>
+		<name>creationPartieImpossible</name>
+		<value>Une erreur est survenue durant la création de la partie</value>
+	</parameter>
+	<parameter>
+		<name>creationPartieReussie</name>
+		<value>La partie a été crée avec succes</value>
+	</parameter>
 </configuration>
