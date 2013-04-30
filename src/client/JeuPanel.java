@@ -68,7 +68,7 @@ public class JeuPanel extends JPanel implements Observer{
 		ecranTitre.addKeyListener(listenerEcranTitre);// on ajoute le listener à la vue
 		
 		// ecran loader
-		ecranLoader = new EcranLoader(Translator.getLangue(),this);
+		ecranLoader = new EcranLoader(this);
 		
 		// ecran test connexion
 		// ecran test connexion valide
@@ -150,6 +150,7 @@ public class JeuPanel extends JPanel implements Observer{
 		dialogueServeur.connect();
 		
 		if (isAccesServeur()){
+			((EcranLoader)ecranLoader).setTitre("");
 			cardlayout.show(this,ecranLoader.getName()); // chargement de l'ecran loader
 			
 			Object[] args = { Commande.PING };
@@ -194,6 +195,7 @@ public class JeuPanel extends JPanel implements Observer{
 	}
 	
 	public void chargerEcranAttenteJoueur(){
+		((EcranLoader)ecranLoader).setTitre(Translator.translate("AttenteDesAutresJoueurs"));
 		cardlayout.show(this,ecranLoader.getName());
 	}
 	
