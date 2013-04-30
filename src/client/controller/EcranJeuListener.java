@@ -191,8 +191,8 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 							}else{
 								// s'il s'agit d'une partie en reseau
 								// on envois la partie au server
+								
 							}
-							
 						}
 					}
 				}

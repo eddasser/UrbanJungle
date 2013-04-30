@@ -17,9 +17,9 @@ public class Joueur implements Serializable{
 	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	// info pour partie réseau
-	private ClientListener clientListener; // socket a utiliser pour contacter le client
+	private transient ClientListener clientListener; // socket a utiliser pour contacter le client
 	private String login;
-	private String password;
+	private transient String password;
 	
 	// info pour les unites et batiments que le joueur possede
 	private ArrayList<Unite> unites;

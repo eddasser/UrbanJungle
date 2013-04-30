@@ -53,6 +53,7 @@ public class ServerCommandRejoindrePartie extends ServerCommand{
 		if (rejoint && !partie.placeDisponible()){
 			// dans le cas ou tout les sjoueurs ont rejoint la partie, on demarre le jeu
 			partie.setEtatDeLaPartie(Etat.COMMENCEE);
+			partie.initialiserPartie();
 			partie.notifierDebutJeu();
 		}
 	}

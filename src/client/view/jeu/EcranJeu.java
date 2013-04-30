@@ -76,6 +76,8 @@ public class EcranJeu extends NamedJPanel{
 	
 	public void afficherPlateau(){
 		if (premierePartie){
+			cacherTousLesOngets();
+			
 			layeredPane.add(fond,new Integer(-3000));
 			layeredPane.add(labelArgent,new Integer(-2000));
 			layeredPane.add(ecranPlateau,new Integer(-1000));
@@ -114,7 +116,6 @@ public class EcranJeu extends NamedJPanel{
 			labelCouleurJoueur.setBackground(couleurJoueur);
 			labelCouleurJoueur.setBounds(Constante.LARGEUR_FENETRE_PRINCIPALE - 350,Constante.HAUTEUR_FENETRE_PRINCIPALE - 80,40,40);
 			
-			cacherTousLesOngets();
 			
 			EcranJeuListener ejl = new EcranJeuListener(jeu,this);
 			addMouseListener(ejl);
