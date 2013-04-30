@@ -169,17 +169,11 @@ public class Joueur implements Serializable{
 	public boolean presenceDeUnitePosition(Case position){
 		boolean presenceUnite = false;
 		
-		int Xmin = position.getX();
-		int Xmax = position.getX() + (Constante.LARGEUR_CASE*2);
-		
-		int Ymin = position.getY();
-		int Ymax = position.getY() + (Constante.HAUTEUR_CASE*2);
-		
 		for (int i = 0 ; !presenceUnite && i < unites.size() ; i++){
 			Unite unite = unites.get(i);
 			Case positionUnite = unite.getPosition();
 			
-			if (positionUnite.getX() >= Xmin && positionUnite.getX() < Xmax && positionUnite.getY() >= Ymin && positionUnite.getY() < Ymax){
+			if (position.equals(positionUnite)){
 				presenceUnite = true;
 			}
 		}
@@ -370,5 +364,17 @@ public class Joueur implements Serializable{
 			TypeUnite type = (TypeUnite)unite.getType();
 			unite.setDeplacementRestant(type.getVitesse(getNiveau(type)));
 		}
+	}
+	
+	/** cette methode permet de savoir si on a relaché l'unité sur un elemnt du plateau qui apartient au joueur ou pas */
+	public boolean caseOccupeParElementJoueur(Case position){
+		boolean res = false; // verifie que la case est pas deja occupé par un batiment ou une unité d'un des joueurs
+		
+		// si un batiment ou une unité du joueur est deja sur la case
+		if (presenceDeBatimentPosition(position) || presenceDeUnitePosition(position)){
+			res = true;
+		}
+		
+		return res;
 	}
 }

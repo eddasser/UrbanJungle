@@ -202,7 +202,7 @@ public class Partie implements Serializable{
 	}
 	
 	public boolean caseLibre(Case position){
-		boolean res = peutConstruireBatimentPosition(position); // verifie que la case ets pas deja occupé par un batiment ou une unité d'un des joueurs
+		boolean res = peutConstruireBatimentPosition(position); // verifie que la case est pas deja occupé par un batiment ou une unité d'un des joueurs
 		return res;
 	}
 	

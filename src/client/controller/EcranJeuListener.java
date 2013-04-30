@@ -229,6 +229,8 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 		int x = e.getX();
 		int y = e.getY();
 		
+		Partie partie = jeu.getClient().getPartie();
+		
 		// on verifie que le laché de clic s'est effectuer sur le plateau de jeu
 		if (x > Constante.DECALAGE_PLATEAU_X && x < (Constante.LARGEUR_PLATEAU + Constante.DECALAGE_PLATEAU_X)
 				&& y > Constante.DECALAGE_PLATEAU_Y && y < (Constante.HAUTEUR_PLATEAU + Constante.DECALAGE_PLATEAU_Y)){
@@ -243,10 +245,21 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				// récuperation de la case du lacher du clic
 				Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
 				Unite unite = ecranJeu.getUniteEnDeplacement();
-				if (unite.deplacementPossibleVersPosition(x,y)){
-					int distance = (int)(position.getDistance(unite.getPosition()) / Constante.LARGEUR_CASE);
-					unite.decrementDeplacementRestant(distance);
-					unite.setPosition(position);
+				
+				boolean deplacementPossible = unite.deplacementPossibleVersPosition(x,y);
+				boolean caseLibre = partie.caseLibre(position);
+				
+				if (deplacementPossible){ // si le deplacement est possible en temre de cout de deplacement par rapport au point de deplacement restant
+					
+					if (caseLibre){ // si la case est libre, on deplace l'unité vers la case souhaité
+						int distance = (int)(position.getDistance(unite.getPosition()) / Constante.LARGEUR_CASE);
+						unite.decrementDeplacementRestant(distance);
+						unite.setPosition(position);
+					}else if ( ! partie.getJoueurCourant().caseOccupeParElementJoueur(new Case(x, y))){ //si la case ciblé est occupée mais pas par un element qui apartient au joueur, alors il attaque
+						
+						//TODO coder l'attaque de l'unité
+			
+					}
 				}
 				ecranJeu.cacherModeDeplacementUnite();
 				ecranJeu.update();
