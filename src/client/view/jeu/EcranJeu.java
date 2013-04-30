@@ -67,7 +67,7 @@ public class EcranJeu extends NamedJPanel{
 		ongletUnite = new OngletUnitePanel(jeu);
 		ecranAttenteTour = new EcranAttenteTour(jeu);
 		ecranPlateau = new EcranPlateau(jeu);
-		ecranAffichageDeplacement = new EcranAffichageDeplacement(jeu);
+		ecranAffichageDeplacement = new EcranAffichageDeplacement();
 		ecranSauvegardePartie = new EcranSauvegardePartie(jeu);
 		tooltip = new ToolTipInfo();
 		cacherEcranAttente();
