@@ -105,10 +105,8 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					if (ecranJeu.isModeCreationBatiment()){
 						
 						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position);  
-						System.out.println("peuxConstruire : "+peuxConstruire);//TODO reecrire fonction si bug trouve
 						
 						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position); 
-						System.out.println("uniteConstructionProche : "+uniteConstructionProche); //TODO reecrire fonction si bug trouve
 						
 						if (peuxConstruire && uniteConstructionProche){
 							TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();

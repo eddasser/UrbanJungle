@@ -201,6 +201,12 @@ public class Partie implements Serializable{
 		return peutConstruire;
 	}
 	
+	public boolean caseLibre(Case position){
+		boolean res = true;
+		
+		return res;
+	}
+	
 	public void passerTour(){
 		indiceJoueurCourant++;
 		if (indiceJoueurCourant >= listeParticipants.size()){

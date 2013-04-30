@@ -169,13 +169,18 @@ public class Joueur implements Serializable{
 	public boolean presenceDeUnitePosition(Case position){
 		boolean presenceUnite = false;
 		
+		int Xmin = position.getX();
+		int Xmax = position.getX() + (Constante.LARGEUR_CASE*2);
+		
+		int Ymin = position.getY();
+		int Ymax = position.getY() + (Constante.HAUTEUR_CASE*2);
+		
 		for (int i = 0 ; !presenceUnite && i < unites.size() ; i++){
 			Unite unite = unites.get(i);
 			Case positionUnite = unite.getPosition();
-			if (positionUnite.getX() >= position.getX() && positionUnite.getX() <= (position.getX() + 2 * Constante.LARGEUR_CASE)){
-				if (positionUnite.getY() >= position.getY() && positionUnite.getY() <= (position.getY() + 2 * Constante.HAUTEUR_CASE)){
-					presenceUnite = true;
-				}
+			
+			if (positionUnite.getX() >= Xmin && positionUnite.getX() < Xmax && positionUnite.getY() >= Ymin && positionUnite.getY() < Ymax){
+				presenceUnite = true;
 			}
 		}
 		return presenceUnite;
@@ -187,13 +192,18 @@ public class Joueur implements Serializable{
 	public boolean presenceDeBatimentPosition(Case position){
 		boolean presenceBatiment = false;
 		
+		int Xmin = position.getX() - Constante.LARGEUR_CASE;
+		int Xmax = position.getX() + Constante.LARGEUR_CASE;
+		
+		int Ymin = position.getY() - Constante.HAUTEUR_CASE;
+		int Ymax = position.getY() + Constante.HAUTEUR_CASE;
+		
 		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
 			Batiment bat = batiments.get(i);
 			Case positionBat = bat.getPosition();
-			if (position.getX() < (positionBat.getX() + 2 * Constante.LARGEUR_CASE)){
-				if (position.getY() < (positionBat.getY() + 2 * Constante.HAUTEUR_CASE)){
-					presenceBatiment = true;
-				}
+			
+			if (positionBat.getX() >= Xmin && positionBat.getX() < Xmax && positionBat.getY() >= Ymin && positionBat.getY() < Ymax){
+				presenceBatiment = true;
 			}
 		}
 		return presenceBatiment;
