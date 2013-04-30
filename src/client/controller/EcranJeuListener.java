@@ -103,8 +103,11 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					Case position = partie.getPlateau().getCasePlusProche(x,y);
 					
 					if (ecranJeu.isModeCreationBatiment()){
-						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position);
-						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position);
+						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position);  //TODO reecrire fonction
+						System.out.println("peuxConstruire : "+peuxConstruire);
+						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position); //TODO reecrire fonction
+						System.out.println("uniteConstructionProche : "+uniteConstructionProche);
+						
 						if (peuxConstruire && uniteConstructionProche){
 							TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
 							int montant = type.getPrix(joueur.getNiveau(type));
@@ -117,7 +120,12 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 							jeu.notificationJoueur(Translator.translate("ZoneImpossibleConstruire"));
 						}
 					}else if (ecranJeu.isModeCreationUnite()){
-						if (joueur.presenceDeBatimentAProximitePosition(position)){
+						boolean batimentAProximite = joueur.presenceDeBatimentAProximitePosition(position); //TODO reecrire fonction
+						System.out.println("batimentAProximite : "+batimentAProximite);
+						
+						//TODO verifier qu'il n'y a pas d'unité ou de batiment sur la case
+						
+						if (batimentAProximite){
 							TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
 							int montant = type.getPrix(joueur.getNiveau(type));
 							Unite unite = new Unite(type,position);

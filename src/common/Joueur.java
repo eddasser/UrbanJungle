@@ -232,18 +232,42 @@ public class Joueur implements Serializable{
 	public boolean presenceDeBatimentAProximitePosition(Case position){
 		boolean presenceBatiment = false;
 		
+		int centreBatimentX=0;
+		int centreBatimentY=0;
+		int borneInfX=0;
+		int borneInfY=0;
+		int borneSupX=0;
+		int borneSupY=0;
+		
 		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
 			Batiment bat = batiments.get(i);
-			Case centreBatiment = bat.getCentre();
+			
+			centreBatimentX = bat.getCentre().getX();
+			centreBatimentY = bat.getCentre().getY();
+			
+			borneInfX = centreBatimentX - (Constante.LARGEUR_CASE + (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE));
+			borneInfY = centreBatimentY - (Constante.HAUTEUR_CASE + (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE));
+			
+			borneSupX = centreBatimentX + (Constante.LARGEUR_CASE + (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE));
+			borneSupY = centreBatimentY + (Constante.HAUTEUR_CASE + (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE));
+			
+			if (position.getX() >= borneInfX && position.getX() < borneSupX && position.getY() >= borneInfY && position.getY() < borneSupY){
+				presenceBatiment=true;
+			}
+			
+			/** ancien code, problématique car calcul des diagonal faux et placements des unités qui bug du coup
+			 * 
 			Case centrePosition = new Case(position.getX() + Constante.LARGEUR_CASE / 2,position.getY() + Constante.HAUTEUR_CASE / 2);
 			// on calcul la distance entre le batiment et l'endroit où il veux construire son unité
 			// on calcul bien sur la distance a partir du centre du batiment
 			double distance = centreBatiment.getDistance(centrePosition);
 			// on convertit la distance en nombre de cases
 			distance /= Constante.LARGEUR_CASE;
+			
 			if (distance <= Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE){
 				presenceBatiment = true;
 			}
+			*/
 		}
 		return presenceBatiment;
 	}
