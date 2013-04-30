@@ -271,6 +271,7 @@ public class EcranJeu extends NamedJPanel{
 		ecranAffichageDeplacement.setPositionUnite(x,y);
 		ecranAffichageDeplacement.setPositionSouris(x,y);
 		ecranAffichageDeplacement.setVisible(true);
+		ecranPlateau.repaint();
 	}
 	
 	public void cacherModeDeplacementUnite(){

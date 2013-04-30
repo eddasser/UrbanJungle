@@ -61,6 +61,30 @@ public class EcranPlateau extends JPanel{
 		for (int i = 0 ; i < joueurs.size() ; i++){
 			Joueur joueur = joueurs.get(i);
 			Color colorJoueur = Constante.COLORS[i];// recuperation de la couleur du joueur
+			
+			
+			
+			/*
+			 * Affichage de la zone de deplacement possible d'une unite
+			 */
+			ArrayList<Unite> unites = joueur.getUnites();
+			for (int j = 0 ; j < unites.size() ; j++){
+				Unite unite = unites.get(j);
+				Case case_unite = unite.getPosition();
+				
+				
+				if (unite.equals(JeuPanel.getEcranJeu().getUniteEnDeplacement())){ // si l'unité est l'unité actuellement selectionné pour etre deplacé
+					
+					// on affiche un rectangle de couleur representant les cases ou l'unite peut se deplacer
+					g.setColor(Color.ORANGE);
+					int deplacementRestantPourUnite = unite.getDeplacementRestant(); 
+					g.fillRect(case_unite.getX() - (Constante.LARGEUR_CASE*deplacementRestantPourUnite), // x
+							   case_unite.getY() - (Constante.LARGEUR_CASE*deplacementRestantPourUnite), //y
+							   (Constante.LARGEUR_CASE + (Constante.LARGEUR_CASE*2*deplacementRestantPourUnite)), //largeur
+							   (Constante.HAUTEUR_CASE + (Constante.LARGEUR_CASE*2*deplacementRestantPourUnite))); //hauteur
+				}
+			}
+			
 			g.setColor(colorJoueur);
 			
 			/*
@@ -86,11 +110,10 @@ public class EcranPlateau extends JPanel{
 			/*
 			 * Affichage des unités du joueur
 			 */
-			ArrayList<Unite> unites = joueur.getUnites();
+			
 			for (int j = 0 ; j < unites.size() ; j++){
 				Unite unite = unites.get(j);
 				Case case_unite = unite.getPosition();
-				
 				
 				/*
 				 * Affichage du contour du batiment (avec la couleur du joueur)
@@ -98,9 +121,12 @@ public class EcranPlateau extends JPanel{
 				g.fillRect(case_unite.getX() - epaisseurContour,case_unite.getY() - epaisseurContour,
 						(Constante.LARGEUR_CASE + (epaisseurContour*2)),(Constante.HAUTEUR_CASE + (epaisseurContour*2)));
 				
-				
+				/*
+				 * affichage de l'icone
+				 */
 				Icon icon = unite.getType().getIconMin();
 				icon.paintIcon(this,g2d,case_unite.getX(),case_unite.getY());
+				
 				
 //				int x = case_unite.getX();
 //				int y = case_unite.getY();
