@@ -208,9 +208,58 @@ public class Joueur implements Serializable{
 		
 		Case centreBatiment = new Case(position.getX() + Constante.LARGEUR_CASE,position.getY() + Constante.HAUTEUR_CASE);
 		
+		// un batiment peut etre contruit si au moin un constructeur est present dans un case situé sur X case autour du batiments ( X correspond a la constante de distance definie dans le fichier constante)
+		// je decoupe les cases autour du batiment en zone et je vérifie si oil existe un constructeur dans ces zones
+		
+		//zone nord
+		int nord_X_MIN = (centreBatiment.getX() - Constante.LARGEUR_CASE) - (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );
+		int nord_X_MAX = (centreBatiment.getX() + Constante.LARGEUR_CASE) + (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );
+
+		int nord_Y_MIN = (centreBatiment.getY() - Constante.HAUTEUR_CASE) - (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );
+		int nord_Y_MAX = (centreBatiment.getY() - Constante.HAUTEUR_CASE);
+		
+		
+		//zone sud
+		int sud_X_MIN = nord_X_MIN;
+		int sud_X_MAX = nord_X_MAX;
+		
+		int sud_Y_MIN = (centreBatiment.getY() + Constante.HAUTEUR_CASE);
+		int sud_Y_MAX = (centreBatiment.getY() + Constante.HAUTEUR_CASE) + (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );  
+		
+		
+		//zone ouest
+		int ouest_X_MIN = (centreBatiment.getX() - Constante.LARGEUR_CASE) - (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );
+		int ouest_X_MAX = (centreBatiment.getX() - Constante.LARGEUR_CASE);
+		
+		int ouest_Y_MIN = (centreBatiment.getY() - Constante.HAUTEUR_CASE) - (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );  
+		int ouest_Y_MAX = (centreBatiment.getY() + Constante.HAUTEUR_CASE) + (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );  
+		
+		
+		//zone est
+		
+		int est_X_MIN = (centreBatiment.getX() + Constante.LARGEUR_CASE);
+		int est_X_MAX = (centreBatiment.getX() + Constante.LARGEUR_CASE) + (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );
+		
+		int est_Y_MIN = ouest_Y_MIN;
+		int est_Y_MAX = ouest_Y_MAX;
+		
+		
 		for (int i = 0 ; !aUniteConstructeur && i < unites.size() ; i++){
 			Unite unite = unites.get(i);
-			if (unite.getType() == TypeUnite.CONSTRUCTEUR){
+			if (unite.getType() == TypeUnite.CONSTRUCTEUR){ //si l'unite est un constructeur
+				
+				int uniteX = unite.getPosition().getX();
+				int uniteY = unite.getPosition().getY();
+				
+				//si un constructeur se situe dans une des 4 zone
+				if ( uniteX >= nord_X_MIN && uniteX < nord_X_MAX && uniteY >= nord_Y_MIN && uniteY < nord_Y_MAX || //nord
+					 uniteX >= sud_X_MIN && uniteX < sud_X_MAX && uniteY >= sud_Y_MIN && uniteY < sud_Y_MAX || //sud
+					 uniteX >= ouest_X_MIN && uniteX < ouest_X_MAX && uniteY >= ouest_Y_MIN && uniteY < ouest_Y_MAX || //ouest
+					 uniteX >= est_X_MIN && uniteX < est_X_MAX && uniteY >= est_Y_MIN && uniteY < est_Y_MAX ){ //est
+					
+					aUniteConstructeur = true; 
+				}
+				/** ancien code, mauvais calcul, fonction retourne un mauvais resultat souvant et empeche la construction alors qu'elle devrait pas
 				Case centreUnite = unite.getCentre();
 				// on calcul la distance entre l'unite et l'endroit où il veux construire
 				double distanceUnite = centreBatiment.getDistance(centreUnite);
@@ -219,6 +268,7 @@ public class Joueur implements Serializable{
 				if (distanceUnite <= Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT){
 					aUniteConstructeur = true;
 				}
+				*/
 			}
 		}
 		return aUniteConstructeur;

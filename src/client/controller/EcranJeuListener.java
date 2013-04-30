@@ -103,10 +103,12 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					Case position = partie.getPlateau().getCasePlusProche(x,y);
 					
 					if (ecranJeu.isModeCreationBatiment()){
-						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position);  //TODO reecrire fonction
-						System.out.println("peuxConstruire : "+peuxConstruire);
-						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position); //TODO reecrire fonction
-						System.out.println("uniteConstructionProche : "+uniteConstructionProche);
+						
+						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position);  
+						System.out.println("peuxConstruire : "+peuxConstruire);//TODO reecrire fonction si bug trouve
+						
+						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position); 
+						System.out.println("uniteConstructionProche : "+uniteConstructionProche); //TODO reecrire fonction si bug trouve
 						
 						if (peuxConstruire && uniteConstructionProche){
 							TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
@@ -120,8 +122,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 							jeu.notificationJoueur(Translator.translate("ZoneImpossibleConstruire"));
 						}
 					}else if (ecranJeu.isModeCreationUnite()){
-						boolean batimentAProximite = joueur.presenceDeBatimentAProximitePosition(position); //TODO reecrire fonction
-						System.out.println("batimentAProximite : "+batimentAProximite);
+						boolean batimentAProximite = joueur.presenceDeBatimentAProximitePosition(position);
 						
 						//TODO verifier qu'il n'y a pas d'unité ou de batiment sur la case
 						
