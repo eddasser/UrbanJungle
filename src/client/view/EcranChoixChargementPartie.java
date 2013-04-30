@@ -37,12 +37,8 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 		
 		// récuperation de la liste des sauvegardes existantes
 		File repertoire = new File("sauvegardes");
-		try{
-			if (!repertoire.exists()){
-				repertoire.createNewFile();
-			}
-		}catch (IOException e){
-			e.printStackTrace();
+		if (!repertoire.exists()){
+			repertoire.mkdir();
 		}
 		File[] listeSauvegardesTmp = repertoire.listFiles();
 		
