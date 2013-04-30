@@ -42,6 +42,10 @@ public class OngletBatimentListener implements MouseListener{
 				ecranJeu.setPositionSouris(e.getXOnScreen() - Constante.DECALAGE_PLATEAU_X - 2 * Constante.LARGEUR_CASE,e.getYOnScreen()
 						- Constante.DECALAGE_PLATEAU_Y - 2 * Constante.HAUTEUR_CASE);
 				jeu.getClient().update();
+				
+				// on affiche sur le plateau les zones possible pour la construction des batiments
+				JeuPanel.getEcranJeu().afficherZonePlacementBatiment();
+				
 			}else{
 				jeu.notificationJoueur(Translator.translate("PasAssezArgent"));
 			}

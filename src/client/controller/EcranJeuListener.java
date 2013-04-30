@@ -103,12 +103,15 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					Case position = partie.getPlateau().getCasePlusProche(x,y);
 					
 					if (ecranJeu.isModeCreationBatiment()){
-						if (partie.peutConstruireBatimentPosition(position) && joueur.aUniteConstructionProche(position)){
+						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position);
+						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position);
+						if (peuxConstruire && uniteConstructionProche){
 							TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
 							int montant = type.getPrix(joueur.getNiveau(type));
 							Batiment batiment = new Batiment(type,position);
 							joueur.ajouterBatiment(batiment);
 							joueur.decrementArgent(montant);
+							ecranJeu.cacherZonePlacementBatiment();
 						}else{
 							ecranJeu.cacherModeCreation();
 							jeu.notificationJoueur(Translator.translate("ZoneImpossibleConstruire"));
@@ -120,6 +123,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 							Unite unite = new Unite(type,position);
 							joueur.ajouterUnite(unite);
 							joueur.decrementArgent(montant);
+							ecranJeu.cacherZonePlacementUnite();
 						}else{
 							ecranJeu.cacherModeCreation();
 							jeu.notificationJoueur(Translator.translate("AbsenceBatimentAProximitePourCreeUnite"));

@@ -17,6 +17,7 @@ import common.Joueur;
 import common.partie.batiment.Batiment;
 import common.partie.plateau.Case;
 import common.partie.plateau.Plateau;
+import common.partie.unite.TypeUnite;
 import common.partie.unite.Unite;
 
 /**
@@ -27,6 +28,8 @@ public class EcranPlateau extends JPanel{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private JeuPanel jeu;
 	private final static int epaisseurContour = 2;
+	private boolean creationUnite;
+	private boolean creationBatiment;
 	
 	public EcranPlateau(JeuPanel jeu){
 		this.jeu = jeu;
@@ -35,6 +38,9 @@ public class EcranPlateau extends JPanel{
 		
 		Border border = BorderFactory.createLineBorder(Color.black,3);
 		setBorder(border);
+		
+		creationUnite = false;
+		creationBatiment = false;
 	}
 	
 	@Override
@@ -62,38 +68,69 @@ public class EcranPlateau extends JPanel{
 			Joueur joueur = joueurs.get(i);
 			Color colorJoueur = Constante.COLORS[i];// recuperation de la couleur du joueur
 			
-			
-			
-			/*
-			 * Affichage de la zone de deplacement possible d'une unite
-			 */
 			ArrayList<Unite> unites = joueur.getUnites();
-			for (int j = 0 ; j < unites.size() ; j++){
-				Unite unite = unites.get(j);
-				Case case_unite = unite.getPosition();
+			ArrayList<Batiment> batiments = joueur.getBatiments();
+			
+			
+			if (joueur.equals(jeu.getClient().getPartie().getJoueurCourant())){ //si il s'agit du joueur dont c'est le tour
+				g.setColor(Color.ORANGE);
 				
-				
-				if (unite.equals(JeuPanel.getEcranJeu().getUniteEnDeplacement())){ // si l'unité est l'unité actuellement selectionné pour etre deplacé
+				/*
+				 * Affichage de la zone de deplacement possible d'une unite et des zone de construction possible des batiments
+				 */
+				for (int j = 0 ; j < unites.size() ; j++){
+					Unite unite = unites.get(j);
+					Case case_unite = unite.getPosition();
 					
-					// on affiche un rectangle de couleur representant les cases ou l'unite peut se deplacer
-					g.setColor(Color.ORANGE);
-					int deplacementRestantPourUnite = unite.getDeplacementRestant(); 
-					g.fillRect(case_unite.getX() - (Constante.LARGEUR_CASE*deplacementRestantPourUnite), // x
-							   case_unite.getY() - (Constante.LARGEUR_CASE*deplacementRestantPourUnite), //y
-							   (Constante.LARGEUR_CASE + (Constante.LARGEUR_CASE*2*deplacementRestantPourUnite)), //largeur
-							   (Constante.HAUTEUR_CASE + (Constante.LARGEUR_CASE*2*deplacementRestantPourUnite))); //hauteur
+					if (unite.equals(JeuPanel.getEcranJeu().getUniteEnDeplacement())){ // si l'unité est l'unité actuellement selectionné pour etre deplacé
+						
+						// on affiche un rectangle de couleur representant les cases ou l'unite peut se deplacer
+						
+						int deplacementRestantPourUnite = unite.getDeplacementRestant(); 
+						g.fillRect(case_unite.getX() - (Constante.LARGEUR_CASE*deplacementRestantPourUnite), // x
+								   case_unite.getY() - (Constante.LARGEUR_CASE*deplacementRestantPourUnite), //y
+								   (Constante.LARGEUR_CASE + (Constante.LARGEUR_CASE*2*deplacementRestantPourUnite)), //largeur
+								   (Constante.HAUTEUR_CASE + (Constante.LARGEUR_CASE*2*deplacementRestantPourUnite))); //hauteur
+					}else if (creationBatiment && unite.getType().equals(TypeUnite.CONSTRUCTEUR)){
+						
+						// on affiche un rectangle de couleur representant les cases ou lles batiments peuvent etre construits
+						g.fillRect(case_unite.getX() - (Constante.LARGEUR_CASE*(((int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT)+1)), // x - Constante+1, +1 car la zone dessine fait une case de plus que la zone de construction autorisé
+								   case_unite.getY() - (Constante.LARGEUR_CASE*(((int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT)+1)), //y - Constante+1
+								   (Constante.LARGEUR_CASE + (Constante.LARGEUR_CASE*2*(((int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT)+1))), //largeur
+								   (Constante.HAUTEUR_CASE + (Constante.LARGEUR_CASE*2*(((int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT)+1)))); //hauteur
+					}
+				}
+				
+				
+				/*
+				 * Affichage de la zone de placement possible des unites
+				 */
+				for (int j = 0 ; j < batiments.size() ; j++){
+					Batiment batiment = batiments.get(j);
+					Case case_batiment = batiment.getPosition();
+					
+					/** affichage des zone de placement d'unite possible */
+					if (creationUnite){ // si on est en mode placement d'unite
+				
+						g.fillRect(case_batiment.getX() - (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE), // x
+								   case_batiment.getY() - (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE), //y
+								   ((Constante.LARGEUR_CASE*2) + Constante.LARGEUR_CASE*2*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE), //largeur
+								   ((Constante.HAUTEUR_CASE*2) + Constante.LARGEUR_CASE*2*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE)); //hauteur
+					}
 				}
 			}
+			
 			
 			g.setColor(colorJoueur);
 			
 			/*
 			 * Affichage des batiments du joueur
 			 */
-			ArrayList<Batiment> batiments = joueur.getBatiments();
 			for (int j = 0 ; j < batiments.size() ; j++){
 				Batiment batiment = batiments.get(j);
 				Case case_batiment = batiment.getPosition();
+				
+				g.setColor(colorJoueur);
 				
 				/*
 				 * Affichage du contour du batiment (avec la couleur du joueur)
@@ -140,5 +177,13 @@ public class EcranPlateau extends JPanel{
 				
 			}
 		}
+	}
+
+	public void setCreationUnite(boolean creationUnite) {
+		this.creationUnite = creationUnite;
+	}
+
+	public void setCreationBatiment(boolean creationBatiment) {
+		this.creationBatiment = creationBatiment;
 	}
 }

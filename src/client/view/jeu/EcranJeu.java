@@ -19,6 +19,7 @@ import common.Joueur;
 import common.TypeElementPlateau;
 import common.partie.batiment.TypeBatiment;
 import common.partie.plateau.Case;
+import common.partie.plateau.Plateau;
 import common.partie.unite.TypeUnite;
 import common.partie.unite.Unite;
 
@@ -309,5 +310,27 @@ public class EcranJeu extends NamedJPanel{
 		labelCouleurJoueur.setVisible(false);
 		fond.setVisible(false);
 		ecranPlateau.setVisible(false);
+	}
+
+	public void afficherZonePlacementUnite() {
+		cacherZonePlacementBatiment();
+		ecranPlateau.setCreationUnite(true);
+		ecranPlateau.repaint();
+	}
+	
+	public void cacherZonePlacementUnite() {
+		ecranPlateau.setCreationUnite(false);
+		ecranPlateau.repaint();
+	}
+	
+	public void afficherZonePlacementBatiment() {
+		cacherZonePlacementUnite();
+		ecranPlateau.setCreationBatiment(true);
+		ecranPlateau.repaint();
+	}
+	
+	public void cacherZonePlacementBatiment() {
+		ecranPlateau.setCreationBatiment(false);
+		ecranPlateau.repaint();
 	}
 }
