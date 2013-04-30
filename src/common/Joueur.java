@@ -84,11 +84,11 @@ public class Joueur implements Serializable{
 	}
 	
 	
-	public String getLogin() {
+	public String getLogin(){
 		return login;
 	}
-
-	public void send(String[] args){
+	
+	public void send(Object[] args){
 		clientListener.send(args);
 	}
 	

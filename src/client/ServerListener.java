@@ -54,7 +54,7 @@ public class ServerListener implements Runnable{
 	public void run(){
 		try{
 			while (continu){
-				String[] args = (String[])in.readObject();
+				Object[] args = (Object[])in.readObject();
 				
 				ClientCommand command = ClientCommandFactory.getCommand(args);
 				command.execute(this);
@@ -63,12 +63,16 @@ public class ServerListener implements Runnable{
 			in.close();
 			out.close();
 			socket.close();
+		}catch (java.io.EOFException e){
+			// TODO: handle exception
+			System.out.println("SERVER PLUS DISPONIBLE");
+			e.printStackTrace();
 		}catch (IOException | ClassNotFoundException e){
 			e.printStackTrace();
 		}
 	}
 	
-	public void sendCommand(String[] args){
+	public void sendCommand(Object[] args){
 		try{
 			out.writeObject(args);
 			out.flush();

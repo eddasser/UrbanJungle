@@ -9,15 +9,15 @@ import server.ClientListener;
  * et executé sur le server
  */
 public abstract class ServerCommand{
-	protected String[] arguments = new String[0];
+	protected Object[] arguments = new Object[0];
 	
 	public abstract void execute(ClientListener _client);
 	
-	public String[] getArguments(){
+	public Object[] getArguments(){
 		return arguments;
 	}
 	
-	public void setArguments(String[] arguments){
+	public void setArguments(Object[] arguments){
 		this.arguments = arguments;
 	}
 }

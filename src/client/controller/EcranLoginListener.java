@@ -7,7 +7,7 @@ import client.JeuPanel;
 import client.view.EcranLogin;
 import client.view.JCoolButton;
 
-import common.Constante;
+import common.Commande;
 import common.Translator;
 
 
@@ -44,7 +44,7 @@ public class EcranLoginListener implements ActionListener{
 				else if (motDePasse.compareTo("") == 0 && !dejaAffiché) jeu.notificationJoueur(Translator.translate("champMDPVide"));
 			}else{
 				// appel a la fonction qui envoi le message de connection au serveur
-				String[] args = { Constante.COMMANDE_DEMANDE_CONNEXION,login,motDePasse };
+				Object[] args = { Commande.DEMANDE_CONNEXION,login,motDePasse };
 				jeu.getDialogueServeur().sendCommand(args);
 			}
 		}else if (boutonClique.equals(ecranLogin.getRetour())) // retour
@@ -68,7 +68,7 @@ public class EcranLoginListener implements ActionListener{
 				else if (motDePasse.compareTo("") == 0 && !dejaAffiché) jeu.notificationJoueur(Translator.translate("champMDPVide"));
 			}else{
 				// appel a la fonction qui envoi le message de connection au serveur
-				String[] args = { Constante.COMMANDE_CREATION_COMPTE,login,motDePasse };
+				Object[] args = { Commande.CREATION_COMPTE,login,motDePasse };
 				jeu.getDialogueServeur().sendCommand(args);
 			}
 		}

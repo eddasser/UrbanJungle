@@ -12,7 +12,7 @@ public class ClientCommandDemandeConnexion extends ClientCommand{
 	
 	@Override
 	public void execute(ServerListener _server){
-		boolean connexionAccepted = new Boolean(arguments[0]);
+		boolean connexionAccepted = (boolean)arguments[0];
 		
 		JeuPanel jeu = _server.getJeu();
 		// reponse du serveur a la tentative de connection du client

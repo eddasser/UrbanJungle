@@ -24,6 +24,7 @@ import client.view.EcranTitre;
 import client.view.NamedJPanel;
 import client.view.jeu.EcranJeu;
 
+import common.Commande;
 import common.Constante;
 import common.Partie;
 import common.Translator;
@@ -97,8 +98,8 @@ public class JeuPanel extends JPanel implements Observer{
 		// ecran de creation d'une partie
 		ecranCreationPartie = new EcranCreationPartie(this);
 		
-		//ecran de chargement d'une partie
-		ecranChoixChargementPartie =  new EcranChoixChargementPartie(this);
+		// ecran de chargement d'une partie
+		ecranChoixChargementPartie = new EcranChoixChargementPartie(this);
 		
 		ecranJeu = new EcranJeu(this,aLayeredPane);
 		
@@ -160,7 +161,7 @@ public class JeuPanel extends JPanel implements Observer{
 		if (accesServeur){
 			cardlayout.show(this,ecranLoader.getName()); // chargement de l'ecran loader
 			
-			String[] args = { Constante.COMMANDE_PING };
+			Object[] args = { Commande.PING };
 			dialogueServeur.sendCommand(args);
 		}else{
 			cardlayout.show(this,ecranTestConnexionKO.getName());
@@ -230,7 +231,7 @@ public class JeuPanel extends JPanel implements Observer{
 	
 	/** méthode qui permet de récupérer du serveur la liste des parties */
 	public void recuperationListePartie(){
-		String[] args = { Constante.COMMANDE_LISTE_PARTIES };
+		Object[] args = { Commande.LISTE_PARTIES };
 		dialogueServeur.sendCommand(args);
 	}
 	
@@ -244,28 +245,31 @@ public class JeuPanel extends JPanel implements Observer{
 		client = (Client)o;
 		((EcranJeu)ecranJeu).update();
 	}
-
-	/** cette methode se charge de deleguer la sauvergarder l'etat de la partie courante en faisant appelle a la classe destionnaire sauvegarde
+	
+	/**
+	 * cette methode se charge de deleguer la sauvergarder l'etat de la partie courante en faisant appelle a la classe destionnaire
+	 * sauvegarde
 	 * 
-	 * @param nomPartie, le nom choisi pour la sauvegarde par l'utilisateur dans la vue de sauvegarde de la partie
+	 * @param nomPartie
+	 *            , le nom choisi pour la sauvegarde par l'utilisateur dans la vue de sauvegarde de la partie
 	 * @return res, boolean true si la sauvegarde s'est bien passé, false si une erreur est survenue
 	 */
-	public boolean sauvegardePartie(String nomSauvegarde) {
+	public boolean sauvegardePartie(String nomSauvegarde){
 		boolean res = true;
-		res = gestionnaireSauvegarde.sauvegarderPartie(client, nomSauvegarde);
+		res = gestionnaireSauvegarde.sauvegarderPartie(client,nomSauvegarde);
 		
 		// on notifie au joueur si la sauvegarde a reussi ou non
-		if (res){ //partie sauvegardé
+		if (res){ // partie sauvegardé
 			notificationJoueur(Translator.translate("partieSauvegardeOK"));
 			((EcranChoixChargementPartie)ecranChoixChargementPartie).majListePartie(nomSauvegarde);
-		}else{ //echec de la sauvegarde
+		}else{ // echec de la sauvegarde
 			notificationJoueur(Translator.translate("partieSauvegardeKO"));
 		}
 		
 		return res;
 	}
 	
-	/** cette methode charge une partie sauvegarde a partir d'un nom de partie*/
+	/** cette methode charge une partie sauvegarde a partir d'un nom de partie */
 	public void chargePartie(File nomPartieACharger){
 		// on charge la partie
 		Client clientCharge = gestionnaireSauvegarde.chargerPartie(nomPartieACharger);
@@ -276,24 +280,23 @@ public class JeuPanel extends JPanel implements Observer{
 			client = clientCharge;
 			// on charge l'ecran de jeu
 			chargerEcranJeu();
-		}
-		else{// si le chargement a echoué
+		}else{// si le chargement a echoué
 			notificationJoueur(Translator.translate("partieChargeKO"));
 		}
 	}
-
-	public static NamedJPanel getEcranTestConnexionOk() {
+	
+	public static NamedJPanel getEcranTestConnexionOk(){
 		return ecranTestConnexionOk;
 	}
-
-	public static NamedJPanel getEcranTestConnexionKO() {
+	
+	public static NamedJPanel getEcranTestConnexionKO(){
 		return ecranTestConnexionKO;
 	}
-
-	//cette methode permet de mettre a jour les panels qui ont pour fond un jlabel avec un gif
-	public static void changeLanguage(String langue) {
-		((EcranConnexionServeurImpossible) ecranTestConnexionKO).changeLanguage(langue);
-		((EcranConnexionServeurPossible) ecranTestConnexionOk).changeLanguage(langue);
+	
+	// cette methode permet de mettre a jour les panels qui ont pour fond un jlabel avec un gif
+	public static void changeLanguage(String langue){
+		((EcranConnexionServeurImpossible)ecranTestConnexionKO).changeLanguage(langue);
+		((EcranConnexionServeurPossible)ecranTestConnexionOk).changeLanguage(langue);
 	}
-
+	
 }

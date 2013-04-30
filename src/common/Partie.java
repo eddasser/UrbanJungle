@@ -10,7 +10,7 @@ import common.partie.plateau.Plateau;
 
 
 public class Partie implements Serializable{
-
+	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private String nomPartie; // nom donné a la parti par son créateur
 	private int nbJoueur; // nb de joueur requis pour cette partie
@@ -74,7 +74,7 @@ public class Partie implements Serializable{
 	}
 	
 	public void notifierDebutJeu(){
-		String[] args = { Constante.COMMANDE_DEBUT_JEU };
+		Object[] args = { Commande.DEBUT_JEU };
 		for (int i = 0 ; i < listeParticipants.size() ; i++){
 			Joueur joueur = listeParticipants.get(i);
 			joueur.send(args);
@@ -206,5 +206,5 @@ public class Partie implements Serializable{
 		if (indiceJoueurCourant >= listeParticipants.size()){
 			indiceJoueurCourant = 0;
 		}
-	}	
+	}
 }
