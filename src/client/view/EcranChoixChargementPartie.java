@@ -29,49 +29,62 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 	
 	private Object[][] data;
 	
-	public EcranChoixChargementPartie(JeuPanel jeu) {
-		super("ecranChoixChargementPartie", jeu);
+	public EcranChoixChargementPartie(JeuPanel jeu){
+		super("ecranChoixChargementPartie",jeu);
 		setLayout(null);
 		
 		listeSauvegardes = new ArrayList<>();
 		
-		//récuperation de la liste des sauvegardes existantes
+		// récuperation de la liste des sauvegardes existantes
 		File repertoire = new File("sauvegardes");
+		try{
+			if (!repertoire.exists()){
+				repertoire.createNewFile();
+			}
+		}catch (IOException e){
+			e.printStackTrace();
+		}
 		File[] listeSauvegardesTmp = repertoire.listFiles();
 		
-		String[] column = {Translator.translate("choisirPartieACharger")};
+		String[] column = { Translator.translate("choisirPartieACharger") };
 		
-		data =  new Object[listeSauvegardesTmp.length][1]; // les données sont un tableau  a 2 dimention, 1 seule colonne qui sont les nom des sauvegardes
-		
-		for (int i =0; i< listeSauvegardesTmp.length; i++){
-			data[i][0] = listeSauvegardesTmp[i].toString();
+		if (listeSauvegardesTmp != null){
+			data = new Object[listeSauvegardesTmp.length][1]; // les données sont un tableau a 2 dimention, 1 seule colonne qui sont les nom
+																// des
+																// sauvegardes
+			
+			for (int i = 0 ; i < listeSauvegardesTmp.length ; i++){
+				data[i][0] = listeSauvegardesTmp[i].toString();
+			}
+		}else{
+			data = new Object[0][1];
 		}
 		
-		table= new JTable(data, column);
+		table = new JTable(data,column);
 		table.setRowHeight(32);
 		
-	
-		//TODO trouver comment ajouter a la table le noms des fichiers
+		
+		// TODO trouver comment ajouter a la table le noms des fichiers
 		scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(212,220,600,200);	
+		scrollPane.setBounds(212,220,600,200);
 		add(scrollPane);
 		
 		
-		EcranChoixChargementPartieListener listener = new EcranChoixChargementPartieListener(jeu, this, listeSauvegardesTmp);
+		EcranChoixChargementPartieListener listener = new EcranChoixChargementPartieListener(jeu,this,listeSauvegardesTmp);
 		
-		//boutton charger, charge la partie actuellement selectionné dans la jTable
+		// boutton charger, charge la partie actuellement selectionné dans la jTable
 		chargerPartie = new JCoolButton(Translator.translate("chargerPartie"));
-		chargerPartie.setBounds(262, 500, 200, 50);
+		chargerPartie.setBounds(262,500,200,50);
 		chargerPartie.addActionListener(listener);
 		add(chargerPartie);
 		
-		//boutton retour
+		// boutton retour
 		retour = new JCoolButton(Translator.translate("retour"));
-		retour.setBounds(562, 500, 200, 50);
+		retour.setBounds(562,500,200,50);
 		retour.addActionListener(listener);
-		add(retour);	
+		add(retour);
 	}
-
+	
 	@Override
 	public void paintComponent(Graphics g){
 		try{
@@ -79,11 +92,11 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 					+ "/images/EcranChoixTypePartie/fondEcranChoixTypePartie.jpg"));
 			g.drawImage(img,0,0,getWidth(),getHeight(),this);// Pour une image de fond
 			
-			//maj de l'interface en cas de changement de langue
+			// maj de l'interface en cas de changement de langue
 			chargerPartie.setText(Translator.translate("chargerPartie"));
 			retour.setText(Translator.translate("retour"));
 			
-			//maj du titre de la colonne de la table
+			// maj du titre de la colonne de la table
 			table.getColumnModel().getColumn(0).setHeaderValue(Translator.translate("choisirPartieACharger"));
 			table.getTableHeader().resizeAndRepaint();
 			
@@ -95,20 +108,20 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 		}
 	}
 	
-	public JTable getTable() {
+	public JTable getTable(){
 		return table;
 	}
-
-	public JCoolButton getChargerPartie() {
+	
+	public JCoolButton getChargerPartie(){
 		return chargerPartie;
 	}
-
-	public JCoolButton getRetour() {
+	
+	public JCoolButton getRetour(){
 		return retour;
 	}
-
-
-	public void majListePartie(String nomSauvegarde) {
+	
+	
+	public void majListePartie(String nomSauvegarde){
 		listeSauvegardes.add(nomSauvegarde);
 	}
 	
