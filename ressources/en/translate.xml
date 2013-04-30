@@ -284,4 +284,8 @@
 		<name>aucunePartieSelectionne</name>
 		<value>You need to select a save</value>
 	</parameter>
+	<parameter>
+		<name>CaseDejaOccupe</name>
+		<value>The case is occupied</value>
+	</parameter>
 </configuration>

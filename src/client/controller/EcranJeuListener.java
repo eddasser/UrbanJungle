@@ -122,9 +122,9 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					}else if (ecranJeu.isModeCreationUnite()){
 						boolean batimentAProximite = joueur.presenceDeBatimentAProximitePosition(position);
 						
-						//TODO verifier qu'il n'y a pas d'unité ou de batiment sur la case
+						boolean caseLibre = partie.caseLibre(position);
 						
-						if (batimentAProximite){
+						if (batimentAProximite && caseLibre){
 							TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
 							int montant = type.getPrix(joueur.getNiveau(type));
 							Unite unite = new Unite(type,position);
@@ -133,7 +133,12 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 							ecranJeu.cacherZonePlacementUnite();
 						}else{
 							ecranJeu.cacherModeCreation();
-							jeu.notificationJoueur(Translator.translate("AbsenceBatimentAProximitePourCreeUnite"));
+							if (!batimentAProximite){
+								jeu.notificationJoueur(Translator.translate("AbsenceBatimentAProximitePourCreeUnite"));
+							}else if (!caseLibre){
+								jeu.notificationJoueur(Translator.translate("CaseDejaOccupe"));
+							}
+							
 						}
 					}else{
 						// le joueur est en train de selectionner une unité pour la déplacer
