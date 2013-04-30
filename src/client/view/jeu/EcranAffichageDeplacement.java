@@ -8,8 +8,6 @@ import java.awt.geom.AffineTransform;
 
 import javax.swing.JPanel;
 
-import client.JeuPanel;
-
 import common.Constante;
 
 /**
@@ -18,7 +16,6 @@ import common.Constante;
 public class EcranAffichageDeplacement extends JPanel{
 	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
-	private JeuPanel jeu;
 	private int x1;
 	private int x2;
 	private int y1;
@@ -27,8 +24,7 @@ public class EcranAffichageDeplacement extends JPanel{
 	private final static int LARGEUR_FLECHE = 6;
 	private boolean deplacementAutorise;
 	
-	public EcranAffichageDeplacement(JeuPanel jeu){
-		this.jeu = jeu;
+	public EcranAffichageDeplacement(){
 		setBounds(Constante.DECALAGE_PLATEAU_X,Constante.DECALAGE_PLATEAU_Y,Constante.LARGEUR_PLATEAU,Constante.HAUTEUR_PLATEAU);
 		setOpaque(false);
 		deplacementAutorise = true;

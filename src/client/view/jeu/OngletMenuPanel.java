@@ -36,14 +36,14 @@ public class OngletMenuPanel extends OngletPanel{
 		super.updateContent();
 		
 		OngletMenuPanelListener listener = new OngletMenuPanelListener(this);
-	
+		
 		panelContenu.setLayout(new GridLayout(5,5));
 		
 		panelContenu.add(new JLabel());
 		panelContenu.add(new JLabel());
 		
 		// creation du jlabel pour le choix de la langue
-		JLabel labelChoixLangue = new JLabel(Translator.translate("choixLangue"));
+		JLabel labelChoixLangue = new HTMLabel("<h3>" + Translator.translate("choixLangue") + "</h3>");
 		panelContenu.add(labelChoixLangue);
 		
 		panelContenu.add(new JLabel());
@@ -54,9 +54,16 @@ public class OngletMenuPanel extends OngletPanel{
 		DefaultComboBoxModel<String> comboModel = new DefaultComboBoxModel<String>();
 		comboModel.addElement("français");
 		comboModel.addElement("english");
-
+		
 		combo = new JComboBox<String>(comboModel);
 		panelContenu.add(combo);
+		
+		for (int i = 0 ; i < comboModel.getSize() ; i++){
+			String langue = comboModel.getElementAt(i);
+			if (langue.substring(0,2).equals(Translator.getLangue())){
+				combo.setSelectedIndex(i);
+			}
+		}
 		
 		panelContenu.add(new JLabel());
 		
@@ -64,7 +71,7 @@ public class OngletMenuPanel extends OngletPanel{
 		boutonApply = new JCoolButton(Translator.translate("appliquer"));
 		boutonApply.addActionListener(listener);
 		panelContenu.add(boutonApply);
-			
+		
 		panelContenu.add(new JLabel());
 		
 		panelContenu.add(new JLabel("-----------------------------------------"));
@@ -101,20 +108,20 @@ public class OngletMenuPanel extends OngletPanel{
 		g.fillRect(791,32,95,24);
 		g.fillRect(884,20,45,35);
 	}
-
-	public JComboBox<String> getCombo() {
+	
+	public JComboBox<String> getCombo(){
 		return combo;
 	}
-
-	public JCoolButton getBoutonApply() {
+	
+	public JCoolButton getBoutonApply(){
 		return boutonApply;
 	}
-
-	public JCoolButton getButtonSauvegarder() {
+	
+	public JCoolButton getButtonSauvegarder(){
 		return buttonSauvegarder;
 	}
-
-	public JCoolButton getButtonQuitter() {
+	
+	public JCoolButton getButtonQuitter(){
 		return buttonQuitter;
 	}
 	

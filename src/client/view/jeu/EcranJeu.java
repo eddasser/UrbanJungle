@@ -52,7 +52,8 @@ public class EcranJeu extends NamedJPanel{
 	private Unite uniteEnDeplacement;// unité en cours de deplacement qui est a affiché
 	
 	private ToolTipInfo tooltip;
-	private boolean premierePartie; //permet de gerer correctement l'affichage en cas de nouvelle partie solo apres avoir quitté une premiere partie
+	private boolean premierePartie; // permet de gerer correctement l'affichage en cas de nouvelle partie solo apres avoir quitté une
+									// premiere partie
 	
 	
 	public EcranJeu(JeuPanel jeu,JLayeredPane layeredPane){
@@ -66,7 +67,7 @@ public class EcranJeu extends NamedJPanel{
 		ongletUnite = new OngletUnitePanel(jeu);
 		ecranAttenteTour = new EcranAttenteTour(jeu);
 		ecranPlateau = new EcranPlateau(jeu);
-		ecranAffichageDeplacement = new EcranAffichageDeplacement(jeu);
+		ecranAffichageDeplacement = new EcranAffichageDeplacement();
 		ecranSauvegardePartie = new EcranSauvegardePartie(jeu);
 		tooltip = new ToolTipInfo();
 		cacherEcranAttente();
@@ -74,7 +75,7 @@ public class EcranJeu extends NamedJPanel{
 	}
 	
 	public void afficherPlateau(){
-		if ( premierePartie){
+		if (premierePartie){
 			layeredPane.add(fond,new Integer(-3000));
 			layeredPane.add(labelArgent,new Integer(-2000));
 			layeredPane.add(ecranPlateau,new Integer(-1000));
@@ -115,7 +116,7 @@ public class EcranJeu extends NamedJPanel{
 			
 			cacherTousLesOngets();
 			
-			EcranJeuListener ejl = new EcranJeuListener(jeu,joueur,this);
+			EcranJeuListener ejl = new EcranJeuListener(jeu,this);
 			addMouseListener(ejl);
 			addMouseMotionListener(ejl);
 			
@@ -301,7 +302,7 @@ public class EcranJeu extends NamedJPanel{
 	public void cacherPlateau(){
 		
 		cacheTousLesEcrans();
-
+		
 		tooltip.setVisible(false);
 		labelArgent.setVisible(false);
 		labelCouleurJoueur.setVisible(false);
