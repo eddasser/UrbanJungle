@@ -23,7 +23,7 @@ public class FenetreListener implements WindowListener{
 	
 	@Override
 	public void windowClosing(WindowEvent e){
-		if (jeu.getAccesServeur()){
+		if (jeu.isAccesServeur()){
 			Object[] args = { Commande.DECONNEXION };
 			jeu.getDialogueServeur().sendCommand(args);
 		}

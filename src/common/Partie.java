@@ -117,8 +117,12 @@ public class Partie implements Serializable{
 		this.nomPartie = nomPartie;
 	}
 	
-	public int getNbJoueur(){
+	public int getNbJoueurRequis(){
 		return nbJoueur;
+	}
+	
+	public int getNbJoueurActuellement(){
+		return listeParticipants.size();
 	}
 	
 	public void setNbJoueur(int nbJoueur){

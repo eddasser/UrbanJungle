@@ -4,6 +4,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Observable;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import server.view.VueServer;
 
 import common.Constante;
@@ -16,17 +19,33 @@ public class Server extends Observable{
 	private final static ArrayList<Partie> parties = new ArrayList<Partie>();
 	
 	public Server(){
-		int port = Constante.NUMERO_PORT_ECOUTE_PAR_DEFAUT;
-		ServerListener sl;
-		
-		if (port > 0){
-			sl = new ServerListener(this,port);
-		}else{
-			// dans le cas ou il n'y a pas de port par defaut dans le fichier de configuration, on utilise un port libre
-			sl = new ServerListener(this);
+		/*
+		 * on teste d'abord si la base de données est accessible
+		 */
+		if (!DBConnexion.isDataBaseAccessible()){
+			error("Le serveur n'a pu être lancé : connexion impossible a la base de données");
 		}
 		
-		sl.start();
+		/*
+		 * on teste ensuite la thread d'ecoute du server
+		 */
+		try{
+			ServerListener sl;
+			int port = Constante.NUMERO_PORT_ECOUTE_PAR_DEFAUT;
+			if (port > 0){
+				sl = new ServerListener(this,port);
+			}else{
+				// dans le cas ou il n'y a pas de port par defaut dans le fichier de configuration, on utilise un port libre
+				sl = new ServerListener(this);
+			}
+			sl.start();
+		}catch (java.net.BindException e){
+			// le port n'est pas libre
+			error("Le port d'écoute n'est pas libre");
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 	
 	public ArrayList<Joueur> getJoueurs(){
@@ -61,6 +80,18 @@ public class Server extends Observable{
 		update();
 	}
 	
+	public Partie getPartieWhereJoueur(Joueur joueur){
+		Partie partie = null;
+		
+		for (int i = 0 ; partie == null && i < parties.size() ; i++){
+			if (parties.get(i).getListeParticipants().contains(joueur)){
+				partie = parties.get(i);
+			}
+		}
+		
+		return partie;
+	}
+	
 	public void remove(Joueur j){
 		joueurs.remove(j);
 		update();
@@ -74,6 +105,11 @@ public class Server extends Observable{
 	public void update(){
 		setChanged();
 		notifyObservers();
+	}
+	
+	public void error(String message){
+		JOptionPane.showMessageDialog(new JFrame(),message,"Erreur Server",JOptionPane.ERROR_MESSAGE);
+		System.exit(-1);
 	}
 	
 	public static void main(String[] args){

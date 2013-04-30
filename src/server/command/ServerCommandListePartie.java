@@ -34,7 +34,7 @@ public class ServerCommandListePartie extends ServerCommand{
 			sb.append(Constante.MESSAGE_SEPARATOR);
 			sb.append(partie.getNomPartie());
 			sb.append(Constante.MESSAGE_SEPARATOR);
-			sb.append(Integer.toString(partie.getNbJoueur()));
+			sb.append(Integer.toString(partie.getNbJoueurRequis()));
 			sb.append(Constante.MESSAGE_SEPARATOR);
 			sb.append(partie.getEtatDeLaPartie());
 			sb.append(Constante.MESSAGE_SEPARATOR);

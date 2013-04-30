@@ -52,15 +52,11 @@ public class JeuPanel extends JPanel implements Observer{
 	private Client client;
 	private ServerListener dialogueServeur;
 	
-	private boolean accesServeur;
-	
 	private GestionnaireSauvegarde gestionnaireSauvegarde;
 	
 	public JeuPanel(JLayeredPane aLayeredPane,Client client){
 		super(cardlayout);
 		this.client = client;
-		// de base l'acces serveur est ok, si un problème est detecté ensuite en tentant de le joindre, il passera a false
-		accesServeur = true;
 		
 		gestionnaireSauvegarde = new GestionnaireSauvegarde();
 		
@@ -132,12 +128,8 @@ public class JeuPanel extends JPanel implements Observer{
 		return dialogueServeur;
 	}
 	
-	public void setAccesServeur(boolean accesServeur){
-		this.accesServeur = accesServeur;
-	}
-	
-	public boolean getAccesServeur(){
-		return accesServeur;
+	public boolean isAccesServeur(){
+		return (dialogueServeur != null && dialogueServeur.isConnected());
 	}
 	
 	public Client getClient(){
@@ -156,9 +148,8 @@ public class JeuPanel extends JPanel implements Observer{
 		// création d'une instance de la classe DialogueAvec serveur fournissant une bibliothèque de fonction pour dialoguer avec le serveur
 		if (dialogueServeur == null) dialogueServeur = new ServerListener(Constante.IP_SERVEUR,Constante.NUMERO_PORT_ECOUTE_PAR_DEFAUT,this);
 		dialogueServeur.connect();
-		accesServeur = dialogueServeur.isConnected();
 		
-		if (accesServeur){
+		if (isAccesServeur()){
 			cardlayout.show(this,ecranLoader.getName()); // chargement de l'ecran loader
 			
 			Object[] args = { Commande.PING };
@@ -177,7 +168,7 @@ public class JeuPanel extends JPanel implements Observer{
 	 * redirige vers l'acran suivant en conséquence
 	 */
 	private void chargerEcranTestConnexion(){
-		if (accesServeur){
+		if (isAccesServeur()){
 			cardlayout.show(this,ecranTestConnexionOk.getName()); // chargement de l'ecran tentative de connexion ok
 		}else{
 			cardlayout.show(this,ecranTestConnexionKO.getName()); // chargement de l'ecran tentative de connexion echoué
