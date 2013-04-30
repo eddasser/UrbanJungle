@@ -23,6 +23,7 @@ public class ClientCommandFactory{
 		commandes.put(Commande.REPRENDRE_PARTIE,new ClientCommandRejoindrePartie());
 		commandes.put(Commande.CREATION_PARTIE,new ClientCommandCreationPartie());
 		commandes.put(Commande.DEBUT_JEU,new ClientCommandDebutJeu());
+		commandes.put(Commande.UPDATE_TOUR,new ClientCommandUpdateTour());
 	}
 	
 	public static ClientCommand getCommand(Object[] args){

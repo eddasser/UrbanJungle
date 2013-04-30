@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import client.JeuPanel;
 import client.view.jeu.EcranJeu;
 
+import common.Commande;
 import common.Constante;
 import common.Joueur;
 import common.Partie;
@@ -191,7 +192,8 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 							}else{
 								// s'il s'agit d'une partie en reseau
 								// on envois la partie au server
-								
+								Object[] args = { Commande.FIN_TOUR,partie };
+								jeu.getDialogueServeur().sendCommand(args);
 							}
 						}
 					}

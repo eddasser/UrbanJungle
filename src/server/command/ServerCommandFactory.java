@@ -23,6 +23,7 @@ public class ServerCommandFactory{
 		commandes.put(Commande.REPRENDRE_PARTIE,new ServerCommandRejoindrePartie());
 		commandes.put(Commande.CREATION_PARTIE,new ServerCommandCreationPartie());
 		commandes.put(Commande.DECONNEXION,new ServerCommandDeconnexion());
+		commandes.put(Commande.FIN_TOUR,new ServerCommandFinTour());
 	}
 	
 	public static ServerCommand getCommand(Object[] args){
