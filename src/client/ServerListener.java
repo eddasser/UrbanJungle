@@ -8,6 +8,8 @@ import java.net.Socket;
 import client.command.ClientCommand;
 import client.command.ClientCommandFactory;
 
+import common.Translator;
+
 
 public class ServerListener implements Runnable{
 	private Socket socket;
@@ -27,10 +29,10 @@ public class ServerListener implements Runnable{
 		this.port = port;
 		this.jeu = jeu;
 		connected = false;
-		connect();
 	}
 	
 	public void connect(){
+		deconnexion();
 		try{
 			socket = new Socket(adress,port);
 			socket.setSoLinger(true,10);
@@ -64,9 +66,9 @@ public class ServerListener implements Runnable{
 			out.close();
 			socket.close();
 		}catch (java.io.EOFException e){
-			// TODO: handle exception
-			System.out.println("SERVER PLUS DISPONIBLE");
-			e.printStackTrace();
+			deconnexion();
+			jeu.notificationJoueur(Translator.translate("LeServerNEstPlusAccessible"));
+			jeu.chargerEcranChoixTypePartie();
 		}catch (IOException | ClassNotFoundException e){
 			e.printStackTrace();
 		}
@@ -87,6 +89,10 @@ public class ServerListener implements Runnable{
 	
 	public void deconnexion(){
 		continu = false;
+		connected = false;
 		thd = null;
+		socket = null;
+		out = null;
+		in = null;
 	}
 }
