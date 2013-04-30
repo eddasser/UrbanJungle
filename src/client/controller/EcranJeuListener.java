@@ -27,13 +27,11 @@ import common.partie.unite.Unite;
  */
 public class EcranJeuListener implements MouseListener,MouseMotionListener{
 	private JeuPanel jeu;
-	private Joueur joueur;
 	private EcranJeu ecranJeu;
 	
-	public EcranJeuListener(JeuPanel jeu,Joueur joueur,EcranJeu ecranJeu){
+	public EcranJeuListener(JeuPanel jeu,EcranJeu ecranJeu){
 		super();
 		this.jeu = jeu;
-		this.joueur = joueur;
 		this.ecranJeu = ecranJeu;
 	}
 	
@@ -57,7 +55,8 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 		int y = e.getY();
 		
 		final Partie partie = jeu.getClient().getPartie();
-		Joueur joueurCourant = partie.getJoueurCourant();
+		final Joueur joueur = jeu.getClient().getJoueur();// notre joueur
+		Joueur joueurCourant = partie.getJoueurCourant();// joueur a qui c'est le tour de jouer
 		
 		if (joueurCourant.equals(joueur)){
 			// si c'est a nous de jouer
