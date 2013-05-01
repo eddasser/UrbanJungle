@@ -24,12 +24,15 @@ public class ToolTipInfo extends RoundedPanel{
 	private ElementPlateau element;
 	private int niveau;
 	
-	private JLabel labelType = new JLabel();
-	private JLabel labelPtsVie = new JLabel();
-	private JProgressBar progressBar = new JProgressBar();
+	private final static JLabel labelType = new JLabel();
+	private final static JLabel labelPtsVie = new JLabel();
+	private final static JProgressBar progressBar = new JProgressBar();
 	
-	private JLabel labelInfo1 = new JLabel();
-	private JLabel labelInfo2 = new JLabel();
+	private final static JLabel labelInfo1 = new JLabel();
+	private final static JLabel labelInfo2 = new JLabel();
+	
+	private final static int LARGEUR_TOOLTIP = 200;
+	private final static int HAUTEUR_TOOLTIP = 100;
 	
 	public ToolTipInfo(){
 		setBorder(new EmptyBorder(10,10,10,10));
@@ -50,7 +53,13 @@ public class ToolTipInfo extends RoundedPanel{
 	private void afficher(){
 		TypeElementPlateau type = element.getType();
 		
-		setBounds(element.getPosition().getX() + 2 * Constante.LARGEUR_CASE + Constante.DECALAGE_PLATEAU_X,element.getPosition().getY(),200,100);
+		int x = element.getPosition().getX() + 2 * Constante.LARGEUR_CASE + Constante.DECALAGE_PLATEAU_X;
+		int y = element.getPosition().getY();
+		
+		x = Math.min(Constante.DECALAGE_PLATEAU_X + Constante.LARGEUR_PLATEAU - LARGEUR_TOOLTIP - 2 * Constante.LARGEUR_CASE,x);
+		y = Math.min(Constante.DECALAGE_PLATEAU_Y + Constante.HAUTEUR_PLATEAU - HAUTEUR_TOOLTIP - 2 * Constante.HAUTEUR_CASE,y);
+		
+		setBounds(x,y,LARGEUR_TOOLTIP,HAUTEUR_TOOLTIP);
 		
 		labelType.setText(Translator.translate(type.name()));
 		

@@ -30,7 +30,6 @@ public class ClientCommandUpdateTour extends ClientCommand{
 		}else{
 			ej.afficherEcranAttente();
 		}
-		System.out.println(joueur.getLogin() + " : " + isMonTour);
 		ej.update();
 	}
 	
