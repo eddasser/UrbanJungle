@@ -24,25 +24,25 @@ import common.partie.unite.Unite;
  * @author omar
  */
 public class EcranPlateau extends JPanel{
-	
+
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private JeuPanel jeu;
 	private final static int epaisseurContour = 2;
 	private boolean creationUnite;
 	private boolean creationBatiment;
-	
+
 	public EcranPlateau(JeuPanel jeu){
 		this.jeu = jeu;
 		setBounds(Constante.DECALAGE_PLATEAU_X,Constante.DECALAGE_PLATEAU_Y,Constante.LARGEUR_PLATEAU,Constante.HAUTEUR_PLATEAU);
 		setOpaque(false);
-		
+
 		Border border = BorderFactory.createLineBorder(Color.black,3);
 		setBorder(border);
-		
+
 		creationUnite = false;
 		creationBatiment = false;
 	}
-	
+
 	@Override
 	public void paintComponent(Graphics g){
 		Graphics2D g2d = (Graphics2D)g;
@@ -59,7 +59,7 @@ public class EcranPlateau extends JPanel{
 			int height = 40;
 			g.drawRect(x,y,width,height);
 		}
-		
+
 		/*
 		 * Affichage de tous les elements (batiments et unités) sur le plateau
 		 */
@@ -67,32 +67,32 @@ public class EcranPlateau extends JPanel{
 		for (int i = 0 ; i < joueurs.size() ; i++){
 			Joueur joueur = joueurs.get(i);
 			Color colorJoueur = Constante.COLORS[i];// recuperation de la couleur du joueur
-			
+
 			ArrayList<Unite> unites = joueur.getUnites();
 			ArrayList<Batiment> batiments = joueur.getBatiments();
-			
-			
+
+
 			if (joueur.equals(jeu.getClient().getPartie().getJoueurCourant())){ //si il s'agit du joueur dont c'est le tour
-				g.setColor(Color.ORANGE);
-				
+				g.setColor(TransparentColor.transparentOrange);
+
 				/*
 				 * Affichage de la zone de deplacement possible d'une unite et des zone de construction possible des batiments
 				 */
 				for (int j = 0 ; j < unites.size() ; j++){
 					Unite unite = unites.get(j);
 					Case case_unite = unite.getPosition();
-					
+
 					if (unite.equals(JeuPanel.getEcranJeu().getUniteEnDeplacement())){ // si l'unité est l'unité actuellement selectionné pour etre deplacé
-						
+
 						// on affiche un rectangle de couleur representant les cases ou l'unite peut se deplacer
-						
+
 						int deplacementRestantPourUnite = unite.getDeplacementRestant(); 
 						g.fillRect(case_unite.getX() - (Constante.LARGEUR_CASE*deplacementRestantPourUnite), // x
 								   case_unite.getY() - (Constante.LARGEUR_CASE*deplacementRestantPourUnite), //y
 								   (Constante.LARGEUR_CASE + (Constante.LARGEUR_CASE*2*deplacementRestantPourUnite)), //largeur
 								   (Constante.HAUTEUR_CASE + (Constante.LARGEUR_CASE*2*deplacementRestantPourUnite))); //hauteur
 					}else if (creationBatiment && unite.getType().equals(TypeUnite.CONSTRUCTEUR)){
-						
+
 						// on affiche un rectangle de couleur representant les cases ou lles batiments peuvent etre construits
 						g.fillRect(case_unite.getX() - (Constante.LARGEUR_CASE*(((int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT)+1)), // x - Constante+1, +1 car la zone dessine fait une case de plus que la zone de construction autorisé
 								   case_unite.getY() - (Constante.LARGEUR_CASE*(((int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT)+1)), //y - Constante+1
@@ -100,18 +100,18 @@ public class EcranPlateau extends JPanel{
 								   (Constante.HAUTEUR_CASE + (Constante.LARGEUR_CASE*2*(((int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT)+1)))); //hauteur
 					}
 				}
-				
-				
+
+
 				/*
 				 * Affichage de la zone de placement possible des unites
 				 */
 				for (int j = 0 ; j < batiments.size() ; j++){
 					Batiment batiment = batiments.get(j);
 					Case case_batiment = batiment.getPosition();
-					
+
 					/** affichage des zone de placement d'unite possible */
 					if (creationUnite){ // si on est en mode placement d'unite
-				
+
 						g.fillRect(case_batiment.getX() - (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE), // x
 								   case_batiment.getY() - (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE), //y
 								   ((Constante.LARGEUR_CASE*2) + Constante.LARGEUR_CASE*2*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE), //largeur
@@ -119,19 +119,19 @@ public class EcranPlateau extends JPanel{
 					}
 				}
 			}
-			
-			
+
+
 			g.setColor(colorJoueur);
-			
+
 			/*
 			 * Affichage des batiments du joueur
 			 */
 			for (int j = 0 ; j < batiments.size() ; j++){
 				Batiment batiment = batiments.get(j);
 				Case case_batiment = batiment.getPosition();
-				
+
 				g.setColor(colorJoueur);
-				
+
 				/*
 				 * Affichage du contour du batiment (avec la couleur du joueur)
 				 */
@@ -143,28 +143,28 @@ public class EcranPlateau extends JPanel{
 				Icon icon = batiment.getType().getIconMin();
 				icon.paintIcon(this,g2d,case_batiment.getX(),case_batiment.getY());
 			}
-			
+
 			/*
 			 * Affichage des unités du joueur
 			 */
-			
+
 			for (int j = 0 ; j < unites.size() ; j++){
 				Unite unite = unites.get(j);
 				Case case_unite = unite.getPosition();
-				
+
 				/*
 				 * Affichage du contour du batiment (avec la couleur du joueur)
 				 */
 				g.fillRect(case_unite.getX() - epaisseurContour,case_unite.getY() - epaisseurContour,
 						(Constante.LARGEUR_CASE + (epaisseurContour*2)),(Constante.HAUTEUR_CASE + (epaisseurContour*2)));
-				
+
 				/*
 				 * affichage de l'icone
 				 */
 				Icon icon = unite.getType().getIconMin();
 				icon.paintIcon(this,g2d,case_unite.getX(),case_unite.getY());
-				
-				
+
+
 //				int x = case_unite.getX();
 //				int y = case_unite.getY();
 //				// affiche le coutour de l'unite (avec la couleur du joueur)
@@ -174,7 +174,7 @@ public class EcranPlateau extends JPanel{
 //				//g.setColor(colorUnite);
 //				g.fillOval(x + epaisseurContour,y + epaisseurContour,Constante.LARGEUR_CASE - 2 * epaisseurContour,Constante.HAUTEUR_CASE - 2
 //						* epaisseurContour);
-				
+
 			}
 		}
 	}
@@ -187,3 +187,4 @@ public class EcranPlateau extends JPanel{
 		this.creationBatiment = creationBatiment;
 	}
 }
+
