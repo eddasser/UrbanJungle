@@ -13,7 +13,7 @@ import common.partie.unite.Unite;
 public abstract class ElementPlateau implements Serializable{
 	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
-
+	
 	protected int pointsVie;
 	
 	protected TypeElementPlateau type;
@@ -41,6 +41,10 @@ public abstract class ElementPlateau implements Serializable{
 	
 	public Case getPosition(){
 		return position;
+	}
+	
+	public void incrementePointsVie(int pts){
+		pointsVie += pts;
 	}
 	
 	

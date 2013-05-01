@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import server.ClientListener;
 import server.Server;
 
+import common.Commande;
 import common.Constante;
 import common.Partie;
 
@@ -20,9 +21,9 @@ public class ServerCommandListePartie extends ServerCommand{
 		
 		// le client demande au serveur a recuperer la liste des parties crées
 		ArrayList<Partie> parties = server.getParties();
-		String[] args = new String[parties.size() + 1];
+		Object[] args = new Object[parties.size() + 1];
 		
-		args[0] = Constante.COMMANDE_LISTE_PARTIES;
+		args[0] = Commande.LISTE_PARTIES;
 		
 		for (int i = 0 ; i < parties.size() ; i++){
 			Partie partie = parties.get(i);
@@ -33,7 +34,7 @@ public class ServerCommandListePartie extends ServerCommand{
 			sb.append(Constante.MESSAGE_SEPARATOR);
 			sb.append(partie.getNomPartie());
 			sb.append(Constante.MESSAGE_SEPARATOR);
-			sb.append(Integer.toString(partie.getNbJoueur()));
+			sb.append(Integer.toString(partie.getNbJoueurRequis()));
 			sb.append(Constante.MESSAGE_SEPARATOR);
 			sb.append(partie.getEtatDeLaPartie());
 			sb.append(Constante.MESSAGE_SEPARATOR);

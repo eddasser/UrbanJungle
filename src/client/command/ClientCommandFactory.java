@@ -3,7 +3,7 @@ package client.command;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import common.Constante;
+import common.Commande;
 
 /**
  * @author omar
@@ -11,29 +11,30 @@ import common.Constante;
 public class ClientCommandFactory{
 	private final static ClientCommandFactory factory = new ClientCommandFactory();
 	
-	private HashMap<String,ClientCommand> commandes = new HashMap<String,ClientCommand>();
+	private HashMap<Commande,ClientCommand> commandes = new HashMap<Commande,ClientCommand>();
 	
 	private ClientCommandFactory(){
-		commandes.put(Constante.COMMANDE_CREATION_COMPTE,new ClientCommandCreationCompte());
-		commandes.put(Constante.COMMANDE_DEMANDE_CONNEXION,new ClientCommandDemandeConnexion());
-		commandes.put(Constante.COMMANDE_LISTE_PARTIES,new ClientCommandListePartie());
-		commandes.put(Constante.COMMANDE_PING,new ClientCommandPing());
-		commandes.put(Constante.COMMANDE_ERROR,new ClientCommandError());
-		commandes.put(Constante.COMMANDE_REJOINDRE_PARTIE,new ClientCommandRejoindrePartie());
-		commandes.put(Constante.COMMANDE_REPRENDRE_PARTIE,new ClientCommandRejoindrePartie());
-		commandes.put(Constante.COMMANDE_CREATION_PARTIE,new ClientCommandCreationPartie());
-		commandes.put(Constante.COMMANDE_DEBUT_JEU,new ClientCommandDebutJeu());
+		commandes.put(Commande.CREATION_COMPTE,new ClientCommandCreationCompte());
+		commandes.put(Commande.DEMANDE_CONNEXION,new ClientCommandDemandeConnexion());
+		commandes.put(Commande.LISTE_PARTIES,new ClientCommandListePartie());
+		commandes.put(Commande.PING,new ClientCommandPing());
+		commandes.put(Commande.ERROR,new ClientCommandError());
+		commandes.put(Commande.REJOINDRE_PARTIE,new ClientCommandRejoindrePartie());
+		commandes.put(Commande.REPRENDRE_PARTIE,new ClientCommandRejoindrePartie());
+		commandes.put(Commande.CREATION_PARTIE,new ClientCommandCreationPartie());
+		commandes.put(Commande.DEBUT_JEU,new ClientCommandDebutJeu());
+		commandes.put(Commande.UPDATE_TOUR,new ClientCommandUpdateTour());
 	}
 	
-	public static ClientCommand getCommand(String[] args){
-		ClientCommand commande = factory.commandes.get(Constante.COMMANDE_ERROR);
+	public static ClientCommand getCommand(Object[] args){
+		ClientCommand commande = factory.commandes.get(Commande.ERROR);
 		
 		if (args.length > 0){
-			String commande_name = args[0];
+			Commande commande_name = (Commande)args[0];
 			if (factory.commandes.containsKey(commande_name)){
 				commande = factory.commandes.get(commande_name);
 				
-				String[] args_without_first_element = Arrays.copyOfRange(args,1,args.length);
+				Object[] args_without_first_element = Arrays.copyOfRange(args,1,args.length);
 				commande.setArguments(args_without_first_element);
 			}
 		}

@@ -9,6 +9,8 @@ import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 import javax.swing.plaf.ColorUIResource;
 
+import client.controller.FenetreListener;
+
 import common.Constante;
 import common.Joueur;
 import common.Partie;
@@ -68,6 +70,7 @@ public class Client extends Observable implements Serializable{
 		
 		Client client = new Client();
 		JeuPanel jeuPanel = new JeuPanel(frame.getLayeredPane(),client);
+		frame.addWindowListener(new FenetreListener(jeuPanel));
 		client.addObserver(jeuPanel);
 		frame.setContentPane(jeuPanel);
 		frame.setVisible(true);

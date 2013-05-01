@@ -18,7 +18,7 @@ public class EcranResultatTentativeConnexionListener extends MouseAdapter{
 	
 	@Override
 	public void mouseClicked(MouseEvent e){
-		if (jeu.getAccesServeur()){
+		if (jeu.isAccesServeur()){
 			jeu.lancerMultijoueurs();
 		}else{
 			jeu.chargerEcranChoixTypePartie();

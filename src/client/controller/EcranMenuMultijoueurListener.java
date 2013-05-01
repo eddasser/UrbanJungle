@@ -7,6 +7,8 @@ import client.JeuPanel;
 import client.view.EcranMenuMultijoueur;
 import client.view.JCoolButton;
 
+import common.Commande;
+
 public class EcranMenuMultijoueurListener implements ActionListener{
 	private JeuPanel jeu;
 	private EcranMenuMultijoueur ecranMenuMutlijoueur;
@@ -26,6 +28,8 @@ public class EcranMenuMultijoueurListener implements ActionListener{
 			jeu.chargerEcranCreationPartie();
 		}else if (boutonClique.equals(ecranMenuMutlijoueur.getDeconnexion())) // deconection
 		{
+			Object[] args = { Commande.DECONNEXION };
+			jeu.getDialogueServeur().sendCommand(args);
 			jeu.deconnexion();
 		}else if (boutonClique.equals(ecranMenuMutlijoueur.getRafraichir())) // raffraichir
 		{

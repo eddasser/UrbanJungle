@@ -11,23 +11,15 @@ public class ServerListener extends Thread{
 	private ServerSocket serverSocket;
 	private boolean continuer;
 	
-	public ServerListener(Server server){
+	public ServerListener(Server server) throws IOException{
 		this.server = server;
-		try{
-			serverSocket = new ServerSocket();
-		}catch (IOException e){
-			e.printStackTrace();
-		}
+		serverSocket = new ServerSocket();
 		continuer = true;
 	}
 	
-	public ServerListener(Server server,int port){
+	public ServerListener(Server server,int port) throws IOException{
 		this.server = server;
-		try{
-			serverSocket = new ServerSocket(port);
-		}catch (IOException e){
-			e.printStackTrace();
-		}
+		serverSocket = new ServerSocket(port);
 		continuer = true;
 	}
 	

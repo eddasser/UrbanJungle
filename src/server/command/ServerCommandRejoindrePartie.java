@@ -3,7 +3,7 @@ package server.command;
 import server.ClientListener;
 import server.Server;
 
-import common.Constante;
+import common.Commande;
 import common.Etat;
 import common.Joueur;
 import common.Partie;
@@ -18,10 +18,10 @@ public class ServerCommandRejoindrePartie extends ServerCommand{
 	public void execute(ClientListener _client){
 		Server server = _client.getServer();
 		
-		int idPartie = Integer.parseInt(arguments[0]);
-		String password = arguments[1];
+		int idPartie = (int)arguments[0];
+		String password = (String)arguments[1];
 		
-		Joueur joueur = Server.getJoueur(_client.getSocket());
+		Joueur joueur = server.getJoueur(_client.getSocket());
 		Partie partie = server.getParte(idPartie);
 		
 		
@@ -47,13 +47,13 @@ public class ServerCommandRejoindrePartie extends ServerCommand{
 			message_erreur = Translator.translate("partieDejaCommencee");
 		}
 		
-		
-		String[] args = { Constante.COMMANDE_REJOINDRE_PARTIE,Boolean.toString(rejoint),message_erreur };
+		Object[] args = { Commande.REJOINDRE_PARTIE,rejoint,message_erreur };
 		_client.send(args);
 		
 		if (rejoint && !partie.placeDisponible()){
 			// dans le cas ou tout les sjoueurs ont rejoint la partie, on demarre le jeu
 			partie.setEtatDeLaPartie(Etat.COMMENCEE);
+			partie.initialiserPartie();
 			partie.notifierDebutJeu();
 		}
 	}

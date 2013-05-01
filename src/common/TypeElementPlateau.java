@@ -7,6 +7,8 @@ import javax.swing.Icon;
  */
 public interface TypeElementPlateau{
 	
+	public String name();
+	
 	public Icon getIcon();
 	
 	public Icon getIconMin();

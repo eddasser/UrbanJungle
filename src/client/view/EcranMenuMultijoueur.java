@@ -21,6 +21,7 @@ import javax.swing.table.TableColumn;
 import client.JeuPanel;
 import client.controller.EcranMenuMultijoueurListener;
 
+import common.Commande;
 import common.Constante;
 import common.Etat;
 import common.Translator;
@@ -84,7 +85,7 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 				if (e.getClickCount() == 2){
 					int idrow = table.getSelectedRow();
 					String[] partie = parties[idrow].split(Constante.MESSAGE_SEPARATOR);
-					String id_partie = partie[0];
+					int id_partie = Integer.parseInt(partie[0]);
 					// String nom_partie = partie[1];
 					// String nb_joueur_partie = partie[2];
 					
@@ -92,14 +93,14 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 					Etat etat = Etat.get(partie[3]);
 					
 					String password = "";
-					String[] args = new String[3];
+					Object[] args = new Object[3];
 					
 					switch(etat){
 						case SAUVEGARDEE:
 							if (password_obligatoire){
 								password = JOptionPane.showInputDialog(Translator.translate("saisirMotdepasseReprendrePartie"));
 							}
-							args[0] = Constante.COMMANDE_REPRENDRE_PARTIE;
+							args[0] = Commande.REPRENDRE_PARTIE;
 							args[1] = id_partie;
 							args[2] = password;
 							jeu.getDialogueServeur().sendCommand(args);
@@ -109,7 +110,7 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 							if (password_obligatoire){
 								password = JOptionPane.showInputDialog(Translator.translate("saisirMotdepasseRejoindrePartie"));
 							}
-							args[0] = Constante.COMMANDE_REJOINDRE_PARTIE;
+							args[0] = Commande.REJOINDRE_PARTIE;
 							args[1] = id_partie;
 							args[2] = password;
 							jeu.getDialogueServeur().sendCommand(args);

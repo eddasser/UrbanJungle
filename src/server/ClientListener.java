@@ -6,17 +6,17 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
-import common.Constante;
-
 import server.command.ServerCommand;
 import server.command.ServerCommandFactory;
+
+import common.Constante;
 
 
 /**
  * @author omar
  */
 
-public class ClientListener implements Runnable, Serializable{	
+public class ClientListener implements Runnable,Serializable{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private Server server;
 	private Socket socket;
@@ -45,7 +45,7 @@ public class ClientListener implements Runnable, Serializable{
 		return server;
 	}
 	
-	public void send(String[] args){
+	public void send(Object[] args){
 		try{
 			out.writeObject(args);
 			out.flush();
@@ -59,7 +59,7 @@ public class ClientListener implements Runnable, Serializable{
 		try{
 			while (true){
 				// on recupere la commande que nous a envoyer le client puis on l'execute
-				String[] args = (String[])in.readObject();
+				Object[] args = (Object[])in.readObject();
 				ServerCommand command = ServerCommandFactory.getCommand(args);
 				command.execute(this);
 			}

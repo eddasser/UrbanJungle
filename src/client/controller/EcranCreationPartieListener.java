@@ -7,7 +7,7 @@ import client.JeuPanel;
 import client.view.EcranCreationPartie;
 import client.view.JCoolButton;
 
-import common.Constante;
+import common.Commande;
 import common.Translator;
 
 
@@ -37,7 +37,7 @@ public class EcranCreationPartieListener implements ActionListener{
 				// champs nom de partie vide
 				jeu.notificationJoueur(Translator.translate("champsNomPartieVide"));
 			}else{
-				String[] args = { Constante.COMMANDE_CREATION_PARTIE,nomPartie,password,Integer.toString(nbjoueur) };
+				Object[] args = { Commande.CREATION_PARTIE,nomPartie,password,nbjoueur };
 				jeu.getDialogueServeur().sendCommand(args);
 			}
 		}else if (boutonClique.equals(ecranCreationPartie.getRetour()))// retour

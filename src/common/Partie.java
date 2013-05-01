@@ -10,7 +10,7 @@ import common.partie.plateau.Plateau;
 
 
 public class Partie implements Serializable{
-
+	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private String nomPartie; // nom donné a la parti par son créateur
 	private int nbJoueur; // nb de joueur requis pour cette partie
@@ -24,6 +24,7 @@ public class Partie implements Serializable{
 	public Partie(){
 		nomPartie = "";
 		nbJoueur = 0;
+		indiceJoueurCourant = 0;
 		listeParticipants = new ArrayList<Joueur>();
 		plateau = new Plateau();
 		etatDeLaPartie = Etat.EN_ATTENTE_JOUEUR;
@@ -39,12 +40,18 @@ public class Partie implements Serializable{
 	}
 	
 	public void initialiserPartie(){
-		// methode qui va creer les QG et donner au joueur leur argent de depart
+		// methode qui va creer les QG et donner au joueur leur argent de depart et désigner un joueur de départ
 		ArrayList<Case> cases = plateau.getCases();
 		for (int i = 0 ; i < listeParticipants.size() ; i++){
 			Batiment qg = new Batiment(TypeBatiment.QG,cases.get(getPositionQG(i)));
 			listeParticipants.get(i).ajouterBatiment(qg);
 		}
+		int random = (int)(Math.random() * (listeParticipants.size() - 1));
+		indiceJoueurCourant = random;
+	}
+	
+	public void setIndiceJoueurCourant(int ind){
+		indiceJoueurCourant = 0;
 	}
 	
 	private int getPositionQG(int niemeJoueur){
@@ -74,9 +81,12 @@ public class Partie implements Serializable{
 	}
 	
 	public void notifierDebutJeu(){
-		String[] args = { Constante.COMMANDE_DEBUT_JEU };
+		Joueur joueurCourant = getJoueurCourant();
 		for (int i = 0 ; i < listeParticipants.size() ; i++){
 			Joueur joueur = listeParticipants.get(i);
+			boolean is_courant = joueur.equals(joueurCourant);
+			
+			Object[] args = { Commande.DEBUT_JEU,this,joueur,is_courant };
 			joueur.send(args);
 		}
 	}
@@ -117,8 +127,12 @@ public class Partie implements Serializable{
 		this.nomPartie = nomPartie;
 	}
 	
-	public int getNbJoueur(){
+	public int getNbJoueurRequis(){
 		return nbJoueur;
+	}
+	
+	public int getNbJoueurActuellement(){
+		return listeParticipants.size();
 	}
 	
 	public void setNbJoueur(int nbJoueur){
@@ -208,6 +222,10 @@ public class Partie implements Serializable{
 		indiceJoueurCourant++;
 		if (indiceJoueurCourant >= listeParticipants.size()){
 			indiceJoueurCourant = 0;
+			
+			for (int i = 0 ; i < listeParticipants.size() ; i++){
+				listeParticipants.get(i).majTour();
+			}
 		}
-	}	
+	}
 }

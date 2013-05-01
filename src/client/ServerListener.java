@@ -8,6 +8,8 @@ import java.net.Socket;
 import client.command.ClientCommand;
 import client.command.ClientCommandFactory;
 
+import common.Translator;
+
 
 public class ServerListener implements Runnable{
 	private Socket socket;
@@ -27,10 +29,10 @@ public class ServerListener implements Runnable{
 		this.port = port;
 		this.jeu = jeu;
 		connected = false;
-		connect();
 	}
 	
 	public void connect(){
+		deconnexion();
 		try{
 			socket = new Socket(adress,port);
 			socket.setSoLinger(true,10);
@@ -54,7 +56,7 @@ public class ServerListener implements Runnable{
 	public void run(){
 		try{
 			while (continu){
-				String[] args = (String[])in.readObject();
+				Object[] args = (Object[])in.readObject();
 				
 				ClientCommand command = ClientCommandFactory.getCommand(args);
 				command.execute(this);
@@ -63,12 +65,16 @@ public class ServerListener implements Runnable{
 			in.close();
 			out.close();
 			socket.close();
+		}catch (java.io.EOFException e){
+			deconnexion();
+			jeu.notificationJoueur(Translator.translate("LeServerNEstPlusAccessible"));
+			jeu.chargerEcranChoixTypePartie();
 		}catch (IOException | ClassNotFoundException e){
 			e.printStackTrace();
 		}
 	}
 	
-	public void sendCommand(String[] args){
+	public void sendCommand(Object[] args){
 		try{
 			out.writeObject(args);
 			out.flush();
@@ -83,6 +89,10 @@ public class ServerListener implements Runnable{
 	
 	public void deconnexion(){
 		continu = false;
+		connected = false;
 		thd = null;
+		socket = null;
+		out = null;
+		in = null;
 	}
 }

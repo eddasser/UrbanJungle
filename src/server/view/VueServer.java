@@ -1,6 +1,7 @@
 package server.view;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -19,7 +20,7 @@ import common.Constante;
  * @author omar
  */
 public class VueServer extends JFrame implements Observer{
-
+	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private Server server;
 	
@@ -47,9 +48,12 @@ public class VueServer extends JFrame implements Observer{
 		splitPane.setOneTouchExpandable(true);
 		splitPane.setDividerLocation(250);
 		
+		
+		panel.setBackground(new Color(148,171,196));
 		panel.setLayout(cardLayout);
 		panel.add(label,"1");
 		panel.add(splitPane,"2");
+		
 		
 		setTitle("URBAN JUNGE " + Constante.NUMERO_DE_VERSION + " SERVER"); // on donne un titre a la fenetre
 		setSize(Constante.LARGEUR_FENETRE_PRINCIPALE,Constante.HAUTEUR_FENETRE_PRINCIPALE / 2); // on fixe sa taille

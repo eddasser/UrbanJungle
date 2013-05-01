@@ -10,7 +10,7 @@ import common.Partie;
 /**
  * @author omar
  */
-public class ClientCommandDebutJeu extends ClientCommand{
+public class ClientCommandUpdateTour extends ClientCommand{
 	
 	@Override
 	public void execute(ServerListener _server){
@@ -22,13 +22,15 @@ public class ClientCommandDebutJeu extends ClientCommand{
 		JeuPanel jeu = _server.getJeu();
 		jeu.getClient().setPartie(partie);
 		jeu.getClient().setJoueur(joueur);
+		jeu.getClient().update();
 		
-		jeu.chargerEcranJeu();
-		
-		if (!isMonTour){
-			EcranJeu ej = JeuPanel.getEcranJeu();
+		EcranJeu ej = JeuPanel.getEcranJeu();
+		if (isMonTour){
+			ej.cacherEcranAttente();
+		}else{
 			ej.afficherEcranAttente();
 		}
+		ej.update();
 	}
 	
 }

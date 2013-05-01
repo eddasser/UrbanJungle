@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import client.JeuPanel;
 import client.view.jeu.EcranJeu;
 
+import common.Commande;
 import common.Constante;
 import common.ElementPlateau;
 import common.Joueur;
@@ -189,7 +190,6 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 								// on fait jouer l'IA
 								partie.passerTour();
 								JoueurIA joueurIA = (JoueurIA)partie.getJoueurCourant();
-								joueurIA.majTour();
 								joueurIA.jouer(partie);
 								
 								int random = (int)(3000 * Math.random()) + 2000;
@@ -199,7 +199,6 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 									public void run(){
 										// on fait passer le tour de l'IA
 										// apres un delais aléatoire
-										joueur.majTour();
 										partie.passerTour();
 										ecranJeu.cacheTousLesEcrans();
 										ecranJeu.update();
@@ -208,8 +207,9 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 							}else{
 								// s'il s'agit d'une partie en reseau
 								// on envois la partie au server
+								Object[] args = { Commande.FIN_TOUR,partie };
+								jeu.getDialogueServeur().sendCommand(args);
 							}
-							
 						}
 					}
 				}

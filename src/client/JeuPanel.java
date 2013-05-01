@@ -24,6 +24,7 @@ import client.view.EcranTitre;
 import client.view.NamedJPanel;
 import client.view.jeu.EcranJeu;
 
+import common.Commande;
 import common.Constante;
 import common.Partie;
 import common.Translator;
@@ -52,15 +53,12 @@ public class JeuPanel extends JPanel implements Observer{
 	private static Client client;
 	private ServerListener dialogueServeur;
 	
-	private boolean accesServeur;
-	
 	private GestionnaireSauvegarde gestionnaireSauvegarde;
 	
 	public JeuPanel(JLayeredPane aLayeredPane,Client client){
 		super(cardlayout);
+		
 		JeuPanel.client = client;
-		// de base l'acces serveur est ok, si un problème est detecté ensuite en tentant de le joindre, il passera a false
-		accesServeur = true;
 		
 		gestionnaireSauvegarde = new GestionnaireSauvegarde();
 		
@@ -72,7 +70,7 @@ public class JeuPanel extends JPanel implements Observer{
 		ecranTitre.addKeyListener(listenerEcranTitre);// on ajoute le listener à la vue
 		
 		// ecran loader
-		ecranLoader = new EcranLoader(Translator.getLangue(),this);
+		ecranLoader = new EcranLoader(this);
 		
 		// ecran test connexion
 		// ecran test connexion valide
@@ -98,8 +96,8 @@ public class JeuPanel extends JPanel implements Observer{
 		// ecran de creation d'une partie
 		ecranCreationPartie = new EcranCreationPartie(this);
 		
-		//ecran de chargement d'une partie
-		ecranChoixChargementPartie =  new EcranChoixChargementPartie(this);
+		// ecran de chargement d'une partie
+		ecranChoixChargementPartie = new EcranChoixChargementPartie(this);
 		
 		ecranJeu = new EcranJeu(this,aLayeredPane);
 		
@@ -132,12 +130,8 @@ public class JeuPanel extends JPanel implements Observer{
 		return dialogueServeur;
 	}
 	
-	public void setAccesServeur(boolean accesServeur){
-		this.accesServeur = accesServeur;
-	}
-	
-	public boolean getAccesServeur(){
-		return accesServeur;
+	public boolean isAccesServeur(){
+		return (dialogueServeur != null && dialogueServeur.isConnected());
 	}
 	
 	public Client getClient(){
@@ -156,12 +150,12 @@ public class JeuPanel extends JPanel implements Observer{
 		// création d'une instance de la classe DialogueAvec serveur fournissant une bibliothèque de fonction pour dialoguer avec le serveur
 		if (dialogueServeur == null) dialogueServeur = new ServerListener(Constante.IP_SERVEUR,Constante.NUMERO_PORT_ECOUTE_PAR_DEFAUT,this);
 		dialogueServeur.connect();
-		accesServeur = dialogueServeur.isConnected();
 		
-		if (accesServeur){
+		if (isAccesServeur()){
+			((EcranLoader)ecranLoader).setTitre("");
 			cardlayout.show(this,ecranLoader.getName()); // chargement de l'ecran loader
 			
-			String[] args = { Constante.COMMANDE_PING };
+			Object[] args = { Commande.PING };
 			dialogueServeur.sendCommand(args);
 		}else{
 			cardlayout.show(this,ecranTestConnexionKO.getName());
@@ -177,7 +171,7 @@ public class JeuPanel extends JPanel implements Observer{
 	 * redirige vers l'acran suivant en conséquence
 	 */
 	private void chargerEcranTestConnexion(){
-		if (accesServeur){
+		if (isAccesServeur()){
 			cardlayout.show(this,ecranTestConnexionOk.getName()); // chargement de l'ecran tentative de connexion ok
 		}else{
 			cardlayout.show(this,ecranTestConnexionKO.getName()); // chargement de l'ecran tentative de connexion echoué
@@ -203,6 +197,7 @@ public class JeuPanel extends JPanel implements Observer{
 	}
 	
 	public void chargerEcranAttenteJoueur(){
+		((EcranLoader)ecranLoader).setTitre(Translator.translate("AttenteDesAutresJoueurs"));
 		cardlayout.show(this,ecranLoader.getName());
 	}
 	
@@ -231,7 +226,7 @@ public class JeuPanel extends JPanel implements Observer{
 	
 	/** méthode qui permet de récupérer du serveur la liste des parties */
 	public void recuperationListePartie(){
-		String[] args = { Constante.COMMANDE_LISTE_PARTIES };
+		Object[] args = { Commande.LISTE_PARTIES };
 		dialogueServeur.sendCommand(args);
 	}
 	
@@ -245,28 +240,31 @@ public class JeuPanel extends JPanel implements Observer{
 		client = (Client)o;
 		((EcranJeu)ecranJeu).update();
 	}
-
-	/** cette methode se charge de deleguer la sauvergarder l'etat de la partie courante en faisant appelle a la classe destionnaire sauvegarde
+	
+	/**
+	 * cette methode se charge de deleguer la sauvergarder l'etat de la partie courante en faisant appelle a la classe destionnaire
+	 * sauvegarde
 	 * 
-	 * @param nomPartie, le nom choisi pour la sauvegarde par l'utilisateur dans la vue de sauvegarde de la partie
+	 * @param nomPartie
+	 *            , le nom choisi pour la sauvegarde par l'utilisateur dans la vue de sauvegarde de la partie
 	 * @return res, boolean true si la sauvegarde s'est bien passé, false si une erreur est survenue
 	 */
-	public boolean sauvegardePartie(String nomSauvegarde) {
+	public boolean sauvegardePartie(String nomSauvegarde){
 		boolean res = true;
-		res = gestionnaireSauvegarde.sauvegarderPartie(client, nomSauvegarde);
+		res = gestionnaireSauvegarde.sauvegarderPartie(client,nomSauvegarde);
 		
 		// on notifie au joueur si la sauvegarde a reussi ou non
-		if (res){ //partie sauvegardé
+		if (res){ // partie sauvegardé
 			notificationJoueur(Translator.translate("partieSauvegardeOK"));
 			((EcranChoixChargementPartie)ecranChoixChargementPartie).majListePartie(nomSauvegarde);
-		}else{ //echec de la sauvegarde
+		}else{ // echec de la sauvegarde
 			notificationJoueur(Translator.translate("partieSauvegardeKO"));
 		}
 		
 		return res;
 	}
 	
-	/** cette methode charge une partie sauvegarde a partir d'un nom de partie*/
+	/** cette methode charge une partie sauvegarde a partir d'un nom de partie */
 	public void chargePartie(File nomPartieACharger){
 		// on charge la partie
 		Client clientCharge = gestionnaireSauvegarde.chargerPartie(nomPartieACharger);
@@ -277,28 +275,27 @@ public class JeuPanel extends JPanel implements Observer{
 			client = clientCharge;
 			// on charge l'ecran de jeu
 			chargerEcranJeu();
-		}
-		else{// si le chargement a echoué
+		}else{// si le chargement a echoué
 			notificationJoueur(Translator.translate("partieChargeKO"));
 		}
 	}
-
-	public static NamedJPanel getEcranTestConnexionOk() {
+	
+	public static NamedJPanel getEcranTestConnexionOk(){
 		return ecranTestConnexionOk;
 	}
-
-	public static NamedJPanel getEcranTestConnexionKO() {
+	
+	public static NamedJPanel getEcranTestConnexionKO(){
 		return ecranTestConnexionKO;
 	}
-
-	//cette methode permet de mettre a jour les panels qui ont pour fond un jlabel avec un gif
-	public static void changeLanguage(String langue) {
-		((EcranConnexionServeurImpossible) ecranTestConnexionKO).changeLanguage(langue);
-		((EcranConnexionServeurPossible) ecranTestConnexionOk).changeLanguage(langue);
+	
+	// cette methode permet de mettre a jour les panels qui ont pour fond un jlabel avec un gif
+	public static void changeLanguage(String langue){
+		((EcranConnexionServeurImpossible)ecranTestConnexionKO).changeLanguage(langue);
+		((EcranConnexionServeurPossible)ecranTestConnexionOk).changeLanguage(langue);
 	}
-
-	public static int getPuissanceAttaque(Unite uniteEnDeplacement) {
+	
+	public static int getPuissanceAttaque(Unite uniteEnDeplacement){
 		return client.getPartie().getJoueurCourant().getNiveau(uniteEnDeplacement.getType());
 	}
-
+	
 }

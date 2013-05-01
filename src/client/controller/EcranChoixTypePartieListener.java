@@ -40,6 +40,7 @@ public class EcranChoixTypePartieListener implements ActionListener{
 			partie.addJoueur(joueurIA);
 			
 			partie.initialiserPartie();
+			partie.setIndiceJoueurCourant(0);// c'est le joueur qui commence tout le temps en mode solo
 			jeu.lancerPartieSolo();
 		}else if (boutonClique.equals(ecranChoixTypeDePartie.getChargerPartie())){ // charger partie
 		
