@@ -28,6 +28,7 @@ import common.Commande;
 import common.Constante;
 import common.Partie;
 import common.Translator;
+import common.partie.unite.TypeUnite;
 import common.partie.unite.Unite;
 
 
@@ -294,8 +295,10 @@ public class JeuPanel extends JPanel implements Observer{
 		((EcranConnexionServeurPossible)ecranTestConnexionOk).changeLanguage(langue);
 	}
 	
-	public static int getPuissanceAttaque(Unite uniteEnDeplacement){
-		return client.getPartie().getJoueurCourant().getNiveau(uniteEnDeplacement.getType());
+	public static int getPuissanceAttaque(Unite uniteQuiAttaque){
+		int niveau = client.getPartie().getJoueurCourant().getNiveau(uniteQuiAttaque.getType());
+		
+		return ((TypeUnite)uniteQuiAttaque.getType()).getPointAttaque(niveau);
 	}
 	
 }

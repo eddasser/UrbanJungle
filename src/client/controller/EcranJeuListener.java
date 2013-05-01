@@ -136,7 +136,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 						
 						ElementPlateau elementSurCase = partie.elementSurCase(position);
 						
-						if (batimentAProximite && elementSurCase==null){
+						if (batimentAProximite && elementSurCase==null){ 
 							TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
 							int montant = type.getPrix(joueur.getNiveau(type));
 							Unite unite = new Unite(type,position);
@@ -266,33 +266,37 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 						int distance = (int)(position.getDistance(unite.getPosition()) / Constante.LARGEUR_CASE);
 						unite.decrementDeplacementRestant(distance);
 						unite.setPosition(position);
-					}else if ( ! partie.getJoueurCourant().caseOccupeParElementJoueur(new Case(x, y))){ //si la case ciblé est occupée mais pas par un element qui apartient au joueur, alors il attaque
+					}else{ //si la case est occupé
+						boolean caseOcupeParElementAlie = partie.getJoueurCourant().caseOccupeParElementJoueur(position);
 						
-						boolean detruit = elementSurCase.attaque(ecranJeu.getUniteEnDeplacement());			
-						
-						if (detruit){
-							//TODO
+						if ( ! caseOcupeParElementAlie){ //si occupée mais pas par un element qui apartient au joueur, alors il attaque
+					
+							boolean detruit = elementSurCase.attaque(ecranJeu.getUniteEnDeplacement());			
+							ecranJeu.getUniteEnDeplacement().setDeplacementRestant(0); //une fois l'attaque effectué, le joueur ne peux plus se deplacer, une attaque par tour possible
 							
-//							si c'est le QG qui est detruit{
-//								on notifie au joueur qui a perdu son qg qu'il a perdu
-//								on supprime le joueur a qui apartient le QG de la liste des joueurs
-//								notification (le joueur xxx a été battu, X joueur restants...)
-//							
-//								Si la liste des joueurs ne contient plus qu'un seul joueur{ 
-//									affichage ecran de fin ( felicitation vous avez gagné la partie ...)								
+							if (detruit){
+								//TODO
+								
+//								si c'est le QG qui est detruit{
+//									on notifie au joueur qui a perdu son qg qu'il a perdu
+//									on supprime le joueur a qui apartient le QG de la liste des joueurs
+//									notification (le joueur xxx a été battu, X joueur restants...)
+//								
+//									Si la liste des joueurs ne contient plus qu'un seul joueur{ 
+//										affichage ecran de fin ( felicitation vous avez gagné la partie ...)								
+//									}
+//								}		
+//								sinon{
+//									Si c'est un batiment{ 
+//										suppression de la liste des batiments du joueur a qui il apartient
+//									}
+//									Sinon si c'est une unite{
+//										suppression de la liste des unite du joueur a qui il apartient			
+//									}
 //								}
-//							}		
-//							sinon{
-//								Si c'est un batiment{ 
-//									suppression de la liste des batiments du joueur a qui il apartient
-//								}
-//								Sinon si c'est une unite{
-//									suppression de la liste des unite du joueur a qui il apartient			
-//								}
-//							}
+							}
+							ecranJeu.repaint();
 						}
-						
-						ecranJeu.repaint();
 					}
 				}
 				ecranJeu.cacherModeDeplacementUnite();

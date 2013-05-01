@@ -52,8 +52,9 @@ public class EcranJeu extends NamedJPanel{
 	private Unite uniteEnDeplacement;// unité en cours de deplacement qui est a affiché
 	
 	private ToolTipInfo tooltip;
-	private boolean premierePartie; // permet de gerer correctement l'affichage en cas de nouvelle partie solo apres avoir quitté une
-									// premiere partie
+	
+	// permet de gerer correctement l'affichage en cas de nouvelle partie solo apres avoir quitté une premiere partie
+	private boolean premierePartie; 
 	
 	
 	public EcranJeu(JeuPanel jeu,JLayeredPane layeredPane){

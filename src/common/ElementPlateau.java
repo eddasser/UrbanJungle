@@ -65,10 +65,10 @@ public abstract class ElementPlateau implements Serializable{
 	 * @param uniteEnDeplacement, l'unité qui attaque
 	 * @return estDetruit, boolean qui signale si l'unité est detruite ou pas
 	 */
-	public boolean attaque(Unite uniteEnDeplacement){
+	public boolean attaque(Unite uniteQuiAttaque){
 		boolean estDetruit = false;
 		
-		int puissanceAttaquant = JeuPanel.getPuissanceAttaque(uniteEnDeplacement);
+		int puissanceAttaquant = JeuPanel.getPuissanceAttaque(uniteQuiAttaque);
 		
 		int nouveauPDV = pointsVie - puissanceAttaquant;
 		
