@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import common.Constante;
 import common.ElementPlateau;
-
 import common.partie.plateau.Case;
 
 /**
@@ -15,9 +14,9 @@ public class Unite extends ElementPlateau implements Serializable{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private int deplacementRestant;// nombre de case que l'unite peut encore parcourrir
 	
-	public Unite(TypeUnite type,Case position){
-		super(type,position);
-		deplacementRestant = type.getVitesse(0);
+	public Unite(TypeUnite type,int niveau,Case position){
+		super(type,niveau,position);
+		deplacementRestant = type.getVitesse(niveau);
 	}
 	
 	@Override

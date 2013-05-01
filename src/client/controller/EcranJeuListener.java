@@ -112,8 +112,9 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 						
 						if (peuxConstruire && uniteConstructionProche){
 							TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
-							int montant = type.getPrix(joueur.getNiveau(type));
-							Batiment batiment = new Batiment(type,position);
+							int niveau = joueur.getNiveau(type);
+							int montant = type.getPrix(niveau);
+							Batiment batiment = new Batiment(type,niveau,position);
 							joueur.ajouterBatiment(batiment);
 							joueur.decrementArgent(montant);
 							ecranJeu.cacherZonePlacementBatiment();
@@ -129,8 +130,9 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 						
 						if (batimentAProximite && elementSurCase == null){
 							TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
-							int montant = type.getPrix(joueur.getNiveau(type));
-							Unite unite = new Unite(type,position);
+							int niveau = joueur.getNiveau(type);
+							int montant = type.getPrix(niveau);
+							Unite unite = new Unite(type,niveau,position);
 							joueur.ajouterUnite(unite);
 							joueur.decrementArgent(montant);
 							ecranJeu.cacherZonePlacementUnite();
