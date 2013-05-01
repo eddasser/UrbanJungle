@@ -195,24 +195,27 @@ public class Partie implements Serializable{
 		this.plateau = plateau;
 	}
 	
-	public boolean peutConstruireBatimentPosition(Case position){
-		boolean peutConstruire = true;
+	public ElementPlateau peutConstruireBatimentPosition(Case position){
+		ElementPlateau elementSurCase = null;
 		
 		// on verifie d'abord qu'il n'y a pas d'autres batiment d'aucun joueur a cette position
-		for (int i = 0 ; peutConstruire && i < listeParticipants.size() ; i++){
-			if (listeParticipants.get(i).presenceDeBatimentPosition(position)){
-				peutConstruire = false;
-			}
+		for (int i = 0 ; elementSurCase==null && i < listeParticipants.size() ; i++){
+			elementSurCase = listeParticipants.get(i).presenceDeBatimentPosition(position);
 		}
 		
 		// on verifie ensuite qu'il n'y a aucune unité à cette position
-		for (int i = 0 ; peutConstruire && i < listeParticipants.size() ; i++){
-			if (listeParticipants.get(i).presenceDeUnitePosition(position)){
-				peutConstruire = false;
-			}
+		for (int i = 0 ; elementSurCase==null && i < listeParticipants.size() ; i++){
+			elementSurCase = listeParticipants.get(i).presenceDeUnitePosition(position);
 		}
 		
-		return peutConstruire;
+		return elementSurCase;
+	}
+	
+	public ElementPlateau elementSurCase(Case position){
+		ElementPlateau res = null;
+				
+		res = peutConstruireBatimentPosition(position); // verifie que la case est pas deja occupé par un batiment ou une unité d'un des joueurs
+		return res;
 	}
 	
 	public void passerTour(){

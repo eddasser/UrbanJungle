@@ -2,7 +2,10 @@ package common;
 
 import java.io.Serializable;
 
+import client.JeuPanel;
+
 import common.partie.plateau.Case;
+import common.partie.unite.Unite;
 
 /**
  * @author omar
@@ -27,7 +30,6 @@ public abstract class ElementPlateau implements Serializable{
 	 *  retourne la position centrale de l'element
 	 */
 	public abstract Case getCentre();
-	
 	
 	public int getPointsVie(){
 		return pointsVie;
@@ -58,4 +60,25 @@ public abstract class ElementPlateau implements Serializable{
 		this.position = position;
 	}
 	
+	/** cette methode permet de simuler une attaque sur l'element par l'unité en parametre
+	 * 
+	 * @param uniteEnDeplacement, l'unité qui attaque
+	 * @return estDetruit, boolean qui signale si l'unité est detruite ou pas
+	 */
+	public boolean attaque(Unite uniteEnDeplacement){
+		boolean estDetruit = false;
+		
+		int puissanceAttaquant = JeuPanel.getPuissanceAttaque(uniteEnDeplacement);
+		
+		int nouveauPDV = pointsVie - puissanceAttaquant;
+		
+		if (nouveauPDV <= 0){
+			nouveauPDV = 0;
+			estDetruit = true;
+		}
+		
+		setPointsVie(nouveauPDV);
+
+		return estDetruit;
+	}
 }

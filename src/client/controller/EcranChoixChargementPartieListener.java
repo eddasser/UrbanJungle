@@ -45,4 +45,10 @@ public class EcranChoixChargementPartieListener implements ActionListener{
 		}
 	}
 
+	public void setListeSauvegardes(File[] listeSauvegardes) {
+		this.listeSauvegardes = listeSauvegardes;
+	}
+	
+	
+
 }

@@ -202,34 +202,38 @@ public class Joueur implements Serializable{
 	/*
 	 * retourne true s'il y a une unite du joueur sur cette position
 	 */
-	public boolean presenceDeUnitePosition(Case position){
-		boolean presenceUnite = false;
+	public ElementPlateau presenceDeUnitePosition(Case position){
+		ElementPlateau elementPlateau = null;
 		
-		for (int i = 0 ; !presenceUnite && i < unites.size() ; i++){
+		for (int i = 0 ; elementPlateau==null && i < unites.size() ; i++){
 			Unite unite = unites.get(i);
 			Case positionUnite = unite.getPosition();
-			if (positionUnite.getX() >= position.getX() && positionUnite.getX() <= (position.getX() + 2 * Constante.LARGEUR_CASE)){
-				if (positionUnite.getY() >= position.getY() && positionUnite.getY() <= (position.getY() + 2 * Constante.HAUTEUR_CASE)){
-					presenceUnite = true;
-				}
+			
+			if (position.equals(positionUnite)){
+				elementPlateau = unite;
 			}
 		}
-		return presenceUnite;
+		return elementPlateau;
 	}
 	
 	/*
 	 * retourne true s'il y a un batiment du joueur sur cette position
 	 */
-	public boolean presenceDeBatimentPosition(Case position){
-		boolean presenceBatiment = false;
+	public ElementPlateau presenceDeBatimentPosition(Case position){
+		ElementPlateau presenceBatiment = null;
 		
-		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
+		int Xmin = position.getX() - Constante.LARGEUR_CASE;
+		int Xmax = position.getX() + Constante.LARGEUR_CASE;
+		
+		int Ymin = position.getY() - Constante.HAUTEUR_CASE;
+		int Ymax = position.getY() + Constante.HAUTEUR_CASE;
+		
+		for (int i = 0 ; presenceBatiment==null && i < batiments.size() ; i++){
 			Batiment bat = batiments.get(i);
 			Case positionBat = bat.getPosition();
-			if (position.getX() < (positionBat.getX() + 2 * Constante.LARGEUR_CASE)){
-				if (position.getY() < (positionBat.getY() + 2 * Constante.HAUTEUR_CASE)){
-					presenceBatiment = true;
-				}
+			
+			if (positionBat.getX() >= Xmin && positionBat.getX() < Xmax && positionBat.getY() >= Ymin && positionBat.getY() < Ymax){
+				presenceBatiment = bat;
 			}
 		}
 		return presenceBatiment;
@@ -244,9 +248,58 @@ public class Joueur implements Serializable{
 		
 		Case centreBatiment = new Case(position.getX() + Constante.LARGEUR_CASE,position.getY() + Constante.HAUTEUR_CASE);
 		
+		// un batiment peut etre contruit si au moin un constructeur est present dans un case situé sur X case autour du batiments ( X correspond a la constante de distance definie dans le fichier constante)
+		// je decoupe les cases autour du batiment en zone et je vérifie si oil existe un constructeur dans ces zones
+		
+		//zone nord
+		int nord_X_MIN = (centreBatiment.getX() - Constante.LARGEUR_CASE) - (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );
+		int nord_X_MAX = (centreBatiment.getX() + Constante.LARGEUR_CASE) + (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );
+
+		int nord_Y_MIN = (centreBatiment.getY() - Constante.HAUTEUR_CASE) - (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );
+		int nord_Y_MAX = (centreBatiment.getY() - Constante.HAUTEUR_CASE);
+		
+		
+		//zone sud
+		int sud_X_MIN = nord_X_MIN;
+		int sud_X_MAX = nord_X_MAX;
+		
+		int sud_Y_MIN = (centreBatiment.getY() + Constante.HAUTEUR_CASE);
+		int sud_Y_MAX = (centreBatiment.getY() + Constante.HAUTEUR_CASE) + (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );  
+		
+		
+		//zone ouest
+		int ouest_X_MIN = (centreBatiment.getX() - Constante.LARGEUR_CASE) - (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );
+		int ouest_X_MAX = (centreBatiment.getX() - Constante.LARGEUR_CASE);
+		
+		int ouest_Y_MIN = (centreBatiment.getY() - Constante.HAUTEUR_CASE) - (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );  
+		int ouest_Y_MAX = (centreBatiment.getY() + Constante.HAUTEUR_CASE) + (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );  
+		
+		
+		//zone est
+		
+		int est_X_MIN = (centreBatiment.getX() + Constante.LARGEUR_CASE);
+		int est_X_MAX = (centreBatiment.getX() + Constante.LARGEUR_CASE) + (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT );
+		
+		int est_Y_MIN = ouest_Y_MIN;
+		int est_Y_MAX = ouest_Y_MAX;
+		
+		
 		for (int i = 0 ; !aUniteConstructeur && i < unites.size() ; i++){
 			Unite unite = unites.get(i);
-			if (unite.getType() == TypeUnite.CONSTRUCTEUR){
+			if (unite.getType() == TypeUnite.CONSTRUCTEUR){ //si l'unite est un constructeur
+				
+				int uniteX = unite.getPosition().getX();
+				int uniteY = unite.getPosition().getY();
+				
+				//si un constructeur se situe dans une des 4 zone
+				if ( uniteX >= nord_X_MIN && uniteX < nord_X_MAX && uniteY >= nord_Y_MIN && uniteY < nord_Y_MAX || //nord
+					 uniteX >= sud_X_MIN && uniteX < sud_X_MAX && uniteY >= sud_Y_MIN && uniteY < sud_Y_MAX || //sud
+					 uniteX >= ouest_X_MIN && uniteX < ouest_X_MAX && uniteY >= ouest_Y_MIN && uniteY < ouest_Y_MAX || //ouest
+					 uniteX >= est_X_MIN && uniteX < est_X_MAX && uniteY >= est_Y_MIN && uniteY < est_Y_MAX ){ //est
+					
+					aUniteConstructeur = true; 
+				}
+				/** ancien code, mauvais calcul, fonction retourne un mauvais resultat souvant et empeche la construction alors qu'elle devrait pas
 				Case centreUnite = unite.getCentre();
 				// on calcul la distance entre l'unite et l'endroit où il veux construire
 				double distanceUnite = centreBatiment.getDistance(centreUnite);
@@ -255,6 +308,7 @@ public class Joueur implements Serializable{
 				if (distanceUnite <= Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT){
 					aUniteConstructeur = true;
 				}
+				*/
 			}
 		}
 		return aUniteConstructeur;
@@ -268,18 +322,42 @@ public class Joueur implements Serializable{
 	public boolean presenceDeBatimentAProximitePosition(Case position){
 		boolean presenceBatiment = false;
 		
+		int centreBatimentX=0;
+		int centreBatimentY=0;
+		int borneInfX=0;
+		int borneInfY=0;
+		int borneSupX=0;
+		int borneSupY=0;
+		
 		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
 			Batiment bat = batiments.get(i);
-			Case centreBatiment = bat.getCentre();
+			
+			centreBatimentX = bat.getCentre().getX();
+			centreBatimentY = bat.getCentre().getY();
+			
+			borneInfX = centreBatimentX - (Constante.LARGEUR_CASE + (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE));
+			borneInfY = centreBatimentY - (Constante.HAUTEUR_CASE + (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE));
+			
+			borneSupX = centreBatimentX + (Constante.LARGEUR_CASE + (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE));
+			borneSupY = centreBatimentY + (Constante.HAUTEUR_CASE + (Constante.HAUTEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE));
+			
+			if (position.getX() >= borneInfX && position.getX() < borneSupX && position.getY() >= borneInfY && position.getY() < borneSupY){
+				presenceBatiment=true;
+			}
+			
+			/** ancien code, problématique car calcul des diagonal faux et placements des unités qui bug du coup
+			 * 
 			Case centrePosition = new Case(position.getX() + Constante.LARGEUR_CASE / 2,position.getY() + Constante.HAUTEUR_CASE / 2);
 			// on calcul la distance entre le batiment et l'endroit où il veux construire son unité
 			// on calcul bien sur la distance a partir du centre du batiment
 			double distance = centreBatiment.getDistance(centrePosition);
 			// on convertit la distance en nombre de cases
 			distance /= Constante.LARGEUR_CASE;
+			
 			if (distance <= Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE){
 				presenceBatiment = true;
 			}
+			*/
 		}
 		return presenceBatiment;
 	}
@@ -322,5 +400,20 @@ public class Joueur implements Serializable{
 			TypeUnite type = (TypeUnite)unite.getType();
 			unite.setDeplacementRestant(type.getVitesse(getNiveau(type)));
 		}
+	}
+	
+	/** cette methode permet de savoir si on a relaché l'unité sur un elemnt du plateau qui apartient au joueur ou pas */
+	public boolean caseOccupeParElementJoueur(Case position){
+		boolean res = false; // verifie que la case est pas deja occupé par un batiment ou une unité d'un des joueurs
+		
+		ElementPlateau batiment = presenceDeBatimentPosition(position);
+		ElementPlateau unite = presenceDeUnitePosition(position);
+		
+		// si un batiment ou une unité du joueur est deja sur la case
+		if ( batiment != null || unite != null){
+			res = true;
+		}
+		
+		return res;
 	}
 }

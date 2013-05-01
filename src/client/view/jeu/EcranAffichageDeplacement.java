@@ -36,7 +36,7 @@ public class EcranAffichageDeplacement extends JPanel{
 		drawArrow(g,x1 + Constante.LARGEUR_CASE / 2,y1 + Constante.HAUTEUR_CASE / 2,x2,y2);
 	}
 	
-	void drawArrow(Graphics g,int x1,int y1,int x2,int y2){
+	public void drawArrow(Graphics g,int x1,int y1,int x2,int y2){
 		Graphics2D g2d = (Graphics2D)g.create();
 		
 		g2d.setStroke(new BasicStroke(3));

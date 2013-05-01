@@ -28,6 +28,7 @@ import common.Commande;
 import common.Constante;
 import common.Partie;
 import common.Translator;
+import common.partie.unite.Unite;
 
 
 /**
@@ -49,14 +50,15 @@ public class JeuPanel extends JPanel implements Observer{
 	private static NamedJPanel ecranJeu;
 	private static NamedJPanel ecranChoixChargementPartie;
 	
-	private Client client;
+	private static Client client;
 	private ServerListener dialogueServeur;
 	
 	private GestionnaireSauvegarde gestionnaireSauvegarde;
 	
 	public JeuPanel(JLayeredPane aLayeredPane,Client client){
 		super(cardlayout);
-		this.client = client;
+		
+		JeuPanel.client = client;
 		
 		gestionnaireSauvegarde = new GestionnaireSauvegarde();
 		
@@ -137,7 +139,7 @@ public class JeuPanel extends JPanel implements Observer{
 	}
 	
 	public void setClient(Client client){
-		this.client = client;
+		JeuPanel.client = client;
 	}
 	
 	/**
@@ -290,6 +292,10 @@ public class JeuPanel extends JPanel implements Observer{
 	public static void changeLanguage(String langue){
 		((EcranConnexionServeurImpossible)ecranTestConnexionKO).changeLanguage(langue);
 		((EcranConnexionServeurPossible)ecranTestConnexionOk).changeLanguage(langue);
+	}
+	
+	public static int getPuissanceAttaque(Unite uniteEnDeplacement){
+		return client.getPartie().getJoueurCourant().getNiveau(uniteEnDeplacement.getType());
 	}
 	
 }

@@ -4,11 +4,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 
 import client.JeuPanel;
 import client.controller.EcranChoixChargementPartieListener;
@@ -25,29 +25,26 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 	private JCoolButton chargerPartie;
 	private JCoolButton retour;
 	
-	private ArrayList<String> listeSauvegardes;
-	
 	private Object[][] data;
+	
+	private File[] listeSauvegardesTmp;
+	private EcranChoixChargementPartieListener listener;
 	
 	public EcranChoixChargementPartie(JeuPanel jeu){
 		super("ecranChoixChargementPartie",jeu);
 		setLayout(null);
-		
-		listeSauvegardes = new ArrayList<>();
 		
 		// récuperation de la liste des sauvegardes existantes
 		File repertoire = new File("sauvegardes");
 		if (!repertoire.exists()){
 			repertoire.mkdir();
 		}
-		File[] listeSauvegardesTmp = repertoire.listFiles();
+		listeSauvegardesTmp = repertoire.listFiles();
 		
 		String[] column = { Translator.translate("choisirPartieACharger") };
 		
 		if (listeSauvegardesTmp != null){
-			data = new Object[listeSauvegardesTmp.length][1]; // les données sont un tableau a 2 dimention, 1 seule colonne qui sont les nom
-																// des
-																// sauvegardes
+			data = new Object[listeSauvegardesTmp.length][1]; // les données sont un tableau a 2 dimention, 1 seule colonne :les nom des sauvegardes
 			
 			for (int i = 0 ; i < listeSauvegardesTmp.length ; i++){
 				data[i][0] = listeSauvegardesTmp[i].toString();
@@ -56,17 +53,16 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 			data = new Object[0][1];
 		}
 		
-		table = new JTable(data,column);
+		table = new JTable();
+		table.setModel(new MonModele(data,column));
 		table.setRowHeight(32);
 		
-		
-		// TODO trouver comment ajouter a la table le noms des fichiers
 		scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(212,220,600,200);
 		add(scrollPane);
 		
 		
-		EcranChoixChargementPartieListener listener = new EcranChoixChargementPartieListener(jeu,this,listeSauvegardesTmp);
+		listener = new EcranChoixChargementPartieListener(jeu,this,listeSauvegardesTmp);
 		
 		// boutton charger, charge la partie actuellement selectionné dans la jTable
 		chargerPartie = new JCoolButton(Translator.translate("chargerPartie"));
@@ -118,7 +114,55 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 	
 	
 	public void majListePartie(String nomSauvegarde){
-		listeSauvegardes.add(nomSauvegarde);
+		// récuperation de la liste des sauvegardes existantes
+		File repertoire = new File("sauvegardes");
+		if (!repertoire.exists()){
+			repertoire.mkdir();
+		}
+		listeSauvegardesTmp = repertoire.listFiles();
+		listener.setListeSauvegardes(listeSauvegardesTmp);
+		
+		String[] column = { Translator.translate("choisirPartieACharger") };
+		
+		if (listeSauvegardesTmp != null){
+			data = new Object[listeSauvegardesTmp.length][1]; // les données sont un tableau a 2 dimention, 1 seule colonne :les nom des sauvegardes
+			
+			for (int i = 0 ; i < listeSauvegardesTmp.length ; i++){
+				data[i][0] = listeSauvegardesTmp[i].toString();
+			}
+		}else{
+			data = new Object[0][1];
+		}
+		
+		table.setModel(new MonModele(data,column));
+	}
+	
+	class MonModele extends AbstractTableModel{
+		private static final long serialVersionUID = 1L;
+		private Object donnees[][];
+		private String titres[];
+		
+		public MonModele(Object donnees[][],String titres[]){
+			this.donnees = donnees;
+			this.titres = titres;
+		}
+		
+		public int getColumnCount(){
+			return 1;
+		}
+		
+		public Object getValueAt(int parm1,int parm2){
+			return donnees[parm1][parm2];
+		}
+		
+		public int getRowCount(){
+			return donnees.length;
+		}
+		
+		@Override
+		public String getColumnName(int col){
+			return titres[col];
+		}
 	}
 	
 }

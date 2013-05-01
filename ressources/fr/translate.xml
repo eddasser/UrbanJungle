@@ -284,4 +284,8 @@
 		<name>aucunePartieSelectionne</name>
 		<value>Vous devez selectionner une partie</value>
 	</parameter>
+	<parameter>
+		<name>CaseDejaOccupe</name>
+		<value>La case est occupée</value>
+	</parameter>
 </configuration>

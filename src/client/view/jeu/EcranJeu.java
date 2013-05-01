@@ -272,6 +272,7 @@ public class EcranJeu extends NamedJPanel{
 		ecranAffichageDeplacement.setPositionUnite(x,y);
 		ecranAffichageDeplacement.setPositionSouris(x,y);
 		ecranAffichageDeplacement.setVisible(true);
+		ecranPlateau.repaint();
 	}
 	
 	public void cacherModeDeplacementUnite(){
@@ -309,5 +310,27 @@ public class EcranJeu extends NamedJPanel{
 		labelCouleurJoueur.setVisible(false);
 		fond.setVisible(false);
 		ecranPlateau.setVisible(false);
+	}
+
+	public void afficherZonePlacementUnite() {
+		cacherZonePlacementBatiment();
+		ecranPlateau.setCreationUnite(true);
+		ecranPlateau.repaint();
+	}
+	
+	public void cacherZonePlacementUnite() {
+		ecranPlateau.setCreationUnite(false);
+		ecranPlateau.repaint();
+	}
+	
+	public void afficherZonePlacementBatiment() {
+		cacherZonePlacementUnite();
+		ecranPlateau.setCreationBatiment(true);
+		ecranPlateau.repaint();
+	}
+	
+	public void cacherZonePlacementBatiment() {
+		ecranPlateau.setCreationBatiment(false);
+		ecranPlateau.repaint();
 	}
 }

@@ -13,6 +13,7 @@ import client.view.jeu.EcranJeu;
 
 import common.Commande;
 import common.Constante;
+import common.ElementPlateau;
 import common.Joueur;
 import common.Partie;
 import common.Translator;
@@ -104,26 +105,42 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					Case position = partie.getPlateau().getCasePlusProche(x,y);
 					
 					if (ecranJeu.isModeCreationBatiment()){
-						if (partie.peutConstruireBatimentPosition(position) && joueur.aUniteConstructionProche(position)){
+						
+						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position) == null;  
+						
+						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position); 
+						
+						if (peuxConstruire && uniteConstructionProche){
 							TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
 							int montant = type.getPrix(joueur.getNiveau(type));
 							Batiment batiment = new Batiment(type,position);
 							joueur.ajouterBatiment(batiment);
 							joueur.decrementArgent(montant);
+							ecranJeu.cacherZonePlacementBatiment();
 						}else{
 							ecranJeu.cacherModeCreation();
 							jeu.notificationJoueur(Translator.translate("ZoneImpossibleConstruire"));
 						}
 					}else if (ecranJeu.isModeCreationUnite()){
-						if (joueur.presenceDeBatimentAProximitePosition(position)){
+						boolean batimentAProximite = joueur.presenceDeBatimentAProximitePosition(position);
+						
+						ElementPlateau elementSurCase = partie.elementSurCase(position);
+						
+						if (batimentAProximite && elementSurCase==null){
 							TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
 							int montant = type.getPrix(joueur.getNiveau(type));
 							Unite unite = new Unite(type,position);
 							joueur.ajouterUnite(unite);
 							joueur.decrementArgent(montant);
+							ecranJeu.cacherZonePlacementUnite();
 						}else{
 							ecranJeu.cacherModeCreation();
-							jeu.notificationJoueur(Translator.translate("AbsenceBatimentAProximitePourCreeUnite"));
+							if (!batimentAProximite){
+								jeu.notificationJoueur(Translator.translate("AbsenceBatimentAProximitePourCreeUnite"));
+							}else if (elementSurCase!=null){
+								jeu.notificationJoueur(Translator.translate("CaseDejaOccupe"));
+							}
+							
 						}
 					}else{
 						// le joueur est en train de selectionner une unité pour la déplacer
@@ -213,6 +230,8 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 		int x = e.getX();
 		int y = e.getY();
 		
+		Partie partie = jeu.getClient().getPartie();
+		
 		// on verifie que le laché de clic s'est effectuer sur le plateau de jeu
 		if (x > Constante.DECALAGE_PLATEAU_X && x < (Constante.LARGEUR_PLATEAU + Constante.DECALAGE_PLATEAU_X)
 				&& y > Constante.DECALAGE_PLATEAU_Y && y < (Constante.HAUTEUR_PLATEAU + Constante.DECALAGE_PLATEAU_Y)){
@@ -227,10 +246,44 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				// récuperation de la case du lacher du clic
 				Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
 				Unite unite = ecranJeu.getUniteEnDeplacement();
-				if (unite.deplacementPossibleVersPosition(x,y)){
-					int distance = (int)(position.getDistance(unite.getPosition()) / Constante.LARGEUR_CASE);
-					unite.decrementDeplacementRestant(distance);
-					unite.setPosition(position);
+				
+				boolean deplacementPossible = unite.deplacementPossibleVersPosition(x,y);
+				ElementPlateau elementSurCase = partie.elementSurCase(position); // recuperation de l'element present sur la case ou l'on relache le bouton
+				
+				if (deplacementPossible){ // si le deplacement est possible en terme de cout de deplacement par rapport au point de deplacement restant
+					
+					if (elementSurCase == null){ // si la case est libre, on deplace l'unité vers la case souhaité
+						int distance = (int)(position.getDistance(unite.getPosition()) / Constante.LARGEUR_CASE);
+						unite.decrementDeplacementRestant(distance);
+						unite.setPosition(position);
+					}else if ( ! partie.getJoueurCourant().caseOccupeParElementJoueur(new Case(x, y))){ //si la case ciblé est occupée mais pas par un element qui apartient au joueur, alors il attaque
+						
+						boolean detruit = elementSurCase.attaque(ecranJeu.getUniteEnDeplacement());			
+						
+						if (detruit){
+							//TODO
+							
+//							si c'est le QG qui est detruit{
+//								on notifie au joueur qui a perdu son qg qu'il a perdu
+//								on supprime le joueur a qui apartient le QG de la liste des joueurs
+//								notification (le joueur xxx a été battu, X joueur restants...)
+//							
+//								Si la liste des joueurs ne contient plus qu'un seul joueur{ 
+//									affichage ecran de fin ( felicitation vous avez gagné la partie ...)								
+//								}
+//							}		
+//							sinon{
+//								Si c'est un batiment{ 
+//									suppression de la liste des batiments du joueur a qui il apartient
+//								}
+//								Sinon si c'est une unite{
+//									suppression de la liste des unite du joueur a qui il apartient			
+//								}
+//							}
+						}
+						
+						ecranJeu.repaint();
+					}
 				}
 				ecranJeu.cacherModeDeplacementUnite();
 				ecranJeu.update();
