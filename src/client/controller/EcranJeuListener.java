@@ -75,17 +75,27 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				// on recupere la case la plus proche du clic
 				Case position = partie.getPlateau().getCasePlusProche(x,y);
 				
-				// on recupere l'unite eventuellement presente sur la case
-				Unite unite = joueur.getUniteSurCase(position);
-				if (unite != null){
-					ecranJeu.afficherToolTip(unite,joueur.getNiveau(unite.getType()));
-				}else{
-					// sinon on essaye de recuperer le batiment sur lequel il a cliquer
-					Batiment batiment = joueur.getBatimentSurCase(position);
-					if (batiment != null){
-						ecranJeu.afficherToolTip(batiment,joueur.getNiveau(batiment.getType()));
-					}
+				ElementPlateau element = partie.elementSurCase(position);
+				
+				Joueur proprietaireElement = partie.proprietaireElement(element);
+				
+				if (element != null){
+					ecranJeu.afficherToolTip(element,proprietaireElement.getNiveau(element.getType()));
 				}
+				
+//				// on recupere l'unite eventuellement presente sur la case
+//				Unite unite = joueur.getUniteSurCase(position);
+//				
+//				if (unite != null){
+//					ecranJeu.afficherToolTip(unite,joueur.getNiveau(unite.getType()));
+//				}else{
+//					// sinon on essaye de recuperer le batiment sur lequel il a cliquer
+//					Batiment batiment = joueur.getBatimentSurCase(position);
+//					if (batiment != null){
+//						ecranJeu.afficherToolTip(batiment,joueur.getNiveau(batiment.getType()));
+//					}
+//				}
+				
 			}else if (e.getButton() == MouseEvent.BUTTON1){
 				ecranJeu.cacherToolTip();
 				
