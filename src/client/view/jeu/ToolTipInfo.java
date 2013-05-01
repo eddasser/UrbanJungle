@@ -23,6 +23,7 @@ public class ToolTipInfo extends RoundedPanel{
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private ElementPlateau element;
 	private int niveau;
+	private JProgressBar progressBar;
 	
 	private void afficher(){
 		removeAll();
@@ -34,7 +35,7 @@ public class ToolTipInfo extends RoundedPanel{
 		add(new JLabel(type.toString()));
 		
 		add(new JLabel(Translator.translate("PointsVie") + " : "));
-		JProgressBar progressBar = new JProgressBar(0,type.getPointDeVie(niveau));
+		progressBar = new JProgressBar(0,type.getPointDeVie(niveau));
 		progressBar.setValue(element.getPointsVie());
 		progressBar.setStringPainted(true);
 		add(progressBar);

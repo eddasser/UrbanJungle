@@ -166,25 +166,25 @@ public class Joueur implements Serializable{
 	/*
 	 * retourne true s'il y a une unite du joueur sur cette position
 	 */
-	public boolean presenceDeUnitePosition(Case position){
-		boolean presenceUnite = false;
+	public ElementPlateau presenceDeUnitePosition(Case position){
+		ElementPlateau elementPlateau = null;
 		
-		for (int i = 0 ; !presenceUnite && i < unites.size() ; i++){
+		for (int i = 0 ; elementPlateau==null && i < unites.size() ; i++){
 			Unite unite = unites.get(i);
 			Case positionUnite = unite.getPosition();
 			
 			if (position.equals(positionUnite)){
-				presenceUnite = true;
+				elementPlateau = unite;
 			}
 		}
-		return presenceUnite;
+		return elementPlateau;
 	}
 	
 	/*
 	 * retourne true s'il y a un batiment du joueur sur cette position
 	 */
-	public boolean presenceDeBatimentPosition(Case position){
-		boolean presenceBatiment = false;
+	public ElementPlateau presenceDeBatimentPosition(Case position){
+		ElementPlateau presenceBatiment = null;
 		
 		int Xmin = position.getX() - Constante.LARGEUR_CASE;
 		int Xmax = position.getX() + Constante.LARGEUR_CASE;
@@ -192,12 +192,12 @@ public class Joueur implements Serializable{
 		int Ymin = position.getY() - Constante.HAUTEUR_CASE;
 		int Ymax = position.getY() + Constante.HAUTEUR_CASE;
 		
-		for (int i = 0 ; !presenceBatiment && i < batiments.size() ; i++){
+		for (int i = 0 ; presenceBatiment==null && i < batiments.size() ; i++){
 			Batiment bat = batiments.get(i);
 			Case positionBat = bat.getPosition();
 			
 			if (positionBat.getX() >= Xmin && positionBat.getX() < Xmax && positionBat.getY() >= Ymin && positionBat.getY() < Ymax){
-				presenceBatiment = true;
+				presenceBatiment = bat;
 			}
 		}
 		return presenceBatiment;
@@ -370,8 +370,11 @@ public class Joueur implements Serializable{
 	public boolean caseOccupeParElementJoueur(Case position){
 		boolean res = false; // verifie que la case est pas deja occupé par un batiment ou une unité d'un des joueurs
 		
+		ElementPlateau batiment = presenceDeBatimentPosition(position);
+		ElementPlateau unite = presenceDeUnitePosition(position);
+		
 		// si un batiment ou une unité du joueur est deja sur la case
-		if (presenceDeBatimentPosition(position) || presenceDeUnitePosition(position)){
+		if ( batiment != null || unite != null){
 			res = true;
 		}
 		

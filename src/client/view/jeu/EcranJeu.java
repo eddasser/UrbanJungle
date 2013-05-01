@@ -19,7 +19,6 @@ import common.Joueur;
 import common.TypeElementPlateau;
 import common.partie.batiment.TypeBatiment;
 import common.partie.plateau.Case;
-import common.partie.plateau.Plateau;
 import common.partie.unite.TypeUnite;
 import common.partie.unite.Unite;
 

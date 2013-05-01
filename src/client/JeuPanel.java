@@ -27,6 +27,7 @@ import client.view.jeu.EcranJeu;
 import common.Constante;
 import common.Partie;
 import common.Translator;
+import common.partie.unite.Unite;
 
 
 /**
@@ -48,7 +49,7 @@ public class JeuPanel extends JPanel implements Observer{
 	private static NamedJPanel ecranJeu;
 	private static NamedJPanel ecranChoixChargementPartie;
 	
-	private Client client;
+	private static Client client;
 	private ServerListener dialogueServeur;
 	
 	private boolean accesServeur;
@@ -57,7 +58,7 @@ public class JeuPanel extends JPanel implements Observer{
 	
 	public JeuPanel(JLayeredPane aLayeredPane,Client client){
 		super(cardlayout);
-		this.client = client;
+		JeuPanel.client = client;
 		// de base l'acces serveur est ok, si un problème est detecté ensuite en tentant de le joindre, il passera a false
 		accesServeur = true;
 		
@@ -144,7 +145,7 @@ public class JeuPanel extends JPanel implements Observer{
 	}
 	
 	public void setClient(Client client){
-		this.client = client;
+		JeuPanel.client = client;
 	}
 	
 	/**
@@ -294,6 +295,10 @@ public class JeuPanel extends JPanel implements Observer{
 	public static void changeLanguage(String langue) {
 		((EcranConnexionServeurImpossible) ecranTestConnexionKO).changeLanguage(langue);
 		((EcranConnexionServeurPossible) ecranTestConnexionOk).changeLanguage(langue);
+	}
+
+	public static int getPuissanceAttaque(Unite uniteEnDeplacement) {
+		return client.getPartie().getJoueurCourant().getNiveau(uniteEnDeplacement.getType());
 	}
 
 }
