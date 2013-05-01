@@ -265,8 +265,10 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				Unite unite = ecranJeu.getUniteEnDeplacement();
 				
 				boolean deplacementPossible = unite.deplacementPossibleVersPosition(x,y);
-				ElementPlateau elementSurCase = partie.elementSurCase(position); // recuperation de l'element present sur la case ou l'on
-																					// relache le bouton
+				
+				// recuperation de l'element present sur la case ou l'on relache le bouton et son proprietaire
+				ElementPlateau elementSurCase = partie.elementSurCase(position);
+				Joueur proprietaireElement = partie.proprietaireElement(elementSurCase);												
 				
 				if (deplacementPossible){ // si le deplacement est possible en terme de cout de deplacement par rapport au point de
 											// deplacement restant
@@ -285,9 +287,10 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 							ecranJeu.getUniteEnDeplacement().setDeplacementRestant(0); //une fois l'attaque effectué, le joueur ne peux plus se deplacer, une attaque par tour possible
 							
 							if (detruit){
-								//TODO
 								
-//								si c'est le QG qui est detruit{
+								if (elementSurCase.getType().equals(TypeBatiment.QG)){ // si c'est un QG qui est detruit
+									System.out.println("QG detruit");//TODO
+									
 //									on notifie au joueur qui a perdu son qg qu'il a perdu
 //									on supprime le joueur a qui apartient le QG de la liste des joueurs
 //									notification (le joueur xxx a été battu, X joueur restants...)
@@ -295,18 +298,32 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 //									Si la liste des joueurs ne contient plus qu'un seul joueur{ 
 //										affichage ecran de fin ( felicitation vous avez gagné la partie ...)								
 //									}
-//								}		
-//								sinon{
-//									Si c'est un batiment{ 
-//										suppression de la liste des batiments du joueur a qui il apartient
-//									}
-//									Sinon si c'est une unite{
-//										suppression de la liste des unite du joueur a qui il apartient			
-//									}
-//								}
+								}		
+								else{ // si c'est un batiment ou une unité lambda, on la supprime de la liste des batiment ou unité du joueur a qui elle appartient
+									boolean estUnBatiment = false;
+									
+									for (int i=0; !estUnBatiment && i<TypeBatiment.values().length;i++){
+										
+										if (TypeBatiment.values()[i].equals(elementSurCase.getType())){
+											estUnBatiment = true;
+										}
+									} 
+								
+									boolean elementBienSupprime = false;
+									if (estUnBatiment){
+										// suppression de l'element de la liste des batiments du joueur a qui il apartient
+										elementBienSupprime = proprietaireElement.getBatiments().remove(elementSurCase);
+									}else{ //c'est une unite
+										// suppression de l'element de la liste des unites du joueur a qui il apartient
+										elementBienSupprime = proprietaireElement.getUnites().remove(elementSurCase);
+									}
+									if (!elementBienSupprime){
+										System.out.println("Cas impossible : element detruit non trouvé dans la liste du joueur");
+									}
+
+								}
 							}
 							ecranJeu.repaint();
-
 						}
 					}
 				}
