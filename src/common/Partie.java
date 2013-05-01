@@ -44,7 +44,7 @@ public class Partie implements Serializable{
 		// methode qui va creer les QG et donner au joueur leur argent de depart et désigner un joueur de départ
 		ArrayList<Case> cases = plateau.getCases();
 		for (int i = 0 ; i < listeParticipants.size() ; i++){
-			Batiment qg = new Batiment(TypeBatiment.QG,cases.get(getPositionQG(i)));
+			Batiment qg = new Batiment(TypeBatiment.QG,TypeBatiment.QG.getNiveauBase(),cases.get(getPositionQG(i)));
 			listeParticipants.get(i).ajouterBatiment(qg);
 		}
 		int random = (int)(Math.random() * (listeParticipants.size() - 1));
@@ -200,12 +200,12 @@ public class Partie implements Serializable{
 		ElementPlateau elementSurCase = null;
 		
 		// on verifie d'abord qu'il n'y a pas d'autres batiment d'aucun joueur a cette position
-		for (int i = 0 ; elementSurCase==null && i < listeParticipants.size() ; i++){
+		for (int i = 0 ; elementSurCase == null && i < listeParticipants.size() ; i++){
 			elementSurCase = listeParticipants.get(i).presenceDeBatimentPosition(position);
 		}
 		
 		// on verifie ensuite qu'il n'y a aucune unité à cette position
-		for (int i = 0 ; elementSurCase==null && i < listeParticipants.size() ; i++){
+		for (int i = 0 ; elementSurCase == null && i < listeParticipants.size() ; i++){
 			elementSurCase = listeParticipants.get(i).presenceDeUnitePosition(position);
 		}
 		
@@ -214,8 +214,9 @@ public class Partie implements Serializable{
 	
 	public ElementPlateau elementSurCase(Case position){
 		ElementPlateau res = null;
-				
-		res = peutConstruireBatimentPosition(position); // verifie que la case est pas deja occupé par un batiment ou une unité d'un des joueurs
+		
+		res = peutConstruireBatimentPosition(position); // verifie que la case est pas deja occupé par un batiment ou une unité d'un des
+														// joueurs
 		return res;
 	}
 	

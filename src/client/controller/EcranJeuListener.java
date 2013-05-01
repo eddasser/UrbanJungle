@@ -116,19 +116,21 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					
 					if (ecranJeu.isModeCreationBatiment()){
 						
-						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position) == null;  
+						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position) == null;
 						
-						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position); 
+						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position);
 						
 						if (peuxConstruire && uniteConstructionProche){
 							TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
-							int montant = type.getPrix(joueur.getNiveau(type));
-							Batiment batiment = new Batiment(type,position);
+							int niveau = joueur.getNiveau(type);
+							int montant = type.getPrix(niveau);
+							Batiment batiment = new Batiment(type,niveau,position);
 							joueur.ajouterBatiment(batiment);
 							joueur.decrementArgent(montant);
 							ecranJeu.cacherZonePlacementBatiment();
 						}else{
 							ecranJeu.cacherModeCreation();
+							ecranJeu.cacherZonePlacementBatiment();
 							jeu.notificationJoueur(Translator.translate("ZoneImpossibleConstruire"));
 						}
 					}else if (ecranJeu.isModeCreationUnite()){
@@ -136,18 +138,21 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 						
 						ElementPlateau elementSurCase = partie.elementSurCase(position);
 						
-						if (batimentAProximite && elementSurCase==null){ 
+						if (batimentAProximite && elementSurCase == null){
+
 							TypeUnite type = (TypeUnite)ecranJeu.getTypeElementEnConstruction();
-							int montant = type.getPrix(joueur.getNiveau(type));
-							Unite unite = new Unite(type,position);
+							int niveau = joueur.getNiveau(type);
+							int montant = type.getPrix(niveau);
+							Unite unite = new Unite(type,niveau,position);
 							joueur.ajouterUnite(unite);
 							joueur.decrementArgent(montant);
 							ecranJeu.cacherZonePlacementUnite();
 						}else{
 							ecranJeu.cacherModeCreation();
+							ecranJeu.cacherZonePlacementUnite();
 							if (!batimentAProximite){
 								jeu.notificationJoueur(Translator.translate("AbsenceBatimentAProximitePourCreeUnite"));
-							}else if (elementSurCase!=null){
+							}else if (elementSurCase != null){
 								jeu.notificationJoueur(Translator.translate("CaseDejaOccupe"));
 							}
 							
@@ -166,6 +171,8 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					// cas 2 : l'utilisateur a cliquer en dehors du plateau de jeu
 					ecranJeu.cacherModeCreation();
 					ecranJeu.cacherModeDeplacementUnite();
+					ecranJeu.cacherZonePlacementBatiment();
+					ecranJeu.cacherZonePlacementUnite();
 					
 					if (y <= 46){
 						// test des trois liens du haut
@@ -258,14 +265,17 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				Unite unite = ecranJeu.getUniteEnDeplacement();
 				
 				boolean deplacementPossible = unite.deplacementPossibleVersPosition(x,y);
-				ElementPlateau elementSurCase = partie.elementSurCase(position); // recuperation de l'element present sur la case ou l'on relache le bouton
+				ElementPlateau elementSurCase = partie.elementSurCase(position); // recuperation de l'element present sur la case ou l'on
+																					// relache le bouton
 				
-				if (deplacementPossible){ // si le deplacement est possible en terme de cout de deplacement par rapport au point de deplacement restant
+				if (deplacementPossible){ // si le deplacement est possible en terme de cout de deplacement par rapport au point de
+											// deplacement restant
 					
 					if (elementSurCase == null){ // si la case est libre, on deplace l'unité vers la case souhaité
 						int distance = (int)(position.getDistance(unite.getPosition()) / Constante.LARGEUR_CASE);
 						unite.decrementDeplacementRestant(distance);
 						unite.setPosition(position);
+
 					}else{ //si la case est occupé
 						boolean caseOcupeParElementAlie = partie.getJoueurCourant().caseOccupeParElementJoueur(position);
 						
@@ -296,6 +306,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 //								}
 							}
 							ecranJeu.repaint();
+
 						}
 					}
 				}

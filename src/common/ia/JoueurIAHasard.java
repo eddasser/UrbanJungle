@@ -26,10 +26,10 @@ public class JoueurIAHasard extends JoueurIA{
 		// TODO: IA a implémenté ICI
 		// faire des trucs au hasard
 		
-		if ( first){
-			ajouterUnite(new Unite(TypeUnite.CAID, partie.getPlateau().getCases().get(900)));
+		if (first){
+			ajouterUnite(new Unite(TypeUnite.CAID,TypeUnite.CAID.getNiveauBase(),partie.getPlateau().getCases().get(900)));
 			
-			ajouterBatiment(new Batiment(TypeBatiment.BOOKMAKER, partie.getPlateau().getCases().get(903)));
+			ajouterBatiment(new Batiment(TypeBatiment.BOOKMAKER,TypeBatiment.BOOKMAKER.getNiveauBase(),partie.getPlateau().getCases().get(903)));
 			
 			first = false;
 		}

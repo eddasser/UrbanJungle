@@ -19,11 +19,11 @@ public abstract class ElementPlateau implements Serializable{
 	protected TypeElementPlateau type;
 	protected Case position;
 	
-	public ElementPlateau(TypeElementPlateau type,Case position){
+	public ElementPlateau(TypeElementPlateau type,int niveau,Case position){
 		super();
 		this.type = type;
 		this.position = position;
-		pointsVie = type.getPointDeVie(0);
+		pointsVie = type.getPointDeVie(niveau);
 	}
 	
 	/*
@@ -60,9 +60,11 @@ public abstract class ElementPlateau implements Serializable{
 		this.position = position;
 	}
 	
-	/** cette methode permet de simuler une attaque sur l'element par l'unité en parametre
+	/**
+	 * cette methode permet de simuler une attaque sur l'element par l'unité en parametre
 	 * 
-	 * @param uniteEnDeplacement, l'unité qui attaque
+	 * @param uniteEnDeplacement
+	 *            , l'unité qui attaque
 	 * @return estDetruit, boolean qui signale si l'unité est detruite ou pas
 	 */
 	public boolean attaque(Unite uniteQuiAttaque){
@@ -78,7 +80,7 @@ public abstract class ElementPlateau implements Serializable{
 		}
 		
 		setPointsVie(nouveauPDV);
-
+		
 		return estDetruit;
 	}
 }
