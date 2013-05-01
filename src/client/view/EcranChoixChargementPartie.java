@@ -27,6 +27,9 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 	
 	private Object[][] data;
 	
+	private File[] listeSauvegardesTmp;
+	private EcranChoixChargementPartieListener listener;
+	
 	public EcranChoixChargementPartie(JeuPanel jeu){
 		super("ecranChoixChargementPartie",jeu);
 		setLayout(null);
@@ -36,7 +39,7 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 		if (!repertoire.exists()){
 			repertoire.mkdir();
 		}
-		File[] listeSauvegardesTmp = repertoire.listFiles();
+		listeSauvegardesTmp = repertoire.listFiles();
 		
 		String[] column = { Translator.translate("choisirPartieACharger") };
 		
@@ -59,7 +62,7 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 		add(scrollPane);
 		
 		
-		EcranChoixChargementPartieListener listener = new EcranChoixChargementPartieListener(jeu,this,listeSauvegardesTmp);
+		listener = new EcranChoixChargementPartieListener(jeu,this,listeSauvegardesTmp);
 		
 		// boutton charger, charge la partie actuellement selectionné dans la jTable
 		chargerPartie = new JCoolButton(Translator.translate("chargerPartie"));
@@ -116,7 +119,8 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 		if (!repertoire.exists()){
 			repertoire.mkdir();
 		}
-		File[] listeSauvegardesTmp = repertoire.listFiles();
+		listeSauvegardesTmp = repertoire.listFiles();
+		listener.setListeSauvegardes(listeSauvegardesTmp);
 		
 		String[] column = { Translator.translate("choisirPartieACharger") };
 		
@@ -144,7 +148,7 @@ public class EcranChoixChargementPartie extends NamedJPanel{
 		}
 		
 		public int getColumnCount(){
-			return donnees[0].length;
+			return 1;
 		}
 		
 		public Object getValueAt(int parm1,int parm2){
