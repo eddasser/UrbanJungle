@@ -5,6 +5,8 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.JOptionPane;
+
 import server.ClientListener;
 
 import common.partie.batiment.Batiment;
@@ -416,4 +418,5 @@ public class Joueur implements Serializable{
 		
 		return res;
 	}
+
 }

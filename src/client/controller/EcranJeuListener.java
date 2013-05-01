@@ -289,15 +289,19 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 							if (detruit){
 								
 								if (elementSurCase.getType().equals(TypeBatiment.QG)){ // si c'est un QG qui est detruit
-									System.out.println("QG detruit");//TODO
 									
-//									on notifie au joueur qui a perdu son qg qu'il a perdu
-//									on supprime le joueur a qui apartient le QG de la liste des joueurs
-//									notification (le joueur xxx a été battu, X joueur restants...)
-//								
-//									Si la liste des joueurs ne contient plus qu'un seul joueur{ 
-//										affichage ecran de fin ( felicitation vous avez gagné la partie ...)								
-//									}
+									// on notifie au joueur que le joueur qui a perdu son QG est eliminé
+									jeu.notificationJoueur(proprietaireElement.getLogin() + Translator.translate("perteQG"));
+									
+									//on maj la liste des joueurs restant
+									partie.getListeParticipants().remove(proprietaireElement);
+
+									// on verifie si la liste des joueur contient encore plus d'un joueur, sinon , le joueur restant est le gagnant
+									if ( partie.getListeParticipants().size()==1){
+										ecranJeu.getEcranFinPartie().setTextPartieGagne();
+										ecranJeu.getEcranFinPartie().repaint();
+										ecranJeu.afficherEcranFinPartie();
+									}
 								}		
 								else{ // si c'est un batiment ou une unité lambda, on la supprime de la liste des batiment ou unité du joueur a qui elle appartient
 									boolean estUnBatiment = false;
@@ -323,7 +327,6 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 
 								}
 							}
-							ecranJeu.repaint();
 						}
 					}
 				}
