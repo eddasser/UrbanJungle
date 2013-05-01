@@ -19,25 +19,44 @@ import common.partie.unite.Unite;
  * @author omar
  */
 public class ToolTipInfo extends RoundedPanel{
-
+	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	private ElementPlateau element;
 	private int niveau;
 	
-	private void afficher(){
-		removeAll();
+	private JLabel labelType = new JLabel();
+	private JLabel labelPtsVie = new JLabel();
+	private JProgressBar progressBar = new JProgressBar();
+	
+	private JLabel labelInfo1 = new JLabel();
+	private JLabel labelInfo2 = new JLabel();
+	
+	public ToolTipInfo(){
 		setBorder(new EmptyBorder(10,10,10,10));
-		setBounds(element.getPosition().getX() + 2 * Constante.LARGEUR_CASE + Constante.DECALAGE_PLATEAU_X,element.getPosition().getY(),200,100);
 		
-		TypeElementPlateau type = element.getType();
 		setLayout(new GridLayout(5,1));
-		add(new JLabel(type.toString()));
+		add(labelType);
+		add(labelPtsVie);
+		labelPtsVie.setText(Translator.translate("PointsVie") + " : ");
 		
-		add(new JLabel(Translator.translate("PointsVie") + " : "));
-		JProgressBar progressBar = new JProgressBar(0,type.getPointDeVie(niveau));
-		progressBar.setValue(element.getPointsVie());
+		progressBar.setMinimum(0);
 		progressBar.setStringPainted(true);
 		add(progressBar);
+		
+		add(labelInfo1);
+		add(labelInfo2);
+	}
+	
+	private void afficher(){
+		TypeElementPlateau type = element.getType();
+		
+		setBounds(element.getPosition().getX() + 2 * Constante.LARGEUR_CASE + Constante.DECALAGE_PLATEAU_X,element.getPosition().getY(),200,100);
+		
+		labelType.setText(Translator.translate(type.name()));
+		
+		progressBar.setMaximum(type.getPointDeVie(niveau));
+		progressBar.setValue(element.getPointsVie());
+		progressBar.setString(element.getPointsVie() + " / " + type.getPointDeVie(niveau));
 		
 		if (element instanceof Unite){
 			afficherUnite();
@@ -47,14 +66,14 @@ public class ToolTipInfo extends RoundedPanel{
 	}
 	
 	private void afficherUnite(){
-		add(new JLabel(Translator.translate("DeplacementRestant") + " : "));
-		add(new JLabel(((Unite)element).getDeplacementRestant() + ""));
+		labelInfo1.setText(Translator.translate("DeplacementRestant") + " : ");
+		labelInfo2.setText(((Unite)element).getDeplacementRestant() + "");
 	}
 	
 	private void afficherBatiment(){
 		TypeBatiment type = (TypeBatiment)element.getType();
-		add(new JLabel(Translator.translate("Revenu") + " : "));
-		add(new JLabel(Constante.formatArgent(type.getRevenu(niveau))));
+		labelInfo1.setText(Translator.translate("Revenu") + " : ");
+		labelInfo2.setText(Constante.formatArgent(type.getRevenu(niveau)));
 	}
 	
 	public ElementPlateau getElement(){

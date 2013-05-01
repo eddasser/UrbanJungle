@@ -22,15 +22,16 @@ public class ClientCommandUpdateTour extends ClientCommand{
 		JeuPanel jeu = _server.getJeu();
 		jeu.getClient().setPartie(partie);
 		jeu.getClient().setJoueur(joueur);
-		
 		jeu.getClient().update();
 		
 		EcranJeu ej = JeuPanel.getEcranJeu();
-		if (!isMonTour){
-			ej.afficherEcranAttente();
-		}else{
+		if (isMonTour){
 			ej.cacherEcranAttente();
+		}else{
+			ej.afficherEcranAttente();
 		}
+		System.out.println(joueur.getLogin() + " : " + isMonTour);
+		ej.update();
 	}
 	
 }

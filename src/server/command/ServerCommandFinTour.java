@@ -18,14 +18,13 @@ public class ServerCommandFinTour extends ServerCommand{
 	public void execute(ClientListener _client){
 		Server server = _client.getServer();
 		Joueur joueur = server.getJoueur(_client.getSocket());
-		Partie partie = server.getPartieWhereJoueur(joueur);// recuperation de l'ancienne partie
 		
-		partie.passerTour();// on increment le joueur suivant
+		// recuperation de l'ancienne partie sur laquelle se trouve les sockets vers les joueurs
+		Partie partie = server.getPartieWhereJoueur(joueur);
+		partie.passerTour();
 		
 		Partie newPartie = (Partie)arguments[0];// recuperation de la partie envoyé par le client
-		newPartie.passerTour();
-		// MAJ des unites, des batiments, des niveaux du joueur
-		
+		newPartie.passerTour();// on passe au tour suivant
 		/*
 		 * notification de tous les joueurs
 		 */

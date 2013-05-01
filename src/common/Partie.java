@@ -219,6 +219,10 @@ public class Partie implements Serializable{
 		indiceJoueurCourant++;
 		if (indiceJoueurCourant >= listeParticipants.size()){
 			indiceJoueurCourant = 0;
+			
+			for (int i = 0 ; i < listeParticipants.size() ; i++){
+				listeParticipants.get(i).majTour();
+			}
 		}
 	}
 }

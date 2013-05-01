@@ -52,9 +52,45 @@ public class Joueur implements Serializable{
 		password = _password;
 	}
 	
-	public void incrementeNiveau(TypeElementPlateau type){
+	/*
+	 * incremente le niveau pour le type donnée du joueur
+	 * et retourne la difference de point de vie (entre l'ancien niveau et le nouveau niveau)
+	 */
+	private int incrementeNiveau(TypeElementPlateau type){
+		// recuperation de l'ancien niveau de point de vie
+		int ancienPtsVieMax = type.getPointDeVie(niveaux.get(type));
+		
+		// incrementation du niveau
 		int niveau = niveaux.get(type) + 1;
 		niveaux.put(type,niveau);
+		
+		// recuperation du nouveau niveau de point de vie
+		int nouveauPtsVieMax = type.getPointDeVie(niveaux.get(type));
+		
+		return nouveauPtsVieMax - ancienPtsVieMax;
+	}
+	
+	public void incrementeNiveauBatiment(TypeBatiment type){
+		int differencePtsVie = incrementeNiveau(type);
+		
+		// incrementer les pts de vie des batiments avec la difference entre niveau
+		for (int i = 0 ; i < batiments.size() ; i++){
+			Batiment bat = batiments.get(i);
+			if (bat.getType() == type){
+				bat.incrementePointsVie(differencePtsVie);
+			}
+		}
+	}
+	
+	public void incrementeNiveauUnite(TypeUnite type){
+		int differencePtsVie = incrementeNiveau(type);
+		// incrmente les pts de vie des unités avec la difference entre niveau
+		for (int i = 0 ; i < unites.size() ; i++){
+			Unite unite = unites.get(i);
+			if (unite.getType() == type){
+				unite.incrementePointsVie(differencePtsVie);
+			}
+		}
 	}
 	
 	public void incrementArgent(int montant){
