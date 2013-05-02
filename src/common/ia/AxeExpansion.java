@@ -38,6 +38,8 @@ public class AxeExpansion {
 		}
 		
 		iA.ajouterUnite(constructeur);
+		
+		iA.decrementArgent(TypeUnite.CONSTRUCTEUR.getPrix(iA.getNiveau(TypeUnite.CONSTRUCTEUR))*2);
 	}
 	
 	public void executeTour(){
@@ -56,6 +58,9 @@ public class AxeExpansion {
 			if (elementSurCaseCible == null && pasEnBordDeMap){ //si on peux construire
 				Batiment nouveauBatiment = new Batiment(TypeBatiment.GARAGE, iA.getNiveau(TypeBatiment.GARAGE), positionNouveauBatiment);
 				iA.ajouterBatiment(nouveauBatiment);		
+				
+				int montant = TypeBatiment.GARAGE.getPrix(iA.getNiveau(TypeBatiment.GARAGE));
+				iA.decrementArgent(montant);
 			}
 			
 			if ( !tenterDeplacerUnite("gauche")){ // on tente de deplacer a gauche et si sa marche pas ...
@@ -76,8 +81,13 @@ public class AxeExpansion {
 			ElementPlateau elementSurCaseCible = partie.peutConstruireBatimentPosition(positionNouveauBatiment);
 			
 			if (elementSurCaseCible == null){ //si on peux construire
+				
 				Batiment nouveauBatiment = new Batiment(TypeBatiment.GARAGE, iA.getNiveau(TypeBatiment.GARAGE), positionNouveauBatiment);
 				iA.ajouterBatiment(nouveauBatiment);
+				((JoueurIAHasard) iA).getListeAxeAttaque().add(new AxeAttaque(partie, iA, nouveauBatiment ));// on cree un axe d'attaque a partir de ce nouveau batiment
+				
+				int montant = TypeBatiment.GARAGE.getPrix(iA.getNiveau(TypeBatiment.GARAGE));
+				iA.decrementArgent(montant);
 			}
 			
 			if ( !tenterDeplacerUnite("bas")){ // on tente de deplacer a gauche et si sa marche pas ...

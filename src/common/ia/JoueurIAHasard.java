@@ -44,9 +44,16 @@ public class JoueurIAHasard extends JoueurIA{
 			first = false;
 		}
 		
+		// execution des axe d'expension
 		for ( AxeExpansion axeExpansion : listeAxeExpansion){
 			axeExpansion.executeTour();
 		}
+		
+		// execution des axes d'attaque
+		for ( AxeAttaque axeAttaque : listeAxeAttaque){
+			axeAttaque.executeTour();
+		}
+		System.out.println();
 	}
 	
 	//methode permettant de savoir si on detruit le qg enemi et de lancer la fin de la partie
@@ -55,4 +62,9 @@ public class JoueurIAHasard extends JoueurIA{
 		JeuPanel.getEcranJeu().getEcranFinPartie().setTextPartiePerdu();
 		JeuPanel.getEcranJeu().afficherEcranFinPartie();
 	}
+
+	public ArrayList<AxeAttaque> getListeAxeAttaque() {
+		return listeAxeAttaque;
+	}
+	
 }
