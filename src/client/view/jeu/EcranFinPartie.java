@@ -45,7 +45,7 @@ public class EcranFinPartie extends JPanel{
 		int height = Constante.HAUTEUR_FENETRE_PRINCIPALE-27;
 		setBounds(0,0,width,height);
 		message="<html><h1>" + Translator.translate("partieGagne") + "</h1></html>";
-		JLabel labelFond = new JLabel(message,SwingConstants.CENTER);
+		labelFond = new JLabel(message,SwingConstants.CENTER);
 		labelFond.setBounds(width / 4,125,width / 2,200);
 		this.add(labelFond);
 		
@@ -74,17 +74,19 @@ public class EcranFinPartie extends JPanel{
 			}
 		}
 	}
-	
-	public void setTextPartiePerdu(){
-		message="<html><h1>" + Translator.translate("partiePerdu") + "</h1></html>";
-		labelFond.setText(message);
-	}
-	
+
 	public void setTextPartieGagne(){
 		message="<html><h1>" + Translator.translate("partieGagne") + "</h1></html>";
 		labelFond.setText(message);
+		repaint();
 	}
 
+	public void setTextPartiePerdu(){
+		message="<html><h1>" + Translator.translate("partiePerdu") + "</h1></html>";
+		labelFond.setText(message);
+		repaint();
+	}
+	
 	public JCoolButton getButtonQuitter() {
 		return buttonQuitter;
 	}
@@ -93,4 +95,7 @@ public class EcranFinPartie extends JPanel{
 		return jeu;
 	}
 	
+	public String getMessage() {
+		return message;
+	}
 }

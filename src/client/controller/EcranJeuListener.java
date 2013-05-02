@@ -209,7 +209,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 								JoueurIA joueurIA = (JoueurIA)partie.getJoueurCourant();
 								joueurIA.jouer(partie);
 								
-								int random = (int)(3000 * Math.random()) + 2000;
+								int random = 2000;
 								Timer timer = new Timer();
 								timer.schedule(new TimerTask(){
 									@Override
