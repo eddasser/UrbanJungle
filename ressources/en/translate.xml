@@ -288,4 +288,16 @@
 		<name>CaseDejaOccupe</name>
 		<value>The case is occupied</value>
 	</parameter>
+	<parameter>
+		<name>perteQG</name>
+		<value> loosed his General Quarter, He loosed the games</value>
+	</parameter>
+	<parameter>
+		<name>partieGagne</name>
+		<value>Congratulation, you win the game</value>
+	</parameter>
+	<parameter>
+		<name>partiePerdu</name>
+		<value>Sorry but you loosed the game</value>
+	</parameter>
 </configuration>

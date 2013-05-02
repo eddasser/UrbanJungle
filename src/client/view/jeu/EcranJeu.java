@@ -38,6 +38,7 @@ public class EcranJeu extends NamedJPanel{
 	private EcranAttenteTour ecranAttenteTour;
 	
 	private EcranSauvegardePartie ecranSauvegardePartie;
+	private EcranFinPartie ecranFinPartie;
 	
 	private JLabel labelCouleurJoueur = new JLabel();
 	private JLabel labelArgent = new JLabel("ARGENT :",JLabel.RIGHT);
@@ -52,8 +53,9 @@ public class EcranJeu extends NamedJPanel{
 	private Unite uniteEnDeplacement;// unité en cours de deplacement qui est a affiché
 	
 	private ToolTipInfo tooltip;
-	private boolean premierePartie; // permet de gerer correctement l'affichage en cas de nouvelle partie solo apres avoir quitté une
-									// premiere partie
+	
+	// permet de gerer correctement l'affichage en cas de nouvelle partie solo apres avoir quitté une premiere partie
+	private boolean premierePartie; 
 	
 	
 	public EcranJeu(JeuPanel jeu,JLayeredPane layeredPane){
@@ -69,6 +71,7 @@ public class EcranJeu extends NamedJPanel{
 		ecranPlateau = new EcranPlateau(jeu);
 		ecranAffichageDeplacement = new EcranAffichageDeplacement();
 		ecranSauvegardePartie = new EcranSauvegardePartie(jeu);
+		ecranFinPartie = new EcranFinPartie(jeu);
 		tooltip = new ToolTipInfo();
 		cacherEcranAttente();
 		premierePartie = true;
@@ -102,6 +105,10 @@ public class EcranJeu extends NamedJPanel{
 			
 			layeredPane.add(ecranAffichageDeplacement,new Integer(100));
 			ecranAffichageDeplacement.setVisible(false);
+			
+			layeredPane.add(ecranFinPartie,new Integer(300));
+			ecranFinPartie.setVisible(false);
+			
 			
 			labelEnConstruction.setBounds(Constante.LARGEUR_FENETRE_PRINCIPALE / 2,Constante.HAUTEUR_FENETRE_PRINCIPALE / 2,50,50);
 			
@@ -310,6 +317,7 @@ public class EcranJeu extends NamedJPanel{
 		labelCouleurJoueur.setVisible(false);
 		fond.setVisible(false);
 		ecranPlateau.setVisible(false);
+		ecranFinPartie.setVisible(false);
 	}
 
 	public void afficherZonePlacementUnite() {
@@ -332,5 +340,14 @@ public class EcranJeu extends NamedJPanel{
 	public void cacherZonePlacementBatiment() {
 		ecranPlateau.setCreationBatiment(false);
 		ecranPlateau.repaint();
+	}
+
+	public void afficherEcranFinPartie() {
+		cacherPlateau();
+		ecranFinPartie.setVisible(true);
+	}
+
+	public EcranFinPartie getEcranFinPartie() {
+		return ecranFinPartie;
 	}
 }

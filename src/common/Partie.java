@@ -7,6 +7,7 @@ import common.partie.batiment.Batiment;
 import common.partie.batiment.TypeBatiment;
 import common.partie.plateau.Case;
 import common.partie.plateau.Plateau;
+import common.partie.unite.Unite;
 
 
 public class Partie implements Serializable{
@@ -276,5 +277,59 @@ public class Partie implements Serializable{
 				listeParticipants.get(i).majTour();
 			}
 		}
+	}
+	
+	
+	/** retourne le proprietaire de l'element en parametre */
+	public Joueur proprietaireElement(ElementPlateau element){
+		Joueur proprio = null;
+		
+		proprio = getProprioBatiment(element);
+		
+		if ( proprio == null){
+			proprio = getProprioUnite(element);
+		}
+		
+		return proprio;
+	}
+	
+	/*
+	 * retourne l'unite présente sur la case ou NULL
+	 */
+	public Joueur getProprioUnite(ElementPlateau element){
+		Joueur proprio = null;
+		
+		for ( Joueur joueurTmp : listeParticipants){ // pour chaque joueur
+			if (proprio == null ){
+				for (int i = 0 ; i < joueurTmp.getUnites().size() ; i++){
+					Unite unite_courante = joueurTmp.getUnites().get(i);
+					if (unite_courante.equals(element)){
+						proprio = joueurTmp;
+						break;
+					}
+				}
+			}
+		}
+		return proprio;
+	}
+	
+	/*
+	 * retourne l'unite présente sur la case ou NULL
+	 */
+	public Joueur getProprioBatiment(ElementPlateau element){
+		Joueur proprio = null;
+		
+		for ( Joueur joueurTmp : listeParticipants){ // pour chaque joueur
+			if (proprio == null ){
+				for (int i = 0 ; i < joueurTmp.getBatiments().size() ; i++){
+					Batiment batiment_courant = joueurTmp.getBatiments().get(i);
+					if (batiment_courant.equals(element)){
+						proprio = joueurTmp;
+						break;
+					}
+				}
+			}
+		}
+		return proprio;
 	}
 }
