@@ -19,6 +19,7 @@ public class ServerCommandDeconnexion extends ServerCommand{
 		Server server = _client.getServer();
 		// on supprime d'abord le joueur de la liste du server
 		Joueur joueur = server.getJoueur(_client.getSocket());
+		joueur.getClientListener().deconnexion();
 		server.remove(joueur);
 		
 		

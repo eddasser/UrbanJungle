@@ -1,6 +1,5 @@
 package server.command;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import server.ClientListener;
@@ -29,11 +28,7 @@ public class ServerCommandPropositionDeSauvegardePartie extends ServerCommand{
 		ArrayList<Joueur> joueurs = partie.getListeParticipants();
 		for (int i = 0 ; i < joueurs.size() ; i++){
 			server.remove(joueurs.get(i));
-			try{
-				joueurs.get(i).getSocket().close();
-			}catch (IOException e){
-				e.printStackTrace();
-			}
+			joueurs.get(i).getClientListener().deconnexion();
 		}
 		// puis on suppression de la partie en elle-meme
 		server.remove(partie);

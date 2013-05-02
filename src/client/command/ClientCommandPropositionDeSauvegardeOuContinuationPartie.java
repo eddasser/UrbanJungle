@@ -7,6 +7,7 @@ import client.ServerListener;
 
 import common.Commande;
 import common.Joueur;
+import common.Partie;
 import common.Translator;
 
 /**
@@ -18,6 +19,7 @@ public class ClientCommandPropositionDeSauvegardeOuContinuationPartie extends Cl
 	public void execute(ServerListener _server){
 		JeuPanel jeu = _server.getJeu();
 		
+		Partie partie = jeu.getClient().getPartie();
 		Joueur joueur = (Joueur)arguments[0];// joueur qui s'est deconnecté
 		
 		ArrayList<String> choixPossible = new ArrayList<String>();
@@ -30,8 +32,9 @@ public class ClientCommandPropositionDeSauvegardeOuContinuationPartie extends Cl
 		if (choix == 1){
 			continuer = false;
 		}
+		
 		// on envoi la reponse au serveur
-		Object[] args = { Commande.PROPOSER_SAUVEGARDE_OU_CONTINUER_PARTIE,continuer,joueur };
+		Object[] args = { Commande.PROPOSER_SAUVEGARDE_OU_CONTINUER_PARTIE,continuer,partie };
 		_server.sendCommand(args);
 		
 		if (!continuer){

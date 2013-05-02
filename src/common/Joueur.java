@@ -128,7 +128,7 @@ public class Joueur implements Serializable{
 	}
 	
 	public Socket getSocket(){
-		if (clientListener != null && !clientListener.getSocket().isClosed()){
+		if (clientListener != null && clientListener.getSocket() != null && !clientListener.getSocket().isClosed()){
 			return clientListener.getSocket();
 		}else{
 			return null;

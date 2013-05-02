@@ -25,7 +25,28 @@ public class ServerCommandPropositionDeSauvegardeOuContinuationPartie extends Se
 		Partie partie = server.getPartieWhereJoueur(joueur);
 		
 		boolean continuer = (boolean)arguments[0];
-		if (!continuer){
+		if (continuer){
+			// on supprime seulement le joueur qui s'est deconnecte
+			Partie newPartie = (Partie)arguments[1];
+			
+			// suppression du joueur a la fois sur la partie sur le serveur et sur la partie recu du joueur admin
+			for (int i = 0 ; i < partie.getListeParticipants().size() ; i++){
+				if (partie.getListeParticipants().get(i).getSocket() == null){
+					partie.getListeParticipants().remove(i);
+					newPartie.getListeParticipants().remove(i);
+				}
+			}
+			
+			// TODO: traiter le cas ou c'est au joueur a qui a la main (a qui c'est le tour) qui se deconnecte
+			
+			// puis on notifier a tous les joueurs qu'ils peuvent reprendre la partie
+			ArrayList<Joueur> joueurs = partie.getListeParticipants();
+			for (int i = 0 ; i < joueurs.size() ; i++){
+				Joueur joueurCourant = joueurs.get(i);
+				Object[] args = { Commande.SORTIE_PAUSE,newPartie,newPartie.getListeParticipants().get(i) };
+				joueurCourant.send(args);
+			}
+		}else{
 			// TODO:implementer ICI la sauvegarde de la partie au niveau du serveur
 			
 			// suppression de tous les joueurs de la liste du serveur apres les avoirs prevenu que la partie aller etre sauvegardee
@@ -44,18 +65,6 @@ public class ServerCommandPropositionDeSauvegardeOuContinuationPartie extends Se
 				}
 			}
 			partie.setEtatDeLaPartie(Etat.SAUVEGARDEE);
-		}else{
-			// on supprime seulement le joueur qui s'est deconnecte
-			Joueur joueurASupprimer = (Joueur)arguments[1];
-			ArrayList<Joueur> joueurs = partie.getListeParticipants();
-			joueurs.remove(joueurASupprimer);
-			server.remove(joueurASupprimer);
-			server.remove(partie);
-			// puis on notifier a tous les joueurs qu'ils peuvent reprendre la partie
-			for (int i = 0 ; i < joueurs.size() ; i++){
-				Object[] args = { Commande.SORTIE_PAUSE };
-				joueurs.get(i).send(args);
-			}
 		}
 		
 		
