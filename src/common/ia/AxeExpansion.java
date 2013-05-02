@@ -51,8 +51,9 @@ public class AxeExpansion {
 			Case positionNouveauBatiment = partie.getPlateau().getCasePlusProche(xConstruction, yConstruction);
 			
 			ElementPlateau elementSurCaseCible = partie.peutConstruireBatimentPosition(positionNouveauBatiment);
+			boolean pasEnBordDeMap = partie.pasEnBordDeMap(positionNouveauBatiment);
 			
-			if (elementSurCaseCible == null){ //si on peux construire
+			if (elementSurCaseCible == null && pasEnBordDeMap){ //si on peux construire
 				Batiment nouveauBatiment = new Batiment(TypeBatiment.GARAGE, iA.getNiveau(TypeBatiment.GARAGE), positionNouveauBatiment);
 				iA.ajouterBatiment(nouveauBatiment);		
 			}

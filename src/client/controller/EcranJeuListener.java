@@ -117,10 +117,10 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					if (ecranJeu.isModeCreationBatiment()){
 						
 						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position) == null;
-						
+						boolean pasEnBordDeMap = partie.pasEnBordDeMap(position);
 						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position);
 						
-						if (peuxConstruire && uniteConstructionProche){
+						if (peuxConstruire && uniteConstructionProche && pasEnBordDeMap){
 							TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
 							int niveau = joueur.getNiveau(type);
 							int montant = type.getPrix(niveau);
