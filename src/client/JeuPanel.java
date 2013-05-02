@@ -2,6 +2,7 @@ package client;
 
 import java.awt.CardLayout;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -298,4 +299,27 @@ public class JeuPanel extends JPanel implements Observer{
 		return client.getPartie().getJoueurCourant().getNiveau(uniteEnDeplacement.getType());
 	}
 	
+	
+	private int getChoiceIndex(String choice,Object[] choices){
+		if (choice != null && choices != null){
+			for (int i = 0 ; i < choices.length ; i++){
+				if (choice.equals(choices[i])){
+					return i;
+				}
+			}
+		}
+		return -1;
+	}
+	
+	public int getChoixSaisie(ArrayList<String> choixPossible,String title){
+		int choix = -1;
+		
+		Object[] choices = (choixPossible.toArray());
+		while (choix < 0){
+			String saisie = (String)JOptionPane.showInputDialog(this,title,title,JOptionPane.PLAIN_MESSAGE,null,choices,null);
+			choix = getChoiceIndex(saisie,choices);
+		}
+		
+		return choix;
+	}
 }

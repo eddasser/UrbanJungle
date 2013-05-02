@@ -24,6 +24,12 @@ public class ClientCommandFactory{
 		commandes.put(Commande.CREATION_PARTIE,new ClientCommandCreationPartie());
 		commandes.put(Commande.DEBUT_JEU,new ClientCommandDebutJeu());
 		commandes.put(Commande.UPDATE_TOUR,new ClientCommandUpdateTour());
+		commandes.put(Commande.DECONNEXION_UN_JOUEUR,new ClientCommandDeconnexionJoueur());
+		commandes.put(Commande.PROPOSER_SAUVEGARDE_PARTIE,new ClientCommandPropositionDeSauvegardePartie());
+		commandes.put(Commande.PROPOSER_SAUVEGARDE_OU_CONTINUER_PARTIE,new ClientCommandPropositionDeSauvegardeOuContinuationPartie());
+		commandes.put(Commande.MISE_EN_PAUSE,new ClientCommandMiseEnPausePartie());
+		commandes.put(Commande.SORTIE_PAUSE,new ClientCommandSortiePause());
+		commandes.put(Commande.NOTIFIER_JOUEUR_PARTIE_SAUVEGARDEE,new ClientCommandNotifierPartieSauvegardee());
 	}
 	
 	public static ClientCommand getCommand(Object[] args){
@@ -37,6 +43,16 @@ public class ClientCommandFactory{
 				Object[] args_without_first_element = Arrays.copyOfRange(args,1,args.length);
 				commande.setArguments(args_without_first_element);
 			}
+		}
+		
+		return commande;
+	}
+	
+	public static ClientCommand getCommand(Commande com){
+		ClientCommand commande = factory.commandes.get(Commande.ERROR);
+		
+		if (factory.commandes.containsKey(com)){
+			commande = factory.commandes.get(com);
 		}
 		
 		return commande;
