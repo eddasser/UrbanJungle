@@ -52,12 +52,6 @@ public class Joueur implements Serializable{
 		password = _password;
 	}
 	
-	@Override
-	public boolean equals(Object obj){
-		Joueur j = (Joueur)obj;
-		return login.equals(j.login);
-	}
-	
 	/*
 	 * methode qui permet d'initialiser le joueur courant à partir des informations du joueur en parametre (seule la socket n'est pas reprise)
 	 */
@@ -134,7 +128,11 @@ public class Joueur implements Serializable{
 	}
 	
 	public Socket getSocket(){
-		return clientListener.getSocket();
+		if (clientListener != null && !clientListener.getSocket().isClosed()){
+			return clientListener.getSocket();
+		}else{
+			return null;
+		}
 	}
 	
 	public ClientListener getClientListener(){
@@ -446,5 +444,5 @@ public class Joueur implements Serializable{
 		
 		return res;
 	}
-
+	
 }

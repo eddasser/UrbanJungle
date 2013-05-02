@@ -114,7 +114,7 @@ public class Partie implements Serializable{
 		}else if (etatDeLaPartie == Etat.SAUVEGARDEE){
 			for (int i = 0 ; !placeDisponible && i < listeParticipants.size() ; i++){
 				Joueur joueur = listeParticipants.get(i);
-				if (joueur.getSocket().isClosed()){
+				if (joueur.getSocket() == null){
 					placeDisponible = true;
 				}
 			}
@@ -146,7 +146,7 @@ public class Partie implements Serializable{
 			boolean ajoute = false;
 			for (i = 0 ; !ajoute && i < listeParticipants.size() ; i++){
 				Joueur joueurCourant = listeParticipants.get(i);
-				if (joueurCourant.getSocket().isClosed()){
+				if (joueurCourant.getSocket() == null){
 					joueur.initialiserJoueur(joueurCourant);
 					listeParticipants.remove(joueurCourant);
 					ajoute = true;
@@ -286,7 +286,7 @@ public class Partie implements Serializable{
 		
 		proprio = getProprioBatiment(element);
 		
-		if ( proprio == null){
+		if (proprio == null){
 			proprio = getProprioUnite(element);
 		}
 		
@@ -299,8 +299,8 @@ public class Partie implements Serializable{
 	public Joueur getProprioUnite(ElementPlateau element){
 		Joueur proprio = null;
 		
-		for ( Joueur joueurTmp : listeParticipants){ // pour chaque joueur
-			if (proprio == null ){
+		for (Joueur joueurTmp : listeParticipants){ // pour chaque joueur
+			if (proprio == null){
 				for (int i = 0 ; i < joueurTmp.getUnites().size() ; i++){
 					Unite unite_courante = joueurTmp.getUnites().get(i);
 					if (unite_courante.equals(element)){
@@ -319,8 +319,8 @@ public class Partie implements Serializable{
 	public Joueur getProprioBatiment(ElementPlateau element){
 		Joueur proprio = null;
 		
-		for ( Joueur joueurTmp : listeParticipants){ // pour chaque joueur
-			if (proprio == null ){
+		for (Joueur joueurTmp : listeParticipants){ // pour chaque joueur
+			if (proprio == null){
 				for (int i = 0 ; i < joueurTmp.getBatiments().size() ; i++){
 					Batiment batiment_courant = joueurTmp.getBatiments().get(i);
 					if (batiment_courant.equals(element)){

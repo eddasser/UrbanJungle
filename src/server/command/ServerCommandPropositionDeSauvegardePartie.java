@@ -24,29 +24,31 @@ public class ServerCommandPropositionDeSauvegardePartie extends ServerCommand{
 		Partie partie = server.getPartieWhereJoueur(joueur);
 		
 		boolean sauvegarder = (boolean)arguments[0];
+		
+		// d'abord on suppression de tous les joueurs de la liste du serveur
+		ArrayList<Joueur> joueurs = partie.getListeParticipants();
+		for (int i = 0 ; i < joueurs.size() ; i++){
+			server.remove(joueurs.get(i));
+			try{
+				joueurs.get(i).getSocket().close();
+			}catch (IOException e){
+				e.printStackTrace();
+			}
+		}
+		// puis on suppression de la partie en elle-meme
+		server.remove(partie);
+		
 		if (sauvegarder){
 			// TODO:implementer ICI la sauvegarde de la partie au niveau du serveur
 			
-			// suppression de tous les joueurs de la liste du serveur
+			// on recupere la partie a sauvegarde (tel que l'admin l'a connait)
+			Partie partieASauvegarder = (Partie)arguments[1];
+			
 			// et changement d'etat de la partie
-			ArrayList<Joueur> joueurs = partie.getListeParticipants();
-			for (int i = 0 ; i < joueurs.size() ; i++){
-				server.remove(joueurs.get(i));
-				try{
-					joueurs.get(i).getSocket().close();
-				}catch (IOException e){
-					e.printStackTrace();
-				}
-			}
-			partie.setEtatDeLaPartie(Etat.SAUVEGARDEE);
-		}else{
-			// suppression de tous les joueurs de la liste du serveur
-			// puis suppression de la partie en elle-meme
-			ArrayList<Joueur> joueurs = partie.getListeParticipants();
-			for (int i = 0 ; i < joueurs.size() ; i++){
-				server.remove(joueurs.get(i));
-			}
-			server.remove(partie);
+			partieASauvegarder.setEtatDeLaPartie(Etat.SAUVEGARDEE);
+			
+			// puis on l'ajoute a la liste du server
+			server.add(partieASauvegarder);
 		}
 		/**/
 	}
