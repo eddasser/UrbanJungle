@@ -152,6 +152,7 @@ public class Partie implements Serializable{
 					ajoute = true;
 				}
 			}
+			if (i > listeParticipants.size()) i--;
 		}
 		listeParticipants.add(i,joueur);
 	}

@@ -1,6 +1,5 @@
 package server.command;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import server.ClientListener;
@@ -47,24 +46,34 @@ public class ServerCommandPropositionDeSauvegardeOuContinuationPartie extends Se
 				joueurCourant.send(args);
 			}
 		}else{
-			// TODO:implementer ICI la sauvegarde de la partie au niveau du serveur
-			
 			// suppression de tous les joueurs de la liste du serveur apres les avoirs prevenu que la partie aller etre sauvegardee
 			// et changement d'etat de la partie
 			ArrayList<Joueur> joueurs = partie.getListeParticipants();
 			for (int i = 0 ; i < joueurs.size() ; i++){
 				// prevenir le joueur que l'administrateur a choisi de sauvegarder la partie
 				Object[] args = { Commande.NOTIFIER_JOUEUR_PARTIE_SAUVEGARDEE };
-				joueurs.get(i).send(args);
+				if (joueurs.get(i).getSocket() != null){
+					// on verifie qu'il s'agit pas bien sur du joueur qui vient de se deconnecter
+					joueurs.get(i).send(args);
+				}
+				ClientListener clientListener = joueurs.get(i).getClientListener();
+				clientListener.deconnexion();
 				
 				server.remove(joueurs.get(i));
-				try{
-					joueurs.get(i).getSocket().close();
-				}catch (IOException e){
-					e.printStackTrace();
-				}
 			}
-			partie.setEtatDeLaPartie(Etat.SAUVEGARDEE);
+			server.remove(partie);
+			
+			
+			// TODO:implementer ICI la sauvegarde de la partie au niveau du serveur (sous forme de fichier)
+			
+			// on recupere la partie a sauvegarde (tel que l'admin l'a connait)
+			Partie partieASauvegarder = (Partie)arguments[1];
+			
+			// et changement d'etat de la partie
+			partieASauvegarder.setEtatDeLaPartie(Etat.SAUVEGARDEE);
+			
+			// puis on l'ajoute a la liste du server
+			server.add(partieASauvegarder);
 		}
 		
 		
