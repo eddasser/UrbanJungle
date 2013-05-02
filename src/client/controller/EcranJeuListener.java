@@ -209,7 +209,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 								JoueurIA joueurIA = (JoueurIA)partie.getJoueurCourant();
 								joueurIA.jouer(partie);
 								
-								int random = 2000;
+								int random = 0;// changer le temps d'attente de l'ia TODO
 								Timer timer = new Timer();
 								timer.schedule(new TimerTask(){
 									@Override
