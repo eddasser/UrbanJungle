@@ -36,6 +36,7 @@ public class EcranJeu extends NamedJPanel{
 	
 	private EcranPlateau ecranPlateau;
 	private EcranAttenteTour ecranAttenteTour;
+	private EcranAttenteDecisionAdminPartie ecranAttenteDecisionAdmin;
 	
 	private EcranSauvegardePartie ecranSauvegardePartie;
 	private EcranFinPartie ecranFinPartie;
@@ -55,7 +56,7 @@ public class EcranJeu extends NamedJPanel{
 	private ToolTipInfo tooltip;
 	
 	// permet de gerer correctement l'affichage en cas de nouvelle partie solo apres avoir quitté une premiere partie
-	private boolean premierePartie; 
+	private boolean premierePartie;
 	
 	
 	public EcranJeu(JeuPanel jeu,JLayeredPane layeredPane){
@@ -68,6 +69,7 @@ public class EcranJeu extends NamedJPanel{
 		ongletBatiment = new OngletBatimentPanel(jeu);
 		ongletUnite = new OngletUnitePanel(jeu);
 		ecranAttenteTour = new EcranAttenteTour(jeu);
+		ecranAttenteDecisionAdmin = new EcranAttenteDecisionAdminPartie(jeu);
 		ecranPlateau = new EcranPlateau(jeu);
 		ecranAffichageDeplacement = new EcranAffichageDeplacement();
 		ecranSauvegardePartie = new EcranSauvegardePartie(jeu);
@@ -99,6 +101,8 @@ public class EcranJeu extends NamedJPanel{
 			tooltip.setVisible(false);
 			
 			layeredPane.add(ecranAttenteTour,new Integer(200));
+			layeredPane.add(ecranAttenteDecisionAdmin,new Integer(200));
+			ecranAttenteDecisionAdmin.setVisible(false);
 			
 			layeredPane.add(ecranSauvegardePartie,new Integer(250));
 			ecranSauvegardePartie.setVisible(false);
@@ -249,6 +253,20 @@ public class EcranJeu extends NamedJPanel{
 		return (typeElementEnConstruction instanceof TypeUnite);
 	}
 	
+	public void afficherEcranAttenteDecisionAdmin(){
+		cacherTousLesOngets();
+		ecranAttenteTour.setVisible(false);
+		ecranAttenteDecisionAdmin.setVisible(true);
+	}
+	
+	public void cacherEcranAttenteDecisionAdmin(){
+		ecranAttenteDecisionAdmin.setVisible(false);
+	}
+	
+	public boolean isEnAttenteDecision(){
+		return ecranAttenteDecisionAdmin.isVisible();
+	}
+	
 	public void setPositionSouris(int x,int y){
 		if (uniteEnDeplacement != null){
 			x -= Constante.DECALAGE_PLATEAU_X;
@@ -319,35 +337,35 @@ public class EcranJeu extends NamedJPanel{
 		ecranPlateau.setVisible(false);
 		ecranFinPartie.setVisible(false);
 	}
-
-	public void afficherZonePlacementUnite() {
+	
+	public void afficherZonePlacementUnite(){
 		cacherZonePlacementBatiment();
 		ecranPlateau.setCreationUnite(true);
 		ecranPlateau.repaint();
 	}
 	
-	public void cacherZonePlacementUnite() {
+	public void cacherZonePlacementUnite(){
 		ecranPlateau.setCreationUnite(false);
 		ecranPlateau.repaint();
 	}
 	
-	public void afficherZonePlacementBatiment() {
+	public void afficherZonePlacementBatiment(){
 		cacherZonePlacementUnite();
 		ecranPlateau.setCreationBatiment(true);
 		ecranPlateau.repaint();
 	}
 	
-	public void cacherZonePlacementBatiment() {
+	public void cacherZonePlacementBatiment(){
 		ecranPlateau.setCreationBatiment(false);
 		ecranPlateau.repaint();
 	}
-
-	public void afficherEcranFinPartie() {
+	
+	public void afficherEcranFinPartie(){
 		cacherPlateau();
 		ecranFinPartie.setVisible(true);
 	}
-
-	public EcranFinPartie getEcranFinPartie() {
+	
+	public EcranFinPartie getEcranFinPartie(){
 		return ecranFinPartie;
 	}
 }

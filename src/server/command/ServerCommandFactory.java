@@ -24,6 +24,8 @@ public class ServerCommandFactory{
 		commandes.put(Commande.CREATION_PARTIE,new ServerCommandCreationPartie());
 		commandes.put(Commande.DECONNEXION,new ServerCommandDeconnexion());
 		commandes.put(Commande.FIN_TOUR,new ServerCommandFinTour());
+		commandes.put(Commande.PROPOSER_SAUVEGARDE_PARTIE,new ServerCommandPropositionDeSauvegardePartie());
+		commandes.put(Commande.PROPOSER_SAUVEGARDE_OU_CONTINUER_PARTIE,new ServerCommandPropositionDeSauvegardeOuContinuationPartie());
 	}
 	
 	public static ServerCommand getCommand(Object[] args){

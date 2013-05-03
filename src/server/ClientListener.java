@@ -22,6 +22,9 @@ public class ClientListener implements Runnable,Serializable{
 	private Socket socket;
 	private ObjectOutputStream out; // flux de sortie d'objet
 	private ObjectInputStream in; // flux d'entrée d'objet
+	private Thread thd;
+	
+	private boolean continu;
 	
 	public ClientListener(Server server,Socket _socket){
 		this.server = server;
@@ -32,9 +35,10 @@ public class ClientListener implements Runnable,Serializable{
 		}catch (IOException e){
 			e.printStackTrace();
 		}
+		continu = true;
 		
-		Thread thread = new Thread(this);
-		thread.start();
+		thd = new Thread(this);
+		thd.start();
 	}
 	
 	public Socket getSocket(){
@@ -57,15 +61,25 @@ public class ClientListener implements Runnable,Serializable{
 	@Override
 	public void run(){
 		try{
-			while (true){
+			while (continu){
 				// on recupere la commande que nous a envoyer le client puis on l'execute
 				Object[] args = (Object[])in.readObject();
 				ServerCommand command = ServerCommandFactory.getCommand(args);
 				command.execute(this);
 			}
+			if (in != null) in.close();
+			if (out != null) out.close();
+			if (socket != null) socket.close();
 		}catch (ClassNotFoundException | IOException e){
 			// e.printStackTrace();
 		}
 	}
 	
+	public void deconnexion(){
+		continu = false;
+		thd = null;
+		socket = null;
+		out = null;
+		in = null;
+	}
 }

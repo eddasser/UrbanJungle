@@ -61,10 +61,9 @@ public class ServerListener implements Runnable{
 				ClientCommand command = ClientCommandFactory.getCommand(args);
 				command.execute(this);
 			}
-			
-			in.close();
-			out.close();
-			socket.close();
+			if (in != null) in.close();
+			if (out != null) out.close();
+			if (socket != null) socket.close();
 		}catch (java.io.EOFException e){
 			deconnexion();
 			jeu.notificationJoueur(Translator.translate("LeServerNEstPlusAccessible"));

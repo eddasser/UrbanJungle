@@ -23,7 +23,13 @@ public class ClientCommandUpdateTour extends ClientCommand{
 		jeu.getClient().setPartie(partie);
 		jeu.getClient().setJoueur(joueur);
 		jeu.getClient().update();
-		
+		/*
+		if (partie.getJoueurCourant().equals(joueur)){
+			System.out.println("CEST MON TOUR" + joueur.getLogin());
+		}else{
+			System.out.println("CEST PAS MON TOUR" + joueur.getLogin() + " Mais c'est le tour de : " + partie.getJoueurCourant().getLogin());
+		}
+		/**/
 		EcranJeu ej = JeuPanel.getEcranJeu();
 		if (isMonTour){
 			ej.cacherEcranAttente();

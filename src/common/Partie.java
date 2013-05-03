@@ -40,6 +40,20 @@ public class Partie implements Serializable{
 		this.solo = solo;
 	}
 	
+	/*
+	 * methode qui permet d'initialiser la partie courante à partir des informations de la partie en parametre
+	 */
+	public void initialiserPartie(Partie partie){
+		nomPartie = partie.nomPartie;
+		nbJoueur = partie.nbJoueur;
+		listeParticipants = partie.listeParticipants;
+		indiceJoueurCourant = partie.indiceJoueurCourant;
+		etatDeLaPartie = partie.etatDeLaPartie;
+		password = partie.password;
+		plateau = partie.plateau;
+		solo = partie.solo;
+	}
+	
 	public void initialiserPartie(){
 		// methode qui va creer les QG et donner au joueur leur argent de depart et désigner un joueur de départ
 		ArrayList<Case> cases = plateau.getCases();
@@ -93,11 +107,20 @@ public class Partie implements Serializable{
 	}
 	
 	public boolean placeDisponible(){
+		boolean placeDisponible = false;
+		
 		if (listeParticipants.size() < nbJoueur){
-			return true;
-		}else{
-			return false;
+			placeDisponible = true;
+		}else if (etatDeLaPartie == Etat.SAUVEGARDEE){
+			for (int i = 0 ; !placeDisponible && i < listeParticipants.size() ; i++){
+				Joueur joueur = listeParticipants.get(i);
+				if (joueur.getSocket() == null){
+					placeDisponible = true;
+				}
+			}
 		}
+		
+		return placeDisponible;
 	}
 	
 	public boolean necessitePassword(){
@@ -116,8 +139,22 @@ public class Partie implements Serializable{
 	}
 	
 	
-	public void addJoueur(Joueur j){
-		listeParticipants.add(j);
+	public void addJoueur(Joueur joueur){
+		int i = listeParticipants.size();
+		if (etatDeLaPartie == Etat.SAUVEGARDEE){
+			// dans le cas d'une partie sauvegardee, on met seulement a jour la socket vers le joueur
+			boolean ajoute = false;
+			for (i = 0 ; !ajoute && i < listeParticipants.size() ; i++){
+				Joueur joueurCourant = listeParticipants.get(i);
+				if (joueurCourant.getSocket() == null){
+					joueur.initialiserJoueur(joueurCourant);
+					listeParticipants.remove(joueurCourant);
+					ajoute = true;
+				}
+			}
+			if (i > listeParticipants.size()) i--;
+		}
+		listeParticipants.add(i,joueur);
 	}
 	
 	public String getNomPartie(){
@@ -136,7 +173,7 @@ public class Partie implements Serializable{
 		return listeParticipants.size();
 	}
 	
-	public void setNbJoueur(int nbJoueur){
+	public void setNbJoueurRequis(int nbJoueur){
 		this.nbJoueur = nbJoueur;
 	}
 	
@@ -166,6 +203,18 @@ public class Partie implements Serializable{
 	
 	public Joueur getJoueurAdmin(){
 		return listeParticipants.get(0);
+	}
+	
+	/*
+	 *  retourne le nouvel admin apres la deconnexion du joueur en parametre
+	 */
+	public Joueur getJoueurAdminApresDeconnexion(Joueur joueur){
+		if (joueur.equals(getJoueurAdmin())){
+			// si le joueur qui s'est deconnecter était l'admin , on retourne le joueur suivant
+			return listeParticipants.get(1);
+		}else{
+			return listeParticipants.get(0);
+		}
 	}
 	
 	public void setJoueurAdmin(Joueur joueurAdmin){
@@ -240,7 +289,7 @@ public class Partie implements Serializable{
 		
 		proprio = getProprioBatiment(element);
 		
-		if ( proprio == null){
+		if (proprio == null){
 			proprio = getProprioUnite(element);
 		}
 		
@@ -253,8 +302,8 @@ public class Partie implements Serializable{
 	public Joueur getProprioUnite(ElementPlateau element){
 		Joueur proprio = null;
 		
-		for ( Joueur joueurTmp : listeParticipants){ // pour chaque joueur
-			if (proprio == null ){
+		for (Joueur joueurTmp : listeParticipants){ // pour chaque joueur
+			if (proprio == null){
 				for (int i = 0 ; i < joueurTmp.getUnites().size() ; i++){
 					Unite unite_courante = joueurTmp.getUnites().get(i);
 					if (unite_courante.equals(element)){
@@ -273,8 +322,8 @@ public class Partie implements Serializable{
 	public Joueur getProprioBatiment(ElementPlateau element){
 		Joueur proprio = null;
 		
-		for ( Joueur joueurTmp : listeParticipants){ // pour chaque joueur
-			if (proprio == null ){
+		for (Joueur joueurTmp : listeParticipants){ // pour chaque joueur
+			if (proprio == null){
 				for (int i = 0 ; i < joueurTmp.getBatiments().size() ; i++){
 					Batiment batiment_courant = joueurTmp.getBatiments().get(i);
 					if (batiment_courant.equals(element)){
