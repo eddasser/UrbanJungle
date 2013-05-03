@@ -6,13 +6,13 @@ import java.awt.GridLayout;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
 import client.Client;
 import client.JeuPanel;
 import client.controller.OngletVilleListener;
+import client.view.JCoolButton;
 
 import common.Constante;
 import common.Joueur;
@@ -67,7 +67,7 @@ public class OngletVillePanel extends OngletPanel{
 			JLabel labelRevenu = new HTMLabel(Constante.formatArgent(type.getRevenu(niveau)),Constante.formatArgent(type.getRevenu(niveau + 1)));
 			panelContenu.add(labelRevenu);
 			
-			JButton buttonLevelUp = new JButton(Constante.formatArgent(type.getMontantLevelUp(niveau)));
+			JCoolButton buttonLevelUp = new JCoolButton(Constante.formatArgent(type.getMontantLevelUp(niveau)));
 			panelContenu.add(buttonLevelUp);
 			
 			buttonLevelUp.addActionListener(new OngletVilleListener(jeu,joueur,type));
