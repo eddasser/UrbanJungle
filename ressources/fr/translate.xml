@@ -300,4 +300,8 @@
 		<name>partiePerdu</name>
 		<value>Désolé mais vous perdez cette partie</value>
 	</parameter>
+	<parameter>
+		<name>AttenteDesAutresJoueurs</name>
+		<value>nous attendons d'autres joueurs pour lancer la partie</value>
+	</parameter>
 </configuration>

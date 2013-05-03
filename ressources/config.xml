@@ -52,7 +52,7 @@
   </parameter>
   <parameter>
     <name>DB_USERPASSWORD</name>
-    <value>root</value>
+    <value></value>
   </parameter>
   
 </configuration>

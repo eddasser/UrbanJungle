@@ -67,12 +67,12 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 		
 		// placement précis pour les composant se superposetn parfaitement a l'image chargé en fond
 		// la heuteur du panel est recalculé en fonction du nb de ligne a afficher + l'entete des colonnes
-		scrollPane.setBounds(110,220,800,300);
+		scrollPane.setBounds(110,250,800,270);
 		add(scrollPane);
 		
-		creerPartie.setBounds(450,160,200,50);
-		deconnexion.setBounds(700,160,200,50);
-		rafraichir.setBounds(245,528,200,25);
+		creerPartie.setBounds(450,528,200,50);
+		deconnexion.setBounds(700,528,200,50);
+		rafraichir.setBounds(412,190,200,50);
 		
 		add(creerPartie);
 		add(deconnexion);

@@ -17,7 +17,7 @@ public class ClientCommandRejoindrePartie extends ClientCommand{
 		boolean rejoint = (boolean)arguments[0];
 		String message_erreur = (String)arguments[1];
 		
-		System.out.println("Rejoindre partie : " + rejoint + " ( " + message_erreur + ")");
+		System.out.println("Rejoindre partie : " + rejoint + " ( " + message_erreur + ")"); 
 		
 		if (!rejoint){
 			jeu.notificationJoueur(Translator.translate("rejoindrePartieImpossible"));
