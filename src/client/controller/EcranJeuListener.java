@@ -117,10 +117,10 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					if (ecranJeu.isModeCreationBatiment()){
 						
 						boolean peuxConstruire = partie.peutConstruireBatimentPosition(position) == null;
-						
+						boolean pasEnBordDeMap = partie.pasEnBordDeMap(position);
 						boolean uniteConstructionProche = joueur.aUniteConstructionProche(position);
 						
-						if (peuxConstruire && uniteConstructionProche){
+						if (peuxConstruire && uniteConstructionProche && pasEnBordDeMap){
 							TypeBatiment type = (TypeBatiment)ecranJeu.getTypeElementEnConstruction();
 							int niveau = joueur.getNiveau(type);
 							int montant = type.getPrix(niveau);
@@ -209,7 +209,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 								JoueurIA joueurIA = (JoueurIA)partie.getJoueurCourant();
 								joueurIA.jouer(partie);
 								
-								int random = 2000;
+								int random = 0;// changer le temps d'attente de l'ia TODO
 								Timer timer = new Timer();
 								timer.schedule(new TimerTask(){
 									@Override

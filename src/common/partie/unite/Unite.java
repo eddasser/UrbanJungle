@@ -57,4 +57,34 @@ public class Unite extends ElementPlateau implements Serializable{
 	public void decrementDeplacementRestant(int nbCases){
 		deplacementRestant -= nbCases;
 	}
+	
+	// methode deplacement possible avec calcul plus precis pour les deplacement en ligne et colonne
+	public boolean peutBougerVers(int x, int y, char direction) {
+		
+		boolean deplacementPossible = false;
+
+		// on calcul la distance maximal que peut parcourrir l'unite 
+		double dMax;
+		if ( direction == 'h' ){//deplacement horizontal, calcul basé sur les x
+			dMax = deplacementRestant * Constante.LARGEUR_CASE;
+		}else{//deplacement vertical, calcul basé sur les y
+			dMax = deplacementRestant * Constante.HAUTEUR_CASE;
+		}
+		
+		int dTotal;
+		// on calcul la distance total a parcourir
+		if ( direction == 'h' ){//deplacement horizontal, calcul basé sur les x
+			dTotal = position.getX() - x;
+		}else{//deplacement vertical, calcul basé sur les y
+			dTotal = position.getY() - y;
+		}
+		if (dTotal < 0){dTotal = (-1)*dTotal;} //valeur absolu
+			
+		
+		if (dTotal <= dMax){
+			deplacementPossible = true;
+		}
+		
+		return deplacementPossible;
+	}
 }

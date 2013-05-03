@@ -1,12 +1,11 @@
 package common.ia;
 
+import java.util.ArrayList;
+
 import client.JeuPanel;
 
 import common.Constante;
-import common.ElementPlateau;
 import common.Partie;
-import common.partie.unite.TypeUnite;
-import common.partie.unite.Unite;
 
 
 /**
@@ -16,40 +15,56 @@ public class JoueurIAHasard extends JoueurIA{
 	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
 	
-	boolean first = true;
-	boolean QGdetruit = false;
+	private boolean first = true; // flag permettant de faire un traitement spécial au premier tour 
+	
+	private ArrayList<AxeExpansion> listeAxeExpansion;
+	private ArrayList<AxeAttaque> listeAxeAttaque;	
+	
+	private Partie partie;
 	
 	public JoueurIAHasard(){
 		super(null,"IA","");
+		listeAxeExpansion = new ArrayList<AxeExpansion>();
+		listeAxeAttaque = new ArrayList<AxeAttaque>();
 	}
 	
 	@Override
-	public void jouer(Partie partie){
+	public void jouer(Partie partie_){
 				
-		if (first){
+		this.partie = partie_;
+		if (first){ // au prmeier tour on cree deux axe d'expansion chargé d'assurer un peu de revenu en construisant des batiments sur la map
+			//creation axe expansion gauche
+			AxeExpansion axeExpansionGauche = new AxeExpansion(partie, this, getBatiments().get(0), "gauche");
+			listeAxeExpansion.add(axeExpansionGauche);
 			
-			for (int i =900 ; i< 1080; i++){
-				ajouterUnite(new Unite(TypeUnite.CAID,200,partie.getPlateau().getCases().get(i)));
-			}
+			//creation axe expansion bas
+			AxeExpansion axeExpansionBas = new AxeExpansion(partie, this, getBatiments().get(0), "bas");
+			listeAxeExpansion.add(axeExpansionBas);
+			
 			first = false;
 		}
 		
-		int x = partie.getPlateau().getCases().get(1082).getX();
-		int y = partie.getPlateau().getCases().get(1082).getY();
+		// execution des axe d'expension
+		for ( AxeExpansion axeExpansion : listeAxeExpansion){
+			axeExpansion.executeTour();
+		}
 		
-		ElementPlateau elementSurCase = partie.elementSurCase(partie.getPlateau().getCases().get(1081));
+		// execution des axes d'attaque
+		for ( AxeAttaque axeAttaque : listeAxeAttaque){
+			axeAttaque.executeTour();
+		}
+		System.out.println();
+	}
+	
+	//methode permettant de savoir si on detruit le qg enemi et de lancer la fin de la partie
+	public void aDetruitQG(){
+		partie.passerTour();
+		JeuPanel.getEcranJeu().getEcranFinPartie().setTextPartiePerdu();
+		JeuPanel.getEcranJeu().afficherEcranFinPartie();
+	}
 
-		for ( Unite unit : getUnites()){
-			if ( unit.deplacementPossibleVersPosition(x, y)){
-				QGdetruit = elementSurCase.attaque(unit);
-			}
-		}
-		
-		if (QGdetruit){
-				partie.passerTour();
-				JeuPanel.getEcranJeu().getEcranFinPartie().setTextPartiePerdu();
-				JeuPanel.getEcranJeu().afficherEcranFinPartie();
-		}
+	public ArrayList<AxeAttaque> getListeAxeAttaque() {
+		return listeAxeAttaque;
 	}
 	
 }

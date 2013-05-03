@@ -254,8 +254,10 @@ public class Partie implements Serializable{
 		}
 		
 		// on verifie ensuite qu'il n'y a aucune unité à cette position
-		for (int i = 0 ; elementSurCase == null && i < listeParticipants.size() ; i++){
-			elementSurCase = listeParticipants.get(i).presenceDeUnitePosition(position);
+		if (elementSurCase == null){
+			for (int i = 0 ; elementSurCase == null && i < listeParticipants.size() ; i++){
+				elementSurCase = listeParticipants.get(i).presenceDeUnitePosition(position);
+			}
 		}
 		
 		return elementSurCase;
@@ -332,5 +334,18 @@ public class Partie implements Serializable{
 			}
 		}
 		return proprio;
+	}
+
+	public boolean pasEnBordDeMap(Case positionNouveauBatiment) {
+		boolean res = true;
+		
+		int xMAXAutorise = (Constante.NB_CASES_LARGEUR_PLATEAU-1)*Constante.LARGEUR_CASE;
+		int yMAXAutorise = (Constante.NB_CASES_HAUTEUR_PLATEAU-1)*Constante.HAUTEUR_CASE;
+		
+		if (positionNouveauBatiment.getX() >= xMAXAutorise || positionNouveauBatiment.getY() >= yMAXAutorise ){
+			res =false;
+		}
+		
+		return res;
 	}
 }
