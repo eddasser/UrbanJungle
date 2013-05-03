@@ -31,12 +31,16 @@ public class ServerCommandPropositionDeSauvegardeOuContinuationPartie extends Se
 			// suppression du joueur a la fois sur la partie sur le serveur et sur la partie recu du joueur admin
 			for (int i = 0 ; i < partie.getListeParticipants().size() ; i++){
 				if (partie.getListeParticipants().get(i).getSocket() == null){
+					if (newPartie.getJoueurCourant().equals(newPartie.getListeParticipants().get(i))){
+						// si le joueur a supprimer est également le joueur (qui a la main) à qui c'est le tour de jouer,
+						// alors on passe son tour
+						newPartie.passerTour();
+						partie.passerTour();
+					}
 					partie.getListeParticipants().remove(i);
 					newPartie.getListeParticipants().remove(i);
 				}
 			}
-			
-			// TODO: traiter le cas ou c'est au joueur a qui a la main (a qui c'est le tour) qui se deconnecte
 			
 			// puis on notifier a tous les joueurs qu'ils peuvent reprendre la partie
 			ArrayList<Joueur> joueurs = partie.getListeParticipants();
@@ -68,6 +72,9 @@ public class ServerCommandPropositionDeSauvegardeOuContinuationPartie extends Se
 			
 			// on recupere la partie a sauvegarde (tel que l'admin l'a connait)
 			Partie partieASauvegarder = (Partie)arguments[1];
+			
+			// on met a jour le nombre de joueur requis pr la partie
+			partieASauvegarder.setNbJoueurRequis(partieASauvegarder.getNbJoueurActuellement());
 			
 			// et changement d'etat de la partie
 			partieASauvegarder.setEtatDeLaPartie(Etat.SAUVEGARDEE);

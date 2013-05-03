@@ -10,9 +10,8 @@ public class ClientCommandMiseEnPausePartie extends ClientCommand{
 	
 	@Override
 	public void execute(ServerListener _server){
-		JeuPanel jeu = _server.getJeu();
-		
-		// TODO: implementer la mise en pause (en attendant le choix de l'admin)
+		// JeuPanel jeu = _server.getJeu();
+		JeuPanel.getEcranJeu().afficherEcranAttenteDecisionAdmin();
 	}
 	
 	

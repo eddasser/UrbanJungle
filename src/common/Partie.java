@@ -173,7 +173,7 @@ public class Partie implements Serializable{
 		return listeParticipants.size();
 	}
 	
-	public void setNbJoueur(int nbJoueur){
+	public void setNbJoueurRequis(int nbJoueur){
 		this.nbJoueur = nbJoueur;
 	}
 	

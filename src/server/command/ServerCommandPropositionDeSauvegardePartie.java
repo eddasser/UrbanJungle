@@ -39,6 +39,9 @@ public class ServerCommandPropositionDeSauvegardePartie extends ServerCommand{
 			// on recupere la partie a sauvegarde (tel que l'admin l'a connait)
 			Partie partieASauvegarder = (Partie)arguments[1];
 			
+			// on met a jour le nombre de joueur requis pr la partie
+			partieASauvegarder.setNbJoueurRequis(partieASauvegarder.getNbJoueurActuellement());
+			
 			// et changement d'etat de la partie
 			partieASauvegarder.setEtatDeLaPartie(Etat.SAUVEGARDEE);
 			

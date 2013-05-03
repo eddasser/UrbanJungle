@@ -25,6 +25,15 @@ public class ClientCommandSortiePause extends ClientCommand{
 		
 		jeu.chargerEcranJeu();
 		
+		JeuPanel.getEcranJeu().cacherEcranAttenteDecisionAdmin();
+		
+		if (joueur.equals(partie.getJoueurCourant())){
+			// s'il s'agit du joueur courant on lui affiche le plateu
+			JeuPanel.getEcranJeu().cacherEcranAttente();
+		}else{
+			JeuPanel.getEcranJeu().afficherEcranAttente();
+		}
+		
 		jeu.getClient().update();
 		JeuPanel.getEcranJeu().update();
 	}

@@ -16,6 +16,7 @@ public class ClientCommandNotifierPartieSauvegardee extends ClientCommand{
 		jeu.notificationJoueur(Translator.translate("LaPartieAEteSauvegardee"));
 		_server.deconnexion();
 		JeuPanel.getEcranJeu().cacherPlateau();
+		JeuPanel.getEcranJeu().cacherEcranAttenteDecisionAdmin();
 		jeu.chargerEcranChoixTypePartie();
 		jeu.getClient().update();
 	}
