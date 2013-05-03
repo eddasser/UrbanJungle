@@ -266,7 +266,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
 				Unite unite = ecranJeu.getUniteEnDeplacement();
 				
-				boolean deplacementPossible = unite.deplacementPossibleVersPosition(x,y);
+				boolean deplacementPossible = unite.deplacementPossibleVersPosition(jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y));
 				
 				// recuperation de l'element present sur la case ou l'on relache le bouton et son proprietaire
 				ElementPlateau elementSurCase = partie.elementSurCase(position);

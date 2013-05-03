@@ -35,19 +35,26 @@ public class Unite extends ElementPlateau implements Serializable{
 		this.deplacementRestant = deplacementRestant;
 	}
 	
-	public boolean deplacementPossibleVersPosition(int x,int y){
+	public boolean deplacementPossibleVersPosition(Case caseClique){
 		boolean deplacementPossible = false;
 		
-		// on part de la position centrale de la case ou se trouve l'unite
-		Case positionCentre = new Case(position.getX() + Constante.LARGEUR_CASE / 2,position.getY() + Constante.HAUTEUR_CASE / 2);
+		//coordonnée de l'unité
+		int xUnite = getPosition().getX();
+		int yUnite = getPosition().getY();
 		
-		// on calcul la distance maximal que peut parcourrir l'unite (on ajoute une marge = Constante.LARGEUR_CASE / 2 car on par du centre
-		double dMax = deplacementRestant * Constante.LARGEUR_CASE + Constante.LARGEUR_CASE / 2;
+		//coordonnée de la case cliqué
+		int xDestination = caseClique.getX();
+		int yDestination = caseClique.getY();
 		
-		// on calcul la distance total a parcourir
-		double dTotal = positionCentre.getDistance(x,y);
+		//limite de la zone cliquable
+		int xMin = xUnite - getDeplacementRestant()*Constante.LARGEUR_CASE;
+		int xMax = xUnite + Constante.LARGEUR_CASE + getDeplacementRestant()*Constante.LARGEUR_CASE;
 		
-		if (dTotal <= dMax){
+		int yMin = yUnite - getDeplacementRestant()*Constante.HAUTEUR_CASE;
+		int yMax = yUnite + Constante.HAUTEUR_CASE + getDeplacementRestant()*Constante.HAUTEUR_CASE;
+		
+		//si la case cliqué est dans la zone autorisé
+		if (xDestination >= xMin && xDestination < xMax && yDestination >= yMin && yDestination < yMax){
 			deplacementPossible = true;
 		}
 		
