@@ -209,7 +209,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 								JoueurIA joueurIA = (JoueurIA)partie.getJoueurCourant();
 								joueurIA.jouer(partie);
 								
-								int random = 500;// changer le temps d'attente de l'ia TODO
+								int random = 500;
 								Timer timer = new Timer();
 								timer.schedule(new TimerTask(){
 									@Override
@@ -278,6 +278,9 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					if (elementSurCase == null){ // si la case est libre, on deplace l'unité vers la case souhaité
 						int distance = (int)(position.getDistance(unite.getPosition()) / Constante.LARGEUR_CASE);
 						unite.decrementDeplacementRestant(distance);
+						if (unite.getDeplacementRestant()<0){
+							unite.setDeplacementRestant(0);
+						}
 						unite.setPosition(position);
 						
 					}else{ // si la case est occupé
