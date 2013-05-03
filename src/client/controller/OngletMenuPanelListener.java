@@ -34,8 +34,15 @@ public class OngletMenuPanelListener implements ActionListener{
 
 			int reponse = JOptionPane.showConfirmDialog(menuPanel.getPanelContenu(), Translator.translate("demandeConfirmationQuitterPartie"));
 			if (reponse == 0){
-				JeuPanel.getEcranJeu().cacherPlateau();
-				menuPanel.getJeu().chargerEcranChoixTypePartie();
+				
+				if (menuPanel.getJeu().getClient().getPartie().isSolo()){
+					JeuPanel.getEcranJeu().cacherPlateau();
+					menuPanel.getJeu().chargerEcranChoixTypePartie();
+				}else{
+					JeuPanel.getEcranJeu().cacherPlateau();
+					menuPanel.getJeu().chargerEcranMenuMultijoueur();
+				}
+				
 			}
 		}	
 	}
