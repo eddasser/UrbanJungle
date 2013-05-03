@@ -53,7 +53,6 @@ public class JoueurIAHasard extends JoueurIA{
 		for ( AxeAttaque axeAttaque : listeAxeAttaque){
 			axeAttaque.executeTour();
 		}
-		System.out.println();
 	}
 	
 	//methode permettant de savoir si on detruit le qg enemi et de lancer la fin de la partie

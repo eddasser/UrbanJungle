@@ -299,4 +299,19 @@ public class Partie implements Serializable{
 		
 		return res;
 	}
+
+	public void detruireElement(ElementPlateau elementEnnemi) {
+		Joueur proprio;
+		
+		proprio = getProprioBatiment(elementEnnemi);
+		
+		if ( proprio == null){
+			proprio = getProprioUnite(elementEnnemi);
+			proprio.getUnites().remove(elementEnnemi);
+		}else{
+			proprio.getBatiments().remove(elementEnnemi);
+		}
+		
+	}
+
 }

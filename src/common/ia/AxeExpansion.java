@@ -58,6 +58,7 @@ public class AxeExpansion {
 			if (elementSurCaseCible == null && pasEnBordDeMap){ //si on peux construire
 				Batiment nouveauBatiment = new Batiment(TypeBatiment.GARAGE, iA.getNiveau(TypeBatiment.GARAGE), positionNouveauBatiment);
 				iA.ajouterBatiment(nouveauBatiment);		
+				((JoueurIAHasard) iA).getListeAxeAttaque().add(new AxeAttaque(partie, iA, nouveauBatiment ));// on cree un axe d'attaque a partir de ce nouveau batiment
 				
 				int montant = TypeBatiment.GARAGE.getPrix(iA.getNiveau(TypeBatiment.GARAGE));
 				iA.decrementArgent(montant);

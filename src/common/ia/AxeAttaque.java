@@ -25,6 +25,8 @@ public class AxeAttaque {
 	private Batiment batimentSource;
 	private Case positionQGCible;
 	
+	private final static TypeUnite TYPE_UNITE_CREE = TypeUnite.BASTONNEUR;
+	
 	public AxeAttaque(Partie partie, Joueur iA,Batiment batimentSource) {
 		super();
 		this.partie = partie;
@@ -44,43 +46,80 @@ public class AxeAttaque {
 		
 		/** faire pop une unite */
 		//position1 = case juste en dessous du batiment
-		Case position1 = partie.getPlateau().getCasePlusProche(batimentSource.getPosition().getX()+5,batimentSource.getPosition().getY()+ 2*Constante.HAUTEUR_CASE+5);
-		Case position2 = partie.getPlateau().getCasePlusProche(batimentSource.getPosition().getX()-Constante.LARGEUR_CASE+5,batimentSource.getPosition().getY()+5);
+		Case position1 = partie.getPlateau().getCasePlusProche((batimentSource.getPosition().getX())+5,(batimentSource.getPosition().getY()+ 2*Constante.HAUTEUR_CASE)+5);
+		
+		Case position2 = partie.getPlateau().getCasePlusProche((batimentSource.getPosition().getX()-Constante.LARGEUR_CASE)+5,(batimentSource.getPosition().getY()+Constante.HAUTEUR_CASE)+5);
 		Unite attaquant;
 		
-		if (!batimentSource.equals(iA.getBatiments().get(0))){ // si batiment n'est pas le QG
+		if (! batimentSource.equals(iA.getBatiments().get(0))){ // si batiment n'est pas le QG
+			Case positionChoisie;
 			if (batimentSource.getPosition().getX() < iA.getBatiments().get(0).getPosition().getX()){
-				attaquant = new Unite(TypeUnite.CAID, iA.getNiveau(TypeUnite.CAID), position1);
+				attaquant = new Unite(TYPE_UNITE_CREE, iA.getNiveau(TYPE_UNITE_CREE), position1);
+				positionChoisie = position1;
 			}else{ //batiment sur la droite
-				attaquant = new Unite(TypeUnite.CAID, iA.getNiveau(TypeUnite.CAID), position2);
+				attaquant = new Unite(TYPE_UNITE_CREE, iA.getNiveau(TYPE_UNITE_CREE), position2);
+				positionChoisie = position2;
 			}
 			
-			if (iA.getArgent() >= TypeUnite.CAID.getPrix( iA.getNiveau(TypeUnite.CAID))){
-				iA.ajouterUnite(attaquant);
-				listeAttaquant.add(attaquant);
-				iA.decrementArgent(TypeUnite.CAID.getPrix( iA.getNiveau(TypeUnite.CAID)));
+			if (iA.getArgent() >= TYPE_UNITE_CREE.getPrix( iA.getNiveau(TYPE_UNITE_CREE))){
+				
+				/** on verifie que la case est libre et on ajoute l'unite dessus */
+				ElementPlateau element = iA.getBatimentSurCase(positionChoisie); // on verifie qu'un batiment alie est pas sur la case
+				
+				if ( element == null){ // on verifie si une unite alié est sur la case
+					element = iA.getUniteSurCase(positionChoisie);
+				} // si la case contient un batiment ou une unite du joueur, element est != null
+				
+				if ( element == null){
+					iA.ajouterUnite(attaquant);
+					listeAttaquant.add(attaquant);
+					iA.decrementArgent(TYPE_UNITE_CREE.getPrix( iA.getNiveau(TYPE_UNITE_CREE)));
+				}
 			}
 		}
 		
 		/** faire bouger l'unite */
 		for(Unite unite : listeAttaquant){
 		
-			/** on etabli la liste des cases a portee de l'unite */
+			/** on etabli la liste des cases a portee de l'unite qui ne sont pas occupé par une unite ou un batiment alié*/
 			int xInfZoneDeplacement = unite.getPosition().getX()-(unite.getDeplacementRestant()*Constante.LARGEUR_CASE);
-			int xSupZoneDeplacement = unite.getPosition().getX()-(unite.getDeplacementRestant()*Constante.LARGEUR_CASE)+Constante.LARGEUR_CASE;
+			if ( xInfZoneDeplacement < 0){
+				xInfZoneDeplacement=0;
+			}
+			
+			int xSupZoneDeplacement = unite.getPosition().getX()+(unite.getDeplacementRestant()*Constante.LARGEUR_CASE)+Constante.LARGEUR_CASE;
+			if ( xSupZoneDeplacement > 900){
+				xSupZoneDeplacement=900;
+			}
 			
 			int yInfZoneDeplacement = unite.getPosition().getY()-(unite.getDeplacementRestant()*Constante.HAUTEUR_CASE);
-			int ySupZoneDeplacement = unite.getPosition().getY()-(unite.getDeplacementRestant()*Constante.HAUTEUR_CASE)+Constante.HAUTEUR_CASE;
+			if ( yInfZoneDeplacement < 0){
+				yInfZoneDeplacement=0;
+			}
+			
+			int ySupZoneDeplacement = unite.getPosition().getY()+(unite.getDeplacementRestant()*Constante.HAUTEUR_CASE)+Constante.HAUTEUR_CASE;
+			if ( ySupZoneDeplacement > 520){
+				ySupZoneDeplacement=520;
+			}
 			
 			ArrayList<Case> casePossible = new ArrayList<Case>();
 			
 			for (Case caseTmp : partie.getPlateau().getCases()){ //on recupere la liste des cases ou l'unité peut se deplacer
 				if (caseTmp.getX() >= xInfZoneDeplacement && caseTmp.getX() < xSupZoneDeplacement && caseTmp.getY() >= yInfZoneDeplacement && caseTmp.getY() < ySupZoneDeplacement){
-					casePossible.add(caseTmp);
+					
+					ElementPlateau element = iA.presenceDeBatimentPosition(caseTmp); // on verifie qu'un batiment alie est pas sur la case
+					
+					if ( element == null){ // on verifie si une unite alié est sur la case
+						element = iA.getUniteSurCase(caseTmp);
+					} 
+					
+					if ( element==null ){// si la case ne contient pas un batiment ou une unite alié
+						casePossible.add(caseTmp);
+					}
 				}
 			}
 			
-			/** on verifie  si des unite sont a portée pour les ataquer */
+			/** on verifie  si des unite ou des batiemnts enemis sont a portée pour les ataquer */
 			ElementPlateau elementEnnemi = null; 
 			
 			for ( Case caseTmp : casePossible){ // on cherche si un batiment ou une unité enemie est a portée
@@ -106,27 +145,26 @@ public class AxeAttaque {
 				boolean qgAttaque = elementEnnemi.getType().equals(TypeBatiment.QG);
 				boolean elementDetruit = elementEnnemi.attaque(unite);
 				
-				if (elementDetruit && qgAttaque){ //si l'element attaqué est un QG et qu'il a été detruit
-					((JoueurIAHasard) iA).aDetruitQG(); //on lance la fin de la partie
+				if (elementDetruit ){ //si l'element attaqué est un QG et qu'il a été detruit
+					if (qgAttaque){
+						((JoueurIAHasard) iA).aDetruitQG(); //on lance la fin de la partie
+					}else{
+						
+						partie.detruireElement(elementEnnemi);
+
+					}
 				}
 				
 			}else{ // si pas d'ennemi a attaquer, on deplace l'unité vers le QG cible
 				
-				Case destinationFinale=unite.getPosition();
-				double distanceMini = 1000000;
+				Case destinationFinale=unite.getPosition(); // on cherche la case libre la plus proche du qg cible en terme de distance
+				double distanceMini = Integer.MAX_VALUE;
 				
-				for ( Case caseTmp : casePossible){
-					
-					ElementPlateau element = iA.getBatimentSurCase(caseTmp); // on verifie qu'un batiment alie est pas sur la case
-					
-					if ( element == null){ // on verifie si une unite alié est sur la case
-						element = iA.getUniteSurCase(caseTmp);
-					} // si la case contient un batiment ou une unite du joueur, element est != null
-					
-					if ( element==null ){ //si la case est libre
-						if (caseTmp.getDistance(positionQGCible) < distanceMini){ //on calcule la distance entre chaque case possible et le qgEnemi
-							destinationFinale = caseTmp; //si la distance avec le QG ennemi ets plus petite que celle memorise, la case devient la destinationFinale de l'unite
-						}
+				for ( Case caseTmp : casePossible){	
+					double nouvelleDistance = caseTmp.getDistance(positionQGCible);
+					if (nouvelleDistance < distanceMini){ //on calcule la distance entre chaque case possible et le qgEnemi
+						distanceMini = nouvelleDistance;
+						destinationFinale = caseTmp; //si la distance avec le QG ennemi ets plus petite que celle memorise, la case devient la destinationFinale de l'unite
 					}	
 				}
 				
