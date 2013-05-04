@@ -334,7 +334,4 @@ public class JeuPanel extends JPanel implements Observer{
 		return tchatFrame;
 	}
 	
-	public void afficherTchat(Partie partie){
-		tchatFrame.initialise(partie,dialogueServeur);
-	}
 }

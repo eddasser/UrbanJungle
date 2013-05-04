@@ -40,6 +40,8 @@ public class TchatFrame extends JFrame{
 	private JTextField textField = new JTextField(20);
 	private JButton button = new JButton("OK");
 	
+	private TchatCheatCode tchatCheat;
+	
 	public TchatFrame(){
 		this.setSize(Constante.LARGEUR_FENETRE_PRINCIPALE / 3,Constante.HAUTEUR_FENETRE_PRINCIPALE / 2); // on fixe sa taille
 		setLocationRelativeTo(null);// on la place au centre de l'écran
@@ -49,9 +51,11 @@ public class TchatFrame extends JFrame{
 		textArea.setEditable(false);
 	}
 	
-	public void initialise(Partie partie,ServerListener server){
+	public void initialise(Partie partie,Joueur joueur,ServerListener server){
 		haut.removeAll();
 		bas.removeAll();
+		
+		tchatCheat = new TchatCheatCode(joueur);
 		
 		this.server = server;
 		
@@ -109,8 +113,10 @@ public class TchatFrame extends JFrame{
 	private void sendMessage(){
 		String text = textField.getText();
 		
-		Object[] args = { Commande.TCHAT_SEND_MESSAGE,text };
-		server.sendCommand(args);
+		if (!tchatCheat.execute(text)){
+			Object[] args = { Commande.TCHAT_SEND_MESSAGE,text };
+			server.sendCommand(args);
+		}
 		
 		textField.setText("");
 	}

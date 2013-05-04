@@ -68,12 +68,12 @@ public class Joueur implements Serializable{
 	 * incremente le niveau pour le type donnée du joueur
 	 * et retourne la difference de point de vie (entre l'ancien niveau et le nouveau niveau)
 	 */
-	private int incrementeNiveau(TypeElementPlateau type){
+	private int incrementeNiveau(TypeElementPlateau type,int nb){
 		// recuperation de l'ancien niveau de point de vie
 		int ancienPtsVieMax = type.getPointDeVie(niveaux.get(type));
 		
 		// incrementation du niveau
-		int niveau = niveaux.get(type) + 1;
+		int niveau = niveaux.get(type) + nb;
 		niveaux.put(type,niveau);
 		
 		// recuperation du nouveau niveau de point de vie
@@ -83,7 +83,11 @@ public class Joueur implements Serializable{
 	}
 	
 	public void incrementeNiveauBatiment(TypeBatiment type){
-		int differencePtsVie = incrementeNiveau(type);
+		incrementeNiveauBatiment(type,1);
+	}
+	
+	public void incrementeNiveauBatiment(TypeBatiment type,int nb){
+		int differencePtsVie = incrementeNiveau(type,nb);
 		
 		// incrementer les pts de vie des batiments avec la difference entre niveau
 		for (int i = 0 ; i < batiments.size() ; i++){
@@ -95,7 +99,11 @@ public class Joueur implements Serializable{
 	}
 	
 	public void incrementeNiveauUnite(TypeUnite type){
-		int differencePtsVie = incrementeNiveau(type);
+		incrementeNiveauUnite(type,1);
+	}
+	
+	public void incrementeNiveauUnite(TypeUnite type,int nb){
+		int differencePtsVie = incrementeNiveau(type,nb);
 		// incrmente les pts de vie des unités avec la difference entre niveau
 		for (int i = 0 ; i < unites.size() ; i++){
 			Unite unite = unites.get(i);
