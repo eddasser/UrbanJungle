@@ -35,6 +35,8 @@ public class ClientCommandJoueurPerdu extends ClientCommand{
 		}
 		jeu.getClient().update();
 		ej.update();
+		
+		jeu.getTchatFrame().dispose();
 	}
 	
 }

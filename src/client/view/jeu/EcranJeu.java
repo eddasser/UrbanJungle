@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 import client.Client;
 import client.JeuPanel;
 import client.controller.EcranJeuListener;
+import client.controller.KeyCheatCode;
 import client.view.NamedJPanel;
 
 import common.Constante;
@@ -132,6 +133,9 @@ public class EcranJeu extends NamedJPanel{
 			addMouseListener(ejl);
 			addMouseMotionListener(ejl);
 			
+			addKeyListener(new KeyCheatCode(joueur));
+			this.requestFocus();
+			
 			// on met le flag a faux
 			premierePartie = false;
 		}else{
@@ -228,6 +232,12 @@ public class EcranJeu extends NamedJPanel{
 		ongletMenu.updateContent();
 		ongletBatiment.updateContent();
 		ongletUnite.updateContent();
+		
+		ongletJoueur.validate();
+		ongletVille.validate();
+		ongletMenu.validate();
+		ongletBatiment.validate();
+		ongletUnite.validate();
 		
 		ecranAttenteTour.repaint();
 	}

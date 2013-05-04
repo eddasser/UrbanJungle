@@ -26,7 +26,7 @@ import common.partie.unite.TypeUnite;
 public class OngletJoueurPanel extends OngletPanel{
 	
 	private static final long serialVersionUID = Constante.NUMERO_DE_VERSION;
-
+	
 	public OngletJoueurPanel(JeuPanel jeu){
 		super(Translator.translate("amelioration_unite"),jeu);
 	}

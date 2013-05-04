@@ -28,6 +28,8 @@ public class ClientCommandJoueurGagnant extends ClientCommand{
 		ej.afficherEcranFinPartie();
 		jeu.getClient().update();
 		ej.update();
+		
+		jeu.getTchatFrame().dispose();
 	}
 	
 }

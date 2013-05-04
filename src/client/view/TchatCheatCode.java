@@ -1,5 +1,7 @@
 package client.view;
 
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import client.JeuPanel;
@@ -12,29 +14,28 @@ import common.partie.unite.TypeUnite;
  * @author omar
  */
 public class TchatCheatCode{
+	
 	abstract class TcheatAction{
-		public abstract void execute();
+		public abstract void execute(Joueur joueur);
 	}
 	
-	private final static HashMap<String,TcheatAction> cheats = new HashMap<String,TcheatAction>();
-	private Joueur joueur;
+	private final static TchatCheatCode tchatCheatCode = new TchatCheatCode();
+	private HashMap<Object,TcheatAction> cheats = new HashMap<Object,TcheatAction>();
 	
-	public TchatCheatCode(Joueur joueur){
-		this.joueur = joueur;
-		if (cheats.isEmpty()){
-			initialiserMap();
-		}
-	}
-	
-	private void initialiserMap(){
+	private TchatCheatCode(){
 		/*
 		 * creation du premier cheat code qui augmente le nombre de niveau de +10
 		 */
+		ArrayList<Integer> touchLvlUp = new ArrayList<Integer>();
+		touchLvlUp.add(KeyEvent.VK_LEFT);
+		touchLvlUp.add(KeyEvent.VK_RIGHT);
+		touchLvlUp.add(KeyEvent.VK_LEFT);
+		touchLvlUp.add(KeyEvent.VK_RIGHT);
 		TcheatAction lvlup = new TcheatAction(){
 			private final static int nbLvlUp = 10;
 			
 			@Override
-			public void execute(){
+			public void execute(Joueur joueur){
 				for (TypeBatiment type : TypeBatiment.values()){
 					joueur.incrementeNiveauBatiment(type,nbLvlUp);
 				}
@@ -44,32 +45,39 @@ public class TchatCheatCode{
 			}
 		};
 		cheats.put("/lvlup",lvlup);
+		cheats.put(touchLvlUp,lvlup);
 		
 		/*
 		 * creation du second cheat code qui augemente l'argent du joueur de +10.000
 		 */
+		ArrayList<Integer> touchMoney = new ArrayList<Integer>();
+		touchMoney.add(KeyEvent.VK_UP);
+		touchMoney.add(KeyEvent.VK_DOWN);
+		touchMoney.add(KeyEvent.VK_UP);
+		touchMoney.add(KeyEvent.VK_DOWN);
 		TcheatAction money = new TcheatAction(){
 			private final static int montant = 10000;
 			
 			@Override
-			public void execute(){
+			public void execute(Joueur joueur){
 				joueur.incrementArgent(montant);
 			}
 		};
 		cheats.put("/money",money);
+		cheats.put(touchMoney,money);
 	}
 	
-	
-	public boolean execute(String cheatCode){
+	public static boolean execute(Object cheatCode,Joueur joueur){
 		boolean execute = false;
 		
-		if (cheats.containsKey(cheatCode)){
-			TcheatAction action = cheats.get(cheatCode);
-			action.execute();
+		if (tchatCheatCode.cheats.containsKey(cheatCode)){
+			TcheatAction action = tchatCheatCode.cheats.get(cheatCode);
+			action.execute(joueur);
 			JeuPanel.getEcranJeu().update();
 			execute = true;
 		}
 		
 		return execute;
 	}
+	
 }
