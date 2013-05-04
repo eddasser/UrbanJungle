@@ -31,8 +31,7 @@ public class ServerCommandRejoindrePartie extends ServerCommand{
 		Etat etat = partie.getEtatDeLaPartie();
 		if (etat == Etat.EN_ATTENTE_JOUEUR || etat == Etat.SAUVEGARDEE){
 			if (partie.getPassword().equals(password)){
-				if (partie.placeDisponible()){
-					partie.addJoueur(joueur);
+				if (partie.addJoueur(joueur)){
 					rejoint = true;
 				}else{
 					// erreur deja trop de joueur

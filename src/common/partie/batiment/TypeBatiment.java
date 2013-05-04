@@ -11,7 +11,7 @@ import common.TypeElementPlateau;
 /**
  * @author omar
  */
-public enum TypeBatiment implements TypeElementPlateau, Serializable{
+public enum TypeBatiment implements TypeElementPlateau,Serializable{
 	QG, GARAGE, VENTE_DROGUE, VENTE_ALCOOL, VENTE_ARME, BOOKMAKER;
 	
 	/*
@@ -192,7 +192,7 @@ public enum TypeBatiment implements TypeElementPlateau, Serializable{
 			case GARAGE:
 				prix = 1000;
 				break;
-				
+			
 			default: // cas QG, on ne peux pas acheter de QG
 				break;
 		}

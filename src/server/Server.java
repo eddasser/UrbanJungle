@@ -1,5 +1,12 @@
 package server;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -7,6 +14,7 @@ import java.util.Observable;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import server.controller.FenetreServerListener;
 import server.view.VueServer;
 
 import common.Constante;
@@ -38,6 +46,7 @@ public class Server extends Observable{
 				// dans le cas ou il n'y a pas de port par defaut dans le fichier de configuration, on utilise un port libre
 				sl = new ServerListener(this);
 			}
+			initialiserAPartirFichierDeSauvegardePartie();
 			sl.start();
 		}catch (java.net.BindException e){
 			// le port n'est pas libre
@@ -45,7 +54,61 @@ public class Server extends Observable{
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public static void initialiserAPartirFichierDeSauvegardePartie(){
+		File file = new File(Constante.FICHIER_SAUVEGARDE_PARTIES_SERVEUR);
+		if (file.exists()){
+			try{
+				FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				@SuppressWarnings("unchecked")
+				ArrayList<Partie> partiesSauvegardees = (ArrayList<Partie>)ois.readObject();
+				parties.addAll(partiesSauvegardees);
+				ois.close();
+				fis.close();
+			}catch (FileNotFoundException e){
+				e.printStackTrace();
+			}catch (IOException e){
+				e.printStackTrace();
+			}catch (ClassNotFoundException e){
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public static void sauvegarderPartiesDansFichier(){
+		try{
+			File file = new File(Constante.FICHIER_SAUVEGARDE_PARTIES_SERVEUR);
+			if (file.exists()){
+				file.delete();
+			}
+			try{
+				file.createNewFile();
+			}catch (IOException e){
+				e.printStackTrace();
+			}
+			FileOutputStream fos = new FileOutputStream(file);
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			oos.writeObject(parties);
+			oos.close();
+			fos.close();
+		}catch (IOException e){
+			e.printStackTrace();
+		}
+	}
+	
+	public synchronized boolean isDejaConnecte(String login,String password){
+		boolean isConnecte = false;
 		
+		for (int i = 0 ; !isConnecte && i < joueurs.size() ; i++){
+			Joueur joueurCourant = joueurs.get(i);
+			if (login.equals(joueurCourant.getLogin()) && password.equals(joueurCourant.getPassword())){
+				isConnecte = true;
+			}
+		}
+		
+		return isConnecte;
 	}
 	
 	public ArrayList<Joueur> getJoueurs(){
@@ -116,5 +179,6 @@ public class Server extends Observable{
 		Server server = new Server();
 		VueServer vueServer = new VueServer(server);
 		server.addObserver(vueServer);
+		vueServer.addWindowListener(new FenetreServerListener());
 	}
 }

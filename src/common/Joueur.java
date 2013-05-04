@@ -147,6 +147,10 @@ public class Joueur implements Serializable{
 		return login;
 	}
 	
+	public String getPassword(){
+		return password;
+	}
+	
 	public void send(Object[] args){
 		clientListener.send(args);
 	}

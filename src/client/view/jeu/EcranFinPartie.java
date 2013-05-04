@@ -42,9 +42,9 @@ public class EcranFinPartie extends JPanel{
 		jeu = jeu_;
 		
 		int width = Constante.LARGEUR_FENETRE_PRINCIPALE;
-		int height = Constante.HAUTEUR_FENETRE_PRINCIPALE-27;
+		int height = Constante.HAUTEUR_FENETRE_PRINCIPALE - 27;
 		setBounds(0,0,width,height);
-		message="<html><h1>" + Translator.translate("partieGagne") + "</h1></html>";
+		message = "<html><h1>" + Translator.translate("partieGagne") + "</h1></html>";
 		labelFond = new JLabel(message,SwingConstants.CENTER);
 		labelFond.setBounds(width / 4,125,width / 2,200);
 		this.add(labelFond);
@@ -53,11 +53,11 @@ public class EcranFinPartie extends JPanel{
 		
 		// bouton pour quitter la partie
 		buttonQuitter = new JCoolButton(Translator.translate("quitterPartie"));
-		buttonQuitter.setBounds(412, 400, 200, 50);
+		buttonQuitter.setBounds(412,400,200,50);
 		buttonQuitter.addActionListener(listener);
 		add(buttonQuitter);
 	}
-
+	
 	@Override
 	public void paintComponent(Graphics g){
 		try{
@@ -74,28 +74,29 @@ public class EcranFinPartie extends JPanel{
 			}
 		}
 	}
-
+	
 	public void setTextPartieGagne(){
-		message="<html><h1>" + Translator.translate("partieGagne") + "</h1></html>";
-		labelFond.setText(message);
-		repaint();
-	}
-
-	public void setTextPartiePerdu(){
-		message="<html><h1>" + Translator.translate("partiePerdu") + "</h1></html>";
+		message = "<html><h1>" + Translator.translate("partieGagne") + "</h1></html>";
 		labelFond.setText(message);
 		repaint();
 	}
 	
-	public JCoolButton getButtonQuitter() {
+	
+	public void setTextPartiePerdu(){
+		message = "<html><h1>" + Translator.translate("partiePerdu") + "</h1></html>";
+		labelFond.setText(message);
+		repaint();
+	}
+	
+	public JCoolButton getButtonQuitter(){
 		return buttonQuitter;
 	}
 	
-	public JeuPanel getJeu() {
+	public JeuPanel getJeu(){
 		return jeu;
 	}
 	
-	public String getMessage() {
+	public String getMessage(){
 		return message;
 	}
 }

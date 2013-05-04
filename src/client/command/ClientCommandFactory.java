@@ -30,6 +30,8 @@ public class ClientCommandFactory{
 		commandes.put(Commande.MISE_EN_PAUSE,new ClientCommandMiseEnPausePartie());
 		commandes.put(Commande.SORTIE_PAUSE,new ClientCommandSortiePause());
 		commandes.put(Commande.NOTIFIER_JOUEUR_PARTIE_SAUVEGARDEE,new ClientCommandNotifierPartieSauvegardee());
+		commandes.put(Commande.JOUEUR_PERDU,new ClientCommandJoueurPerdu());
+		commandes.put(Commande.JOUEUR_GAGNANT,new ClientCommandJoueurGagnant());
 	}
 	
 	public static ClientCommand getCommand(Object[] args){

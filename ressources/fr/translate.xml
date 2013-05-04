@@ -304,4 +304,8 @@
 		<name>AttenteDesAutresJoueurs</name>
 		<value>nous attendons d'autres joueurs pour lancer la partie</value>
 	</parameter>
+	<parameter>
+		<name>utilisateurDejaConnecte</name>
+		<value>Quelqu'un est déjà connecté avec ce login et mot de passe sur le server</value>
+	</parameter>
 </configuration>

@@ -20,14 +20,22 @@ public class ServerCommandDemandeConnexion extends ServerCommand{
 		
 		
 		// le client demande au serveur a se connecter
-		boolean resultatVerif = DBConnexion.verificationIdentifiantsConnection(login,password);
+		boolean loginEtPasswordCorrect = DBConnexion.verificationIdentifiantsConnection(login,password);
+		boolean dejaConnecte = false;
 		
-		if (resultatVerif){
-			// on ajoute le joueur a la liste des joueurs connectés au serveur
-			server.add(new Joueur(_client,login,password));
+		if (loginEtPasswordCorrect){
+			if (!server.isDejaConnecte(login,password)){
+				// on ajoute le joueur a la liste des joueurs connectés au serveur
+				server.add(new Joueur(_client,login,password));
+			}else{
+				dejaConnecte = true;
+			}
 		}
 		
-		Object[] args = { Commande.DEMANDE_CONNEXION,resultatVerif };
+		Object[] args = new Object[3];
+		args[0] = Commande.DEMANDE_CONNEXION;
+		args[1] = loginEtPasswordCorrect;
+		args[2] = dejaConnecte;
 		_client.send(args);
 	}
 	

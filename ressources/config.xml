@@ -32,6 +32,10 @@
     <name>MESSAGE_SEPARATOR</name>
     <value>//</value>
   </parameter>
+  <parameter>
+    <name>FICHIER_SAUVEGARDE_PARTIES_SERVEUR</name>
+    <value>serverParties</value>
+  </parameter>
   
   
   <parameter>
