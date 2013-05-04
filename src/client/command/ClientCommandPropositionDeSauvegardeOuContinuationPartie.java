@@ -42,6 +42,8 @@ public class ClientCommandPropositionDeSauvegardeOuContinuationPartie extends Cl
 			JeuPanel.getEcranJeu().cacherPlateau();
 			jeu.chargerEcranChoixTypePartie();
 			jeu.getClient().update();
+			
+			jeu.getTchatFrame().dispose();
 		}
 		
 	}

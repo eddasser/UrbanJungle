@@ -27,6 +27,7 @@ public class ServerCommandFactory{
 		commandes.put(Commande.PROPOSER_SAUVEGARDE_PARTIE,new ServerCommandPropositionDeSauvegardePartie());
 		commandes.put(Commande.PROPOSER_SAUVEGARDE_OU_CONTINUER_PARTIE,new ServerCommandPropositionDeSauvegardeOuContinuationPartie());
 		commandes.put(Commande.JOUEUR_PERDU,new ServerCommandJoueurPerdu());
+		commandes.put(Commande.TCHAT_SEND_MESSAGE,new ServerCommandTchatSendMessage());
 	}
 	
 	public static ServerCommand getCommand(Object[] args){
