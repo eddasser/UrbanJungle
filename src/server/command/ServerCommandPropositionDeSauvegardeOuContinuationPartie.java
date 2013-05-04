@@ -67,9 +67,6 @@ public class ServerCommandPropositionDeSauvegardeOuContinuationPartie extends Se
 			}
 			server.remove(partie);
 			
-			
-			// TODO:implementer ICI la sauvegarde de la partie au niveau du serveur (sous forme de fichier)
-			
 			// on recupere la partie a sauvegarde (tel que l'admin l'a connait)
 			Partie partieASauvegarder = (Partie)arguments[1];
 			

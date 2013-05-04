@@ -34,8 +34,6 @@ public class ServerCommandPropositionDeSauvegardePartie extends ServerCommand{
 		server.remove(partie);
 		
 		if (sauvegarder){
-			// TODO:implementer ICI la sauvegarde de la partie au niveau du serveur (sous forme de fichier)
-			
 			// on recupere la partie a sauvegarde (tel que l'admin l'a connait)
 			Partie partieASauvegarder = (Partie)arguments[1];
 			

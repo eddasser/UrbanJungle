@@ -32,6 +32,9 @@ public class Constante{
 	public final static String MESSAGE_SEPARATOR = GENERAL_CONFIGURATION.getStringValue("MESSAGE_SEPARATOR");
 	
 	
+	public final static String FICHIER_SAUVEGARDE_PARTIES_SERVEUR = GENERAL_CONFIGURATION.getStringValue("FICHIER_SAUVEGARDE_PARTIES_SERVEUR");
+	
+	
 	public final static int LARGEUR_CASE = 20;
 	public final static int HAUTEUR_CASE = 20;
 	public final static int NB_CASES_LARGEUR_PLATEAU = 45;
