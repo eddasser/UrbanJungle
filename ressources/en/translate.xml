@@ -304,4 +304,8 @@
 		<name>AttenteDesAutresJoueurs</name>
 		<value>We wait other players to start the game</value>
 	</parameter>
+	<parameter>
+		<name>utilisateurDejaConnecte</name>
+		<value>Someone is already connected with this login and password on the server</value>
+	</parameter>
 </configuration>

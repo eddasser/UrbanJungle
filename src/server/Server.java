@@ -45,7 +45,19 @@ public class Server extends Observable{
 		}catch (Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public synchronized boolean isDejaConnecte(String login,String password){
+		boolean isConnecte = false;
 		
+		for (int i = 0 ; !isConnecte && i < joueurs.size() ; i++){
+			Joueur joueurCourant = joueurs.get(i);
+			if (login.equals(joueurCourant.getLogin()) && password.equals(joueurCourant.getPassword())){
+				isConnecte = true;
+			}
+		}
+		
+		return isConnecte;
 	}
 	
 	public ArrayList<Joueur> getJoueurs(){
