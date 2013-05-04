@@ -7,17 +7,17 @@ import client.JeuPanel;
 import client.view.jeu.EcranFinPartie;
 
 public class EcranFinPartieListener implements ActionListener{
-
+	
 	private EcranFinPartie ecranfinPartie;
 	
 	public EcranFinPartieListener(EcranFinPartie ecranfinPartie_){
-		this.ecranfinPartie = ecranfinPartie_;
+		ecranfinPartie = ecranfinPartie_;
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent event) {
+	public void actionPerformed(ActionEvent event){
 		
-		if (event.getSource() == ecranfinPartie.getButtonQuitter() ){
+		if (event.getSource() == ecranfinPartie.getButtonQuitter()){
 			
 			JeuPanel.getEcranJeu().cacherPlateau();
 			
@@ -26,9 +26,10 @@ public class EcranFinPartieListener implements ActionListener{
 				ecranfinPartie.getJeu().chargerEcranChoixTypePartie();
 			}else{
 				JeuPanel.getEcranJeu().cacherPlateau();
-				ecranfinPartie.getJeu().chargerEcranMenuMultijoueur();
+				ecranfinPartie.getJeu().chargerEcranChoixTypePartie();
+				// ecranfinPartie.getJeu().chargerEcranMenuMultijoueur();
 			}
-	
-		}	
+			
+		}
 	}
 }

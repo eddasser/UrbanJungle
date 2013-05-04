@@ -4,7 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
-import client.view.TchatCheatCode;
+import client.TchatCheatCode;
 
 import common.Joueur;
 

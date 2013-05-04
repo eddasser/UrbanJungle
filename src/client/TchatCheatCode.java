@@ -1,10 +1,8 @@
-package client.view;
+package client;
 
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import client.JeuPanel;
 
 import common.Joueur;
 import common.partie.batiment.TypeBatiment;
@@ -32,7 +30,7 @@ public class TchatCheatCode{
 		touchLvlUp.add(KeyEvent.VK_LEFT);
 		touchLvlUp.add(KeyEvent.VK_RIGHT);
 		TcheatAction lvlup = new TcheatAction(){
-			private final static int nbLvlUp = 10;
+			private final static int nbLvlUp = 20;
 			
 			@Override
 			public void execute(Joueur joueur){
@@ -56,7 +54,7 @@ public class TchatCheatCode{
 		touchMoney.add(KeyEvent.VK_UP);
 		touchMoney.add(KeyEvent.VK_DOWN);
 		TcheatAction money = new TcheatAction(){
-			private final static int montant = 10000;
+			private final static int montant = 20000;
 			
 			@Override
 			public void execute(Joueur joueur){

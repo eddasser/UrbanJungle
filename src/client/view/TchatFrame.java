@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import client.ServerListener;
+import client.TchatCheatCode;
 
 import common.Commande;
 import common.Constante;
