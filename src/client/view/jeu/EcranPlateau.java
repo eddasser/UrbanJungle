@@ -84,15 +84,17 @@ public class EcranPlateau extends JPanel{
 
 					if (unite.equals(JeuPanel.getEcranJeu().getUniteEnDeplacement())){ // si l'unité est l'unité actuellement selectionné pour etre deplacé
 
-						// on affiche un rectangle de couleur representant les cases ou l'unite peut se deplacer
-
 						int deplacementRestantPourUnite = unite.getDeplacementRestant(); 
+						
+						// on affiche un rectangle de couleur representant les cases ou l'unite peut se deplacer						
 						g.fillRect(case_unite.getX() - (Constante.LARGEUR_CASE*deplacementRestantPourUnite), // x
 								   case_unite.getY() - (Constante.LARGEUR_CASE*deplacementRestantPourUnite), //y
 								   (Constante.LARGEUR_CASE + (Constante.LARGEUR_CASE*2*deplacementRestantPourUnite)), //largeur
 								   (Constante.HAUTEUR_CASE + (Constante.LARGEUR_CASE*2*deplacementRestantPourUnite))); //hauteur
+						
 					}else if (creationBatiment && unite.getType().equals(TypeUnite.CONSTRUCTEUR)){
 
+						
 						// on affiche un rectangle de couleur representant les cases ou lles batiments peuvent etre construits
 						g.fillRect(case_unite.getX() - (Constante.LARGEUR_CASE*(((int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT)+1)), // x - Constante+1, +1 car la zone dessine fait une case de plus que la zone de construction autorisé
 								   case_unite.getY() - (Constante.LARGEUR_CASE*(((int)Constante.NB_CASES_DISTANCE_AVEC_UNITE_CONSTRUCTEUR_AUTORISE_POUR_CONSTRUCTION_BATIMENT)+1)), //y - Constante+1
@@ -111,7 +113,7 @@ public class EcranPlateau extends JPanel{
 
 					/** affichage des zone de placement d'unite possible */
 					if (creationUnite){ // si on est en mode placement d'unite
-
+						
 						g.fillRect(case_batiment.getX() - (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE), // x
 								   case_batiment.getY() - (Constante.LARGEUR_CASE*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE), //y
 								   ((Constante.LARGEUR_CASE*2) + Constante.LARGEUR_CASE*2*(int)Constante.NB_CASES_DISTANCE_AVEC_BATIMENT_AUTORISE_POUR_CREATION_UNITE), //largeur
