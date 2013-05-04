@@ -32,6 +32,7 @@ public class ClientCommandFactory{
 		commandes.put(Commande.NOTIFIER_JOUEUR_PARTIE_SAUVEGARDEE,new ClientCommandNotifierPartieSauvegardee());
 		commandes.put(Commande.JOUEUR_PERDU,new ClientCommandJoueurPerdu());
 		commandes.put(Commande.JOUEUR_GAGNANT,new ClientCommandJoueurGagnant());
+		commandes.put(Commande.TCHAT_SEND_MESSAGE,new ClientCommandTchatSendMessage());
 	}
 	
 	public static ClientCommand getCommand(Object[] args){

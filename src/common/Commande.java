@@ -24,5 +24,8 @@ public enum Commande implements Serializable{
 	// envoyé par le serveur au joueur admin de la partie
 	PROPOSER_SAUVEGARDE_PARTIE, PROPOSER_SAUVEGARDE_OU_CONTINUER_PARTIE, MISE_EN_PAUSE, SORTIE_PAUSE, NOTIFIER_JOUEUR_PARTIE_SAUVEGARDEE,
 	// envoyé par un client au server pour lui indiquer qu'un joueur a perdu
-	JOUEUR_PERDU, JOUEUR_GAGNANT
+	JOUEUR_PERDU, JOUEUR_GAGNANT,
+	
+	// commandes du tchat
+	TCHAT_SEND_MESSAGE
 }

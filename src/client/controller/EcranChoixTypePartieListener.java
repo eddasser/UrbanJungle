@@ -30,7 +30,7 @@ public class EcranChoixTypePartieListener implements ActionListener{
 		
 		if (boutonClique.equals(ecranChoixTypeDePartie.getPartieSolo())) // partie solo
 		{
-			Joueur joueur = new Joueur(null,"Local","");// joueur courant
+			Joueur joueur = new Joueur(null,"Me","");// joueur courant
 			JoueurIA joueurIA = new JoueurIAHasard();
 			Partie partie = new Partie("Partie Locale",2,"",true);
 			jeu.getClient().setJoueur(joueur);

@@ -24,6 +24,7 @@ public class ClientCommandDebutJeu extends ClientCommand{
 		jeu.getClient().setJoueur(joueur);
 		
 		jeu.chargerEcranJeu();
+		jeu.getTchatFrame().initialise(partie,_server);
 		
 		if (!isMonTour){
 			EcranJeu ej = JeuPanel.getEcranJeu();
