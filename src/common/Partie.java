@@ -139,22 +139,27 @@ public class Partie implements Serializable{
 	}
 	
 	
-	public void addJoueur(Joueur joueur){
-		int i = listeParticipants.size();
-		if (etatDeLaPartie == Etat.SAUVEGARDEE){
-			// dans le cas d'une partie sauvegardee, on met seulement a jour la socket vers le joueur
-			boolean ajoute = false;
-			for (i = 0 ; !ajoute && i < listeParticipants.size() ; i++){
-				Joueur joueurCourant = listeParticipants.get(i);
-				if (joueurCourant.getSocket() == null){
-					joueur.initialiserJoueur(joueurCourant);
-					listeParticipants.remove(joueurCourant);
-					ajoute = true;
+	public synchronized boolean addJoueur(Joueur joueur){
+		boolean add = false;
+		if (placeDisponible()){
+			int i = listeParticipants.size();
+			if (etatDeLaPartie == Etat.SAUVEGARDEE){
+				// dans le cas d'une partie sauvegardee, on met seulement a jour la socket vers le joueur
+				boolean ajoute = false;
+				for (i = 0 ; !ajoute && i < listeParticipants.size() ; i++){
+					Joueur joueurCourant = listeParticipants.get(i);
+					if (joueurCourant.getSocket() == null){
+						joueur.initialiserJoueur(joueurCourant);
+						listeParticipants.remove(joueurCourant);
+						ajoute = true;
+					}
 				}
+				if (i > listeParticipants.size()) i--;
 			}
-			if (i > listeParticipants.size()) i--;
+			listeParticipants.add(i,joueur);
+			add = true;
 		}
-		listeParticipants.add(i,joueur);
+		return add;
 	}
 	
 	public String getNomPartie(){
@@ -335,26 +340,26 @@ public class Partie implements Serializable{
 		}
 		return proprio;
 	}
-
-	public boolean pasEnBordDeMap(Case positionNouveauBatiment) {
+	
+	public boolean pasEnBordDeMap(Case positionNouveauBatiment){
 		boolean res = true;
 		
-		int xMAXAutorise = (Constante.NB_CASES_LARGEUR_PLATEAU-1)*Constante.LARGEUR_CASE;
-		int yMAXAutorise = (Constante.NB_CASES_HAUTEUR_PLATEAU-1)*Constante.HAUTEUR_CASE;
+		int xMAXAutorise = (Constante.NB_CASES_LARGEUR_PLATEAU - 1) * Constante.LARGEUR_CASE;
+		int yMAXAutorise = (Constante.NB_CASES_HAUTEUR_PLATEAU - 1) * Constante.HAUTEUR_CASE;
 		
-		if (positionNouveauBatiment.getX() >= xMAXAutorise || positionNouveauBatiment.getY() >= yMAXAutorise ){
-			res =false;
+		if (positionNouveauBatiment.getX() >= xMAXAutorise || positionNouveauBatiment.getY() >= yMAXAutorise){
+			res = false;
 		}
 		
 		return res;
 	}
-
-	public void detruireElement(ElementPlateau elementEnnemi) {
+	
+	public void detruireElement(ElementPlateau elementEnnemi){
 		Joueur proprio;
 		
 		proprio = getProprioBatiment(elementEnnemi);
 		
-		if ( proprio == null){
+		if (proprio == null){
 			proprio = getProprioUnite(elementEnnemi);
 			proprio.getUnites().remove(elementEnnemi);
 		}else{
@@ -362,5 +367,5 @@ public class Partie implements Serializable{
 		}
 		
 	}
-
+	
 }
