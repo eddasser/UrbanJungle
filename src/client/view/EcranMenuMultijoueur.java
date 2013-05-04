@@ -84,41 +84,43 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 			public void mouseClicked(MouseEvent e){
 				if (e.getClickCount() == 2){
 					int idrow = table.getSelectedRow();
-					String[] partie = parties[idrow].split(Constante.MESSAGE_SEPARATOR);
-					int id_partie = Integer.parseInt(partie[0]);
-					// String nom_partie = partie[1];
-					// String nb_joueur_partie = partie[2];
-					
-					boolean password_obligatoire = new Boolean(partie[4]);
-					Etat etat = Etat.get(partie[3]);
-					
-					String password = "";
-					Object[] args = new Object[3];
-					
-					switch(etat){
-						case SAUVEGARDEE:
-							if (password_obligatoire){
-								password = JOptionPane.showInputDialog(Translator.translate("saisirMotdepasseReprendrePartie"));
-							}
-							args[0] = Commande.REPRENDRE_PARTIE;
-							args[1] = id_partie;
-							args[2] = password;
-							jeu.getDialogueServeur().sendCommand(args);
-							break;
+					if (idrow < parties.length){
+						String[] partie = parties[idrow].split(Constante.MESSAGE_SEPARATOR);
+						int id_partie = Integer.parseInt(partie[0]);
+						// String nom_partie = partie[1];
+						// String nb_joueur_partie = partie[2];
 						
-						case EN_ATTENTE_JOUEUR:
-							if (password_obligatoire){
-								password = JOptionPane.showInputDialog(Translator.translate("saisirMotdepasseRejoindrePartie"));
-							}
-							args[0] = Commande.REJOINDRE_PARTIE;
-							args[1] = id_partie;
-							args[2] = password;
-							jeu.getDialogueServeur().sendCommand(args);
-							break;
+						boolean password_obligatoire = new Boolean(partie[4]);
+						Etat etat = Etat.get(partie[3]);
 						
-						case COMMENCEE:
-							jeu.notificationJoueur(Translator.translate("partieDejaCommencee"));
-							break;
+						String password = "";
+						Object[] args = new Object[3];
+						
+						switch(etat){
+							case SAUVEGARDEE:
+								if (password_obligatoire){
+									password = JOptionPane.showInputDialog(Translator.translate("saisirMotdepasseReprendrePartie"));
+								}
+								args[0] = Commande.REPRENDRE_PARTIE;
+								args[1] = id_partie;
+								args[2] = password;
+								jeu.getDialogueServeur().sendCommand(args);
+								break;
+							
+							case EN_ATTENTE_JOUEUR:
+								if (password_obligatoire){
+									password = JOptionPane.showInputDialog(Translator.translate("saisirMotdepasseRejoindrePartie"));
+								}
+								args[0] = Commande.REJOINDRE_PARTIE;
+								args[1] = id_partie;
+								args[2] = password;
+								jeu.getDialogueServeur().sendCommand(args);
+								break;
+							
+							case COMMENCEE:
+								jeu.notificationJoueur(Translator.translate("partieDejaCommencee"));
+								break;
+						}
 					}
 				}
 			}
@@ -172,9 +174,10 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 	}
 	
 	private void updateData(){
+		table.removeAll();
+		data = new Object[1][column.length];
 		int rows = parties.length;
 		if (rows > 0){
-			
 			data = new Object[rows][column.length];
 			
 			for (int i = 0 ; i < parties.length ; i++){
@@ -210,31 +213,31 @@ public class EcranMenuMultijoueur extends NamedJPanel{
 				data[i][5] = button;
 				
 			}
-			
-			table.setModel(new MonModele(data,column));
-			table.setRowHeight(32);
-			
-			TableColumn col = table.getColumnModel().getColumn(0);
-			col.setPreferredWidth(50);
-			
-			col = table.getColumnModel().getColumn(1);
-			col.setPreferredWidth(300);
-			
-			col = table.getColumnModel().getColumn(2);
-			col.setPreferredWidth(75);
-			
-			col = table.getColumnModel().getColumn(3);
-			col.setPreferredWidth(150);
-			
-			col = table.getColumnModel().getColumn(4);
-			col.setPreferredWidth(150);
-			
-			col = table.getColumnModel().getColumn(5);
-			col.setPreferredWidth(150);
-			
-			table.getColumnModel().getColumn(4).setCellRenderer(new MyRenderer());
-			table.getColumnModel().getColumn(5).setCellRenderer(new MyRenderer());
 		}
+		
+		table.setModel(new MonModele(data,column));
+		table.setRowHeight(32);
+		
+		TableColumn col = table.getColumnModel().getColumn(0);
+		col.setPreferredWidth(50);
+		
+		col = table.getColumnModel().getColumn(1);
+		col.setPreferredWidth(300);
+		
+		col = table.getColumnModel().getColumn(2);
+		col.setPreferredWidth(75);
+		
+		col = table.getColumnModel().getColumn(3);
+		col.setPreferredWidth(150);
+		
+		col = table.getColumnModel().getColumn(4);
+		col.setPreferredWidth(150);
+		
+		col = table.getColumnModel().getColumn(5);
+		col.setPreferredWidth(150);
+		
+		table.getColumnModel().getColumn(4).setCellRenderer(new MyRenderer());
+		table.getColumnModel().getColumn(5).setCellRenderer(new MyRenderer());
 	}
 	
 	

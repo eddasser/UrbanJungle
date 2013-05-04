@@ -60,7 +60,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 		final Joueur joueur = jeu.getClient().getJoueur();// notre joueur
 		Joueur joueurCourant = partie.getJoueurCourant();// joueur a qui c'est le tour de jouer
 		
-		if (joueurCourant.equals(joueur) && !JeuPanel.getEcranJeu().isEnAttenteDecision()){
+		if (joueur.equals(joueurCourant) && !JeuPanel.getEcranJeu().isEnAttenteDecision()){
 			// si c'est a nous de jouer
 			
 			if (SwingUtilities.isRightMouseButton(e)){
@@ -266,7 +266,8 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 				Case position = jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y);
 				Unite unite = ecranJeu.getUniteEnDeplacement();
 				
-				boolean deplacementPossible = unite.deplacementPossibleVersPosition(jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y));
+				boolean deplacementPossible = unite.deplacementPossibleVersPosition(jeu.getClient().getPartie().getPlateau()
+						.getCasePlusProche(x,y));
 				
 				// recuperation de l'element present sur la case ou l'on relache le bouton et son proprietaire
 				ElementPlateau elementSurCase = partie.elementSurCase(position);
@@ -278,7 +279,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					if (elementSurCase == null){ // si la case est libre, on deplace l'unité vers la case souhaité
 						int distance = (int)(position.getDistance(unite.getPosition()) / Constante.LARGEUR_CASE);
 						unite.decrementDeplacementRestant(distance);
-						if (unite.getDeplacementRestant()<0){
+						if (unite.getDeplacementRestant() < 0){
 							unite.setDeplacementRestant(0);
 						}
 						unite.setPosition(position);
@@ -295,12 +296,18 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 							if (detruit){
 								
 								if (elementSurCase.getType().equals(TypeBatiment.QG)){ // si c'est un QG qui est detruit
-								
 									// on notifie au joueur que le joueur qui a perdu son QG est eliminé
 									jeu.notificationJoueur(proprietaireElement.getLogin() + Translator.translate("perteQG"));
 									
-									// on maj la liste des joueurs restant
-									partie.getListeParticipants().remove(proprietaireElement);
+									if (!partie.isSolo()){
+										// s'il s'agit d'une partie en reseau
+										// on envois la partie au server
+										Object[] args = { Commande.JOUEUR_PERDU,partie,proprietaireElement };
+										jeu.getDialogueServeur().sendCommand(args);
+									}else{
+										// on maj la liste des joueurs restant
+										partie.getListeParticipants().remove(proprietaireElement);
+									}
 									
 									// on verifie si la liste des joueur contient encore plus d'un joueur, sinon , le joueur restant est le
 									// gagnant
@@ -308,6 +315,11 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 										ecranJeu.getEcranFinPartie().setTextPartieGagne();
 										ecranJeu.getEcranFinPartie().repaint();
 										ecranJeu.afficherEcranFinPartie();
+										ecranJeu.update();
+										if (!partie.isSolo()){
+											Object[] args = { Commande.DECONNEXION };
+											jeu.getDialogueServeur().sendCommand(args);
+										}
 									}
 								}else{ // si c'est un batiment ou une unité lambda, on la supprime de la liste des batiment ou unité du
 										// joueur a qui elle appartient

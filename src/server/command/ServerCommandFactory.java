@@ -26,6 +26,7 @@ public class ServerCommandFactory{
 		commandes.put(Commande.FIN_TOUR,new ServerCommandFinTour());
 		commandes.put(Commande.PROPOSER_SAUVEGARDE_PARTIE,new ServerCommandPropositionDeSauvegardePartie());
 		commandes.put(Commande.PROPOSER_SAUVEGARDE_OU_CONTINUER_PARTIE,new ServerCommandPropositionDeSauvegardeOuContinuationPartie());
+		commandes.put(Commande.JOUEUR_PERDU,new ServerCommandJoueurPerdu());
 	}
 	
 	public static ServerCommand getCommand(Object[] args){

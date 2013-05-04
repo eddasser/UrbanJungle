@@ -12,7 +12,7 @@ import common.TypeElementPlateau;
 /**
  * @author omar
  */
-public enum TypeUnite implements TypeElementPlateau, Serializable{
+public enum TypeUnite implements TypeElementPlateau,Serializable{
 	PETITE_FRAPPE, HOMME_MAIN, CAID, BASTONNEUR, CONSTRUCTEUR;
 	
 	/*

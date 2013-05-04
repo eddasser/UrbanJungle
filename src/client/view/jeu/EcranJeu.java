@@ -272,7 +272,8 @@ public class EcranJeu extends NamedJPanel{
 			x -= Constante.DECALAGE_PLATEAU_X;
 			y -= Constante.DECALAGE_PLATEAU_Y;
 			
-			ecranAffichageDeplacement.setDeplacementAutorise(uniteEnDeplacement.deplacementPossibleVersPosition(jeu.getClient().getPartie().getPlateau().getCasePlusProche(x,y)));
+			ecranAffichageDeplacement.setDeplacementAutorise(uniteEnDeplacement.deplacementPossibleVersPosition(jeu.getClient().getPartie()
+					.getPlateau().getCasePlusProche(x,y)));
 			ecranAffichageDeplacement.setPositionSouris(x,y);
 		}
 		
@@ -368,4 +369,5 @@ public class EcranJeu extends NamedJPanel{
 	public EcranFinPartie getEcranFinPartie(){
 		return ecranFinPartie;
 	}
+	
 }

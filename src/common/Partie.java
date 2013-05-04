@@ -227,7 +227,11 @@ public class Partie implements Serializable{
 	}
 	
 	public Joueur getJoueurCourant(){
-		return listeParticipants.get(indiceJoueurCourant);
+		if (indiceJoueurCourant < listeParticipants.size()){
+			return listeParticipants.get(indiceJoueurCourant);
+		}else{
+			return null;
+		}
 	}
 	
 	public void setJoueurCourant(Joueur joueurCourant){
