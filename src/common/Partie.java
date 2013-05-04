@@ -371,5 +371,21 @@ public class Partie implements Serializable{
 		}
 		
 	}
+
+	/** cette methode retroune la liste de toutes les case qui compose la zone rectangle donnée en parametre */
+	public ArrayList<Case> getListeCases(int x, int y, int largeur, int hauteur) {
+		ArrayList<Case> res = new ArrayList<>();
+		
+		int nbCaseLargeur = largeur/Constante.LARGEUR_CASE;
+		int nbCaseHauteur = hauteur/Constante.HAUTEUR_CASE;
+		
+		for ( int i =0; i< nbCaseLargeur; i++){
+			for ( int j =0; i< nbCaseHauteur; j++){
+				res.add(getPlateau().getCasePlusProche((x+i*Constante.LARGEUR_CASE)+5, (y+j*Constante.HAUTEUR_CASE)+5));
+			}
+		}
+		
+		return res;
+	}
 	
 }

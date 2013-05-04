@@ -23,6 +23,7 @@ import client.view.EcranLogin;
 import client.view.EcranMenuMultijoueur;
 import client.view.EcranTitre;
 import client.view.NamedJPanel;
+import client.view.TchatFrame;
 import client.view.jeu.EcranJeu;
 
 import common.Commande;
@@ -56,6 +57,8 @@ public class JeuPanel extends JPanel implements Observer{
 	private ServerListener dialogueServeur;
 	
 	private GestionnaireSauvegarde gestionnaireSauvegarde;
+	
+	private TchatFrame tchatFrame = new TchatFrame();
 	
 	public JeuPanel(JLayeredPane aLayeredPane,Client client){
 		super(cardlayout);
@@ -324,5 +327,14 @@ public class JeuPanel extends JPanel implements Observer{
 		}
 		
 		return choix;
+	}
+	
+	
+	public TchatFrame getTchatFrame(){
+		return tchatFrame;
+	}
+	
+	public void afficherTchat(Partie partie){
+		tchatFrame.initialise(partie,dialogueServeur);
 	}
 }

@@ -83,6 +83,7 @@ public class EcranJeuListener implements MouseListener,MouseMotionListener{
 					ecranJeu.afficherToolTip(element,proprietaireElement.getNiveau(element.getType()));
 				}
 				
+				/** ancien code permettant d'afficher les tooltip uniquement sur les unités et batiments nous apartenant */
 				// // on recupere l'unite eventuellement presente sur la case
 				// Unite unite = joueur.getUniteSurCase(position);
 				//

@@ -18,9 +18,17 @@ public class EcranFinPartieListener implements ActionListener{
 	public void actionPerformed(ActionEvent event) {
 		
 		if (event.getSource() == ecranfinPartie.getButtonQuitter() ){
-
+			
 			JeuPanel.getEcranJeu().cacherPlateau();
-			ecranfinPartie.getJeu().chargerEcranChoixTypePartie();
+			
+			if (ecranfinPartie.getJeu().getClient().getPartie().isSolo()){
+				JeuPanel.getEcranJeu().cacherPlateau();
+				ecranfinPartie.getJeu().chargerEcranChoixTypePartie();
+			}else{
+				JeuPanel.getEcranJeu().cacherPlateau();
+				ecranfinPartie.getJeu().chargerEcranMenuMultijoueur();
+			}
+	
 		}	
 	}
 }
